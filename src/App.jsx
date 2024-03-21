@@ -15,11 +15,11 @@ import Products from './pages/Products.jsx';
 import Client_register from './client/pages/Client_registre.jsx';
 import Clientdashboard from './client/pages/Client_dashboard.jsx';
 import ContactUs from  './pages/ContactUs.jsx'; 
-import Blog from './pages/Blog.jsx';
+import Blog from './pages/Blog/Blog.jsx';
 import Profile from './components/profile.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductInfo from './pages/ProductInfo.jsx';
-import AddBlog from './pages/AddBlog.jsx';
+import AddBlog from './pages/Blog/AddBlog.jsx';
 
 
 const App = () => {
