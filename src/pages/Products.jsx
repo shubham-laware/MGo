@@ -1,12 +1,24 @@
-import React, { useState } from 'react'; 
+import React, { useState ,useEffect} from 'react'; 
+import axios from 'axios';
 import { FaLocationDot } from "react-icons/fa6"; 
 import Filter from '../components/Filter';
-import Ban from '../components/images/product.png'
 import { Link } from 'react-router-dom';
-import { products } from '../components/ProductInfo/data.js';
 import StarRatings from '../components/ProductInfo/StarRatings.jsx';
 
 const HomeProducts = () => {
+
+    const [products, setProducts] = useState([]);
+    const [error, setError] = useState(null);
+ 
+    useEffect(() => {
+        axios.get('https://minitgo.com/api/fetch_products.php')
+          .then(response => {
+            setProducts(response.data.data);
+          })
+          .catch(error => {
+            setError(error);
+          });
+      }, []);
 return(
 <>
 <br></br>
@@ -22,28 +34,24 @@ return(
            
           <Filter brand="Test" />
              
-            <div className="col-md-10">
-                <div className="row ">
+            <div className="col-md-10 ">
+                <div className="d-flex gap-2 flex-wrap ">
 
-                    {products.map((product,index)=>
-                         <div key={index} className="col-6 col-sm-3 py-2  ">
-                         <div className="product-card  ">
-                         <Link to={`/${product.id}`} style={{ textDecoration: 'none',color:'black' }}>
-                             <div className="product-image">
-                                 <img src={product.imageurl}   alt="Product 1"/>
-                                
-       
-                              <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light" >{product.percentOff} Off</div>
-        
-    
+                {products.map((product,index)=>
+                         <div key={index} className="col-6 col-sm-3 py-2  " style={{width:'220px'}}>
+                         <div className="product-card" >
+                         <Link to={`/${product.product_id}`} style={{ textDecoration: 'none',color:'black' }}>
+                             <div className="product-image" style={{"height":"250px"}}>
+                                 <img src={product.product_image1}   alt="Product 1" className="h-100 img-fluid" />
                              </div>
+                             <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light" >{product.offers}% Off</div>
                              <div className='product-content'>
-                             <h6>{product.productTitle} </h6>
-                             <h5>Price: <sup>&#x20B9;</sup>{product.price}<span className='text-decoration-line-through text-muted fs-6 fw-light'>599</span>
-                             <span className='text-muted' style={{fontSize:'13px'}}> {product.stock}</span></h5>
-                             <p className="product-rating text-warning">
-                                 Rating: <StarRatings rating={product.rating}/> 
-                             </p>
+                             <h6>{product.product_name} </h6>
+                             <h5>Price: <sup>&#x20B9;</sup>{product.product_price}<span className='text-decoration-line-through text-muted fs-6 fw-light'>599</span>
+                             <span className='text-muted' style={{fontSize:'13px'}}> {product.product_stock}</span></h5>
+                             <div className="product-rating text-warning">
+                                 Rating: <StarRatings rating={product.product_ratings}/>
+                             </div>
                              <p className="product-distance text-secondary ">
                                 Distance: {product.distance}km away.
                              </p>

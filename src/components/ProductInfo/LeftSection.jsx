@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CarouselComponent from "./CarouselComponent";
 import StarRatings from "./StarRatings";
 import storeIcon from "../../assets/store.svg";
 import products from "./data.js";
+import axios from "axios";
 
 function LeftSection({ productId }) {
   // console.log(productId)
   const id = productId;
 
-  const item = products.filter((product) => product.id === id);
-  const product = item[0];
+  const [product, setProduct] = useState();
+
+  useEffect(() => {
+    axios.get('https://minitgo.com/api/fetch_products.php')
+      .then(response => {
+        const fetchedProducts = response.data.data;
+        const item = fetchedProducts.filter(productItem => productItem.product_id === id);
+        const fProduct = item[0];
+        if (fProduct) {
+          setProduct(fProduct);
+        }
+      })
+      .catch(error => {
+        setError(error);
+      });
+  }, []);
+
   return (
-    <section className="w-100 md:w-50 d-flex flex-column gap-4  position-relative px-md-4">
+    <>
+    {
+      product &&
+      <section className="w-100 md:w-50 d-flex flex-column gap-4  position-relative px-md-4">
       <div className="w-100  rounded-lg position-relative" >
         <CarouselComponent productId={id} />
       </div>
@@ -68,8 +87,8 @@ function LeftSection({ productId }) {
           <h2 className=" fs-4 text-start">Ratings & Reviews</h2>
           <div className="d-flex fl ">
             <div className="w-50 d-flex flex-column  gap-2 ">
-              <span className="fs-1">{product.rating}</span>
-              <StarRatings rating={product.rating} />
+              <span className="fs-1">{product.product_ratings}</span>
+              <StarRatings rating={product.product_ratings} />
 
               <span style={{ fontSize: "14px" }}>40 Ratings</span>
             </div>
@@ -163,6 +182,10 @@ function LeftSection({ productId }) {
         </div>
       </div>
     </section>
+    }
+    </>
+  
+    
   );
 }
 
