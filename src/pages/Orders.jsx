@@ -676,7 +676,7 @@ const OrdersPage = () => {
             </div>
           </section>
         </div>
-        <div className="  col-12 col-md-3     px-2 px-md-5 " >
+        <div className="  col-12 col-md-3  px-2 px-md-5 " >
           <div
             className=" border rounded mt-md-5 "
             style={{ border: "1px solid" ,height:'380px' ,position:'relative',  }}
