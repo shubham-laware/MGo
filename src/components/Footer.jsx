@@ -86,12 +86,12 @@ const Footer = () => {
                   <li>
                     <Link to="/partner" className="text-black text-left text-decoration-none">Become a Partner</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to="/sales" className="text-black text-left text-decoration-none">Increase sales in local</Link>
                   </li>
                   <li>
                     <Link to="/local" className="text-black text-left text-decoration-none">Become local king</Link>
-                  </li>
+                  </li> */}
                   {/* Add more links here */}
                 </ul>
               </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -19,8 +20,8 @@ export default function Banner() {
       <br></br>
         <h1 className='typing-text'>Get Delivery In <span className="" style={{color:'#5F6D79'}}> <br></br>Minutes</span> <span className='cursor'>&nbsp;</span></h1>
         <br></br>
-        <Button className='buynow'>Buy now</Button>
-        <Button className='find-btn'>Find near me</Button>
+        <Button className='buynow'><Link to={'/products'} style={{textDecoration:'none',color:'black'}}>Buy now </Link></Button>
+        <Button className='find-btn'><Link to={'/near-me'} style={{textDecoration:'none',color:'black'}}>Find near me</Link></Button>
          
          
         <p> <BiInfoCircle style={{fontSize:'10pt'}}/> Get the products from nearest & trusted stores</p>

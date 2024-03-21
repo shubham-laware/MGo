@@ -20,6 +20,10 @@ import Profile from './components/profile.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductInfo from './pages/ProductInfo.jsx';
 import AddBlog from './pages/Blog/AddBlog.jsx';
+import ReturnPolicy from './pages/ReturnPolicy.jsx';
+import Help from './pages/Help.jsx';
+import FindNearMe from './pages/FindNearMe.jsx';
+import Connect from './pages/Connect.jsx';
 
 
 const App = () => {
@@ -53,9 +57,13 @@ const App = () => {
         <Route path="/checkout" element={<Checkout />} />   
         <Route path="/products" element={<Products />} />  
         <Route path='/:id' element={<ProductInfo/>} />
+        <Route path='/connect' element={<Connect/>} />
         <Route exact path="/contact" element={<ContactUs />} />
         <Route exact path="/blog" element={<Blog />} />
         <Route path='/add-blog' element={<AddBlog/>} />
+        <Route path='returns' element={<ReturnPolicy/>}/>
+        <Route path='/help' element={<Help/>}/>
+        <Route path='/near-me' element={<FindNearMe/>} />
         <Route exact path="/profile" element={<Profile />} />
         <Route path="/clientregister" element={<Client_register />} />   
         <Route path="/cart" element={<GoogleApiWrapper />} />   
