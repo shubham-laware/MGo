@@ -14,20 +14,21 @@
           <div className="card bg-light bg-gradient text-dark shadow">
             <div className="card-body">
               <div className="text-center">
-                <i className="far fa-file-alt mb-3 text-primary"></i>
+                <i className="far fa-file-alt text-primary fs-2 mb-2"></i>
                 <p>
-                  <strong>Your opinion matters</strong>
+                  <strong className="fs-3">Your opinion matters</strong>
                 </p>
                 <p>
                   Have some ideas on how to improve our product?
-                  <strong>Give us your feedback.</strong>
+                  <strong className="d-block">Give us your feedback.</strong>
                 </p>
               </div>
               <hr />
               <form className="px-4" action="">
-                <p className="text-center">
+                <p className="text-start">
                   <strong>Your rating:</strong>
                 </p>
+                <div className=" d-flex justify-content-between ">
                 <div className="form-check">
                   <input type="radio" name="flexRadioDefault" id="flexRadioDefault1" className="form-check-input" defaultChecked />
                   <label htmlFor="flexRadioDefault1" className="form-check-label">Very good</label>
@@ -44,19 +45,20 @@
                   <input type="radio" name="flexRadioDefault" id="flexRadioDefault4" className="form-check-input" />
                   <label htmlFor="flexRadioDefault4" className="form-check-label">Bad</label>
                 </div>
-                <div className="form-check">
+                {/* <div className="form-check">
                   <input type="radio" name="flexRadioDefault" id="flexRadioDefault5" className="form-check-input" />
                   <label htmlFor="flexRadioDefault5" className="form-check-label">Very bad</label>
+                </div> */}
                 </div>
   
                 {/* Add text input for feedback */}
-                <div className="mb-3">
-                  <label htmlFor="feedbackText" className="form-label"><strong>Your feedback:</strong></label>
-                  <textarea className="form-control" id="feedbackText" rows="4"></textarea>
+                <div className="mb-3 pt-3">
+                  <label htmlFor="feedbackText" className="form-label "><strong>Your feedback:</strong></label>
+                  <textarea className="form-control mt-2" id="feedbackText" rows="4"></textarea>
                 </div>
 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-primary rounded-pill" type="button">
+                <button class="btn btn-primary  btn-lg rounded-pill " type="button">
                   Submit
                 </button>
               </div>

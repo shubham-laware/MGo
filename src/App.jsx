@@ -24,6 +24,7 @@ import ReturnPolicy from './pages/ReturnPolicy.jsx';
 import Help from './pages/Help.jsx';
 import FindNearMe from './pages/FindNearMe.jsx';
 import Connect from './pages/Connect.jsx';
+import Updates from './pages/Updates.jsx';
 
 
 const App = () => {
@@ -60,6 +61,7 @@ const App = () => {
         <Route path='/connect' element={<Connect/>} />
         <Route exact path="/contact" element={<ContactUs />} />
         <Route exact path="/blog" element={<Blog />} />
+        <Route path='/updates' element={<Updates/>}/>
         <Route path='/add-blog' element={<AddBlog/>} />
         <Route path='returns' element={<ReturnPolicy/>}/>
         <Route path='/help' element={<Help/>}/>
