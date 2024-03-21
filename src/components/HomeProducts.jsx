@@ -66,52 +66,52 @@ return(
 <>
  
              
-<div class="container">
+<div className="container">
     <h3> <BiSolidCategory className='fs-2 p-1'/>Top Category's</h3>
     <p className = "px-2" style={{fontSize:13.5}}>Explore our top category's</p>
 
-  <div class="row">
-    <div class="col-6 col-md-3">
-      <div class="subs-cat">
+  <div className="row">
+    <div className="col-6 col-md-3">
+      <div className="subs-cat">
         <h4>Men's Fashion</h4>
-        <button class="btn btn-outline-light rounded-pill">Shop Now</button>
+        <button className="btn btn-outline-light rounded-pill">Shop Now</button>
       </div>
     </div>
-    <div class="col-6 col-md-3">
-      <div class="subs-cat-2">
+    <div className="col-6 col-md-3">
+      <div className="subs-cat-2">
         <h4>Women Fashion</h4>
-        <button class="btn btn-outline-light rounded-pill">Shop Now</button>
+        <button className="btn btn-outline-light rounded-pill">Shop Now</button>
       </div>
     </div>
-    <div class=" col-6 col-md-3">
-      <div class="subs-cat-3">
+    <div className=" col-6 col-md-3">
+      <div className="subs-cat-3">
         <h4>Fashion Accessories</h4>
-        <button class="btn btn-outline-light rounded-pill">Shop Now</button>
+        <button className="btn btn-outline-light rounded-pill">Shop Now</button>
       </div>
     </div>
-    <div class="col-6 col-md-3">
-      <div class="subs-cat-4">
+    <div className="col-6 col-md-3">
+      <div className="subs-cat-4">
         <h4>Kitchen</h4>
-        <button class="btn btn-outline-light rounded-pill">Shop Now</button>
+        <button className="btn btn-outline-light rounded-pill">Shop Now</button>
       </div>
     </div>
   </div>
 </div>
 <br></br>
-<div class="container">
+<div className="container">
         <h3><FaLocationDot className='fs-2 p-1'/>Nearby</h3>
     <p className = "px-2" style={{fontSize:13.5}}>Increase distance for more products! </p>
 
-        <div class="row">
+        <div className="row">
            
-            <div class="col-md-2 filter-s ">
+            <div className="col-md-2 filter-s ">
               <div className='shadow filter-bg'>
                 <form>
-                    <div class="form-group ">
-                        <h6 for="distanceFilter">Filter</h6>
-                        <label for="priceFilter">Distance</label>
+                    <div className="form-group ">
+                        <h6>Filter</h6>
+                        <label htmlFor="priceFilter">Distance</label>
 
-                        <select class="form-control rounded-pill" id="distanceFilter">
+                        <select className="form-control rounded-pill" id="distanceFilter">
                             <option value="">All</option>
                             <option value="5 miles">5 Km</option>
                             <option value="10 miles">10 km</option>
@@ -121,9 +121,9 @@ return(
                             
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="priceFilter">Set Price</label>
-                        <select class="form-control rounded-pill " id="priceFilter">
+                    <div className="form-group">
+                        <label htmlFor="priceFilter">Set Price</label>
+                        <select className="form-control rounded-pill " id="priceFilter">
                             <option value="">All</option>
                             <option value="$10.99">Below: 500</option>
                             <option value="$19.99">500 - 1000</option>
@@ -136,16 +136,16 @@ return(
                 </div>
             </div>
              
-            <div class="col-md-10">
-                <div class="row">
+            <div className="col-md-10">
+                <div className="row">
                      
-                    <div class="col-6 col-sm-3 py-2">
-                        <div class="product-card ">
-                            <div class="product-image">
+                    <div className="col-6 col-sm-3 py-2">
+                        <div className="product-card ">
+                            <div className="product-image">
                                 <img src={Ban}   alt="Product 1"/>
                                
       
-                             <div class="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
+                             <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
        
    
                             </div>
@@ -153,10 +153,10 @@ return(
                             <h6>T-Shirt | Nexa Brand | color: white | other content </h6>
                             <h5>Price: <sup>&#x20B9;</sup>399<span className='text-decoration-line-through text-muted fs-6 fw-light'>599</span>
                             <span className='text-muted' style={{fontSize:'13px'}}> In-Stock</span></h5>
-                            <p class="product-rating text-warning">
+                            <p className="product-rating text-warning">
                                 Rating: &#9733;&#9733;&#9733;&#9733;&#9734;  
                             </p>
-                            <p class="product-distance text-secondary ">
+                            <p className="product-distance text-secondary ">
                                Distance: 5km away.
                             </p>
                             
@@ -165,23 +165,23 @@ return(
                         </div>
                     
                     </div>
-                    <div class="col-6 col-sm-3 py-2">
-                        <div class="product-card">
-                            <div class="product-image">
+                    <div className="col-6 col-sm-3 py-2">
+                        <div className="product-card">
+                            <div className="product-image">
                                 <img src={Ban}   alt="Product 1"/>
                                
       
-                             <div class="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
+                             <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
        
    
                             </div>
                             <div className='product-content'>
                             <h6>T-Shirt | Nexa Brand | color: white | other content </h6>
                             <h5>Price: <sup>&#x20B9;</sup>399<span className='text-decoration-line-through text-muted fs-6 fw-light'>599</span></h5>
-                            <p class="product-rating text-warning">
+                            <p className="product-rating text-warning">
                                 Rating: &#9733;&#9733;&#9733;&#9733;&#9734;  
                             </p>
-                            <p class="product-distance text-secondary ">
+                            <p className="product-distance text-secondary ">
                                Distance: 5km away.
                             </p>
                             
@@ -190,23 +190,23 @@ return(
                         </div>
                     
                     </div>
-                    <div class="col-6 col-sm-3 py-2">
-                        <div class="product-card">
-                            <div class="product-image">
+                    <div className="col-6 col-sm-3 py-2">
+                        <div className="product-card">
+                            <div className="product-image">
                                 <img src={Ban}   alt="Product 1"/>
                                
       
-                             <div class="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
+                             <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
        
    
                             </div>
                             <div className='product-content'>
                             <h6>T-Shirt | Nexa Brand | color: white | other content </h6>
                             <h5>Price: <sup>&#x20B9;</sup>399<span className='text-decoration-line-through text-muted fs-6 fw-light'>599</span></h5>
-                            <p class="product-rating text-warning">
+                            <p className="product-rating text-warning">
                                 Rating: &#9733;&#9733;&#9733;&#9733;&#9734;  
                             </p>
-                            <p class="product-distance text-secondary ">
+                            <p className="product-distance text-secondary ">
                                Distance: 5km away.
                             </p>
                             
@@ -214,70 +214,45 @@ return(
                             </div>
                         </div>
                     
-                    </div><div class="col-6 col-sm-3 py-2">
-                        <div class="product-card">
-                            <div class="product-image">
+                    </div><div className="col-6 col-sm-3 py-2">
+                        <div className="product-card">
+                            <div className="product-image">
                                 <img src={Ban}   alt="Product 1"/>
                                
       
-                             <div class="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
+                             <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
        
    
                             </div>
                             <div className='product-content'>
                             <h6>T-Shirt | Nexa Brand | color: white | other content </h6>
                             <h5>Price: <sup>&#x20B9;</sup>399<span className='text-decoration-line-through text-muted fs-6 fw-light'>599</span></h5>
-                            <p class="product-rating text-warning">
+                            <p className="product-rating text-warning">
                                 Rating: &#9733;&#9733;&#9733;&#9733;&#9734;  
                             </p>
-                            <p class="product-distance text-secondary ">
+                            <p className="product-distance text-secondary ">
                                Distance: 5km away.
                             </p>
                             </div>
                         </div>
                     
-                    </div><div class="col-6 col-sm-3 py-2">
-                        <div class="product-card">
-                            <div class="product-image">
+                    </div><div className="col-6 col-sm-3 py-2">
+                        <div className="product-card">
+                            <div className="product-image">
                                 <img src={Ban}   alt="Product 1"/>
                                
       
-                             <div class="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
+                             <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
        
    
                             </div>
                             <div className='product-content'>
                             <h6>T-Shirt | Nexa Brand | color: white | other content </h6>
                             <h5>Price: <sup>&#x20B9;</sup>399<span className='text-decoration-line-through text-muted fs-6 fw-light'>599</span></h5>
-                            <p class="product-rating text-warning">
+                            <p className="product-rating text-warning">
                                 Rating: &#9733;&#9733;&#9733;&#9733;&#9734;  
                             </p>
-                            <p class="product-distance text-secondary ">
-                               Distance: 5km away.
-                            </p>
-                            
-                            
-                            </div>
-                        </div>
-                    
-                    </div>
-                    <div class="col-6 col-sm-3 py-2">
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src={Ban}   alt="Product 1"/>
-                               
-      
-                             <div class="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
-       
-   
-                            </div>
-                            <div className='product-content'>
-                            <h6>T-Shirt | Nexa Brand | color: white | other content </h6>
-                            <h5>Price: <sup>&#x20B9;</sup>399<span className='text-decoration-line-through text-muted fs-6 fw-light'>599</span></h5>
-                            <p class="product-rating text-warning">
-                                Rating: &#9733;&#9733;&#9733;&#9733;&#9734;  
-                            </p>
-                            <p class="product-distance text-secondary ">
+                            <p className="product-distance text-secondary ">
                                Distance: 5km away.
                             </p>
                             
@@ -286,23 +261,48 @@ return(
                         </div>
                     
                     </div>
-                    <div class="col-6 col-sm-3 py-2">
-                        <div class="product-card">
-                            <div class="product-image">
+                    <div className="col-6 col-sm-3 py-2">
+                        <div className="product-card">
+                            <div className="product-image">
                                 <img src={Ban}   alt="Product 1"/>
                                
       
-                             <div class="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
+                             <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
        
    
                             </div>
                             <div className='product-content'>
                             <h6>T-Shirt | Nexa Brand | color: white | other content </h6>
                             <h5>Price: <sup>&#x20B9;</sup>399<span className='text-decoration-line-through text-muted fs-6 fw-light'>599</span></h5>
-                            <p class="product-rating text-warning">
+                            <p className="product-rating text-warning">
                                 Rating: &#9733;&#9733;&#9733;&#9733;&#9734;  
                             </p>
-                            <p class="product-distance text-secondary ">
+                            <p className="product-distance text-secondary ">
+                               Distance: 5km away.
+                            </p>
+                            
+                            
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <div className="col-6 col-sm-3 py-2">
+                        <div className="product-card">
+                            <div className="product-image">
+                                <img src={Ban}   alt="Product 1"/>
+                               
+      
+                             <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light" >25% Off</div>
+       
+   
+                            </div>
+                            <div className='product-content'>
+                            <h6>T-Shirt | Nexa Brand | color: white | other content </h6>
+                            <h5>Price: <sup>&#x20B9;</sup>399<span className='text-decoration-line-through text-muted fs-6 fw-light'>599</span></h5>
+                            <p className="product-rating text-warning">
+                                Rating: &#9733;&#9733;&#9733;&#9733;&#9734;  
+                            </p>
+                            <p className="product-distance text-secondary ">
                                Distance: 5km away.
                             </p>
                             

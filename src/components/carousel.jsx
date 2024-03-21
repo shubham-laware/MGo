@@ -85,8 +85,8 @@ export default function Carousel() {
     <div className="rounded-full"></div>
   </div>
   <div className="d-flex gap-3 overflow-x-auto my-3">
-    {products.map((prod) => (
-      <div key={prod.id} className="d-flex my-3 flex-column bg-light px-4 shadow rounded"  >
+    {products.map((prod,index) => (
+      <div key={index} className="d-flex my-3 flex-column bg-light px-4 shadow rounded"  >
         <img className="w-100 rounded" src={prod.img} alt={`Image ${prod.id}`} />
         <div className="d-flex flex-column justify-content-between p-2">
           <div className="d-flex flex-column">

@@ -18,32 +18,32 @@ const DiscountProduct = () => {
     <hr>
     </hr>
     <br></br>
-   <div class="container">
+   <div className="container">
     <h3>Today Deal's<MdLocalOffer className='fs-2 p-1'/></h3>
     <p style={{fontSize:13.5}}>Best deal from our sellers</p>
-  <div class="row">
-    <div class=" col-md-3 ">
-      <div class="best-cat">
+  <div className="row">
+    <div className=" col-md-3 ">
+      <div className="best-cat">
         <h4>Upto 50% Off Men's Fashion</h4>
-        <button class="btn btn-outline-light bg-warning rounded-pill border-0">Shop Now</button>
+        <button className="btn btn-outline-light bg-warning rounded-pill border-0">Shop Now</button>
       </div>
     </div>
-    <div class=" col-md-3">
-      <div class="best-cat-2">
+    <div className=" col-md-3">
+      <div className="best-cat-2">
         <h4>Upto 60% Off On Women's Fashion</h4>
-        <button class="btn btn-outline-light bg-warning rounded-pill border-0">Shop Now</button>
+        <button className="btn btn-outline-light bg-warning rounded-pill border-0">Shop Now</button>
       </div>
     </div>
-    <div class="  col-md-3">
-      <div class="best-cat-3">
+    <div className="  col-md-3">
+      <div className="best-cat-3">
         <h4>Upto 50% Off Fashion Accessories</h4>
-        <button class="btn btn-outline-light bg-warning rounded-pill border-0">Shop Now</button>
+        <button className="btn btn-outline-light bg-warning rounded-pill border-0">Shop Now</button>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="best-cat-4">
+    <div className="col-md-3">
+      <div className="best-cat-4">
         <h4> Upto 50% Off On Kitchen & Home Appliances</h4>
-        <button class="btn btn-outline-light bg-warning rounded-pill border-0">Shop Now</button>
+        <button className="btn btn-outline-light bg-warning rounded-pill border-0">Shop Now</button>
       </div>
     </div>
   </div>
