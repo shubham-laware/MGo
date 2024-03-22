@@ -25,7 +25,7 @@ import Help from './pages/Help.jsx';
 import FindNearMe from './pages/FindNearMe.jsx';
 import Connect from './pages/Connect.jsx';
 import Updates from './pages/Updates.jsx';
-
+import BecomePartner from './pages/BecomePartner.jsx';
 
 const App = () => {
   const location = useLocation();
@@ -63,6 +63,7 @@ const App = () => {
         <Route exact path="/blog" element={<Blog />} />
         <Route path='/updates' element={<Updates/>}/>
         <Route path='/add-blog' element={<AddBlog/>} />
+        <Route path='/partner' element={<BecomePartner  />} />
         <Route path='returns' element={<ReturnPolicy/>}/>
         <Route path='/help' element={<Help/>}/>
         <Route path='/near-me' element={<FindNearMe/>} />
