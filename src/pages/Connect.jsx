@@ -1,6 +1,9 @@
 import React from 'react'
 
 function Connect() {
+  
+
+  
   return (
     <div className="d-flex flex-column justify-content-between py-5">
     <main className=" d-flex justify-content-center w-100 mt-5 pt-5"  >
