@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
@@ -15,7 +15,13 @@ import { BiLogIn } from "react-icons/bi";
 import { BiMenuAltRight } from "react-icons/bi";
 import Catlog from './catlog.jsx';
 import Offcanvas from 'react-bootstrap/Offcanvas'; // Import Offcanvas
+import { useContext } from 'react';
+import myContext from './context/MyContext.js';
+import { useNavigate } from 'react-router-dom';
+ 
 function Header() {
+  const navigate = useNavigate();
+ 
   // State to manage the dropdown title
   const location = (
     <>
@@ -23,17 +29,47 @@ function Header() {
     </>
   );
   const [dropdownTitle, setDropdownTitle] = useState(location);
-
+ 
   // Function to handle the dropdown item click
   const handleDropdownItemClick = (option) => {
     // Update the dropdown title based on the selected item
     setDropdownTitle(option);
-
+ 
   };
   // State to manage Offcanvas visibility
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-
-
+ 
+  // context code add
+  const context = useContext(myContext);
+  const { searchQuery, setSearchQuery, handleSearchInputChange, products } = context;
+ 
+ 
+ 
+  // code for serach
+ 
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
+ 
+  useEffect(() => {
+    // Update search suggestions based on the search query
+    if (searchQuery !== '') {
+      const suggestions = products.filter(product =>
+        product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setSearchSuggestions(suggestions);
+    } else {
+      setSearchSuggestions([]);
+    }
+  }, [searchQuery, products]);
+ 
+ 
+ 
+  // handle go button
+  const handleGoButton = () => {
+    // Navigate to the next page with data passed through state
+    navigate('/products', { state: { data: searchSuggestions } });
+    setSearchSuggestions([])
+  }
+ 
   const login = (
     <span>
       <BiLogIn /> Signin
@@ -45,21 +81,21 @@ function Header() {
         <Container>
           <Navbar.Brand><Link to='/'><img src={Logo} style={{ width: '115px' }} /></Link></Navbar.Brand>
           <div className='mobile-menu-logo d-lg-none'>
-
+ 
             <Catlog />
-
+ 
           </div>
-
+ 
           <BiMenuAltRight className='mobile-menu-logo d-lg-none' onClick={() => setShowOffcanvas(true)} />
-
+ 
           <Navbar.Collapse id="responsive-navbar-nav">
-
+ 
             <Nav className="me-auto">
-
+ 
               <NavDropdown title={dropdownTitle} id="collasible-nav-dropdown" style={{ border: '2.6px solid #d8dfab', borderRadius: '13px' }}>
                 <NavDropdown.Item
                   onClick={() => handleDropdownItemClick('Hyderabad')}
-
+ 
                 >
                   <FaLocationCrosshairs /> Hyderabad
                 </NavDropdown.Item>
@@ -80,7 +116,7 @@ function Header() {
                   Banglore
                 </NavDropdown.Item>
               </NavDropdown>
-
+ 
             </Nav>
             <Form.Control
               style={{ margin: '0 0px 0 32px' }}
@@ -88,15 +124,31 @@ function Header() {
               placeholder=" Ex: T-Shirt near me"
               className=" search-box"
               aria-label="Search"
-            /><Form />
-            <Button className=" search-btn" variant="outline-success">Go</Button>
-
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+            />
+ 
+ 
+            <Form />
+ 
+            <Button className=" search-btn" variant="outline-success" onClick={handleGoButton}>Go</Button>
+            <div className="suggestion position-absolute" style={{ width: "760px" }}>
+              <div className="container position-absolute" style={{ marginLeft: "165px", marginTop: "20px", background: "rgb(217, 223, 175" }}>
+                {searchSuggestions.map(suggestion => (
+                  <div key={suggestion.product_id}>
+                    <span className='py-2 px-2 m-1 fs-6'>{suggestion.product_name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+ 
             <Nav >
-
+ 
               <NavDropdown title={login} id="collasible-nav-dropdown" className='Dropdown'>
+ 
                 <NavDropdown.Item>
                   <Link to="/register" className='text-decoration-none '>Create an account</Link>
-
+ 
                 </NavDropdown.Item>
                 <NavDropdown.Item>
                   <Link to="/signin" className='text-decoration-none'>Login</Link>
@@ -104,50 +156,50 @@ function Header() {
                 <NavDropdown.Divider />
                 <NavDropdown.Item>
                   <Link to="/register" className='text-decoration-none '>Minit-Pay </Link>
-
+ 
                 </NavDropdown.Item>
                 <NavDropdown.Item>
                   <Link to="/register" className='text-decoration-none '> Address change </Link>
-
+ 
                 </NavDropdown.Item>
                 <NavDropdown.Item>
                   <Link to="/profile" className='text-decoration-none '> Profile  </Link>
-
+ 
                 </NavDropdown.Item>
               </NavDropdown>
-              {/* <Nav.Link eventKey={2}>
-              <Link to='/orders' className='text-decoration-none text-dark'>Orders</Link> 
-            </Nav.Link>  */}
-              <Nav.Link eventKey={2} href="/orders" className='text-decoration-none text-dark'>
-                Orders
+              <Nav.Link eventKey={2}>
+                <Link to='/orders' className='text-decoration-none text-dark'>Orders</Link>
               </Nav.Link>
-
-
+ 
+ 
               <Link to="/cart" className='text-secondary' style={{ fontSize: '33px', margin: '-5.8% 0 0 0' }}><BiCartAlt /></Link>
             </Nav>
           </Navbar.Collapse>
-
+ 
         </Container>
         <div className='mobile-menu-logo d-lg-none'>
           <div className='mobile-search'>
             <Form.Control
-
+ 
               type="search"
               placeholder=" Ex: T-Shirt near me"
               className="search-box-m"
               aria-label="Search"
             /><Form />
             <Button className=" search-btn" variant="outline-success">Go</Button>
-
+ 
           </div>
         </div>
       </Navbar>
+ 
+ 
+ 
       <Catlog />
-
-
+ 
+ 
       {/* Offcanvas Sidebar */}
-
-
+ 
+ 
       <Offcanvas show={showOffcanvas} onHide={() => setShowOffcanvas(false)} placement="end">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Minitgo</Offcanvas.Title>
@@ -164,11 +216,11 @@ function Header() {
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
-
-
-
+ 
+ 
+ 
     </>
   );
 }
-
+ 
 export default Header;
