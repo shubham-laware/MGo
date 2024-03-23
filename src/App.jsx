@@ -25,6 +25,8 @@ import Help from './pages/Help.jsx';
 import FindNearMe from './pages/FindNearMe.jsx';
 import Connect from './pages/Connect.jsx';
 import Updates from './pages/Updates.jsx';
+import Mystate from './components/context/MyState.jsx';
+
 import BecomePartner from './pages/BecomePartner.jsx';
 
 const App = () => {
@@ -44,7 +46,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <Mystate>
       {showHeader() && <Header />}
       
       <Routes>
@@ -76,7 +78,7 @@ const App = () => {
       </Routes>
    
        {showFooter() && <Footer />}
-    </>
+    </Mystate>
   );
 };
 

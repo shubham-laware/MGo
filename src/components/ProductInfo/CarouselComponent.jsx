@@ -40,7 +40,7 @@ function CarouselComponent({productId}) {
 
     return (
       
-      <div id="carouselExampleIndicators" className="  carousel slide v " data-bs-ride="carousel" style={{height:'520px'}}>
+      <div id="carouselExampleIndicators" className=" carousel slide v " data-bs-ride="carousel" style={{height:'520px'}}>
         <div className="carousel-inner rounded h-100">
           {images.map((img, index) => (
             <div key={index} className={` h-100 carousel-item${index === 0 ? ' active' : ''}`}  >
