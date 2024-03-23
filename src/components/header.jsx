@@ -16,7 +16,7 @@ import { BiMenuAltRight } from "react-icons/bi";
 import Catlog from './catlog.jsx';
 import Offcanvas from 'react-bootstrap/Offcanvas'; // Import Offcanvas
 import { useContext } from 'react';
-import myContext from './context/MyContext.js';
+import myContext from '../components/context/MyContext.js';
 import { useNavigate } from 'react-router-dom';
  
 function Header() {

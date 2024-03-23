@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import HomeProducts from "../pages/Products";
-import myContext from "./context/MyContext";
+import myContext from "./context/MyContext.js";
  
  
 function Filter({ brand }) {

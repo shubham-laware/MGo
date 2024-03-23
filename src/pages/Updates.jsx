@@ -27,7 +27,7 @@ function Updates() {
 
     return (
         <div
-            className="container d-flex flex-column gap-1"
+            className="container d-flex flex-column gap-1 shadow p-3 mb-5 bg-white rounded"
             style={{ marginBlock: "10rem" }}
         >
             <h2 className="fs-20 fw-bold mt-3  card border border-1  bg-secondary text-white   " style={{color:'gray'}} > Updates</h2>

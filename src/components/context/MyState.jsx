@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import myContext from './MyContext'
+import myContext from './MyContext.js'
 import axios from 'axios';
  
 const Mystate = (props) => {
