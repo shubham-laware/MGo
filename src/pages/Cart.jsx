@@ -7,6 +7,57 @@ import myContext from "../components/context/MyContext";
 const Cart = () => {
   const context = useContext(myContext);
   const { cart, setCart } = context;
+  console.log("CART: : ",cart)
+
+  const totalQuantity = cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
+  console.log("Total Quantity:", totalQuantity);
+
+  
+
+  function calculateTotalPrice() {
+    let totalPrice = 0;
+    cart.forEach((cartItem) => {
+      totalPrice += parseInt(cartItem.product_price)*(cartItem.quantity);
+    });
+
+    return totalPrice;
+  }
+
+  function AddQty(product_id) {
+    const index = cart.findIndex(item => item.product_id === product_id);
+    
+    if (index !== -1) {
+        const updatedCart = cart.map((cart_item, i) => {
+            if (i === index) {
+                return { ...cart_item, quantity: cart_item.quantity + 1 };
+            }
+            return cart_item;
+        });
+
+        setCart(updatedCart);
+    }
+}
+
+
+function DeleteQty(product_id) {
+  const index = cart.findIndex(item => item.product_id === product_id);
+  
+  if (index !== -1) {
+      const updatedCart = cart.map((cart_item, i) => {
+          if (i === index) {
+              // Ensure the quantity doesn't go below 1
+              const newQuantity = Math.max(cart_item.quantity - 1, 1);
+              return { ...cart_item, quantity: newQuantity };
+          }
+          return cart_item;
+      });
+
+      setCart(updatedCart);
+  }
+}
+
+
+
 
   const products = [
     {
@@ -17,7 +68,7 @@ const Cart = () => {
       size: "Xl, Sm, M, L",
       price: "₹299",
     },
-    {
+    { 
       id: 2,
       img: "http://localhost:5173/src/components/images/product.png",
       name: "Luxury Handmade Soap",
@@ -99,7 +150,7 @@ const Cart = () => {
             <div className="col-md-8">
               <div className="card mb-4">
                 <div className="card-header py-3 rounded-pill">
-                  <h5 className="mb-0">Cart - 2 items</h5>
+                  <h5 className="mb-0">Cart - {totalQuantity} items</h5>
                 </div>
                 <div className="card-body">
                   {cart?.map((cart_item, index) => {
@@ -147,22 +198,34 @@ const Cart = () => {
                             className="d-flex mb-4"
                             style={{ maxWidth: "300px" }}
                           >
-                            <button className="btn btn-primary px-3 me-2">
+                            <button className="btn btn-primary px-3 me-2"
+                            onClick={()=>DeleteQty(cart_item.product_id)}
+                            >
                               <i className="minus"> - </i>
                             </button>
-                            <input
-                              defaultValue={1}
-                              min={0}
+                            {/* <input
+                              defaultValue={cart_item.quantity}
+                              value={cart_item.quantity}
+                              min={1}
                               type="number"
                               className="form-control text-center"
                               placeholder="Quantity"
-                            />
-                            <button className="btn btn-primary px-3 ms-2">
+                            /> */}
+
+                            <div
+                              className="form-control text-center"
+                              placeholder="Quantity">
+                              {cart_item.quantity}
+
+                            </div>
+                            <button className="btn btn-primary px-3 ms-2 "
+                            onClick={()=>AddQty(cart_item.product_id)}
+                            >
                               <i className="plus"> + </i>
                             </button>
                           </div>
                           <p className="text-start text-md-center">
-                            <strong>600 RS</strong>
+                            <strong>1 * {cart_item.product_price}</strong>
                           </p>
                         </div>
                         <hr className="my-2" />
@@ -220,7 +283,7 @@ const Cart = () => {
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                       Products
-                      <span>1,200 RS</span>
+                      <span>{calculateTotalPrice()} RS</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                       Shipping
@@ -232,7 +295,7 @@ const Cart = () => {
                         <p className="mb-0">(including VAT)</p>
                       </div>
                       <span>
-                        <strong>1,350 RS</strong>
+                        <strong>{calculateTotalPrice()+100} RS</strong>
                       </span>
                     </li>
                   </ul>
