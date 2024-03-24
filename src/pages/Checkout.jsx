@@ -107,7 +107,7 @@ export const Checkout = () => {
               <div className="col-md-5 col-xl-4 offset-xl-1">
                 <div className="py-4 d-flex justify-content-end">
                   <h6>
-                    <a href="/cart">Cancel and return to website</a>
+                    <Link to="/cart">Cancel and return to website</Link>
                   </h6>
                 </div>
                 <div

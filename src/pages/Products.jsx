@@ -64,11 +64,21 @@ const HomeProducts = () => {
   }, [location.state]);
 
   function handleAddToCart(prod) {
-    setCart((cart_items) => [...cart_items, prod]);
-
-    console.log(cart);
-
-    // navigate("/cart");
+    // Check if the product already exists in the cart
+    const existingIndex = cart.findIndex(item => item.product_id === prod.product_id);
+  
+    if (existingIndex !== -1) {
+      // If the product already exists, update its quantity
+      const updatedCart = [...cart];
+      updatedCart[existingIndex] = {
+        ...updatedCart[existingIndex],
+        quantity: updatedCart[existingIndex].quantity + 1
+      };
+      setCart(updatedCart);
+    } else {
+      // If the product doesn't exist, add it to the cart with quantity 1
+      setCart([...cart, { ...prod, quantity: 1 }]);
+    }
   }
 
   function handdleRemoveFromCart(itemId) {
