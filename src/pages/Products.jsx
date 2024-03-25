@@ -10,7 +10,7 @@ import myContext from "../components/context/MyContext.js";
 
 const HomeProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const context = useContext(myContext);
   const {
     selectedCategory,
@@ -63,7 +63,7 @@ const navigate = useNavigate();
   function handleAddToCart(prod) {
     // Check if the product already exists in the cart
     const existingIndex = cart.findIndex(item => item.product_id === prod.product_id);
-  
+
     if (existingIndex !== -1) {
       // If the product already exists, update its quantity
       const updatedCart = [...cart];
@@ -83,6 +83,9 @@ const navigate = useNavigate();
     setCart((currentCart) => currentCart.filter((item) => item.id !== itemId));
   }
 
+
+
+  
   return (
     <>
       <br></br>
@@ -101,8 +104,8 @@ const navigate = useNavigate();
         <div className="row">
           <Filter brand="Test" />
 
-          <div className="col-md-10 ">
-            <div className="d-flex gap-2 flex-wrap ">
+          <div className="col-md-10">
+            <div className="d-flex flex-wrap">
               {filteredProducts?.length === 0 ? (
                 <div className="col-md-12 text-center fw-bold">
                   <p className="fs-1">We are coming soon.</p>
@@ -111,7 +114,7 @@ const navigate = useNavigate();
                 filteredProducts?.map((product, index) => (
                   <div
                     key={index}
-                    className="col-6 col-sm-3 py-2"
+                    className="col-6 col-sm-3 py-2 m-2"
                     style={{ width: "220px" }}
                   >
                     <div className="product-card">
@@ -172,6 +175,7 @@ const navigate = useNavigate();
                   </div>
                 ))
               )}
+
             </div>
           </div>
         </div>

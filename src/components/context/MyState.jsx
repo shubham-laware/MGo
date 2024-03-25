@@ -34,7 +34,7 @@ const Mystate = (props) => {
     setSearchQuery(e.target.value);
   };
 
-  console.log("searchQuery", searchQuery);
+
   return (
     <div>
       <myContext.Provider
