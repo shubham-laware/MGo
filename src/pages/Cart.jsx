@@ -7,10 +7,7 @@ import myContext from "../components/context/MyContext";
 const Cart = () => {
   const context = useContext(myContext);
   const { cart, setCart } = context;
-  console.log("CART: : ",cart)
-
   const totalQuantity = cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
-  console.log("Total Quantity:", totalQuantity);
 
   
 
@@ -126,12 +123,9 @@ function DeleteQty(product_id) {
     },
   ];
 
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
+
 
   function handdleRemoveFromCart(itemId) {
-    console.log(itemId);
     setCart((currentCart) =>
       currentCart.filter((item) => item.product_id !== itemId)
     );
