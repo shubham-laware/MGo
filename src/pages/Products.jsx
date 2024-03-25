@@ -9,7 +9,7 @@ import myContext from "../components/context/MyContext.js";
 
 const HomeProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
-
+  const [recommendedHeading, setRecommendedHeading] = useState(false);
 
   const context = useContext(myContext);
   const {
@@ -20,10 +20,10 @@ const HomeProducts = () => {
     cart,
     setCart,
     handleAddToCart,
-     snackbarOpen,
-          setSnackbarOpen,
-          snackbarMessage,
-          setSnackbarMessage
+    snackbarOpen,
+    setSnackbarOpen,
+    snackbarMessage,
+    setSnackbarMessage,
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -32,28 +32,60 @@ const HomeProducts = () => {
   useEffect(() => {
     let filtered = products;
 
-    // Apply category filter
+    // Filter products by category if a category is selected
     if (selectedCategory !== "") {
       filtered = filtered.filter(
         (product) => product.category === selectedCategory
       );
     }
 
-    // Apply price range filter
     if (selectedPrice !== "") {
       const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
-      filtered = filtered.filter((product) => {
+
+      // Filter products within the selected price range
+      const withinRangeProducts = filtered.filter((product) => {
         const price = parseInt(product.product_price);
         return price >= minPrice && price <= maxPrice;
       });
+
+      // Sort within range products by price in ascending order
+      withinRangeProducts.sort(
+        (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+      );
+
+      // Filter products above the selected price range
+      const aboveRangeProducts = filtered.filter((product) => {
+        const price = parseInt(product.product_price);
+        return price > maxPrice;
+      });
+
+      // Concatenate the within range products and above range products
+      let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
+
+      // Sort combined products by price in ascending order
+      combinedProducts.sort(
+        (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+      );
+
+      if (filtered.length === 0 && aboveRangeProducts.length > 0) {
+        // If no products found in selected category, display remaining products under "Recommended Products" heading
+        setFilteredProducts(aboveRangeProducts);
+        setRecommendedHeading(true);
+      } else {
+        // Display products filtered by category and price
+        setFilteredProducts(combinedProducts);
+        setRecommendedHeading(false);
+      }
+    } else {
+      // If no price range is selected, display products filtered by category
+      setSnackbarOpen(Array(filtered.length).fill(false));
+
+      setFilteredProducts(filtered);
+      setRecommendedHeading(false);
     }
-
-    // Initialize snackbar state for each product
-    setSnackbarOpen(Array(filtered.length).fill(false));
-
-    // Update filtered products
-    setFilteredProducts(filtered);
   }, [selectedCategory, selectedPrice, products, searchQuery]);
+
+
 
   // Access location object using useLocation
   const location = useLocation();
@@ -66,8 +98,6 @@ const HomeProducts = () => {
       }
     }
   }, [location.state]);
-
- 
 
   function handdleRemoveFromCart(itemId) {
     setCart((currentCart) => currentCart.filter((item) => item.id !== itemId));
@@ -151,16 +181,16 @@ const HomeProducts = () => {
                             Distance: {product.distance}km away.
                           </p>
                           {snackbarOpen[index] && (
-                        <div
-                          style={{ fontSize: "12px" }}
-                          className="border text-center rounded w-75 mx-auto"
-                        >
-                          Added successfully &#x2713;
-                        </div>
-                      )}
+                            <div
+                              style={{ fontSize: "12px" }}
+                              className="border text-center rounded w-75 mx-auto"
+                            >
+                              Added successfully &#x2713;
+                            </div>
+                          )}
                         </div>
                       </Link>
-                     
+
                       <button
                         onClick={() => handleAddToCart(product, index)}
                         className="btn btn-primary ms-3 my-3 w-50"
