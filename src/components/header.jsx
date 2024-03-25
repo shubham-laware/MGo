@@ -61,20 +61,30 @@ function Header() {
     }
   }, [searchQuery, products]);
  
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleGoButton();
+    }
+  };
  
  
-  // handle go button
-  const handleGoButton = () => {
-    // Navigate to the next page with data passed through state
+
+const handleGoButton = () => {
+  if (searchQuery !== '') {
     navigate('/products', { state: { data: searchSuggestions } });
-    setSearchSuggestions([])
+  } else {
+    navigate('/products');
   }
- 
+  setSearchSuggestions([]);
+}
   const login = (
     <span>
       <BiLogIn /> Signin
     </span>
   )
+
+
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className=" bg-light fixed-top shadow  ">
@@ -126,6 +136,7 @@ function Header() {
               aria-label="Search"
               value={searchQuery}
               onChange={handleSearchInputChange}
+              onKeyPress={handleKeyPress}
             />
  
  
@@ -134,11 +145,12 @@ function Header() {
             <Button className=" search-btn" variant="outline-success" onClick={handleGoButton}>Go</Button>
             <div className="suggestion position-absolute" style={{ width: "760px" }}>
               <div className="container position-absolute" style={{ marginLeft: "165px", marginTop: "20px", background: "rgb(217, 223, 175" }}>
-                {searchSuggestions.map(suggestion => (
-                  <div key={suggestion.product_id}>
-                    <span className='py-2 px-2 m-1 fs-6'>{suggestion.product_name}</span>
-                  </div>
-                ))}
+              {searchSuggestions.map(suggestion => (
+            <div key={suggestion.product_id} style={{ cursor: 'pointer', }} onClick={() => setSearchQuery(suggestion.product_name)}>
+              <span className='py-2 px-2 m-1 fs-6'>{suggestion.product_name}</span>
+            </div>
+          ))}
+
               </div>
             </div>
  
