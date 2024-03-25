@@ -80,13 +80,17 @@ return(
     <div className="col-6 col-md-3">
       <div className="subs-cat">
         <h4>Men's Fashion</h4>
+        <Link to={{ pathname: '/products', search: `?category=Men's Fashion` }}>
         <button className="btn btn-outline-light rounded-pill">Shop Now</button>
-      </div>
+      </Link>     
+     </div>
     </div>
     <div className="col-6 col-md-3">
       <div className="subs-cat-2">
         <h4>Women Fashion</h4>
+        <Link to={{ pathname: '/products', search: `?category=Women's Fashion` }}>
         <button className="btn btn-outline-light rounded-pill">Shop Now</button>
+      </Link>   
       </div>
     </div>
     <div className=" col-6 col-md-3">
