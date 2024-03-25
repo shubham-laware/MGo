@@ -60,14 +60,23 @@ function Header() {
       setSearchSuggestions([]);
     }
   }, [searchQuery, products]);
-
-  // handle go button
-  const handleGoButton = () => {
-    // Navigate to the next page with data passed through state
-    navigate("/products", { state: { data: searchSuggestions } });
-    setSearchSuggestions([]);
+ 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleGoButton();
+    }
   };
+ 
+ 
 
+const handleGoButton = () => {
+  if (searchQuery !== '') {
+    navigate('/products', { state: { data: searchSuggestions } });
+  } else {
+    navigate('/products');
+  }
+  setSearchSuggestions([]);
+}
   const login = (
     <span>
       <BiLogIn /> Signin
@@ -133,6 +142,7 @@ function Header() {
               aria-label="Search"
               value={searchQuery}
               onChange={handleSearchInputChange}
+              onKeyPress={handleKeyPress}
             />
 
             <Form />
