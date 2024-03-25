@@ -5,13 +5,12 @@ import Ban from "../components/images/product.png";
 import { Link, useNavigate } from "react-router-dom";
 import StarRatings from "../components/ProductInfo/StarRatings.jsx";
 import { useLocation } from "react-router-dom";
-
 import { useContext } from "react";
 import myContext from "../components/context/MyContext.js";
 
 const HomeProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
-
+const navigate = useNavigate();
   const context = useContext(myContext);
   const {
     selectedCategory,
@@ -25,7 +24,6 @@ const HomeProducts = () => {
   const queryParams = new URLSearchParams(search);
   const suggestedData = queryParams.get("suggestion");
 
-  //   const navigate = useNavigate();
 
   useEffect(() => {
     let filtered = products;
@@ -48,7 +46,6 @@ const HomeProducts = () => {
 
     // Update filtered products
     setFilteredProducts(filtered);
-    console.log("----filtered", filtered);
   }, [selectedCategory, selectedPrice, products, searchQuery]);
 
   // Access location object using useLocation
@@ -79,6 +76,7 @@ const HomeProducts = () => {
       // If the product doesn't exist, add it to the cart with quantity 1
       setCart([...cart, { ...prod, quantity: 1 }]);
     }
+    navigate('/cart')
   }
 
   function handdleRemoveFromCart(itemId) {
