@@ -1,31 +1,31 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import Home from "./pages/Home";
-import Notfound from "./pages/Notfound";
-import Login from "./pages/Signin";
-import Register from "./pages/Register";
-import OrdersPage from "./pages/Orders.jsx";
-import GoogleApiWrapper from "./pages/Contact";
-import About from "./pages/About.jsx";
+import { Routes, Route, useLocation } from 'react-router-dom';
+import Home from './pages/Home';
+import Notfound from './pages/Notfound';
+import Login from './pages/Signin';
+import Register from './pages/Register'
+import OrdersPage from './pages/Orders.jsx'
+import GoogleApiWrapper from './pages/Contact'
+import About from './pages/About.jsx';
 import Header from "./components/header";
 import Footer from "./components/Footer";
-import Cart from "./pages/Cart.jsx";
-import Checkout from "./pages/Checkout.jsx";
-import Feedback from "./pages/Feedback.jsx";
-import Products from "./pages/Products.jsx";
-import Client_register from "./client/pages/Client_registre.jsx";
-import Clientdashboard from "./client/pages/Client_dashboard.jsx";
-import ContactUs from "./pages/ContactUs.jsx";
-import Blog from "./pages/Blog/Blog.jsx";
-import Profile from "./components/profile.jsx";
-import "bootstrap/dist/css/bootstrap.min.css";
-import ProductInfo from "./pages/ProductInfo.jsx";
-import AddBlog from "./pages/Blog/AddBlog.jsx";
-import ReturnPolicy from "./pages/ReturnPolicy.jsx";
-import Help from "./pages/Help.jsx";
-import FindNearMe from "./pages/FindNearMe.jsx";
-import Connect from "./pages/Connect.jsx";
-import Updates from "./pages/Updates.jsx";
-import Mystate from "./components/context/MyState.jsx";
+import Cart from './pages/Cart.jsx';
+import Checkout from './pages/Checkout.jsx';
+import Feedback from './pages/Feedback.jsx';
+import Products from './pages/Products.jsx';
+import Client_register from './client/pages/Client_registre.jsx';
+import Clientdashboard from './client/pages/Client_dashboard.jsx';
+import ContactUs from './pages/ContactUs.jsx';
+import Blog from './pages/Blog/Blog.jsx';
+import Profile from './components/profile.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ProductInfo from './pages/ProductInfo.jsx';
+import AddBlog from './pages/Blog/AddBlog.jsx';
+import ReturnPolicy from './pages/ReturnPolicy.jsx';
+import Help from './pages/Help.jsx';
+import FindNearMe from './pages/FindNearMe.jsx';
+import Connect from './pages/Connect.jsx';
+import Updates from './pages/Updates.jsx';
+import Mystate from './components/context/MyState.jsx';
 
 import BecomePartner from "./pages/BecomePartner.jsx";
 import Increase from "./pages/Increase.jsx";
