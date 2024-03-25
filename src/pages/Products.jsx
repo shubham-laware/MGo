@@ -78,7 +78,7 @@ const HomeProducts = () => {
       }
     } else {
       // If no price range is selected, display products filtered by category
-      setSnackbarOpen(Array(filtered.length).fill(false));
+      setSnackbarOpen(Array(filtered.length).fill(false))
 
       setFilteredProducts(filtered);
       setRecommendedHeading(false);
