@@ -14,15 +14,14 @@ import { CiLocationArrow1 } from "react-icons/ci";
 import cartIcon from "../assets/cart-icon.svg";
 import { BiLogIn } from "react-icons/bi";
 import { BiMenuAltRight } from "react-icons/bi";
-import Catlog from "./catlog.jsx";
-import Offcanvas from "react-bootstrap/Offcanvas"; // Import Offcanvas
-import { useContext } from "react";
-import myContext from "../components/context/MyContext.js";
-import { useNavigate } from "react-router-dom";
+import Catlog from './catlog.jsx';
+import Offcanvas from 'react-bootstrap/Offcanvas'; // Import Offcanvas
+import { useContext } from 'react';
+import myContext from '../components/context/MyContext.js';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const navigate = useNavigate();
-
 
   // State to manage the dropdown title
   const location = (
@@ -42,41 +41,76 @@ function Header() {
 
   // context code add
   const context = useContext(myContext);
-  const { searchQuery, setSearchQuery, handleSearchInputChange, products ,totalQuantity} =
-    context;
-
+  const { searchQuery, setSearchQuery, handleSearchInputChange, products,totalQuantity } = context;
   // code for serach
-
   const [searchSuggestions, setSearchSuggestions] = useState([]);
-
+  const focusSearchInput = () => {
+    const searchInput = document.querySelector(".search-box");
+    if (searchInput) {
+      searchInput.focus();
+    }
+  };
   useEffect(() => {
-    // Update search suggestions based on the search query
-    if (searchQuery !== "") {
-      const suggestions = products.filter((product) =>
+    if (searchQuery !== '') {
+
+      const normalizedQuery = searchQuery.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, '');
+
+      const suggestions = products.filter(product => {
         product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+        // Normalize the product name for comparison
+        const normalizedProductName = product.product_name.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, '');
+        return normalizedProductName.includes(normalizedQuery);
+      });
       setSearchSuggestions(suggestions);
+
+
+      // //new
+      // const normalizedQuery = searchQuery.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
+      // const regex = new RegExp("^" + searchQuery, "i");
+      // const suggestions = products.filter((product) => {
+      //   product.product_name.toLowerCase().includes(searchQuery.toLowerCase());
+      //   const normalizedProductName = product.product_name
+      //     .toLowerCase()
+      //     .replace(/[^a-zA-Z0-9 ]/g, "").split(" ");
+      //   return normalizedProductName.some((word) => regex.test(word));
+      // });
+      // setSearchSuggestions(suggestions);
     } else {
       setSearchSuggestions([]);
     }
   }, [searchQuery, products]);
- 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+
+
+
+  //for enter button
+  // const handleKeyPress = (e) => {
+  //   if (e.key === 'Enter') {
+  //     handleGoButton();
+  //   }
+  // };
+
+  // handle go button
+  const handleGoButton = () => {
+    if (searchQuery !== '') {
+      navigate('/products', { state: { data: searchSuggestions } });
+    } else {
+      navigate('/products');
+    }
+    setSearchSuggestions([]);
+  }
+
+  const handleSuggestionClick = (productName) => {
+    setSearchQuery(productName);
+
+  };
+
+  const handleKeyPress = (event, productName) => {
+    console.log("Enter key press", productName)
+    if (event.key === 'Enter') {
       handleGoButton();
     }
   };
- 
- 
 
-const handleGoButton = () => {
-  if (searchQuery !== '') {
-    navigate('/products', { state: { data: searchSuggestions } });
-  } else {
-    navigate('/products');
-  }
-  setSearchSuggestions([]);
-}
   const login = (
     <span>
       <BiLogIn /> Signin
@@ -145,47 +179,30 @@ const handleGoButton = () => {
               onKeyPress={handleKeyPress}
             />
 
+
             <Form />
 
-            <Button
-              className=" search-btn"
-              variant="outline-success"
-              onClick={handleGoButton}
-            >
-              Go
-            </Button>
-            <div
-              className="suggestion position-absolute"
-              style={{ width: "760px" }}
-            >
-              <div
-                className="container position-absolute"
-                style={{
-                  marginLeft: "165px",
-                  marginTop: "20px",
-                  background: "rgb(217, 223, 175",
-                }}
-              >
-                {searchSuggestions.map((suggestion) => (
-                  <div key={suggestion.product_id}>
-                    <span className="py-2 px-2 m-1 fs-6">
-                      {suggestion.product_name}
+            <Button className=" search-btn" variant="outline-success" onClick={handleGoButton}>Go</Button>
+            <div className="suggestion position-absolute" style={{ width: "760px" }}>
+              <div className="container position-absolute" style={{ marginLeft: "165px", marginTop: "20px", background: "rgb(217, 223, 175" }}>
+                {searchSuggestions.map(suggestion => (
+                  <div key={suggestion.product_id} onKeyDown={(event) => handleKeyPress(event, suggestion.product_name)} tabIndex={0}>
+                    <span style={{ cursor: "Pointer" }} onClick={() => handleSuggestionClick(suggestion.product_name)} >
+                      <span className='py-2 px-2 m-1 fs-6'>{suggestion.product_name}</span>
                     </span>
+
                   </div>
                 ))}
               </div>
             </div>
 
-            <Nav>
-              <NavDropdown
-                title={login}
-                id="collasible-nav-dropdown"
-                className="Dropdown"
-              >
+            <Nav >
+
+              <NavDropdown title={login} id="collasible-nav-dropdown" className='Dropdown'>
+
                 <NavDropdown.Item>
-                  <Link to="/register" className="text-decoration-none ">
-                    Create an account
-                  </Link>
+                  <Link to="/register" className='text-decoration-none '>Create an account</Link>
+
                 </NavDropdown.Item>
                 <NavDropdown.Item>
                   <Link to="/signin" className="text-decoration-none">
@@ -257,24 +274,22 @@ const handleGoButton = () => {
               placeholder=" Ex: T-Shirt near me"
               className="search-box-m"
               aria-label="Search"
-            />
-            <Form />
-            <Button className=" search-btn" variant="outline-success">
-              Go
-            </Button>
+            /><Form />
+            <Button className=" search-btn" variant="outline-success">Go</Button>
+
           </div>
         </div>
       </Navbar>
 
+
+
       <Catlog />
+
 
       {/* Offcanvas Sidebar */}
 
-      <Offcanvas
-        show={showOffcanvas}
-        onHide={() => setShowOffcanvas(false)}
-        placement="end"
-      >
+
+      <Offcanvas show={showOffcanvas} onHide={() => setShowOffcanvas(false)} placement="end">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Minitgo</Offcanvas.Title>
         </Offcanvas.Header>
@@ -302,8 +317,13 @@ const handleGoButton = () => {
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
+
+
+
     </>
   );
 }
 
 export default Header;
+
+

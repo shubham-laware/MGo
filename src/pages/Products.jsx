@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import Filter from "../components/Filter";
 import Ban from "../components/images/product.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,useNavigate } from "react-router-dom";
 import StarRatings from "../components/ProductInfo/StarRatings.jsx";
 import { useContext } from "react";
 import myContext from "../components/context/MyContext.js";
 
 const HomeProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
+<<<<<<< HEAD
   const [categoryFiltered,setCategoryFiltered] = useState([])
+=======
+  const navigate = useNavigate();
+>>>>>>> d8ee886e603d1d020199e4311ec8aedce4f14746
 
   const [recommendedHeading, setRecommendedHeading] = useState(false);
 
@@ -103,10 +107,17 @@ const HomeProducts = () => {
     }
   }, [location.state]);
 
+ 
+
   function handdleRemoveFromCart(itemId) {
     setCart((currentCart) => currentCart.filter((item) => item.id !== itemId));
   }
 
+useEffect(()=>{
+console.log("searchQuery",searchQuery)
+},[searchQuery])
+
+  
   return (
     <>
       <br />
@@ -125,8 +136,8 @@ const HomeProducts = () => {
         <div className="row">
           <Filter brand="Test" />
 
-          <div className="col-md-10 ">
-            <div className="d-flex gap-2 flex-wrap ">
+          <div className="col-md-10">
+            <div className="d-flex flex-wrap">
               {filteredProducts?.length === 0 ? (
                  categoryFiltered?.map((product, index) => (
                   <div
@@ -204,7 +215,7 @@ const HomeProducts = () => {
                 filteredProducts?.map((product, index) => (
                   <div
                     key={index}
-                    className="col-6 col-sm-3 py-2"
+                    className="col-6 col-sm-3 py-2 m-2"
                     style={{ width: "220px" }}
                   >
                     <div className="product-card">
@@ -274,6 +285,7 @@ const HomeProducts = () => {
                   </div>
                 ))
               )}
+
             </div>
           </div>
         </div>
