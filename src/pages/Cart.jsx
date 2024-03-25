@@ -6,8 +6,8 @@ import myContext from "../components/context/MyContext";
 
 const Cart = () => {
   const context = useContext(myContext);
-  const { cart, setCart } = context;
-  const totalQuantity = cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
+  const { cart, setCart ,totalQuantity} = context;
+  // const totalQuantity = cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
 
   
 

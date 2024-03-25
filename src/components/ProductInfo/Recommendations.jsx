@@ -1,21 +1,29 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { productData } from "./data";
 import ProductCard from "./ProductCard";
+import myContext from "../context/MyContext";
 
 function Recommendations() {
+
+  const context=useContext(myContext);
+
+  const {products}=context;
+
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slidesToShow, setSlidesToShow] = useState(3);
   const [slidesToScroll, setSlidesToScroll] = useState(3);
+
   const carouselRef = useRef(null);
 
   const handleNext = () => {
     const newSlide = currentSlide + slidesToScroll;
-    setCurrentSlide(newSlide % productData.length);
+    setCurrentSlide(newSlide % products.length);
   };
 
   const handlePrev = () => {
     const newSlide = currentSlide - slidesToScroll;
-    setCurrentSlide((newSlide + productData.length) % productData.length);
+    setCurrentSlide((newSlide + products.length) % products.length);
   };
 
   const handleWheelScroll = (e) => {
@@ -59,15 +67,15 @@ function Recommendations() {
       >
         <div className="carousel-inner">
           {Array.from(
-            { length: Math.ceil(productData.length / slidesToShow) },
+            { length: Math.ceil(products.length / slidesToShow) },
             (_, i) => (
               <div key={i} className={`carousel-item${i === 0 ? " active" : ""}`}>
                 <div className="d-flex  justify-content-center gap-4">
-                  {productData
+                  {products
                     .slice(i * slidesToShow, (i + 1) * slidesToShow)
                     .map((product, index) => (
                       <div key={index} className="">
-                        <ProductCard product={product} />
+                        <ProductCard product={product} index={index} />
                       </div>
                     ))}
                 </div>
