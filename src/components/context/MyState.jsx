@@ -18,6 +18,7 @@ const Mystate = (props) => {
       .get("https://minitgo.com/api/fetch_products.php")
       .then((response) => {
         setProducts(response.data.data);
+        console.log('produc is',products)
       })
       .catch((error) => {
         setError(error);
