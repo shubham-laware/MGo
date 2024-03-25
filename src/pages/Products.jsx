@@ -83,7 +83,9 @@ const HomeProducts = () => {
     setCart((currentCart) => currentCart.filter((item) => item.id !== itemId));
   }
 
-
+useEffect(()=>{
+console.log("searchQuery",searchQuery)
+},[searchQuery])
 
   
   return (

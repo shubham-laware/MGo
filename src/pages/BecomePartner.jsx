@@ -34,7 +34,7 @@ function BecomePartner() {
           <div className="container-fluid d-flex flex-row mr-5 ">
             <p
               className=" col md-4 my-2  fw-bold  "
-              style={{ fontSize: "35px" }}
+              style={{ fontSize: "38px" }}
               href="#"
             >
               Sell on Minitgo.com
@@ -87,7 +87,7 @@ function BecomePartner() {
           <div className="box">
             <div className="small-box dark-box mx-auto"></div>
             <div className="d-flex justify-content-center">
-              <span className="fs-4 fw-bold">
+              <span className="fs-3 fw-bold">
                 {" "}
                 What you require to start selling{" "}
               </span>
@@ -96,16 +96,16 @@ function BecomePartner() {
 
           <div className="d-flex flex-row justify-content-center py-4   ">
             <div className="col-3 d-flex flex-column align-items-center gap-2">
-              <img src={moneyIcon} style={{ width: "40px" }} />
-              <span style={{ fontSize: "15px" }}>GST</span>
+              <img src={moneyIcon} style={{ width: "50px" }} />
+              <span style={{ fontSize: "18px" }}>GST</span>
             </div>
             <div className="col-3 d-flex flex-column align-items-center gap-2">
-              <img src={buildingIcon} style={{ width: "40px" }} />
-              <span style={{ fontSize: "15px" }}>Active bank account</span>
+              <img src={buildingIcon} style={{ width: "50px" }} />
+              <span style={{ fontSize: "18px" }}>Active bank account</span>
             </div>
             <div className="col-3 d-flex flex-column align-items-center gap-2">
-              <img src={tablelist} style={{ width: "40px" }} />
-              <span style={{ fontSize: "15px" }}>
+              <img src={tablelist} style={{ width: "50px" }} />
+              <span style={{ fontSize: "18px" }}>
                 Product info and <br /> images to create listing
               </span>
             </div>
@@ -113,7 +113,7 @@ function BecomePartner() {
         </div>
 
         <div className="mt-4 ">
-          <span className="fs-5">Why sell on Minitgo?</span>
+          <span className="fs-3">Why sell on Minitgo?</span>
         </div>
         <div class="mt-3 mb-3">
           <div class="container">
@@ -124,9 +124,12 @@ function BecomePartner() {
                   height: "250px",
                   backgroundColor: "rgb(235, 233, 205)",
                   cursor: "pointer",
+                  overflow:'hidden',
+                  textOverflow:'ellipsis',
+                 
                 }}
               >
-                <span class="fs-3 fw-bold">Easy integration</span>
+                <span class="fs-3 fw-bold" style={{color:'rgb(238, 161, 135)'}} >Easy integration</span>
                 <div class="mt-1">
                   <span class="fw-bold fs-6 text-secondary">
                     You can seamlessly incorporate MinitGo's features into your
@@ -140,9 +143,12 @@ function BecomePartner() {
                   height: "250px",
                   backgroundColor: " rgb(235, 233, 205)",
                   cursor: "pointer",
+                  overflow:'hidden',
+                  textOverflow:'ellipsis',
+                  
                 }}
               >
-                <span class="fs-3 fw-bold">Benefits of selling on MinitGo</span>
+                <span class="fs-3 fw-bold"style={{color:'rgb(238, 161, 135)'}}>Benefits of selling on MinitGo</span>
                 <div class="mt-1">
                   <span class="fw-bold fs-6 text-secondary">
                     Adding MinitGo to your product lineup diversifies your
@@ -156,9 +162,12 @@ function BecomePartner() {
                   height: "250px",
                   backgroundColor: "rgb(235, 233, 205)",
                   cursor: "pointer",
+                  overflow:'hidden',
+                  textOverflow:'ellipsis',
+                 
                 }}
               >
-                <span class="fs-3 fw-bold">Fee and payments</span>
+                <span class="fs-3 fw-bold " style={{color:'rgb(238, 161, 135)'}}>Fee and payments</span>
                 <div class="mt-1">
                   <span class="fw-bold fs-6 text-secondary">
                     Discover hassle-free payments with our flexible fee
@@ -174,10 +183,6 @@ function BecomePartner() {
                 <span class='fs-2' style={{ letterSpacing:"3px", wordSpacing:'3px' }}>From five members to fifteen, a little trust can go a long way</span>
             </div>
         </div>
-
-
-
-
           </div>
         </div>
 

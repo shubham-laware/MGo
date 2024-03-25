@@ -42,29 +42,39 @@ function Header() {
   // context code add
   const context = useContext(myContext);
   const { searchQuery, setSearchQuery, handleSearchInputChange, products } = context;
-
-
-
   // code for serach
-
   const [searchSuggestions, setSearchSuggestions] = useState([]);
-
+  const focusSearchInput = () => {
+    const searchInput = document.querySelector(".search-box");
+    if (searchInput) {
+      searchInput.focus();
+    }
+  };
   useEffect(() => {
-    // Update search suggestions based on the search query
     if (searchQuery !== '') {
-      // const suggestions = products.filter(product =>
-      //   product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
-      // );
 
       const normalizedQuery = searchQuery.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, '');
 
       const suggestions = products.filter(product => {
+        product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
         // Normalize the product name for comparison
         const normalizedProductName = product.product_name.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, '');
-        // Check if the normalized product name includes the normalized search query
         return normalizedProductName.includes(normalizedQuery);
       });
       setSearchSuggestions(suggestions);
+
+
+      // //new
+      // const normalizedQuery = searchQuery.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
+      // const regex = new RegExp("^" + searchQuery, "i");
+      // const suggestions = products.filter((product) => {
+      //   product.product_name.toLowerCase().includes(searchQuery.toLowerCase());
+      //   const normalizedProductName = product.product_name
+      //     .toLowerCase()
+      //     .replace(/[^a-zA-Z0-9 ]/g, "").split(" ");
+      //   return normalizedProductName.some((word) => regex.test(word));
+      // });
+      // setSearchSuggestions(suggestions);
     } else {
       setSearchSuggestions([]);
     }
@@ -72,11 +82,15 @@ function Header() {
 
 
 
+  //for enter button
+  // const handleKeyPress = (e) => {
+  //   if (e.key === 'Enter') {
+  //     handleGoButton();
+  //   }
+  // };
+
   // handle go button
   const handleGoButton = () => {
-    // Navigate to the next page with data passed through state
-    // navigate('/products', { state: { data: searchSuggestions } });
-    // setSearchSuggestions([])
     if (searchQuery !== '') {
       navigate('/products', { state: { data: searchSuggestions } });
     } else {
@@ -85,15 +99,16 @@ function Header() {
     setSearchSuggestions([]);
   }
 
-  //for enter button
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleGoButton();
-    }
-  };
-
   const handleSuggestionClick = (productName) => {
     setSearchQuery(productName);
+
+  };
+
+  const handleKeyPress = (event, productName) => {
+    console.log("Enter key press", productName)
+    if (event.key === 'Enter') {
+      handleGoButton();
+    }
   };
 
   const login = (
@@ -101,6 +116,9 @@ function Header() {
       <BiLogIn /> Signin
     </span>
   )
+
+
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className=" bg-light fixed-top shadow  ">
@@ -162,8 +180,8 @@ function Header() {
             <div className="suggestion position-absolute" style={{ width: "760px" }}>
               <div className="container position-absolute" style={{ marginLeft: "165px", marginTop: "20px", background: "rgb(217, 223, 175" }}>
                 {searchSuggestions.map(suggestion => (
-                  <div key={suggestion.product_id}>
-                    <span style={{ cursor: "Pointer" }} onClick ={()=>handleSuggestionClick(suggestion.product_name)} onKeyPress={(e) => handleKeyPress(e, suggestion.product_name)}  tabIndex={0}>
+                  <div key={suggestion.product_id} onKeyDown={(event) => handleKeyPress(event, suggestion.product_name)} tabIndex={0}>
+                    <span style={{ cursor: "Pointer" }} onClick={() => handleSuggestionClick(suggestion.product_name)} >
                       <span className='py-2 px-2 m-1 fs-6'>{suggestion.product_name}</span>
                     </span>
 
@@ -256,9 +274,3 @@ function Header() {
 export default Header;
 
 
-// NEW
-// Bydefault Go button all products need to show
-// alignment cards
-//Perticular product need to show
-//Serach nsel tar recomended product need to show
-//men's mens need to work
