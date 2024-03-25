@@ -19,7 +19,7 @@ function CardSlider() {
               <div className="item active">
                 <div className="col-xs-12 col-sm-6 col-md-3">
                   <a href="#">
-                    <img src="http://placehold.it/500/0054A6/fff&amp;text=1" className="img-responsive" alt="1" />
+                    <img src="http://placehold.it/500 /0054A6/fff&amp;text=1" className="img-responsive" alt="1" />
                   </a>
                 </div>
               </div>

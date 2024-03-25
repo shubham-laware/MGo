@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import Filter from "../components/Filter";
 import Ban from "../components/images/product.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import StarRatings from "../components/ProductInfo/StarRatings.jsx";
-import { useLocation } from "react-router-dom";
 import { useContext } from "react";
 import myContext from "../components/context/MyContext.js";
 
 const HomeProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
-const navigate = useNavigate();
+
+
   const context = useContext(myContext);
   const {
     selectedCategory,
@@ -19,11 +19,15 @@ const navigate = useNavigate();
     searchQuery,
     cart,
     setCart,
+    handleAddToCart,
+     snackbarOpen,
+          setSnackbarOpen,
+          snackbarMessage,
+          setSnackbarMessage
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const suggestedData = queryParams.get("suggestion");
-
 
   useEffect(() => {
     let filtered = products;
@@ -44,6 +48,9 @@ const navigate = useNavigate();
       });
     }
 
+    // Initialize snackbar state for each product
+    setSnackbarOpen(Array(filtered.length).fill(false));
+
     // Update filtered products
     setFilteredProducts(filtered);
   }, [selectedCategory, selectedPrice, products, searchQuery]);
@@ -60,24 +67,7 @@ const navigate = useNavigate();
     }
   }, [location.state]);
 
-  function handleAddToCart(prod) {
-    // Check if the product already exists in the cart
-    const existingIndex = cart.findIndex(item => item.product_id === prod.product_id);
-  
-    if (existingIndex !== -1) {
-      // If the product already exists, update its quantity
-      const updatedCart = [...cart];
-      updatedCart[existingIndex] = {
-        ...updatedCart[existingIndex],
-        quantity: updatedCart[existingIndex].quantity + 1
-      };
-      setCart(updatedCart);
-    } else {
-      // If the product doesn't exist, add it to the cart with quantity 1
-      setCart([...cart, { ...prod, quantity: 1 }]);
-    }
-    navigate('/cart')
-  }
+ 
 
   function handdleRemoveFromCart(itemId) {
     setCart((currentCart) => currentCart.filter((item) => item.id !== itemId));
@@ -85,13 +75,13 @@ const navigate = useNavigate();
 
   return (
     <>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       {/* we are coming soon */}
       <div className="container">
         <h6>
@@ -160,10 +150,19 @@ const navigate = useNavigate();
                           <p className="product-distance text-secondary ">
                             Distance: {product.distance}km away.
                           </p>
+                          {snackbarOpen[index] && (
+                        <div
+                          style={{ fontSize: "12px" }}
+                          className="border text-center rounded w-75 mx-auto"
+                        >
+                          Added successfully &#x2713;
+                        </div>
+                      )}
                         </div>
                       </Link>
+                     
                       <button
-                        onClick={() => handleAddToCart(product)}
+                        onClick={() => handleAddToCart(product, index)}
                         className="btn btn-primary ms-3 my-3 w-50"
                       >
                         Add to cart
