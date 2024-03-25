@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import LeftSection from '../components/ProductInfo/LeftSection'
 import RightSection from '../components/ProductInfo/RightSection'
 import { useParams } from 'react-router-dom'
@@ -9,6 +9,10 @@ import Recommendations from '../components/ProductInfo/Recommendations';
 
 function ProductInfo() {
     const {id}=useParams();
+
+    useEffect(()=>{
+      window.scrollTo(0, 0);
+    },[id])
     // console.log('Product Id:',id)
   return (
     <main className="min-vh-100 py-4  px-md-5 " style={{marginTop:'125px'}}>

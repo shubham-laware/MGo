@@ -153,7 +153,7 @@ function RightSection({ productId }) {
                   <h2 className="  fs-4 text-start ">Description</h2>
 
                   <div className="d-flex  w-75">
-                   
+                    
                     <button
                     onClick={() => handleAddToCart(product)}
                     className="btn btn-primary ms-3 my-3 w-50"
@@ -166,7 +166,7 @@ function RightSection({ productId }) {
                     className="btn btn-primary ms-3 my-3 w-50"
                     onClick={handleCheckout}
                   >
-                    Checkout
+                    Buy Now
                   </button>
                   </div>
                   

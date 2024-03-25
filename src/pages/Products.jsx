@@ -9,11 +9,7 @@ import myContext from "../components/context/MyContext.js";
 
 const HomeProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
-<<<<<<< HEAD
   const [categoryFiltered,setCategoryFiltered] = useState([])
-=======
-  const navigate = useNavigate();
->>>>>>> d8ee886e603d1d020199e4311ec8aedce4f14746
 
   const [recommendedHeading, setRecommendedHeading] = useState(false);
 

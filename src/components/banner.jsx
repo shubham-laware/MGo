@@ -21,7 +21,7 @@ export default function Banner() {
         <h1 className='typing-text'>Get Delivery In <span className="" style={{color:'#5F6D79'}}> <br></br>Minutes</span> <span className='cursor'>&nbsp;</span></h1>
         <br></br>
         <Button className='buynow'><Link to={'/products'} style={{textDecoration:'none',color:'black'}}>Buy now </Link></Button>
-        <Button className='find-btn'><Link to={'/near-me'} style={{textDecoration:'none',color:'black'}}>Find near me</Link></Button>
+        <Button className='find-btn'><Link to={'/products'} style={{textDecoration:'none',color:'black'}}>Find near me</Link></Button>
          
          
         <p> <BiInfoCircle style={{fontSize:'10pt'}}/> Get the products from nearest & trusted stores</p>
