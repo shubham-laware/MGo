@@ -19,6 +19,7 @@ const HomeProducts = () => {
     setSelectedCategory,
     products,
     selectedPrice,
+    setselectedPrice,
     searchQuery,
     setSearchQuery,
     cart,
@@ -36,38 +37,42 @@ const HomeProducts = () => {
 
   useEffect(() => {
 
-    console.log("SELECTED CATEGORY",selectedCategory)
     // Apply price filtering
     let productsToFilter = products;
 
-
+   
 
 
     if (selectedPrice !== "") {
       const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
   
-      const withinRangeProducts = products.filter((product) => {
+      const withinRangeProducts = productsToFilter.filter((product) => {
         const price = parseInt(product.product_price);
         return price >= minPrice && price <= maxPrice;
       });
+
   
-      const aboveRangeProducts = products.filter((product) => {
+      const aboveRangeProducts = productsToFilter.filter((product) => {
         const price = parseInt(product.product_price);
         return price > maxPrice;
       });
+
   
       let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
   
       combinedProducts.sort(
         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
       );
+
   
       if (products.length === 0 && aboveRangeProducts.length > 0) {
         productsToFilter = aboveRangeProducts;
         setRecommendedHeading(true);
+       
       } else {
         productsToFilter = combinedProducts;
         setRecommendedHeading(false);
+       
       }
     }
   
@@ -79,14 +84,12 @@ const HomeProducts = () => {
       setSearchQuery("")
       
       const lowerCaseSelectedCategory = selectedCategory.toLowerCase();
-      console.log("lowerCaseSelectedCategory",lowerCaseSelectedCategory)
       
       const filteredByCategory = products.filter((product) => {
         const lowerCaseProductCategory = product.category.toLowerCase();
        
         return lowerCaseProductCategory === lowerCaseSelectedCategory;
       });
-      console.log('filteredByCategory',filteredByCategory)
     
       if (filteredByCategory.length > 0) {
         setFilteredProducts(filteredByCategory)
@@ -123,7 +126,6 @@ const HomeProducts = () => {
               product.product_name.toLowerCase().includes("women")
           );
           setFilteredProducts(filtered);
-          console.log("WOMEN CATEGORIES:", filtered);
           return;
         }
       }
@@ -143,117 +145,123 @@ const HomeProducts = () => {
             product.product_tittle.toLowerCase().includes(lowerCaseSearchQuery) ||
             product.product_name.toLowerCase().includes(lowerCaseSearchQuery)
         );
+
+        console.log("FILTERED:",filtered)
         
         if(filtered.length>0){
           setFilteredProducts(filtered)
         }else{
-          setFilteredProducts(products)
+          let productsToFilter = products;
+
+          if (selectedPrice !== "") {
+            const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
+        
+            const withinRangeProducts = productsToFilter.filter((product) => {
+              const price = parseInt(product.product_price);
+              return price >= minPrice && price <= maxPrice;
+            });
+        
+            const aboveRangeProducts = productsToFilter.filter((product) => {
+              const price = parseInt(product.product_price);
+              return price > maxPrice;
+            });
+        
+            let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
+        
+            combinedProducts.sort(
+              (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+            );
+        
+            // Set the filtered products to products within price range
+            productsToFilter = combinedProducts;
+          }
+          
+          setFilteredProducts(productsToFilter);
+
         }
       } else {
         setFilteredProducts(products);
       }
     }
+    
 
     setSnackbarOpen(Array(products.length).fill(false));
   }, [products, searchQuery, category, selectedPrice,selectedCategory]);
+
+
+  useEffect(() => {
+    // Apply category and search query filtering
+
+    if(searchQuery === "" && (category === "" || category === null)){
+
+    const menRegex = /^(men|man|mens|men's)/;
+  
+    let productsToFilter = products;
+  
+    // Apply category filtering
+    if (selectedCategory !== "") {
+      setSearchQuery("");
+  
+      const lowerCaseSelectedCategory = selectedCategory.toLowerCase();
+  
+      const filteredByCategory = products.filter((product) => {
+        const lowerCaseProductCategory = product.category.toLowerCase();
+        return lowerCaseProductCategory === lowerCaseSelectedCategory;
+      });
+  
+      if (filteredByCategory.length > 0) {
+        productsToFilter = filteredByCategory;
+      } else {
+        // If no products found for the selected category, set filtered products to all products
+        productsToFilter = products;
+      }
+    }
+  
+    // Apply price filtering
+    if (selectedPrice !== "") {
+      const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
+  
+      const withinRangeProducts = productsToFilter.filter((product) => {
+        const price = parseInt(product.product_price);
+        return price >= minPrice && price <= maxPrice;
+      });
+  
+      const aboveRangeProducts = productsToFilter.filter((product) => {
+        const price = parseInt(product.product_price);
+        return price > maxPrice;
+      });
+  
+      let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
+  
+      combinedProducts.sort(
+        (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+      );
+  
+      // Set the filtered products to products within price range
+      productsToFilter = combinedProducts;
+    }
+  
+    // Update filtered products state
+    setFilteredProducts(productsToFilter);
+  
+    // Update recommendedHeading state
+    setRecommendedHeading(productsToFilter.length === 0);
+  }
+
+
+  }, [products, selectedCategory, selectedPrice]);
+
+
+  useEffect(()=>{
+  return () => {
+   setselectedPrice("")// Reset selected price when component unmounts
+    setSelectedCategory("")
+    
+  };
+
+  },[])
   
 
-
-  
-  //   useEffect(() => {
-
-  //     setFilteredProducts(products)
-  //     console.log('searchQuery',searchQuery)
-  //     setSelectedCategory(searchQuery)
-
-  //     if(searchQuery.toLowerCase().startsWith("men") || searchQuery.toLowerCase().startsWith("man")){
-  //      const filtered = products.filter((product) =>
-  //               product.category.toLowerCase().startsWith("men")
-  //             );
-  //         console.log("FILTERED: " ,filtered)
-  //       setFilteredProducts(filtered)
-  //     }else{
-  //      const filtered = products.filter(
-  //         (product) => product.category.toLowerCase() === searchQuery)
-  //         console.log("ALL CATEGORY:",filtered)
-  //       setFilteredProducts(filtered)
-  //     }
-
-  // if (category) {
-  //   filtered = filtered.filter((product) => product.category === category);
-
-  // }
-
-  // else {
-  //   console.log('SELECTED CATEGEORY:',selectedCategory)
-
-  //     if (selectedCategory !== "") {
-
-  //       const lowerCaseSelectedCategory = selectedCategory.toLowerCase();
-  //       console.log("LOWER CASE:",lowerCaseSelectedCategory)
-  //       if (
-  //         lowerCaseSelectedCategory.startsWith("men") ||
-  //         lowerCaseSelectedCategory.startsWith("mens") ||
-  //         lowerCaseSelectedCategory.startsWith("men's") ||
-  //         lowerCaseSelectedCategory === "men" ||
-  //         lowerCaseSelectedCategory === "mens" ||
-  //         lowerCaseSelectedCategory === "men's"
-  //       ) {
-
-  //       }
-  //       else{
-  //         setFilteredProducts([]);
-  //         filtered = filtered.filter(
-  //           (product) => product.category.toLowerCase() === lowerCaseSelectedCategory
-  //         );
-  //         setFilteredProducts(filtered)
-  //         console.log("ALL CATEGORY:",filtered)
-  //       }
-
-  //     }
-
-  //       if (selectedPrice !== "") {
-  //         const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
-
-  //         const withinRangeProducts = products.filter((product) => {
-  //           const price = parseInt(product.product_price);
-  //           return price >= minPrice && price <= maxPrice;
-  //         });
-
-  //         const aboveRangeProducts = products.filter((product) => {
-  //           const price = parseInt(product.product_price);
-  //           return price > maxPrice;
-  //         });
-
-  //         let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
-
-  //         combinedProducts.sort(
-  //           (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-  //         );
-
-  //         if (products.length === 0 && aboveRangeProducts.length > 0) {
-  //           setFilteredProducts(aboveRangeProducts);
-  //           setRecommendedHeading(true);
-  //         } else {
-  //           setFilteredProducts(combinedProducts);
-  //           setRecommendedHeading(false);
-  //         }
-  //       }
-
-  //   setSnackbarOpen(Array(products.length).fill(false));
-  // }, [category, products, searchQuery]);
-
-  // const location = useLocation();
-
-  // useEffect(() => {
-  //   if (location.state !== "") {
-  //     const receivedData = location.state && location.state.data;
-  //     console.log("RECIEVED DATA:",receivedData)
-  //     // if (receivedData !== null) {
-  //     //   setFilteredProducts(receivedData);
-  //     // }
-  //   }
-  // }, [location.state]);
 
   return (
     <>

@@ -51,9 +51,9 @@ function Header() {
     }
   };
   useEffect(() => {
+    
     if (searchQuery !== '') {
       setSelectedCategory("")
-      
 
       const normalizedQuery = searchQuery.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, '');
 
