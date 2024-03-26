@@ -20,8 +20,8 @@ export default function Banner() {
       <br></br>
         <h1 className='typing-text'>Get Delivery In <span className="" style={{color:'#5F6D79'}}> <br></br>Minutes</span> <span className='cursor'>&nbsp;</span></h1>
         <br></br>
-        <Button className='buynow'><Link to={'/products'} style={{textDecoration:'none',color:'black'}}>Buy now </Link></Button>
-        <Button className='find-btn'><Link to={'/products'} style={{textDecoration:'none',color:'black'}}>Find near me</Link></Button>
+        <Link to={'/products'} style={{textDecoration:'none',color:'black'}}><Button className='buynow'>Buy now </Button></Link>
+        <Link to={'/products'} style={{textDecoration:'none',color:'black'}}> <Button className='find-btn'>Find near me</Button></Link>
          
          
         <p> <BiInfoCircle style={{fontSize:'10pt'}}/> Get the products from nearest & trusted stores</p>
