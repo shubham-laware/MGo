@@ -9,32 +9,26 @@ import myContext from "../context/MyContext";
 
 function RightSection({ productId }) {
   const id = productId;
+  console.log("productId:",productId)
   const navigate=useNavigate();
 
   const context=useContext(myContext);
 
-  const {handleAddToCart}=context
+  const {handleAddToCart,products}=context
 
   const [product, setProduct] = useState();
 
 
   useEffect(() => {
-    axios
-      .get("https://minitgo.com/api/fetch_products.php")
-      .then((response) => {
-        const fetchedProducts = response.data.data;
-        const item = fetchedProducts.filter(
-          (productItem) => productItem.product_id === id
-        );
-        const fProduct = item[0];
-        if (fProduct) {
-          setProduct(fProduct);
-        }
-      })
-      .catch((error) => {
-        setError(error);
-      });
-  }, []);
+    const item = products.filter(
+      (productItem) => productItem.product_id === id
+    );
+    const fProduct = item[0];
+    if (fProduct) {
+      setProduct(fProduct);
+    }
+      
+  }, [id]);
 
 
   const handleCheckout=()=>{

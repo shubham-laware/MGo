@@ -1,30 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CarouselComponent from "./CarouselComponent";
 import StarRatings from "./StarRatings";
 import storeIcon from "../../assets/store.svg";
 import products from "./data.js";
 import axios from "axios";
+import myContext from "../context/MyContext.js";
 
 function LeftSection({ productId }) {
   // console.log(productId)
   const id = productId;
+  const context=useContext(myContext);
+
+  const{products}=context;
 
   const [product, setProduct] = useState();
 
   useEffect(() => {
-    axios.get('https://minitgo.com/api/fetch_products.php')
-      .then(response => {
-        const fetchedProducts = response.data.data;
-        const item = fetchedProducts.filter(productItem => productItem.product_id === id);
+        const item = products.filter(productItem => productItem.product_id === id);
         const fProduct = item[0];
         if (fProduct) {
           setProduct(fProduct);
         }
-      })
-      .catch(error => {
-        setError(error);
-      });
-  }, []);
+  }, [id]);
 
   return (
     <>
