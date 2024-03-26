@@ -56,38 +56,55 @@ function Header() {
       const normalizedQuery = searchQuery.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, '');
 
       const suggestions = products.filter(product => {
-        product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
+        // product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
         // Normalize the product name for comparison
         const normalizedProductName = product.product_name.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, '');
         return normalizedProductName.includes(normalizedQuery);
       });
       setSearchSuggestions(suggestions);
-
-
-      // //new
-      // const normalizedQuery = searchQuery.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
-      // const regex = new RegExp("^" + searchQuery, "i");
-      // const suggestions = products.filter((product) => {
-      //   product.product_name.toLowerCase().includes(searchQuery.toLowerCase());
-      //   const normalizedProductName = product.product_name
-      //     .toLowerCase()
-      //     .replace(/[^a-zA-Z0-9 ]/g, "").split(" ");
-      //   return normalizedProductName.some((word) => regex.test(word));
-      // });
-      // setSearchSuggestions(suggestions);
     } else {
       setSearchSuggestions([]);
     }
   }, [searchQuery, products]);
 
+  //shubham
 
-
-  //for enter button
-  // const handleKeyPress = (e) => {
-  //   if (e.key === 'Enter') {
-  //     handleGoButton();
+  
+  // useEffect(() => {
+   
+ 
+ 
+  //   const lowerCaseSearchQuery = searchQuery.toLowerCase();
+  //   console.log('lowerCaseSearchQuery',lowerCaseSearchQuery)
+ 
+  //   // Regular expression to match variations of men's products
+   
+ 
+  //   if (menRegex.test(lowerCaseSearchQuery)) {
+  //     const filtered = products.filter((product) =>
+  //       product.category.toLowerCase().startsWith("men")
+  //     );
+  //     console.log("FILTERED: ", filtered);
+  //     setFilteredProducts(filtered);
+  //   } else if (searchQuery.trim() !== '') {
+  //     const filtered = products.filter((product) =>
+  //     product.category.toLowerCase().includes(lowerCaseSearchQuery) ||
+  //     product.product_tittle.toLowerCase().includes(lowerCaseSearchQuery)||
+  //     product.product_name.toLowerCase().includes(lowerCaseSearchQuery)
+ 
+  //     );
+  //     console.log("ALL CATEGORY: ", filtered);
+  //     setFilteredProducts(filtered);
+  //   } else {
+  //     // Handle the case when search query is empty
+  //     // Set filtered products to the original list of products
+  //     setFilteredProducts(products);
+  //     console.log()
   //   }
-  // };
+  // }, [products, searchQuery,category]);
+
+
+
 
   // handle go button
   const handleGoButton = () => {
