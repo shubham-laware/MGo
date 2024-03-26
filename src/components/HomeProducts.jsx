@@ -9,13 +9,22 @@ import Ban from './images/product.png'
 import myContext from './context/MyContext';
 import { Link } from 'react-router-dom';
 import StarRatings from './ProductInfo/StarRatings';
+import { useDispatch } from 'react-redux';
+import { addToCart } from './redux/Slices/CartSlice';
+
  
 const HomeProducts = () => {
-
+const dispatch = useDispatch();
     const [coordinates, setCoordinates] = useState('');
     const context=useContext(myContext);
 
-    const {products,handleAddToCart,snackbarOpen}=context;
+    const {products,snackbarOpen}=context;
+
+    const handleAddToCart = (product,index) => {
+      console.log("handle cart call")
+      console.log("handle cart call", product)
+      dispatch(addToCart(product));
+    };
 
 useEffect(() => {
   handleUseCurrentLocation();
@@ -223,8 +232,10 @@ return(
                     style={{ width: "220px" }}
                   >
                     <div className="product-card">
-                      <Link
-                        to={`/${product.product_id}`}
+                      <a
+                       href={`/${product.product_id}`}
+                       target="_blank" 
+                        // to={`/${product.product_id}`}
                         style={{
                           textDecoration: "none",
                           color: "black",
@@ -277,7 +288,7 @@ return(
                         </div>
                       )}
                         </div>
-                      </Link>
+                      </a>
                      
                       <button
                         onClick={() => handleAddToCart(product, index)}
