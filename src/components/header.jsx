@@ -19,6 +19,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas'; // Import Offcanvas
 import { useContext } from 'react';
 import myContext from '../components/context/MyContext.js';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function Header() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ function Header() {
 
   // context code add
   const context = useContext(myContext);
-  const { searchQuery, setSearchQuery, handleSearchInputChange, products,totalQuantity ,setSelectedCategory} = context;
+  const { searchQuery, setSearchQuery, handleSearchInputChange, products,setSelectedCategory} = context;
   // code for serach
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const focusSearchInput = () => {
@@ -112,6 +113,9 @@ function Header() {
       handleGoButton();
     }
   };
+
+  const cart = useSelector(state => state.cart);
+ const totalQuantity = cart?.reduce((total, cartItem) => total + cartItem.quantity, 0);
 
   const login = (
     <span>

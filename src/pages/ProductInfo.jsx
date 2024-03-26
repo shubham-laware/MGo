@@ -13,7 +13,8 @@ function ProductInfo() {
     useEffect(()=>{
       window.scrollTo(0, 0);
     },[id])
-    // console.log('Product Id:',id)
+     console.log('Product Id:',id)
+     
   return (
     <main className="min-vh-100 py-4  px-md-5 " style={{marginTop:'125px'}}>
         <div className="container-fluid  px-md-5  d-flex flex-column gap-4">
