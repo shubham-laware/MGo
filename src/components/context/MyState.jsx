@@ -90,7 +90,7 @@ const Mystate = (props) => {
           cart,
           setCart,
           totalQuantity,
-          handleAddToCart,
+
           snackbarOpen,
           setSnackbarOpen,
           snackbarMessage,

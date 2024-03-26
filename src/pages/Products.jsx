@@ -270,7 +270,7 @@ const HomeProducts = () => {
   
 
 
-  }
+  
 
 
 
@@ -375,6 +375,7 @@ const HomeProducts = () => {
       </div>
     </>
   );
+                        }
 
 
 export default HomeProducts;
