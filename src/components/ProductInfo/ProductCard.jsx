@@ -2,11 +2,20 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import StarRatings from "./StarRatings";
 import myContext from "../context/MyContext";
+import { useDispatch } from 'react-redux';
+import { addToCart } from "../redux/Slices/CartSlice";
+
 
 function ProductCard({ product, index }) {
-  const context = useContext(myContext);
+  const dispatch = useDispatch();
+  // const context = useContext(myContext);
 
-  const { handleAddToCart,snackbarOpen } = context;
+  // const { handleAddToCart,snackbarOpen } = context;
+  const handleAddToCart = (product,index) => {
+    console.log("handle cart call")
+    console.log("handle cart call", product)
+    dispatch(addToCart(product));
+  };
 
   return (
     <div className="col-6 col-sm-3 py-2 w-100 ">
@@ -44,14 +53,14 @@ function ProductCard({ product, index }) {
             <p className="product-distance text-secondary  pt-2">
               Distance: {product.distance}km away.
             </p>
-            {snackbarOpen[index] && (
+            {/* {snackbarOpen[index] && (
               <div
                 style={{ fontSize: "12px" }}
                 className="border text-center rounded w-75 mx-auto"
               >
                 Added successfully &#x2713;
               </div>
-            )}
+            )} */}
           </div>
         </Link>
 

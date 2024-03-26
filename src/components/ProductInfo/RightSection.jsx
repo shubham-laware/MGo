@@ -6,34 +6,50 @@ import mastercardIcon from "../../assets/mastercard.svg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import myContext from "../context/MyContext";
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../components/redux/Slices/CartSlice';
+
 
 function RightSection({ productId }) {
+  const [cart, setCart] = useState([]);
+  const totalQuantity = cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
+  const [snackbarOpen, setSnackbarOpen] = useState([]);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState({});
   const id = productId;
-  console.log("productId:",productId)
-  const navigate=useNavigate();
-
-  const context=useContext(myContext);
-
-  const {handleAddToCart,products}=context
-
-  const [product, setProduct] = useState();
 
 
   useEffect(() => {
-    const item = products.filter(
-      (productItem) => productItem.product_id === id
-    );
+    axios
+      .get("https://minitgo.com/api/fetch_products.php")
+      .then((response) => {
+        setProducts(response.data.data);
+      })
+      .catch((error) => {
+
+      });
+  }, []);
+
+
+  useEffect(() => {
+    const item = products.filter(productItem => productItem.product_id === id);
     const fProduct = item[0];
     if (fProduct) {
       setProduct(fProduct);
     }
-      
-  }, [id]);
+  }, [id, products])
 
-
-  const handleCheckout=()=>{
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    console.log("handle cart call")
+    console.log("handle cart call", product)
+    dispatch(addToCart(product));
+  };
+  const handleCheckout = () => {
     navigate('/checkout')
   }
+
   return (
     <>
       {product && (
@@ -55,12 +71,12 @@ function RightSection({ productId }) {
                 </div>
               </div>
 
-              <h2 style={{ textAlign: "justify" }}>{product.product_name}</h2>
+              <h2 style={{ textAlign: "justify" }}>{products.product_name}</h2>
 
               <div className="d-flex  gap-4 align-items-center w-100 ">
                 <div className="d-flex align-items-center  gap-2 ">
-                  <StarRatings rating={product.product_ratings} />
-                  <span className="small pt-1">{product.product_ratings}</span>
+                  <StarRatings rating={products.product_ratings} />
+                  <span className="small pt-1">{products.product_ratings}</span>
                 </div>
 
                 <span className="small pt-1">2347 Reviews</span>
@@ -147,23 +163,24 @@ function RightSection({ productId }) {
                   <h2 className="  fs-4 text-start ">Description</h2>
 
                   <div className="d-flex  w-75">
-                    
+
                     <button
-                    onClick={() => handleAddToCart(product)}
-                    className="btn btn-primary ms-3 my-3 w-50"
-                  >
-                    Add to cart
-                  </button>
-                   
-                  
-                  <button
-                    className="btn btn-primary ms-3 my-3 w-50"
-                    onClick={handleCheckout}
-                  >
-                    Buy Now
-                  </button>
+
+                      onClick={() => handleAddToCart(product)}
+                      className="btn btn-primary ms-3 my-3 w-50"
+                    >
+                      Add to cart
+                    </button>
+
+
+                    <button
+                      className="btn btn-primary ms-3 my-3 w-50"
+                      onClick={handleCheckout}
+                    >
+                      Buy Now
+                    </button>
                   </div>
-                  
+
                 </div>
 
                 <p className=" fs-6" style={{ textAlign: "justify" }}>

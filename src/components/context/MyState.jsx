@@ -38,40 +38,40 @@ const Mystate = (props) => {
   };
 
 
-  function handleAddToCart(prod, index) {
-    // Check if the product already exists in the cart
-    const existingIndex = cart.findIndex(
-      (item) => item.product_id === prod.product_id
-    );
+  // function handleAddToCart(prod, index) {
+  //   // Check if the product already exists in the cart
+  //   const existingIndex = cart.findIndex(
+  //     (item) => item.product_id === prod.product_id
+  //   );
 
-    if (existingIndex !== -1) {
-      // If the product already exists, update its quantity
-      const updatedCart = [...cart];
-      updatedCart[existingIndex] = {
-        ...updatedCart[existingIndex],
-        quantity: updatedCart[existingIndex].quantity + 1,
-      };
-      setCart(updatedCart);
-    } else {
-      // If the product doesn't exist, add it to the cart with quantity 1
-      setCart([...cart, { ...prod, quantity: 1 }]);
-    }
+  //   if (existingIndex !== -1) {
+  //     // If the product already exists, update its quantity
+  //     const updatedCart = [...cart];
+  //     updatedCart[existingIndex] = {
+  //       ...updatedCart[existingIndex],
+  //       quantity: updatedCart[existingIndex].quantity + 1,
+  //     };
+  //     setCart(updatedCart);
+  //   } else {
+  //     // If the product doesn't exist, add it to the cart with quantity 1
+  //     setCart([...cart, { ...prod, quantity: 1 }]);
+  //   }
 
-    // Set snackbar message for the clicked product
-    setSnackbarMessage("Product added successfully!");
+  //   // Set snackbar message for the clicked product
+  //   setSnackbarMessage("Product added successfully!");
 
-    // Open the snackbar for the clicked product
-    const updatedSnackbarOpen = [...snackbarOpen];
-    updatedSnackbarOpen[index] = true;
-    setSnackbarOpen(updatedSnackbarOpen);
+  //   // Open the snackbar for the clicked product
+  //   const updatedSnackbarOpen = [...snackbarOpen];
+  //   updatedSnackbarOpen[index] = true;
+  //   setSnackbarOpen(updatedSnackbarOpen);
 
-    // Close the snackbar after 1 second
-    setTimeout(() => {
-      const updatedSnackbarOpen = [...snackbarOpen];
-      updatedSnackbarOpen[index] = false;
-      setSnackbarOpen(updatedSnackbarOpen);
-    }, 1000);
-  }
+  //   // Close the snackbar after 1 second
+  //   setTimeout(() => {
+  //     const updatedSnackbarOpen = [...snackbarOpen];
+  //     updatedSnackbarOpen[index] = false;
+  //     setSnackbarOpen(updatedSnackbarOpen);
+  //   }, 1000);
+  // }
 
   return (
     <div>

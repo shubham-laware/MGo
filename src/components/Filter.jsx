@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
 import HomeProducts from "../pages/Products";
 import myContext from "./context/MyContext.js";
- 
- 
+
+
 function Filter({ brand }) {
     const context = useContext(myContext);
-    const {selectedCategory , handleCategoryChange,handlePriceChange,selectedPrice} = context;
- 
- 
+    const { selectedCategory, handleCategoryChange, handlePriceChange, selectedPrice } = context;
+    console.log("selectedPrice", selectedPrice)
+
     return (
- 
+
         <>
             <div className="col-md-2 filter-s ">
                 <div className='shadow filter-bg'>
@@ -17,12 +17,12 @@ function Filter({ brand }) {
                         <div className="form-group mt-1">
                             <h6 htmlFor="distanceFilter">Filter</h6>
                             <label htmlFor="priceFilter">Set Distance</label>
- 
+
                             <select className="form-control rounded-pill mt-1" id="distanceFilter ">
                                 <option value="">All</option>
                                 <option value="5 miles">5 miles</option>
                                 <option value="10 miles">10 miles</option>
- 
+
                             </select>
                         </div>
                         <div className="form-group mt-1">
@@ -68,11 +68,11 @@ function Filter({ brand }) {
                     </form>
                 </div>
             </div>
- 
+
         </>
     )
- 
- 
+
+
 }
- 
+
 export default Filter;

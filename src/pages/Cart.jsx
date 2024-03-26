@@ -3,55 +3,31 @@ import { BsTrash3 } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useContext, useEffect } from "react";
 import myContext from "../components/context/MyContext";
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addQuantity, deleteQuantity, removeFromCart } from "../components/redux/Slices/CartSlice";
+
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const context = useContext(myContext);
-  const { cart, setCart ,totalQuantity} = context;
-  // const totalQuantity = cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
+  // const { totalQuantity } = context;
+ 
+  const cart = useSelector(state => state.cart);
+  const totalQuantity = cart?.reduce((total, cartItem) => total + cartItem.quantity, 0);
+  console.log(cart, "cart")
 
-  
 
   function calculateTotalPrice() {
     let totalPrice = 0;
     cart.forEach((cartItem) => {
-      totalPrice += parseInt(cartItem.product_price)*(cartItem.quantity);
+      totalPrice += parseInt(cartItem.product_price) * (cartItem.quantity);
     });
 
     return totalPrice;
   }
 
-  function AddQty(product_id) {
-    const index = cart.findIndex(item => item.product_id === product_id);
-    
-    if (index !== -1) {
-        const updatedCart = cart.map((cart_item, i) => {
-            if (i === index) {
-                return { ...cart_item, quantity: cart_item.quantity + 1 };
-            }
-            return cart_item;
-        });
 
-        setCart(updatedCart);
-    }
-}
-
-
-function DeleteQty(product_id) {
-  const index = cart.findIndex(item => item.product_id === product_id);
-  
-  if (index !== -1) {
-      const updatedCart = cart.map((cart_item, i) => {
-          if (i === index) {
-              // Ensure the quantity doesn't go below 1
-              const newQuantity = Math.max(cart_item.quantity - 1, 1);
-              return { ...cart_item, quantity: newQuantity };
-          }
-          return cart_item;
-      });
-
-      setCart(updatedCart);
-  }
-}
 
 
 
@@ -65,7 +41,7 @@ function DeleteQty(product_id) {
       size: "Xl, Sm, M, L",
       price: "₹299",
     },
-    { 
+    {
       id: 2,
       img: "http://localhost:5173/src/components/images/product.png",
       name: "Luxury Handmade Soap",
@@ -124,13 +100,22 @@ function DeleteQty(product_id) {
   ];
 
 
+//redux code start
+  const handleRemoveFromCart = (productId) => {
+    console.log("remove", productId)
+    dispatch(removeFromCart({ product_id: productId }));
+  };
 
-  function handdleRemoveFromCart(itemId) {
-    setCart((currentCart) =>
-      currentCart.filter((item) => item.product_id !== itemId)
-    );
+  const handleAddQty = (productId) => {
+    console.log("handleAddQty", productId)
+    dispatch(addQuantity({ product_id: productId }));
+  };
+
+  const DeleteQty=(productId)=>{
+    console.log("DeleteQty", productId)
+    dispatch(deleteQuantity({ product_id: productId }));
   }
-
+  
   return (
     <>
       <br></br>
@@ -177,7 +162,7 @@ function DeleteQty(product_id) {
                           <button
                             className="btn btn-danger mx-2"
                             onClick={() =>
-                              handdleRemoveFromCart(cart_item.product_id)
+                              handleRemoveFromCart(cart_item.product_id)
                             }
                           >
                             <BsTrash3 />
@@ -193,7 +178,7 @@ function DeleteQty(product_id) {
                             style={{ maxWidth: "300px" }}
                           >
                             <button className="btn btn-primary px-3 me-2"
-                            onClick={()=>DeleteQty(cart_item.product_id)}
+                              onClick={() => DeleteQty(cart_item.product_id)}
                             >
                               <i className="minus"> - </i>
                             </button>
@@ -213,13 +198,13 @@ function DeleteQty(product_id) {
 
                             </div>
                             <button className="btn btn-primary px-3 ms-2 "
-                            onClick={()=>AddQty(cart_item.product_id)}
+                              onClick={() => handleAddQty(cart_item.product_id)}
                             >
                               <i className="plus"> + </i>
                             </button>
                           </div>
                           <p className="text-start text-md-center">
-                            <strong>1 * {cart_item.product_price}</strong>
+                            <strong>{cart_item.quantity} * {cart_item.product_price}</strong>
                           </p>
                         </div>
                         <hr className="my-2" />
@@ -289,7 +274,7 @@ function DeleteQty(product_id) {
                         <p className="mb-0">(including VAT)</p>
                       </div>
                       <span>
-                        <strong>{calculateTotalPrice()+100} RS</strong>
+                        <strong>{calculateTotalPrice() + 100} RS</strong>
                       </span>
                     </li>
                   </ul>
