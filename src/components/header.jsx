@@ -20,10 +20,12 @@ import { useContext } from 'react';
 import myContext from '../components/context/MyContext.js';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { selectTotalQuantity } from '../components/redux/Slices/CartSlice.js';
 
 function Header() {
   const navigate = useNavigate();
-
+  const totalQuantity = useSelector(selectTotalQuantity);
+  console.log(totalQuantity,"totalQuantity")
   // State to manage the dropdown title
   const location = (
     <>
@@ -65,34 +67,12 @@ function Header() {
         return normalizedProductName.includes(normalizedQuery);
       });
       setSearchSuggestions(suggestions);
-
-
-      // //new
-      // const normalizedQuery = searchQuery.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
-      // const regex = new RegExp("^" + searchQuery, "i");
-      // const suggestions = products.filter((product) => {
-      //   product.product_name.toLowerCase().includes(searchQuery.toLowerCase());
-      //   const normalizedProductName = product.product_name
-      //     .toLowerCase()
-      //     .replace(/[^a-zA-Z0-9 ]/g, "").split(" ");
-      //   return normalizedProductName.some((word) => regex.test(word));
-      // });
-      // setSearchSuggestions(suggestions);
     } else {
       setSearchSuggestions([]);
     }
   }, [searchQuery, products]);
 
 
-
-  //for enter button
-  // const handleKeyPress = (e) => {
-  //   if (e.key === 'Enter') {
-  //     handleGoButton();
-  //   }
-  // };
-
-  // handle go button
   const handleGoButton = () => {
     if (searchQuery !== '') {
       navigate('/products', { state: { data: searchSuggestions } });
@@ -114,8 +94,6 @@ function Header() {
     }
   };
 
-  const cart = useSelector(state => state.cart);
- const totalQuantity = cart?.reduce((total, cartItem) => total + cartItem.quantity, 0);
 
   const login = (
     <span>

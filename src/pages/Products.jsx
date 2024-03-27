@@ -6,8 +6,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import StarRatings from "../components/ProductInfo/StarRatings.jsx";
 import { useContext } from "react";
 import myContext from "../components/context/MyContext.js";
-import { addToCart } from "../components/redux/Slices/CartSlice.js";
-import { useDispatch } from 'react-redux';
+import { addToCart,showSnackbar, hideSnackbar} from "../components/redux/Slices/CartSlice.js";
+import { useDispatch ,useSelector} from 'react-redux';
 
 const HomeProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -24,8 +24,6 @@ const HomeProducts = () => {
     setselectedPrice,
     searchQuery,
     setSearchQuery,
-    cart,
-    setCart,
     snackbarOpen,
     setSnackbarOpen,
     snackbarMessage,
@@ -37,11 +35,19 @@ const HomeProducts = () => {
   const category = queryParams.get("category");
 
   const dispatch = useDispatch();
-  const handleAddToCart = (product) => {
-    console.log("handle cart call")
-    console.log("handle cart call", product)
+  const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
+    dispatch(showSnackbar({ message: "Product added successfully!", index }));
+    console.log("index", index)
+
+    // Wait for 1 second, then hide snackbar
+    setTimeout(() => {
+      dispatch(hideSnackbar());
+    }, 1000)
   };
+  const cart = useSelector(state => state.cart);
+  console.log("carousel compo", cart.snackbar.open)
+
   useEffect(() => {
 
     // Apply price filtering
@@ -349,14 +355,14 @@ const HomeProducts = () => {
                         <p className="product-distance text-secondary ">
                           Distance: {product.distance}km away.
                         </p>
-                        {snackbarOpen[index] && (
-                          <div
-                            style={{ fontSize: "12px" }}
-                            className="border text-center rounded w-75 mx-auto"
-                          >
-                            Added successfully &#x2713;
-                          </div>
-                        )}
+                        {cart.snackbar.open && cart.snackbar.index === index &&(
+                      <div
+                        style={{ fontSize: "12px" }}
+                        className="border text-center rounded w-75 mx-auto"
+                      >
+                        {cart.snackbar.message}
+                      </div>
+                    )}
                       </div>
                     </a>
 
