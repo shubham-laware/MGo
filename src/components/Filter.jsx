@@ -1,12 +1,23 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import HomeProducts from "../pages/Products";
 import myContext from "./context/MyContext.js";
 
 
 function Filter({ brand }) {
     const context = useContext(myContext);
-    const { selectedCategory, handleCategoryChange, handlePriceChange, selectedPrice } = context;
-    console.log("selectedPrice", selectedPrice)
+    const { selectedCategory,setSelectedCategory,handleCategoryChange,  handlePriceChange, selectedPrice,products } = context;
+
+ 
+    useEffect(() => {
+
+        if(selectedCategory === `Men's Fashion`){
+           setSelectedCategory(`Men's Fashion`)
+        }else if(selectedCategory === `Women's Fashion`){
+            setSelectedCategory(`Women's Fashion`)
+        }
+    }, [selectedCategory]); 
+
+ 
 
     return (
 

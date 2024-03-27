@@ -1,4 +1,6 @@
 import React, { useState,useEffect, useContext } from 'react';
+import {  useLocation } from 'react-router-dom'; // Import useLocation hook
+
 import { Container, Row, Col, Button, Form, Card } from 'react-bootstrap';
 import { BiInfoCircle } from "react-icons/bi";
 import { FaStore } from "react-icons/fa6";  
@@ -14,11 +16,17 @@ import { addToCart } from './redux/Slices/CartSlice';
 
  
 const HomeProducts = () => {
+
 const dispatch = useDispatch();
+const location = useLocation();
     const [coordinates, setCoordinates] = useState('');
+    
     const context=useContext(myContext);
+    const { selectedCategory, setSelectedCategory,handleCategoryChange, handlePriceChange, selectedPrice,category } = context;
+
 
     const {products,snackbarOpen}=context;
+   
 
     const handleAddToCart = (product,index) => {
       console.log("handle cart call")
@@ -77,6 +85,8 @@ useEffect(() => {
     recordVisit();
   }
 }, [coordinates]); // Run the effect whenever coordinates change
+
+
 return(
 <>
  
@@ -89,17 +99,23 @@ return(
     <div className="col-6 col-md-3">
       <div className="subs-cat">
         <h4>Men's Fashion</h4>
-        <Link to={{ pathname: '/products', search: `?category=Men's Fashion` }}>
-        <button className="btn btn-outline-light rounded-pill">Shop Now</button>
-      </Link>     
+        <Link 
+            to={{ pathname: '/products', search: `?category=Men's Fashion` }} 
+            onClick={() => handleCategoryChange({ target: { value: "Men's Fashion" } })}
+          >
+            <button className="btn btn-outline-light rounded-pill">Shop Now</button>
+          </Link>
      </div>
     </div>
     <div className="col-6 col-md-3">
       <div className="subs-cat-2">
         <h4>Women Fashion</h4>
-        <Link to={{ pathname: '/products', search: `?category=Women's Fashion` }}>
-        <button className="btn btn-outline-light rounded-pill">Shop Now</button>
-      </Link>   
+        <Link 
+            to={{ pathname: '/products', search: `?category=Women's Fashion` }} 
+            onClick={() => handleCategoryChange({ target: { value: "Women's Fashion" } })}
+          >
+            <button className="btn btn-outline-light rounded-pill">Shop Now</button>
+          </Link>
       </div>
     </div>
     <div className=" col-6 col-md-3">
