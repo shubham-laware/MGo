@@ -13,9 +13,8 @@ const Cart = () => {
   const context = useContext(myContext);
   // const { totalQuantity } = context;
  
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector(state => state.cart.items);
   const totalQuantity = cart?.reduce((total, cartItem) => total + cartItem.quantity, 0);
-  console.log(cart, "cart")
 
 
   function calculateTotalPrice() {
@@ -23,12 +22,8 @@ const Cart = () => {
     cart.forEach((cartItem) => {
       totalPrice += parseInt(cartItem.product_price) * (cartItem.quantity);
     });
-
     return totalPrice;
   }
-
-
-
 
 
 
