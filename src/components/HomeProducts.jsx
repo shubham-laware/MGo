@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
+import {  useLocation } from 'react-router-dom'; // Import useLocation hook
 import { Container, Row, Col, Button, Form, Card } from 'react-bootstrap';
 import { BiInfoCircle } from "react-icons/bi";
 import { FaStore } from "react-icons/fa6";
@@ -14,11 +15,17 @@ import { addToCart } from './redux/Slices/CartSlice';
 
 
 const HomeProducts = () => {
-  const dispatch = useDispatch();
-  const [coordinates, setCoordinates] = useState('');
-  const context = useContext(myContext);
 
-  const { products, snackbarOpen } = context;
+const dispatch = useDispatch();
+const location = useLocation();
+    const [coordinates, setCoordinates] = useState('');
+    
+    const context=useContext(myContext);
+    const { selectedCategory, setSelectedCategory,handleCategoryChange, handlePriceChange, selectedPrice,category } = context;
+
+
+    const {products,snackbarOpen}=context;
+   
 
   const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
