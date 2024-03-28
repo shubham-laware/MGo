@@ -4,6 +4,11 @@ import { ListGroup, Image, Button } from "react-bootstrap";
 import axios from "axios";
 
 function Blog() {
+
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+      },[])
+      
     const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {

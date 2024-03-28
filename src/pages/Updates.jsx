@@ -9,6 +9,7 @@ function Updates() {
 
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         const fetchBlogs = async () => {
             try {
                 const response = await axios.get(

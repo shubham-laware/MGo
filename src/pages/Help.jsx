@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { topics } from "../components/help/topics";
 import Bot from "../components/help/Bot";
 import Topic from "../components/help/Topic";
 
 function Help() {
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
+
   const [searchTopic, setSearchedTopic] = useState("");
   const [chat, setChat] = useState("hidden");
   const [botVisibility, setBotVisbility] = useState(false);

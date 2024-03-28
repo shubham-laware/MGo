@@ -29,6 +29,10 @@ import Mystate from './components/context/MyState.jsx';
 
 import BecomePartner from "./pages/BecomePartner.jsx";
 import Increase from "./pages/Increase.jsx";
+import Accessories from './pages/Categories/Accessories.jsx';
+import Mens from './pages/Categories/Mens.jsx';
+import Womens from './pages/Categories/Womens.jsx';
+import Category from './pages/Category.jsx';
 
 const App = () => {
     const location = useLocation();
@@ -63,6 +67,10 @@ const App = () => {
                 <Route path="/feedback" element={<Feedback />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/products" element={<Products />} />
+                <Route path="/category" element={<Category/>}/>
+                <Route path='/accessories' element={<Accessories/>}/>
+                <Route path='/mens-category' element={<Mens/>}/>
+                <Route path='/womens-category' element={<Womens/>}/>
                 <Route path="/:id" element={<ProductInfo />} />
                 <Route path="/connect" element={<Connect />} />
                 <Route exact path="/contact" element={<ContactUs />} />

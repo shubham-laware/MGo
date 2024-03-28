@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import buildingIcon from "../assets/building.svg";
 import moneyIcon from "../assets/money.svg";
 import tablelist from "../assets/tablelist.svg";
@@ -6,6 +6,10 @@ import videoplaybak from "../assets/videoplayback.mp4";
 const fileUrl = "";
 
 function BecomePartner() {
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
+
   const handleDownloadVideo = () => {
     try {
       const link = document.createElement("a");

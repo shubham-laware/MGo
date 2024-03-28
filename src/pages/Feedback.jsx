@@ -1,4 +1,11 @@
+import { useEffect } from "react";
+
  function Feedback  ()   {
+
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
+
     return (
       <>
    <br></br>

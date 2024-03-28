@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Logo from '../components/images/minitgo.png';
+
 function ContactUs() {
+
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
+
   return (
     <div className='container py-5  ' style={{marginTop: 150}}>
       <div className='row'>
