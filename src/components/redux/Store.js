@@ -22,7 +22,10 @@ const persistedReducer = persistReducer(persistConfig, cartReducer);
 const store = configureStore({
   reducer: {
     cart: persistedReducer,
-  },
+  },middleware: (getDefaultMiddleware) =>
+  getDefaultMiddleware({
+    serializableCheck:false
+  }),
 });
 
 export const persistor = persistStore(store);

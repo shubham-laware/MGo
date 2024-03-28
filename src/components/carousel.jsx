@@ -35,7 +35,7 @@ export default function Carousel() {
         </div>
         <div className="d-flex gap-3 overflow-x-auto my-3">
           {products.map((prod, index) => (
-            <div className="prod px-4 shadow rounded bg-light ">
+            <div key={index} className="prod px-4 shadow rounded bg-light ">
               <a
                 href={`/${prod.product_id}`}
                 target="_blank"

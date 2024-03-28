@@ -19,7 +19,6 @@ const Register = () => {
     e.preventDefault();
     // Handle registration logic here
     // You can send the form data to the server or perform any other actions
-    console.log('Form submitted!');
   };
 
   const handleUseCurrentLocation = () => {
@@ -42,15 +41,12 @@ const Register = () => {
               setState(components.state || '');
             }
           } catch (error) {
-            console.log('Geocoding error:', error);
           }
         },
         (error) => {
-          console.log('Geolocation error:', error);
         }
       );
     } else {
-      console.log('Geolocation is not supported by this browser.');
     }
   };
 

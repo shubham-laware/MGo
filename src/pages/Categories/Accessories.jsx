@@ -52,7 +52,6 @@ const Accessories = () => {
   };
 
   const handleWishListToCart =(product,index)=>{
-    console.log("wishlist call",product)
     dispatch(addItemToWishlist(product));
     dispatch(showSnackbarForWishlist({ message: 'Item added to wishlist!',index }));
     setTimeout(() => {

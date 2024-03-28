@@ -26,14 +26,13 @@ const Profile = () => {
   }, [acceptedFiles]);
 
   function handleSave() {
-    console.log(`First Name: ${firstNameRef.current.value}`);
-    console.log(`Last Name: ${lastNameRef.current.value}`);
-    console.log(`Email: ${emailRef.current.value}`);
-    console.log(`Address: ${addressRef.current.value}`);
-    console.log(`Old Password: ${oldPasswordRef.current.value}`);
-    console.log(`New Password: ${newPasswordRef.current.value}`);
+    // console.log(`Last Name: ${lastNameRef.current.value}`);
+    // console.log(`Email: ${emailRef.current.value}`);
+    // console.log(`Address: ${addressRef.current.value}`);
+    // console.log(`Old Password: ${oldPasswordRef.current.value}`);
+    // console.log(`New Password: ${newPasswordRef.current.value}`);
 
-    console.log(`Profile Pic: ${profilePic}`);
+    // console.log(`Profile Pic: ${profilePic}`);
   }
 
   return (

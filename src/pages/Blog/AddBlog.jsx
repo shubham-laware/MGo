@@ -38,7 +38,6 @@ const AddBlog = () => {
                 "https://minitgo.com/api/insert_blog.php",
                 formData
             );
-            console.log(response.data);
         } catch (error) {
             console.error(error);
         }

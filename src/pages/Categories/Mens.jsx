@@ -35,7 +35,6 @@ const Mens = () => {
   const queryParams = new URLSearchParams(search);
   const suggestedData = queryParams.get("suggestion");
   const category = queryParams.get("category");
-  console.log("CATEGORY", category)
 
 
   if (selectedCategory !== "Men's Fashion") {
@@ -60,7 +59,6 @@ const Mens = () => {
   const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
     dispatch(showSnackbar({ message: "Product added successfully!", index }));
-    console.log("index", index)
 
     // Wait for 1 second, then hide snackbar
     setTimeout(() => {
@@ -69,7 +67,6 @@ const Mens = () => {
   };
 
   const handleWishListToCart =(product,index)=>{
-    console.log("wishlist call",product)
     dispatch(addItemToWishlist(product));
     dispatch(showSnackbarForWishlist({ message: 'Item added to wishlist!',index }));
     setTimeout(() => {
@@ -84,7 +81,6 @@ const Mens = () => {
     // Apply price filtering
     let productsToFilter = products;
     const lowerCategory = category.toLowerCase();
-    console.log(lowerCategory);
     setSelectedCategory("Men's Fashion")
     let mensProduct = productsToFilter.filter(
       (product) =>

@@ -194,11 +194,7 @@ function Header() {
                   </Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                {/* <NavDropdown.Item>
-                  <Link to="/register" className="text-decoration-none ">
-                    Minit-Pay{" "}
-                  </Link>
-                </NavDropdown.Item> */}
+          
                 <NavDropdown.Item>
                   <Link to="/register" className="text-decoration-none ">
                     {" "}
@@ -212,11 +208,12 @@ function Header() {
                   </Link>
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link eventKey={2}>
-                <Link to="/orders" className="text-decoration-none text-dark">
-                  Orders
-                </Link>
-              </Nav.Link>
+              <Link
+                to="/orders"
+                className="nav-link text-decoration-none text-dark"
+              >
+                Orders
+              </Link>
 
               {/* <Link to="/cart" className='text-secondary' style={{ fontSize: '33px', margin: '-5.8% 0 0 0' }}><BiCartAlt /></Link> */}
               <Link

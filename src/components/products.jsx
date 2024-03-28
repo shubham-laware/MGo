@@ -52,10 +52,7 @@ const ProductsPage = () => {
     setFilteredProducts(newFilteredProducts);
   };
 
-  const handleBuyNow = (productId) => {
-    // Handle buy now functionality for the selected product
-    console.log(`Buy Now: Product ${productId}`);
-  };
+ 
 
   const handleAddToCart = (productId) => {
     // Handle add to cart functionality for the selected product
