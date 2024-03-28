@@ -5,27 +5,21 @@ import { useContext, useEffect } from "react";
 import myContext from "../components/context/MyContext";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { addQuantity, deleteQuantity, removeFromCart } from "../components/redux/Slices/CartSlice";
+import { addQuantity, deleteQuantity, removeFromCart, deleteWishList } from "../components/redux/Slices/CartSlice";
+import { selectTotalQuantity } from '../components/redux/Slices/CartSlice.js';
 
 
 const Cart = () => {
   const dispatch = useDispatch();
   const context = useContext(myContext);
-  // const { totalQuantity } = context;
- 
-  const cart = useSelector(state => state.cart.items);
-  const totalQuantity = cart?.reduce((total, cartItem) => total + cartItem.quantity, 0);
-
 
   function calculateTotalPrice() {
     let totalPrice = 0;
-    cart.forEach((cartItem) => {
+    cartData.forEach((cartItem) => {
       totalPrice += parseInt(cartItem.product_price) * (cartItem.quantity);
     });
     return totalPrice;
   }
-
-
 
   const products = [
     {
@@ -95,22 +89,31 @@ const Cart = () => {
   ];
 
 
-//redux code start
+  //redux code start
+
+  const cart = useSelector(state => state.cart);
+  const cartData = cart.items;
+  const wishListData = cart.wishList;
+  const totalQuantity = useSelector(selectTotalQuantity);
+
   const handleRemoveFromCart = (productId) => {
-    console.log("remove", productId)
     dispatch(removeFromCart({ product_id: productId }));
   };
 
   const handleAddQty = (productId) => {
-    console.log("handleAddQty", productId)
     dispatch(addQuantity({ product_id: productId }));
   };
 
-  const DeleteQty=(productId)=>{
-    console.log("DeleteQty", productId)
+  const DeleteQty = (productId) => {
     dispatch(deleteQuantity({ product_id: productId }));
   }
-  
+
+
+  const handleDeleteFromWishList = (productId) => {
+    dispatch(deleteWishList({ product_id: productId }));
+  }
+
+
   return (
     <>
       <br></br>
@@ -127,7 +130,7 @@ const Cart = () => {
                   <h5 className="mb-0">Cart - {totalQuantity} items</h5>
                 </div>
                 <div className="card-body">
-                  {cart?.map((cart_item, index) => {
+                  {cartData?.map((cart_item, index) => {
                     return (
                       <div className="row my-2" key={index}>
                         <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
@@ -177,15 +180,6 @@ const Cart = () => {
                             >
                               <i className="minus"> - </i>
                             </button>
-                            {/* <input
-                              defaultValue={cart_item.quantity}
-                              value={cart_item.quantity}
-                              min={1}
-                              type="number"
-                              className="form-control text-center"
-                              placeholder="Quantity"
-                            /> */}
-
                             <div
                               className="form-control text-center"
                               placeholder="Quantity">
@@ -247,6 +241,77 @@ const Cart = () => {
                   />
                 </div>
               </div>
+
+
+              {/* wistlist */}
+              {wishListData?.length > 0 ? (<div className="row mt-4">
+                <div className="card">
+                  <div className="card-header py-2 rounded-pill">
+                    <h5 className="mb-0">WishList Items</h5>
+                  </div>
+                  <div className="d-flex scrollable-content gap-3  my-3 overflow-y-hidden">
+                    <div className="card">
+                      <div className="d-flex gap-3   overflow-x-auto my-1">
+                        {wishListData.map((prod, index) => (
+                          <div
+                            key={index}
+                            className="col-6 col-sm-3 py-2"
+                            style={{ width: "220px" }}
+                          >
+                            <div className="product-card">
+                              <div
+                                className="product-image"
+                                style={{ height: "250px" }}
+                              >
+                                <img
+                                  src={prod.product_image1}
+                                  alt="Product 1"
+                                  className="h-100 img-fluid"
+                                />
+                              </div>
+                              
+                              <div className="product-content">
+                                <h6>{prod.product_name} </h6>
+                                <h5>
+                                  Price: <sup>&#x20B9;</sup>
+                                  {prod.product_price}
+                                  <span className="text-decoration-line-through text-muted fs-6 fw-light">
+                                    599
+                                  </span>
+                                  <span
+                                    className="text-muted"
+                                    style={{
+                                      fontSize: "13px",
+                                    }}
+                                  >
+                                    {" "}
+                                    {prod.product_stock}
+                                  </span>
+                                </h5>
+                              </div>
+                              <div className="d-flex justify-content-center align-items-center ">
+                                <button
+                                  className="btn btn-dark mx-2"
+                                  onClick={() =>
+                                    handleDeleteFromWishList(prod.product_id)
+                                  }
+                                >
+                                  <BsTrash3 />
+                                </button>
+                                <button className="btn btn-dark w-100 mx-2 px-5">
+                                <Link to="/checkout" style={{ textDecoration: 'none', color: 'white' }}> Buy</Link>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>) : null
+              }
+
             </div>
             <div className="col-md-4">
               <div className="card mb-4">
@@ -317,8 +382,13 @@ const Cart = () => {
                   ))}
                 </div>
               </div>
+
+
             </div>
           </div>
+
+
+
         </div>
       </section>
     </>

@@ -45,10 +45,7 @@ function RightSection({ productId }) {
     dispatch(addToCart(product));
   };
 
-  // const handleBuy = () => {
-  //   navigate("/checkout")
-  // }
-
+ 
   return (
     <>
       {product && (
@@ -56,7 +53,7 @@ function RightSection({ productId }) {
           <div className=" d-flex flex-column gap-2 ">
             <div className="d-flex flex-column gap-2 ">
               <div className="d-flex">
-                <div className="bg-body-secondary  rounded p-2 d-flex align-items-center gap-2">
+                {/* <div className="bg-body-secondary  rounded p-2 d-flex align-items-center gap-2">
                   <span className="small">❤️ Wishlist</span>
                   <span className="small d-flex align-items-center">
                     <img
@@ -67,7 +64,7 @@ function RightSection({ productId }) {
                     />
                     Cart
                   </span>
-                </div>
+                </div> */}
               </div>
 
               <h2 style={{ textAlign: "justify" }}>{products.product_name}</h2>
