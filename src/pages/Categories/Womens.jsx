@@ -35,7 +35,6 @@ const Women = () => {
   const queryParams = new URLSearchParams(search);
   const suggestedData = queryParams.get("suggestion");
   const category = queryParams.get("category");
-  console.log("CATEGORY",category)
 
 
   if (selectedCategory !== "Women's Fashion") {
@@ -61,7 +60,6 @@ const Women = () => {
   const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
     dispatch(showSnackbar({ message: "Product added successfully!", index }));
-    console.log("index", index)
  
     // Wait for 1 second, then hide snackbar
     setTimeout(() => {
@@ -90,7 +88,6 @@ const Women = () => {
     // Apply price filtering
     let productsToFilter = products;
     const lowerCategory = category.toLowerCase();
-    console.log(lowerCategory);
       setSelectedCategory("Women's Fashion")
      let womensProduct = productsToFilter.filter(
   (product) =>

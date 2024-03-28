@@ -44,7 +44,6 @@ const HomeProducts = () => {
   const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
     dispatch(showSnackbar({ message: "Product added successfully!", index }));
-    console.log("index", index);
 
     // Wait for 1 second, then hide snackbar
     setTimeout(() => {
@@ -134,7 +133,6 @@ const HomeProducts = () => {
         setFilteredProducts(filtered);
       } else {
         productsToFilter = products;
-        console.log("EMPTY SEARCH", productsToFilter);
 
         if (selectedPrice !== "") {
           const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);

@@ -37,7 +37,6 @@ const Category = () => {
   const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
     dispatch(showSnackbar({ message: "Product added successfully!", index }));
-    console.log("index", index)
  
     // Wait for 1 second, then hide snackbar
     setTimeout(() => {
@@ -45,7 +44,6 @@ const Category = () => {
     }, 1000)
   };
   const cart = useSelector(state => state.cart);
-  console.log("carousel compo", cart.snackbar.open)
 
 
   if(accessoriesCategory !==""){
@@ -62,7 +60,6 @@ const Category = () => {
     }
   }, [selectedCategory, navigate]);
 
-  console.log("SELECTED CATEGORY",selectedCategory)
 
 
 
@@ -126,7 +123,6 @@ const Category = () => {
 
       }else{
         productsToFilter=products
-        console.log("PRODUCTS",productsToFilter)
         if (selectedPrice !== "") {
             const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
 
