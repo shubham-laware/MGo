@@ -6,8 +6,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import StarRatings from "../components/ProductInfo/StarRatings.jsx";
 import { useContext } from "react";
 import myContext from "../components/context/MyContext.js";
-import { addToCart } from "../components/redux/Slices/CartSlice.js";
-import { useDispatch } from "react-redux";
+import {
+  addToCart,
+  showSnackbar,
+  hideSnackbar,
+} from "../components/redux/Slices/CartSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 
 const HomeProducts = () => {
   useEffect(() => {
@@ -31,8 +35,6 @@ const HomeProducts = () => {
     setselectedPrice,
     searchQuery,
     setSearchQuery,
-    cart,
-    setCart,
     snackbarOpen,
     setSnackbarOpen,
     snackbarMessage,
@@ -44,11 +46,18 @@ const HomeProducts = () => {
   const category = queryParams.get("category");
 
   const dispatch = useDispatch();
-  const handleAddToCart = (product) => {
-    console.log("handle cart call");
-    console.log("handle cart call", product);
+  const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
+    dispatch(showSnackbar({ message: "Product added successfully!", index }));
+    console.log("index", index);
+
+    // Wait for 1 second, then hide snackbar
+    setTimeout(() => {
+      dispatch(hideSnackbar());
+    }, 1000);
   };
+  const cart = useSelector((state) => state.cart);
+  console.log("carousel compo", cart.snackbar.open);
 
   console.log("SELECTED CATEGORY", selectedCategory);
   if (selectedCategory !== "") {
@@ -90,9 +99,8 @@ const HomeProducts = () => {
         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
       );
 
-      productsToFilter=combinedProducts
-
-  }
+      productsToFilter = combinedProducts;
+    }
 
     // Apply category and search query filtering
     const menRegex = /^(men|man|mens|men's)/;
@@ -117,30 +125,32 @@ const HomeProducts = () => {
         setFilteredProducts(filtered);
       } else {
         productsToFilter = products;
-        console.log("EMPTY SEARCH",productsToFilter)
+        console.log("EMPTY SEARCH", productsToFilter);
 
-         if (selectedPrice !== "") {
-        const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
-  
-        const withinRangeProducts = productsToFilter.filter((product) => {
-          const price = parseInt(product.product_price);
-          return price >= minPrice && price <= maxPrice;
-        });
-  
-        const aboveRangeProducts = productsToFilter.filter((product) => {
-          const price = parseInt(product.product_price);
-          return price > maxPrice;
-        });
-  
-        let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
-  
-        combinedProducts.sort(
-          (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-        );
+        if (selectedPrice !== "") {
+          const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
 
-        productsToFilter=combinedProducts
+          const withinRangeProducts = productsToFilter.filter((product) => {
+            const price = parseInt(product.product_price);
+            return price >= minPrice && price <= maxPrice;
+          });
 
-    }
+          const aboveRangeProducts = productsToFilter.filter((product) => {
+            const price = parseInt(product.product_price);
+            return price > maxPrice;
+          });
+
+          let combinedProducts = [
+            ...withinRangeProducts,
+            ...aboveRangeProducts,
+          ];
+
+          combinedProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+          );
+
+          productsToFilter = combinedProducts;
+        }
 
         setFilteredProducts(productsToFilter);
       }
@@ -365,14 +375,15 @@ const HomeProducts = () => {
                         <p className="product-distance text-secondary ">
                           Distance: {product.distance}km away.
                         </p>
-                        {snackbarOpen[index] && (
-                          <div
-                            style={{ fontSize: "12px" }}
-                            className="border text-center rounded w-75 mx-auto"
-                          >
-                            Added successfully &#x2713;
-                          </div>
-                        )}
+                        {cart.snackbar.open &&
+                          cart.snackbar.index === index && (
+                            <div
+                              style={{ fontSize: "12px" }}
+                              className="border text-center rounded w-75 mx-auto"
+                            >
+                              {cart.snackbar.message}
+                            </div>
+                          )}
                       </div>
                     </a>
 

@@ -20,8 +20,9 @@ function ProductCard({ product, index }) {
   return (
     <div className="col-6 col-sm-3 py-2 w-100 ">
       <div className="product-card  ">
-        <Link
-          to={`/${product.product_id}`}
+        <a
+          href={`/${product.product_id}`}
+          target="_blank"
           style={{
             textDecoration: "none",
             color: "black",
@@ -53,16 +54,8 @@ function ProductCard({ product, index }) {
             <p className="product-distance text-secondary  pt-2">
               Distance: {product.distance}km away.
             </p>
-            {/* {snackbarOpen[index] && (
-              <div
-                style={{ fontSize: "12px" }}
-                className="border text-center rounded w-75 mx-auto"
-              >
-                Added successfully &#x2713;
-              </div>
-            )} */}
           </div>
-        </Link>
+        </a>
 
         <button
           onClick={() => handleAddToCart(product, index)}

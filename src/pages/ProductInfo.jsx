@@ -10,10 +10,10 @@ import Recommendations from '../components/ProductInfo/Recommendations';
 function ProductInfo() {
     const {id}=useParams();
 
-    useEffect(()=>{
-      window.scrollTo(0, 0);
-    },[id])
-     console.log('Product Id:',id)
+    // useEffect(()=>{
+    //   window.scrollTo(0, 0);
+    // },[id])
+    //  console.log('Product Id:',id)
      
   return (
     <main className="min-vh-100 py-4  px-md-5 " style={{marginTop:'125px'}}>

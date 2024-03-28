@@ -4,7 +4,7 @@ import StarRatings from "./StarRatings";
 import paypalIcon from "../../assets/paypal.svg";
 import mastercardIcon from "../../assets/mastercard.svg";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import myContext from "../context/MyContext";
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../components/redux/Slices/CartSlice';
@@ -42,13 +42,12 @@ function RightSection({ productId }) {
 
   const dispatch = useDispatch();
   const handleAddToCart = () => {
-    console.log("handle cart call")
-    console.log("handle cart call", product)
     dispatch(addToCart(product));
   };
-  const handleCheckout = () => {
-    navigate('/checkout')
-  }
+
+  // const handleBuy = () => {
+  //   navigate("/checkout")
+  // }
 
   return (
     <>
@@ -172,13 +171,10 @@ function RightSection({ productId }) {
                       Add to cart
                     </button>
 
+                   <Link  to="/checkout" className="w-50">
+                    <button className="btn btn-primary ms-3 my-3 w-100">Buy</button>
+                   </Link>
 
-                    <button
-                      className="btn btn-primary ms-3 my-3 w-50"
-                      onClick={handleCheckout}
-                    >
-                      Buy Now
-                    </button>
                   </div>
 
                 </div>
