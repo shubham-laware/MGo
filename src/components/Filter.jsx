@@ -5,7 +5,7 @@ import myContext from "./context/MyContext.js";
 
 function Filter({ brand }) {
     const context = useContext(myContext);
-    const { selectedCategory, handleCategoryChange, handlePriceChange, selectedPrice, accessoriesCategory,handleAccessoriesCategoryChange } = context;
+    const { selectedCategory, handleCategoryChange, handlePriceChange, selectedPrice, accessoriesCategory,handleAccessoriesCategoryChange,setSelectedCategory } = context;
     console.log("selectedPrice", selectedPrice)
 
  

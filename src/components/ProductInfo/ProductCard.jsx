@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import StarRatings from "./StarRatings";
 import myContext from "../context/MyContext";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from "../redux/Slices/CartSlice";
+import { showSnackbar,hideSnackbar } from "../redux/Slices/CartSlice";
 
 
 function ProductCard({ product, index }) {
@@ -11,11 +12,18 @@ function ProductCard({ product, index }) {
   // const context = useContext(myContext);
 
   // const { handleAddToCart,snackbarOpen } = context;
-  const handleAddToCart = (product,index) => {
-    console.log("handle cart call")
-    console.log("handle cart call", product)
+  const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
+    dispatch(showSnackbar({ message: "Product added successfully!", index }));
+    console.log("index", index)
+ 
+    // Wait for 1 second, then hide snackbar
+    setTimeout(() => {
+      dispatch(hideSnackbar());
+    }, 1000)
   };
+  const cart = useSelector(state => state.cart);
+  console.log("carousel compo", cart.snackbar.open)
 
   return (
     <div className="col-6 col-sm-3 py-2 w-100 ">
@@ -55,6 +63,14 @@ function ProductCard({ product, index }) {
               Distance: {product.distance}km away.
             </p>
           </div>
+          {cart.snackbar.open && cart.snackbar.index === index && (
+                            <div
+                              style={{ fontSize: "12px" }}
+                              className="border text-center rounded w-75 mx-auto"
+                            >
+                              {cart.snackbar.message}
+                            </div>
+                          )}
         </a>
 
         <button

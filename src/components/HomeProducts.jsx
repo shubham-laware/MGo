@@ -9,8 +9,9 @@ import Ban from './images/product.png'
 import myContext from './context/MyContext';
 import { Link } from 'react-router-dom';
 import StarRatings from './ProductInfo/StarRatings';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from './redux/Slices/CartSlice';
+import { showSnackbar,hideSnackbar } from './redux/Slices/CartSlice';
 
  
 const HomeProducts = () => {
@@ -18,13 +19,19 @@ const dispatch = useDispatch();
     const [coordinates, setCoordinates] = useState('');
     const context=useContext(myContext);
 
-    const {products,snackbarOpen}=context;
-
-    const handleAddToCart = (product,index) => {
-      console.log("handle cart call")
-      console.log("handle cart call", product)
+    const {products}=context;
+    const handleAddToCart = (product, index) => {
       dispatch(addToCart(product));
+      dispatch(showSnackbar({ message: "Product added successfully!", index }));
+      console.log("index", index)
+   
+      // Wait for 1 second, then hide snackbar
+      setTimeout(() => {
+        dispatch(hideSnackbar());
+      }, 1000)
     };
+    const cart = useSelector(state => state.cart);
+    console.log("carousel compo", cart.snackbar.open)
 
 useEffect(() => {
   handleUseCurrentLocation();
@@ -281,14 +288,14 @@ return(
                           <p className="product-distance text-secondary ">
                             Distance: {product.distance}km away.
                           </p>
-                          {snackbarOpen[index] && (
-                        <div
-                          style={{ fontSize: "12px" }}
-                          className="border text-center rounded w-75 mx-auto"
-                        >
-                          Added successfully &#x2713;
-                        </div>
-                      )}
+                          {cart.snackbar.open && cart.snackbar.index === index && (
+                            <div
+                              style={{ fontSize: "12px" }}
+                              className="border text-center rounded w-75 mx-auto"
+                            >
+                              {cart.snackbar.message}
+                            </div>
+                          )}
                         </div>
                       </a>
                      
