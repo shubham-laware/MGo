@@ -9,10 +9,7 @@ const Mystate = (props) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [cart, setCart] = useState([]);
-  const totalQuantity = cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
-  const [snackbarOpen, setSnackbarOpen] = useState([]);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
+
 
   useEffect(() => {
     axios
@@ -60,13 +57,6 @@ const Mystate = (props) => {
           searchQuery,
           setSearchQuery,
           handleSearchInputChange,
-          cart,
-          setCart,
-          totalQuantity,
-          snackbarOpen,
-          setSnackbarOpen,
-          snackbarMessage,
-          setSnackbarMessage
         }}
       >
         {props.children}

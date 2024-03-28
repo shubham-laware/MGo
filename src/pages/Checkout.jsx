@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 
 import { useContext } from "react";
-import myContext from "../components/context/MyContext";
+
+import { useSelector } from "react-redux";
 
 export const Checkout = () => {
-  const context = useContext(myContext);
-  const { cart, setCart } = context;
+  const cart = useSelector(state => state.cart.items);
+  console.log("CART",cart)
 
   function calculateTotalPrice() {
     let totalPrice = 0;
-    cart.forEach((cartItem) => {
+    cart?.forEach((cartItem) => {
       totalPrice += parseInt(cartItem.product_price);
     });
 

@@ -6,7 +6,8 @@ import StarRatings from "../../components/ProductInfo/StarRatings.jsx";
 import { useContext } from "react";
 import myContext from "../../components/context/MyContext.js";
 import { addToCart } from "../../components/redux/Slices/CartSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { showSnackbar,hideSnackbar } from "../../components/redux/Slices/CartSlice.js";
 
 const Accessories = () => {
   useEffect(() => {
@@ -28,15 +29,9 @@ const Accessories = () => {
     setAccessoriesCategory,
     products,
     selectedPrice,
-    setselectedPrice,
-    searchQuery,
+  
     setSearchQuery,
-    cart,
-    setCart,
-    snackbarOpen,
-    setSnackbarOpen,
-    snackbarMessage,
-    setSnackbarMessage,
+    
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -44,11 +39,18 @@ const Accessories = () => {
   const category = queryParams.get("category");
 
   const dispatch = useDispatch();
-  const handleAddToCart = (product) => {
-    console.log("handle cart call");
-    console.log("handle cart call", product);
+  const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
+    dispatch(showSnackbar({ message: "Product added successfully!", index }));
+    console.log("index", index)
+ 
+    // Wait for 1 second, then hide snackbar
+    setTimeout(() => {
+      dispatch(hideSnackbar());
+    }, 1000)
   };
+  const cart = useSelector(state => state.cart);
+  console.log("carousel compo", cart.snackbar.open)
 
   if (selectedCategory !== "") {
     const url = `/category?selectedCategory=${encodeURIComponent(
@@ -129,7 +131,7 @@ const Accessories = () => {
 
     setFilteredProducts(filtered);
 
-    setSnackbarOpen(Array(products.length).fill(false));
+ 
   }, [products, selectedPrice, accessoriesCategory]);
 
   return (
@@ -205,14 +207,14 @@ const Accessories = () => {
                         <p className="product-distance text-secondary ">
                           Distance: {product.distance}km away.
                         </p>
-                        {snackbarOpen[index] && (
-                          <div
-                            style={{ fontSize: "12px" }}
-                            className="border text-center rounded w-75 mx-auto"
-                          >
-                            Added successfully &#x2713;
-                          </div>
-                        )}
+                        {cart.snackbar.open && cart.snackbar.index === index && (
+                            <div
+                              style={{ fontSize: "12px" }}
+                              className="border text-center rounded w-75 mx-auto"
+                            >
+                              {cart.snackbar.message}
+                            </div>
+                          )}
                       </div>
                     </a>
 

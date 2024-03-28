@@ -7,7 +7,8 @@ import StarRatings from "../components/ProductInfo/StarRatings.jsx";
 import { useContext } from "react";
 import myContext from "../components/context/MyContext.js";
 import { addToCart } from "../components/redux/Slices/CartSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { showSnackbar,hideSnackbar } from "../components/redux/Slices/CartSlice.js";
 
 const Category = () => {
   useEffect(() => {
@@ -29,23 +30,22 @@ const Category = () => {
     setAccessoriesCategory,
     products,
     selectedPrice,
-    setselectedPrice,
-    searchQuery,
     setSearchQuery,
-    cart,
-    setCart,
-    snackbarOpen,
-    setSnackbarOpen,
-    snackbarMessage,
-    setSnackbarMessage,
   } = context;
 
   const dispatch = useDispatch();
-  const handleAddToCart = (product) => {
-    console.log("handle cart call");
-    console.log("handle cart call", product);
+  const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
+    dispatch(showSnackbar({ message: "Product added successfully!", index }));
+    console.log("index", index)
+ 
+    // Wait for 1 second, then hide snackbar
+    setTimeout(() => {
+      dispatch(hideSnackbar());
+    }, 1000)
   };
+  const cart = useSelector(state => state.cart);
+  console.log("carousel compo", cart.snackbar.open)
 
 
   if(accessoriesCategory !==""){
@@ -92,11 +92,9 @@ const Category = () => {
                 return price >= minPrice && price <= maxPrice;
             });
 
-            // Sort filtered products by price in ascending order
             filtered.sort((a, b) => parseFloat(a.product_price) - parseFloat(b.product_price));
         }
 
-        // If no products match the filters, set filtered products to all accessories of the selected category
         if (filtered.length === 0) {
             filtered = [...productsToFilter];
             filtered.sort((a, b) => parseFloat(a.product_price) - parseFloat(b.product_price));
@@ -104,7 +102,6 @@ const Category = () => {
 
         setFilteredProducts(filtered);
         } else {
-          // If no products found for the selected category, set filtered products to all products
           productsToFilter = products;
           let filtered = [...productsToFilter];
           if (selectedPrice !== "") {
@@ -115,7 +112,6 @@ const Category = () => {
                 return price >= minPrice && price <= maxPrice;
             });
 
-            // Sort filtered products by price in ascending order
             filtered.sort((a, b) => parseFloat(a.product_price) - parseFloat(b.product_price));
         }
 
@@ -139,7 +135,6 @@ const Category = () => {
                 return price >= minPrice && price <= maxPrice;
             });
 
-            // Sort filtered products by price in ascending order
             productsToFilter.sort((a, b) => parseFloat(a.product_price) - parseFloat(b.product_price));
         }
         setFilteredProducts(productsToFilter)
@@ -227,14 +222,14 @@ const Category = () => {
                         <p className="product-distance text-secondary ">
                           Distance: {product.distance}km away.
                         </p>
-                        {snackbarOpen[index] && (
-                          <div
-                            style={{ fontSize: "12px" }}
-                            className="border text-center rounded w-75 mx-auto"
-                          >
-                            Added successfully &#x2713;
-                          </div>
-                        )}
+                        {cart.snackbar.open && cart.snackbar.index === index && (
+                            <div
+                              style={{ fontSize: "12px" }}
+                              className="border text-center rounded w-75 mx-auto"
+                            >
+                              {cart.snackbar.message}
+                            </div>
+                          )}
                       </div>
                     </a>
 

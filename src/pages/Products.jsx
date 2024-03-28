@@ -32,13 +32,7 @@ const HomeProducts = () => {
     setAccessoriesCategory,
     products,
     selectedPrice,
-    setselectedPrice,
     searchQuery,
-    setSearchQuery,
-    snackbarOpen,
-    setSnackbarOpen,
-    snackbarMessage,
-    setSnackbarMessage,
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -158,149 +152,10 @@ const HomeProducts = () => {
       setFilteredProducts(productsToFilter);
     }
 
-    setSnackbarOpen(Array(productsToFilter.length).fill(false));
   }, [products, searchQuery, selectedPrice]);
 
-  //   useEffect(()=>{
+ 
 
-  //     let productsToFilter = products;
-  //     if(accessoriesCategory!==""){
-  //     let accessoriesProducts = productsToFilter.filter(
-  //       (product) =>
-  //           product.category.toLowerCase().includes("footwear") ||
-  //           product.product_name.toLowerCase().includes("sneakers") ||
-  //           product.product_name.toLowerCase().includes("jacket") ||
-  //           product.product_name.toLowerCase().includes("shoes")
-  //   );
-
-  //   // Apply additional filtering based on selected accessories category
-  //   if (accessoriesCategory.toLowerCase() === "mens") {
-  //       setSelectedCategory("")
-  //       accessoriesProducts = accessoriesProducts.filter(
-  //           (product) =>
-  //               product.category.toLowerCase().startsWith("men") ||
-  //               product.product_name.toLowerCase().startsWith("men")
-  //       );
-  //   } else if (accessoriesCategory.toLowerCase() === "womens") {
-  //       setSelectedCategory("")
-  //       accessoriesProducts = accessoriesProducts.filter(
-  //           (product) =>
-  //               product.category.toLowerCase().includes("women") ||
-  //               product.product_name.toLowerCase().includes("women")
-  //       );
-  //   } else if (accessoriesCategory.toLowerCase() === "kids") {
-  //       accessoriesProducts = accessoriesProducts.filter(
-  //           (product) =>
-  //               product.category.toLowerCase().includes("kids") ||
-  //               product.product_name.toLowerCase().includes("kids")
-  //       );
-  //   }else{
-  //     // accessoriesProducts=products;
-  //     console.log("ACCESSORIES:",accessoriesProducts)
-  //   }
-
-  //   let filtered = [...accessoriesProducts]; // Copy the accessories products array
-
-  //   if (selectedPrice !== "") {
-  //     const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
-
-  //     const withinRangeProducts = filtered.filter((product) => {
-  //       const price = parseInt(product.product_price);
-  //       return price >= minPrice && price <= maxPrice;
-  //     });
-
-  //     const aboveRangeProducts = filtered.filter((product) => {
-  //       const price = parseInt(product.product_price);
-  //       return price > maxPrice;
-  //     });
-
-  //     let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
-
-  //     combinedProducts.sort(
-  //       (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-  //     );
-
-  //     console.log("COMBINED PRODUCTS:",combinedProducts)
-
-  //     if (products.length === 0 && aboveRangeProducts.length > 0) {
-  //       console.log("IF")
-  //       productsToFilter = aboveRangeProducts;
-  //       setRecommendedHeading(true);
-  //     } else {
-  //       console.log("ELSE")
-  //       filtered = combinedProducts;
-  //       console.log("FILTERED:",filtered)
-  //       setRecommendedHeading(false);
-  //     }
-  //   }
-
-  //   console.log("OUTER FILTERED:",filtered)
-  //   productsToFilter=filtered
-  // }
-  // setFilteredProducts(productsToFilter);
-
-  //   },[accessoriesCategory,selectedPrice])
-
-  // useEffect(() => {
-  //   // Apply category and search query filtering
-
-  //   if (searchQuery === "" && (category === "" || category === null)) {
-  //     const menRegex = /^(men|man|mens|men's)/;
-
-  //     let productsToFilter = products;
-
-  //     // Apply category filtering
-  //     if (selectedCategory !== "") {
-  //       setSearchQuery("");
-
-  //       const lowerCaseSelectedCategory = selectedCategory.toLowerCase();
-
-  //       const filteredByCategory = products.filter((product) => {
-  //         const lowerCaseProductCategory = product.category.toLowerCase();
-  //         return lowerCaseProductCategory === lowerCaseSelectedCategory;
-  //       });
-
-  //       if (filteredByCategory.length > 0) {
-  //         productsToFilter = filteredByCategory;
-  //       } else {
-  //         // If no products found for the selected category, set filtered products to all products
-  //         productsToFilter = products;
-  //       }
-  //     }
-
-  //     // Apply price filtering
-  //     if (selectedPrice !== "") {
-  //       const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
-
-  //       const withinRangeProducts = productsToFilter.filter((product) => {
-  //         const price = parseInt(product.product_price);
-  //         return price >= minPrice && price <= maxPrice;
-  //       });
-
-  //       const aboveRangeProducts = productsToFilter.filter((product) => {
-  //         const price = parseInt(product.product_price);
-  //         return price > maxPrice;
-  //       });
-
-  //       let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
-
-  //       combinedProducts.sort(
-  //         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-  //       );
-
-  //       // Set the filtered products to products within price range
-  //       productsToFilter = combinedProducts;
-  //     }
-
-  //     // Update filtered products state
-  //     setFilteredProducts(productsToFilter);
-
-  //     // Update recommendedHeading state
-  //     setRecommendedHeading(productsToFilter.length === 0);
-  //   }
-  // }, [products, selectedCategory, selectedPrice]);
-
-  useEffect(() => {}, []);
 
   return (
     <>

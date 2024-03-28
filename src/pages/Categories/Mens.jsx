@@ -6,7 +6,8 @@ import StarRatings from "../../components/ProductInfo/StarRatings.jsx";
 import { useContext } from "react";
 import myContext from "../../components/context/MyContext.js";
 import { addToCart } from "../../components/redux/Slices/CartSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { showSnackbar,hideSnackbar } from "../../components/redux/Slices/CartSlice.js";
 
 const Mens = () => {
   useEffect(() => {
@@ -28,15 +29,7 @@ const Mens = () => {
     setAccessoriesCategory,
     products,
     selectedPrice,
-    setselectedPrice,
-    searchQuery,
     setSearchQuery,
-    cart,
-    setCart,
-    snackbarOpen,
-    setSnackbarOpen,
-    snackbarMessage,
-    setSnackbarMessage,
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -62,11 +55,18 @@ const Mens = () => {
 
 
   const dispatch = useDispatch();
-  const handleAddToCart = (product) => {
-    console.log("handle cart call");
-    console.log("handle cart call", product);
+  const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
+    dispatch(showSnackbar({ message: "Product added successfully!", index }));
+    console.log("index", index)
+ 
+    // Wait for 1 second, then hide snackbar
+    setTimeout(() => {
+      dispatch(hideSnackbar());
+    }, 1000)
   };
+  const cart = useSelector(state => state.cart);
+  console.log("carousel compo", cart.snackbar.open)
 
   useEffect(() => {
     setSearchQuery("");
@@ -112,83 +112,6 @@ productsToFilter=mensProduct;
 
  
 
-  // useEffect(() => {
-  //   let productsToFilter = products;
-  //     let accessoriesProducts = productsToFilter.filter(
-  //       (product) =>
-  //         product.category.toLowerCase().includes("footwear") ||
-  //         product.product_name.toLowerCase().includes("sneakers") ||
-  //         product.product_name.toLowerCase().includes("jacket") ||
-  //         product.product_name.toLowerCase().includes("shoes")
-  //     );
-  //   // Apply price filtering
-  //   if(accessoriesCategory.toLowerCase()==="mens" || accessoriesCategory.toLowerCase()==="womens" || accessoriesCategory.toLowerCase()==="kids"){
-
-  //     // Apply additional filtering based on selected accessories category
-  //     if (accessoriesCategory.toLowerCase() === "mens") {
-  //       setSelectedCategory("");
-  //       accessoriesProducts = accessoriesProducts.filter(
-  //         (product) =>
-  //           product.category.toLowerCase().startsWith("men") ||
-  //           product.product_name.toLowerCase().startsWith("men")
-  //       );
-  //     } else if (accessoriesCategory.toLowerCase() === "womens") {
-  //       setSelectedCategory("");
-  //       accessoriesProducts = accessoriesProducts.filter(
-  //         (product) =>
-  //           product.category.toLowerCase().includes("women") ||
-  //           product.product_name.toLowerCase().includes("women")
-  //       );
-  //     } else if (accessoriesCategory.toLowerCase() === "kids") {
-  //       accessoriesProducts = accessoriesProducts.filter(
-  //         (product) =>
-  //           product.category.toLowerCase().includes("kids") ||
-  //           product.product_name.toLowerCase().includes("kids")
-  //       );
-  //     }
-
-  //     let filtered = [...accessoriesProducts]; // Copy the accessories products array
-
-  //     if (selectedPrice !== "") {
-  //       const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
-
-  //       filtered = filtered.filter((product) => {
-  //         const price = parseInt(product.product_price);
-  //         return price >= minPrice && price <= maxPrice;
-  //       });
-
-  //       // Sort filtered products by price in ascending order
-  //       filtered.sort(
-  //         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-  //       );
-  //     }
-
-  //     // If no products match the filters, set filtered products to all accessories of the selected category
-  //     if (filtered.length === 0) {
-  //       filtered = [...accessoriesProducts];
-  //       filtered.sort(
-  //         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-  //       );
-  //     }
-
-  //     setFilteredProducts(filtered);
-  //     return
-  //   }
-  //   if(accessoriesCategory.toLowerCase()==="allaccessories"){
-  //     setFilteredProducts(productsToFilter)
-  //   }
-    
-
-  // }, [selectedPrice, accessoriesCategory]);
-
-  // useEffect(()=>{
-  //   setAccessoriesCategory("")
-  // },[selectedCategory])
-  // useEffect(() => {
-  //   return () => {
-  //     setAccessoriesCategory("");
-  //   };
-  // }, []);
 
   return (
     <>
@@ -263,14 +186,14 @@ productsToFilter=mensProduct;
                         <p className="product-distance text-secondary ">
                           Distance: {product.distance}km away.
                         </p>
-                        {snackbarOpen[index] && (
-                          <div
-                            style={{ fontSize: "12px" }}
-                            className="border text-center rounded w-75 mx-auto"
-                          >
-                            Added successfully &#x2713;
-                          </div>
-                        )}
+                        {cart.snackbar.open && cart.snackbar.index === index && (
+                            <div
+                              style={{ fontSize: "12px" }}
+                              className="border text-center rounded w-75 mx-auto"
+                            >
+                              {cart.snackbar.message}
+                            </div>
+                          )}
                       </div>
                     </a>
 
