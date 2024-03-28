@@ -15,7 +15,7 @@ export default function Carousel() {
     dispatch(addToCart(product));
     dispatch(showSnackbar({ message: "Product added successfully!", index }));
     console.log("index", index)
- 
+
     // Wait for 1 second, then hide snackbar
     setTimeout(() => {
       dispatch(hideSnackbar());
@@ -53,15 +53,7 @@ export default function Carousel() {
                       <p className="text-muted">{prod.product_discription}</p>
                       <p className="text-muted">{prod.product_size}</p>
                     </div>
-                    {/* {snackbarOpen[index] && (
-                      <div
-                        style={{ fontSize: "12px" }}
-                        className="border text-center rounded w-75 mx-auto"
-                      >
-                        Added successfully &#x2713;
-                      </div>
-                    )} */}
-                    {cart.snackbar.open && cart.snackbar.index === index &&(
+                    {cart.snackbar.open && cart.snackbar.index === index && (
                       <div
                         style={{ fontSize: "12px" }}
                         className="border text-center rounded w-75 mx-auto"

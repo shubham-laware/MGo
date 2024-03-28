@@ -11,6 +11,7 @@ const cartSlice = createSlice({
       index: -1,
     },
     totalQuantity: 0, // Add totalQuantity to the initial state
+    wishList: [], // This will hold the list of wishlist items
   },
   reducers: {
     addToCart(state, action) {
@@ -53,11 +54,29 @@ const cartSlice = createSlice({
     hideSnackbar(state) {
       state.snackbar.open = false;
     },
+    addItemToWishlist: (state, action) => {
+      state.wishList.push(action.payload); // Directly mutating the state is safe inside createSlice
+    },
+
+    deleteWishList(state, action) {
+      const { product_id } = action.payload;
+      // Completely remove the item from the wishlist
+      state.wishList = state.wishList.filter(item => item.product_id !== product_id);
+    },
+    showSnackbarForWishlist(state, action) {
+      const { message, index } = action.payload;
+      state.snackbar = { message, open: true, index };
+    },
+    
+    hideSnackbarForWishlist(state) {
+      state.snackbar.open = false;
+    },
   },
- 
+
 });
 
-export const { addToCart ,removeFromCart,addQuantity,deleteQuantity,showSnackbar, hideSnackbar} = cartSlice.actions;
+export const { addToCart, removeFromCart, addQuantity, deleteQuantity, showSnackbar, hideSnackbar,addItemToWishlist,deleteWishList,
+  showSnackbarForWishlist,hideSnackbarForWishlist } = cartSlice.actions;
 
 // Selector function to compute the total quantity
 export const selectTotalQuantity = state => state.cart.totalQuantity;
