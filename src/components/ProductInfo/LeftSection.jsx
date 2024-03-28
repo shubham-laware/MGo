@@ -14,8 +14,7 @@ function LeftSection({ productId }) {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
   const id = productId;
-  console.log("products", products)
-  console.log("product", product)
+
 
   useEffect(() => {
     axios
