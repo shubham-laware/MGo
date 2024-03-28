@@ -37,6 +37,7 @@ function RightSection({ productId }) {
     const fProduct = item[0];
     if (fProduct) {
       setProduct(fProduct);
+      console.log("RATINGS:",product)
     }
   }, [id, products])
 
@@ -45,6 +46,7 @@ function RightSection({ productId }) {
     dispatch(addToCart(product));
   };
 
+ 
  
   return (
     <>
@@ -67,12 +69,11 @@ function RightSection({ productId }) {
                 </div> */}
               </div>
 
-              <h2 style={{ textAlign: "justify" }}>{products.product_name}</h2>
+              <h2 style={{ textAlign: "justify" }}>{product.product_name}</h2>
 
               <div className="d-flex  gap-4 align-items-center w-100 ">
                 <div className="d-flex align-items-center  gap-2 ">
-                  <StarRatings rating={products.product_ratings} />
-                  <span className="small pt-1">{products.product_ratings}</span>
+                  <StarRatings rating={product.product_ratings} />
                 </div>
 
                 <span className="small pt-1">2347 Reviews</span>
