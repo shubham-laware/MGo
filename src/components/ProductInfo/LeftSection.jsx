@@ -4,6 +4,8 @@ import StarRatings from "./StarRatings";
 import storeIcon from "../../assets/store.svg";
 import axios from "axios";
 
+
+
 function LeftSection({ productId, scrollToReviews }) {
     const [product, setProduct] = useState(null);
 
