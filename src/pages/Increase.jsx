@@ -1,6 +1,10 @@
+import { useEffect } from "react";
 import "../components/Increase.css";
 
 const Increase = () => {
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
   return (
     <div
       className="container d-flex flex-column gap-3"

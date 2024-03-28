@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 const AddBlog = () => {
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+      },[])
+
     const [formData, setFormData] = useState({
         title: "",
         description_1: "",

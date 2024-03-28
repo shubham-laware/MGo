@@ -5,7 +5,8 @@ import myContext from "./context/MyContext.js";
 
 function Filter({ brand }) {
     const context = useContext(myContext);
-    const { selectedCategory,setSelectedCategory,handleCategoryChange,  handlePriceChange, selectedPrice,products } = context;
+    const { selectedCategory, handleCategoryChange, handlePriceChange, selectedPrice, accessoriesCategory,handleAccessoriesCategoryChange } = context;
+    console.log("selectedPrice", selectedPrice)
 
  
     useEffect(() => {
@@ -50,7 +51,7 @@ function Filter({ brand }) {
                         <div className="form-group mt-1">
                             <label htmlFor="categoryFilter">Category</label>
                             <select className="form-control rounded-pill mt-1" id="categoryFilter" onChange={handleCategoryChange} value={selectedCategory}>
-                                <option value="">All</option>
+                                <option value="AllCategory">All</option>
                                 <option value="Women's Fashion">Womens</option>
                                 <option value="Men's Fashion">Mens</option>
                                 <option value="Kids Fashion">Kids</option>
@@ -60,8 +61,8 @@ function Filter({ brand }) {
                         </div>
                         <div className="form-group mt-1">
                             <label htmlFor="accesFilter">Accessories</label>
-                            <select className="form-control rounded-pill mt-1" id="accesFilter">
-                                <option value="">All</option>
+                            <select className="form-control rounded-pill mt-1" id="accesFilter" onChange={handleAccessoriesCategoryChange} value={accessoriesCategory}> 
+                                <option value="AllAccessories">All</option>
                                 <option value="Mens">Mens</option>
                                 <option value="Womens">Womens</option>
                                 <option value="Kids">Kids</option>

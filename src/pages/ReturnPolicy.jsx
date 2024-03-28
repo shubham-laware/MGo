@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function ReturnPolicy() {
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
+
   return (
     <div className=" py-1 mt-5">
         <div className=' container  mt-5 py-4'>

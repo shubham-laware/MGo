@@ -5,6 +5,7 @@ import axios from "axios";
 const Mystate = (props) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPrice, setselectedPrice] = useState("");
+  const [accessoriesCategory,setAccessoriesCategory]=useState("")
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,6 +29,10 @@ const Mystate = (props) => {
     setSelectedCategory(event.target.value);
   };
 
+  const handleAccessoriesCategoryChange=(event)=>{
+    setAccessoriesCategory(event.target.value)
+  }
+
   const handlePriceChange = (event) => {
     setselectedPrice(event.target.value);
   };
@@ -38,41 +43,6 @@ const Mystate = (props) => {
   };
 
 
-  // function handleAddToCart(prod, index) {
-  //   // Check if the product already exists in the cart
-  //   const existingIndex = cart.findIndex(
-  //     (item) => item.product_id === prod.product_id
-  //   );
-
-  //   if (existingIndex !== -1) {
-  //     // If the product already exists, update its quantity
-  //     const updatedCart = [...cart];
-  //     updatedCart[existingIndex] = {
-  //       ...updatedCart[existingIndex],
-  //       quantity: updatedCart[existingIndex].quantity + 1,
-  //     };
-  //     setCart(updatedCart);
-  //   } else {
-  //     // If the product doesn't exist, add it to the cart with quantity 1
-  //     setCart([...cart, { ...prod, quantity: 1 }]);
-  //   }
-
-  //   // Set snackbar message for the clicked product
-  //   setSnackbarMessage("Product added successfully!");
-
-  //   // Open the snackbar for the clicked product
-  //   const updatedSnackbarOpen = [...snackbarOpen];
-  //   updatedSnackbarOpen[index] = true;
-  //   setSnackbarOpen(updatedSnackbarOpen);
-
-  //   // Close the snackbar after 1 second
-  //   setTimeout(() => {
-  //     const updatedSnackbarOpen = [...snackbarOpen];
-  //     updatedSnackbarOpen[index] = false;
-  //     setSnackbarOpen(updatedSnackbarOpen);
-  //   }, 1000);
-  // }
-
   return (
     <div>
       <myContext.Provider
@@ -80,6 +50,9 @@ const Mystate = (props) => {
           selectedCategory,
           setSelectedCategory,
           handleCategoryChange,
+          accessoriesCategory,
+          setAccessoriesCategory,
+          handleAccessoriesCategoryChange,
           products,
           handlePriceChange,
           setselectedPrice,
@@ -90,7 +63,6 @@ const Mystate = (props) => {
           cart,
           setCart,
           totalQuantity,
-
           snackbarOpen,
           setSnackbarOpen,
           snackbarMessage,

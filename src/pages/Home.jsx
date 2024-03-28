@@ -3,9 +3,13 @@ import HomeProducts from "../components/HomeProducts";
 import DiscountProduct from "../components/DiscountProduct";
 import Slider from "../components/Addslider";
 import Carousel from "../components/carousel";
+import { useEffect } from "react";
 
 
 export default function Home() {
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
  
   return (
     <>
