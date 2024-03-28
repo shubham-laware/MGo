@@ -70,14 +70,19 @@ const Women = () => {
   };
 
 
-  const handleWishListToCart =(product,index)=>{
-    console.log("wishlist call",product)
-    dispatch(addItemToWishlist(product));
-    dispatch(showSnackbarForWishlist({ message: 'Item added to wishlist!',index }));
-    setTimeout(() => {
-      dispatch(hideSnackbarForWishlist());
-    }, 1000); // Hide after 3 seconds
-  }
+   // for wishlist button
+   const [wishlistClicked, setWishlistClicked] = useState(Array(products.length).fill(false));
+   const handleWishListToCart =(product,index)=>{
+     const newWishlistClicked = [...wishlistClicked];
+     newWishlistClicked[index] = !newWishlistClicked[index];
+     setWishlistClicked(newWishlistClicked);
+     
+     dispatch(addItemToWishlist(product));
+     dispatch(showSnackbarForWishlist({ message: 'Item added to wishlist!', index }));
+     setTimeout(() => {
+       dispatch(hideSnackbarForWishlist());
+     }, 1000); // Hide after 3 seconds
+   }
 
   useEffect(() => {
     setSearchQuery("");
@@ -210,7 +215,7 @@ productsToFilter=womensProduct;
                     </a>
 
                     <div className="d-flex justify-content-center align-items-center ">
-                      <button className="btn btn-primary w-25 my-2" onClick={() => handleWishListToCart(product, index)}>❤</button>
+                      <button className={`btn ${wishlistClicked[index] ? "btn-success" : "btn-primary"} w-25 my-2`} onClick={() => handleWishListToCart(product, index)}>❤</button>
                       <button
                         onClick={() => handleAddToCart(product, index)}
                         className="btn btn-primary my-2 w-50 ms-2"
