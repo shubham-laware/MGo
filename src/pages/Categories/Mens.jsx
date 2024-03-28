@@ -7,7 +7,7 @@ import { useContext } from "react";
 import myContext from "../../components/context/MyContext.js";
 import { addToCart } from "../../components/redux/Slices/CartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { showSnackbar,hideSnackbar } from "../../components/redux/Slices/CartSlice.js";
+import { showSnackbar, hideSnackbar, addItemToWishlist,hideSnackbarForWishlist, showSnackbarForWishlist } from "../../components/redux/Slices/CartSlice.js";
 
 const Mens = () => {
   useEffect(() => {
@@ -35,7 +35,7 @@ const Mens = () => {
   const queryParams = new URLSearchParams(search);
   const suggestedData = queryParams.get("suggestion");
   const category = queryParams.get("category");
-  console.log("CATEGORY",category)
+  console.log("CATEGORY", category)
 
 
   if (selectedCategory !== "Men's Fashion") {
@@ -46,7 +46,7 @@ const Mens = () => {
   }
 
 
-  if(accessoriesCategory !==""){
+  if (accessoriesCategory !== "") {
     const url = `/accessories?selectedCategory=${encodeURIComponent(
       accessoriesCategory
     )}`;
@@ -55,18 +55,28 @@ const Mens = () => {
 
 
   const dispatch = useDispatch();
+  const cart = useSelector(state => state.cart);
+
   const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
     dispatch(showSnackbar({ message: "Product added successfully!", index }));
     console.log("index", index)
- 
+
     // Wait for 1 second, then hide snackbar
     setTimeout(() => {
       dispatch(hideSnackbar());
     }, 1000)
   };
-  const cart = useSelector(state => state.cart);
-  console.log("carousel compo", cart.snackbar.open)
+
+  const handleWishListToCart =(product,index)=>{
+    console.log("wishlist call",product)
+    dispatch(addItemToWishlist(product));
+    dispatch(showSnackbarForWishlist({ message: 'Item added to wishlist!',index }));
+    setTimeout(() => {
+      dispatch(hideSnackbarForWishlist());
+    }, 1000); // Hide after 3 seconds
+  }
+
 
   useEffect(() => {
     setSearchQuery("");
@@ -75,42 +85,42 @@ const Mens = () => {
     let productsToFilter = products;
     const lowerCategory = category.toLowerCase();
     console.log(lowerCategory);
-      setSelectedCategory("Men's Fashion")
-     let mensProduct = productsToFilter.filter(
-  (product) =>
-    product.category.toLowerCase().startsWith("men") 
-);
-productsToFilter=mensProduct;
+    setSelectedCategory("Men's Fashion")
+    let mensProduct = productsToFilter.filter(
+      (product) =>
+        product.category.toLowerCase().startsWith("men")
+    );
+    productsToFilter = mensProduct;
     if (selectedPrice !== "") {
-        const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
-  
-        const withinRangeProducts = productsToFilter.filter((product) => {
-          const price = parseInt(product.product_price);
-          return price >= minPrice && price <= maxPrice;
-        });
-  
-        const aboveRangeProducts = productsToFilter.filter((product) => {
-          const price = parseInt(product.product_price);
-          return price > maxPrice;
-        });
-  
-        let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
-  
-        combinedProducts.sort(
-          (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-        );
+      const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
 
-        productsToFilter=combinedProducts
+      const withinRangeProducts = productsToFilter.filter((product) => {
+        const price = parseInt(product.product_price);
+        return price >= minPrice && price <= maxPrice;
+      });
+
+      const aboveRangeProducts = productsToFilter.filter((product) => {
+        const price = parseInt(product.product_price);
+        return price > maxPrice;
+      });
+
+      let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
+
+      combinedProducts.sort(
+        (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+      );
+
+      productsToFilter = combinedProducts
 
     }
-    
+
     setFilteredProducts(productsToFilter)
 
-   
 
-  }, [products, category,selectedPrice]);
 
- 
+  }, [products, category, selectedPrice]);
+
+
 
 
   return (
@@ -187,22 +197,25 @@ productsToFilter=mensProduct;
                           Distance: {product.distance}km away.
                         </p>
                         {cart.snackbar.open && cart.snackbar.index === index && (
-                            <div
-                              style={{ fontSize: "12px" }}
-                              className="border text-center rounded w-75 mx-auto"
-                            >
-                              {cart.snackbar.message}
-                            </div>
-                          )}
+                          <div
+                            style={{ fontSize: "12px" }}
+                            className="border text-center rounded w-75 mx-auto"
+                          >
+                            {cart.snackbar.message}
+                          </div>
+                        )}
                       </div>
                     </a>
 
-                    <button
-                      onClick={() => handleAddToCart(product, index)}
-                      className="btn btn-primary ms-3 my-3 w-50"
-                    >
-                      Add to cart
-                    </button>
+                    <div className="d-flex justify-content-center align-items-center ">
+                      <button className="btn btn-primary w-25 my-2" onClick={() => handleWishListToCart(product, index)}>❤</button>
+                      <button
+                        onClick={() => handleAddToCart(product, index)}
+                        className="btn btn-primary my-2 w-50 ms-2"
+                      >
+                        Add to cart
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}

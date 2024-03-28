@@ -9,7 +9,7 @@ import myContext from "../components/context/MyContext.js";
 import {
   addToCart,
   showSnackbar,
-  hideSnackbar,
+  hideSnackbar, addItemToWishlist,hideSnackbarForWishlist, showSnackbarForWishlist
 } from "../components/redux/Slices/CartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -40,6 +40,7 @@ const HomeProducts = () => {
   const category = queryParams.get("category");
 
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
   const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
     dispatch(showSnackbar({ message: "Product added successfully!", index }));
@@ -50,10 +51,19 @@ const HomeProducts = () => {
       dispatch(hideSnackbar());
     }, 1000);
   };
-  const cart = useSelector((state) => state.cart);
-  console.log("carousel compo", cart.snackbar.open);
 
-  console.log("SELECTED CATEGORY", selectedCategory);
+  const handleWishListToCart =(product,index)=>{
+    console.log("wishlist call",product)
+    dispatch(addItemToWishlist(product));
+    dispatch(showSnackbarForWishlist({ message: 'Item added to wishlist!',index }));
+    setTimeout(() => {
+      dispatch(hideSnackbarForWishlist());
+    }, 1000); // Hide after 3 seconds
+  }
+
+
+
+
   if (selectedCategory !== "") {
     const url = `/category?selectedCategory=${encodeURIComponent(
       selectedCategory
@@ -154,7 +164,7 @@ const HomeProducts = () => {
 
   }, [products, searchQuery, selectedPrice]);
 
- 
+
 
 
   return (
@@ -242,12 +252,15 @@ const HomeProducts = () => {
                       </div>
                     </a>
 
-                    <button
-                      onClick={() => handleAddToCart(product, index)}
-                      className="btn btn-primary ms-3 my-3 w-50"
-                    >
-                      Add to cart
-                    </button>
+                    <div className="d-flex justify-content-center align-items-center ">
+                      <button className="btn btn-primary w-25 my-2" onClick={() => handleWishListToCart(product, index)}>❤</button>
+                      <button
+                        onClick={() => handleAddToCart(product, index)}
+                        className="btn btn-primary my-2 w-50 ms-2"
+                      >
+                        Add to cart
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
