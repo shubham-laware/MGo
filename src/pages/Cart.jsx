@@ -338,12 +338,11 @@ const Cart = () => {
                       </span>
                     </li>
                   </ul>
-                  <Link
-                    to="/checkout"
-                    className="btn btn-lg btn-block btn-primary"
-                  >
+                  <Link to="/checkout">
+                    <button  className="btn btn-lg btn-block btn-primary">
                     Go to checkout
-                  </Link>
+                    </button>
+                   </Link>
                 </div>
               </div>
               {/* div for Recomended */}
