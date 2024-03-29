@@ -144,7 +144,7 @@ const Mens = () => {
           <Filter brand="Test" />
 
           <div className="col-md-10">
-            <div className="d-flex flex-wrap">
+            <div className="d-flex flex-wrap px-5 px-sm-0">
               {filteredProducts?.map((product, index) => (
                 <div
                   key={index}
