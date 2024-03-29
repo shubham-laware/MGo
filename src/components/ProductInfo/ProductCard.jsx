@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import StarRatings from "./StarRatings";
 import myContext from "../context/MyContext";
@@ -8,6 +8,10 @@ import { showSnackbar, hideSnackbar ,addItemToWishlist,hideSnackbarForWishlist, 
 
 
 function ProductCard({ product, index }) {
+
+  const context=useContext(myContext);
+
+  const {products}=context
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart);
  
