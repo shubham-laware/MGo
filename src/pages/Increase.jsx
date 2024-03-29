@@ -22,7 +22,7 @@ const Increase = () => {
         </button>
       </div>
 
-      <div className="w-100 d-flex justify-content-between rounded rounded-xl border border-3 mb-3">
+      <div className="w-100 d-flex justify-content-between rounded rounded-xl border border-3 mb-3 overflow-x-hidden">
         <div className="d-flex flex-column gap-3 p-3">
           <div
             onClick={() => {
@@ -91,7 +91,7 @@ const Increase = () => {
             Get help anytime
           </div>
         </div>
-        <img src="/man-working.jpg" width={500} height={500}></img>
+        <img src="/man-working.jpg" className="img-fluid" width={500} height={500}></img>
       </div>
 
       <div
