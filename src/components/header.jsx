@@ -25,7 +25,6 @@ import { selectTotalQuantity } from '../components/redux/Slices/CartSlice.js';
 function Header() {
   const navigate = useNavigate();
   const totalQuantity = useSelector(selectTotalQuantity);
-  console.log(totalQuantity,"totalQuantity")
   // State to manage the dropdown title
   const location = (
     <>
@@ -88,7 +87,6 @@ function Header() {
   };
 
   const handleKeyPress = (event, productName) => {
-    console.log("Enter key press", productName)
     if (event.key === 'Enter') {
       handleGoButton();
     }
@@ -250,13 +248,33 @@ function Header() {
         </Container>
         <div className="mobile-menu-logo d-lg-none">
           <div className="mobile-search">
-            <Form.Control
+          <Form.Control
+              style={{ margin: "0 0px 0 32px" }}
               type="search"
               placeholder=" Ex: T-Shirt near me"
-              className="search-box-m"
+              className=" search-box"
               aria-label="Search"
-            /><Form />
-            <Button className=" search-btn" variant="outline-success">Go</Button>
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+              onKeyPress={handleKeyPress}
+            />
+
+
+            <Form />
+
+            <Button className=" search-btn" variant="outline-success" onClick={handleGoButton}>Go</Button>
+            <div className="suggestion position-absolute" style={{ width: "350px" }}>
+              <div className="container position-absolute" style={{  marginTop: "50px", background: "rgb(217, 223, 175" }}>
+                {searchSuggestions.map(suggestion => (
+                  <div key={suggestion.product_id} onKeyDown={(event) => handleKeyPress(event, suggestion.product_name)} tabIndex={0}>
+                    <span style={{ cursor: "Pointer" }} onClick={() => handleSuggestionClick(suggestion.product_name)} >
+                      <span className=' px-2 m-1 fs-6'>{suggestion.product_name}</span>
+                    </span>
+
+                  </div>
+                ))}
+              </div>
+            </div>
 
           </div>
         </div>

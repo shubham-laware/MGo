@@ -31,7 +31,7 @@ import { useEffect } from "react";
                 </p>
               </div>
               <hr />
-              <form className="px-4" action="">
+              <form className=" px-md-4" action="">
                 <p className="text-start">
                   <strong>Your rating:</strong>
                 </p>
