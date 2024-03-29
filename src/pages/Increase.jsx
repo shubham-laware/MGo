@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import "../components/Increase.css";
 
 const Increase = () => {
-  useEffect(()=>{
+  useEffect(() => {
     window.scrollTo(0, 0);
-  },[])
+  }, [])
   return (
     <div
       className="container d-flex flex-column gap-3"
@@ -22,7 +22,7 @@ const Increase = () => {
         </button>
       </div>
 
-      <div className="w-100 d-flex justify-content-between rounded rounded-xl border border-3 mb-3 overflow-x-hidden">
+      {/* <div className="w-100 d-flex justify-content-between rounded rounded-xl border border-3 mb-3 overflow-x-hidden">
         <div className="d-flex flex-column gap-3 p-3">
           <div
             onClick={() => {
@@ -91,7 +91,83 @@ const Increase = () => {
             Get help anytime
           </div>
         </div>
-        <img src="/man-working.jpg" className="img-fluid" width={500} height={500}></img>
+        <img src="/man-working.jpg"  width={500} height={500}></img>
+      </div> */}
+
+      {/* new design */}
+      <div className="row border border-2 rounded rounded-lg">
+        <div className="col-md-6 p-3">
+         <div
+            onClick={() => {
+              document.getElementById("section-1")?.scrollIntoView({
+                block: "center",
+                behavior: "smooth",
+              });
+            }}
+            className="p-3 rounded rounded-2 border border-2 fw-semibold fs-5 increase-items m-2"
+          >
+           <span className="p-3">  Get the Elite Badge</span>
+          </div>
+          <div
+            onClick={() => {
+              document.getElementById("section-2")?.scrollIntoView({
+                block: "center",
+                behavior: "smooth",
+              });
+            }}
+            className="p-3 rounded rounded-2 border border-2 fw-semibold fs-5 increase-items  m-2"
+          >
+            <span className="p-3"> Advertise Your Products</span>
+          </div>
+          <div
+            onClick={() => {
+              document.getElementById("section-3")?.scrollIntoView({
+                block: "center",
+                behavior: "smooth",
+              });
+            }}
+            className="p-3 rounded rounded-2 border border-2 fw-semibold fs-5 increase-items  m-2"
+          >
+            <span className="p-3">Boost sales of your products</span>
+          </div>
+          <div
+            onClick={() => {
+              document.getElementById("section-4")?.scrollIntoView({
+                block: "center",
+                behavior: "smooth",
+              });
+            }}
+            className="p-3 rounded rounded-2 border border-2 fw-semibold fs-5 increase-items  m-2"
+          >
+             <span className="p-3">Reduce Returns through customer feedback</span>
+          </div>
+          <div
+            onClick={() => {
+              document.getElementById("section-5")?.scrollIntoView({
+                block: "center",
+                behavior: "smooth",
+              });
+            }}
+            className=" p-3 rounded rounded-2 border border-2 fw-semibold fs-5 increase-items  m-2"
+          >
+           <span className="p-3">Manage your Business on the go with minitgo Seller App</span> 
+          </div>
+          <div
+            onClick={() => {
+              document.getElementById("section-6")?.scrollIntoView({
+                block: "center",
+                behavior: "smooth",
+              });
+            }}
+            className="p-3 rounded rounded-2 border border-2 fw-semibold fs-5 increase-items  m-2"
+          >
+           <span className="p-3">Get help anytime</span> 
+          </div>
+         
+        </div>
+        <div className="col-md-6">
+          <img src="/man-working.jpg" className="img-fluid my-3" width={600} height={200}></img> 
+        </div>
       </div>
 
       <div
