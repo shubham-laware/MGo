@@ -298,7 +298,7 @@ function Header() {
                 className="Dropdown"
               >
                 <NavDropdown.Item>
-                  <p onClick={() => setShowModal(true)}>Create an account</p>
+                  <div onClick={() => setShowModal(true)} style={{color:'blue'}}>Create an account</div>
                   {showModal && (
                     <Modal
                       show={showModal}
