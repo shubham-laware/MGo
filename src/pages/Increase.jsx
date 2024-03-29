@@ -96,7 +96,7 @@ const Increase = () => {
 
       {/* new design */}
       <div className="row border border-2 rounded rounded-lg">
-        <div className="col-md-6 p-3">
+        <div className=" p-3 col-md-6 order-2 order-md-1">
          <div
             onClick={() => {
               document.getElementById("section-1")?.scrollIntoView({
@@ -165,8 +165,8 @@ const Increase = () => {
           </div>
          
         </div>
-        <div className="col-md-6">
-          <img src="/man-working.jpg" className="img-fluid my-3" width={600} height={200}></img> 
+        <div className="col-md-6 order-1 order-md-2">
+          <img src="/man-working.jpg" className="img-fluid my-3" width={500} height={200}></img> 
         </div>
       </div>
 
