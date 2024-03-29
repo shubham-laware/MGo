@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Notfound from './pages/Notfound';
-import Login from './pages/Signin';
+// import Login from './pages/Signin';
 import Register from './pages/Register'
 import OrdersPage from './pages/Orders.jsx'
 import GoogleApiWrapper from './pages/Contact'
@@ -59,7 +59,7 @@ const App = () => {
 
             <Routes>
                 <Route exact path="/" element={<Home />} />
-                <Route path="/signin" element={<Login />} />
+                {/* <Route path="/signin" element={<Login />} /> */}
                 <Route path="/register" element={<Register />} />
                 <Route path="/orders" element={<OrdersPage />} />
                 <Route path="/about" element={<About />} />
