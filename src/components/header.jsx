@@ -472,6 +472,7 @@ function Header() {
           }}
           // dialogClassName="modal-90w"
           aria-labelledby="example-custom-modal-styling-title"
+          className="p-0"
         >
           <Modal.Body
             className="p-0 d-flex w-max flex-lg-row flex-column  "

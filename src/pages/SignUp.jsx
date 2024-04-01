@@ -158,7 +158,7 @@ function SignUp() {
     <>
       {showOTP ? (
         <div
-          className="d-flex flex-column gap-2 pt-2 pb-3 ps-5 "
+          className="d-flex flex-column gap-2 pt-2 pb-3  align-items-center position-relative "
           style={{
             minWidth: "70%",
             backgroundColor: "#fff5f5",
@@ -166,20 +166,21 @@ function SignUp() {
         >
           <div
             onClick={() => setShowOTP(false)}
-            className="fs-3 px-1"
+            className="fs-3 px-1  positon-absolute w-100"
             style={{
               cursor: "pointer",
               position: "relative",
               bottom: "0.5rem",
-              right: "2rem",
+             left:'1rem'
             }}
           >
             ←
           </div>
           <h2 className="text-start ">OTP Verification</h2>
           <p>OTP has sent to +{phoneNumber}</p>
+         
           <ul
-            className="d-flex gap-2 justify-content-start ps-1  "
+            className="d-flex gap-1  justify-content-start   p-0 "
             style={{ listStyle: "none" }}
           >
             <input
@@ -290,19 +291,20 @@ function SignUp() {
               }}
             />
           </ul>
+        
 
           <div className="mt-3">
             <div className=" w-75 text-center fs-3">00:{timer}</div>
           </div>
 
           <div className="mt-2  ">
-            <div className=" w-75 text-center" style={{ fontSize: "14px" }}>
+            <div className=" text-center " style={{ fontSize: "14px" }}>
               Didn't get it?
             </div>
           </div>
 
           <div className="">
-            <div className=" w-75 text-center ">
+            <div className=" text-center ">
               <p
                 className="underline"
                 style={{
