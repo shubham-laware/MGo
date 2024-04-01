@@ -176,13 +176,13 @@ const HomeProducts = () => {
           </div>
 
           <div className="col-md-10">
-            <div className="row px-4 px-sm-0 mx-5 mx-md-0">
+            <div className="row px-4 px-sm-0 mx-5 mx-md-0 ">
               {
                 products?.map((product, index) => (
                   <div
                     key={index}
                     className="col-6 col-sm-3 py-2"
-                    style={{ width: "220px" }}
+                    style={{ width: "230px" }}
                   >
                     <div className="product-card">
                       <a

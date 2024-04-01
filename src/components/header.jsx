@@ -32,6 +32,7 @@ import { selectTotalQuantity } from "../components/redux/Slices/CartSlice.js";
 import Login from "../pages/Signin.jsx";
 import { toast } from "react-toastify";
 import { Col, Modal, Row } from "react-bootstrap";
+import SignUp from "../pages/SignUp.jsx";
 
 import { IoHome } from "react-icons/io5";
 import { FaCircleInfo, FaUserPlus, FaListCheck } from "react-icons/fa6";
@@ -50,49 +51,10 @@ function Header() {
   const [pincode, setPincode] = useState("");
   const [townDistrict, setTownDistrict] = useState("");
   const [state, setState] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [addresss, setAddresss] = useState("");
-  const [password, setPassword] = useState("");
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
   };
-
-  const [showOTP, setShowOTP] = useState(false);
-  const [timer, setTimer] = useState(30);
-  const [sendOTPagain, setSendOTPagain] = useState(false);
-
-  useEffect(() => {
-    let intervalId;
-
-    if (showOTP && sendOTPagain) {
-      intervalId = setInterval(() => {
-        setTimer((prevTimer) => {
-          if (prevTimer === 1) {
-            // Stop the timer and reset sendOTPagain after 30 seconds
-            clearInterval(intervalId);
-            setSendOTPagain(false);
-            return 30; // Reset the timer back to 30
-          }
-          return prevTimer - 1;
-        });
-      }, 1000);
-    }
-
-    return () => {
-      clearInterval(intervalId); // Clear the interval when the component unmounts
-    };
-  }, [showOTP, sendOTPagain]);
-
-  function handleSendOTPAgain() {
-    setSendOTPagain(true);
-    toast.success("OTP sent successfully", {
-      autoClose: 1000,
-      hideProgressBar: true,
-    });
-  }
 
   const navigate = useNavigate();
   const totalQuantity = useSelector(selectTotalQuantity);
@@ -237,82 +199,6 @@ function Header() {
     } else {
     }
   };
-
-  function handleRegister() {
-    const emailPattern = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
-    const phonePattern = /^[0-9]{10}$/;
-
-    if (
-      fullName === "" ||
-      phoneNumber === "" ||
-      email === "" ||
-      addresss === "" ||
-      password === ""
-    ) {
-      toast.error("All fields are required", {
-        autoClose: 1000,
-        hideProgressBar: true,
-      });
-      return;
-    } else if (!phonePattern.test(phoneNumber)) {
-      toast.error("Please enter a valid phone number", {
-        autoClose: 1000,
-        hideProgressBar: true,
-      });
-      return;
-    } else if (!emailPattern.test(email)) {
-      toast.error("Please enter a valid email", {
-        autoClose: 1000,
-        hideProgressBar: true,
-      });
-      return;
-    } else if (password.length < 6 || password.length > 8) {
-      toast.error("Password must be between 6 and 8 characters long", {
-        autoClose: 1000,
-        hideProgressBar: true,
-      });
-      return;
-    } else {
-      const data = {
-        full_name: fullName,
-        phone_number: phoneNumber,
-        email: email,
-        password: password,
-        address: addresss,
-      };
-
-      axios
-        .post(
-          "https://minitgo.com/api/fetch_login.php",
-          JSON.stringify(data),
-          {}
-        )
-        .then((response) => {
-          if (response.data && response.data.length > 0) {
-            const user = response.data[0];
-            console.log("Login successful. User:", user);
-            if (user) {
-              handleOTP();
-            }
-          } else {
-            console.error("Login failed: No user data returned.");
-          }
-        })
-        .catch((error) => {
-          console.error("Login failed:", error);
-        });
-    }
-  }
-
-  function handleOTP() {
-    setTimer(30);
-    setShowOTP(true);
-    setSendOTPagain(true);
-    toast.success("OTP sent successfully", {
-      autoClose: 1000,
-      hideProgressBar: true,
-    });
-  }
 
   const login = (
     <span>
@@ -576,6 +462,7 @@ function Header() {
       <Catlog />
 
       {"Modal needs to be outside to be loaded in the mobile version"}
+
       {showModal && (
         <Modal
           show={showModal}
@@ -585,341 +472,32 @@ function Header() {
           }}
           // dialogClassName="modal-90w"
           aria-labelledby="example-custom-modal-styling-title"
+          className="p-0"
         >
           <Modal.Body
-            className="p-0  d-flex w-max  "
-            style={{ minWidth: "22rem" }}
+            className="p-0 d-flex w-max flex-lg-row flex-column  "
+            style={{ minWidth: "10rem", backgroundColor: "#fff5f5" }}
           >
-            {showOTP ? (
-              <div
-                className="d-flex flex-column gap-2 pt-2 pb-3 ps-5    "
-                style={{
-                  width: "70vw",
-                  backgroundColor: "#fff5f5",
-                }}
-              >
-                <div
-                  onClick={() => setShowOTP(false)}
-                  className="fs-3 px-1"
-                  style={{
-                    cursor: "pointer",
-                    position: "relative",
-                    bottom: "0.5rem",
-                    right: "2rem",
-                  }}
-                >
-                  ←
-                </div>
-                <h2 className="text-start ">OTP Verification</h2>
-                <p>OTP has sent to +{phoneNumber}</p>
-                <ul
-                  className="d-flex gap-2 justify-content-start ps-1"
-                  style={{ listStyle: "none" }}
-                >
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
+            <Modal.Header closeButton className="d-block d-lg-none" />
 
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
-
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
-
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
-
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
-
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
-                </ul>
-
-                <div className="mt-3">
-                  <div className=" w-75 text-center fs-3">00:{timer}</div>
-                </div>
-
-                <div className="mt-2  ">
-                  <div
-                    className=" w-75 text-center"
-                    style={{ fontSize: "14px" }}
-                  >
-                    Didn't get it?
-                  </div>
-                </div>
-
-                <div className="">
-                  <div className=" w-75 text-center ">
-                    <p
-                      className="underline"
-                      style={{
-                        textDecoration: "underline",
-                        cursor: "pointer",
-                      }}
-                      onClick={handleSendOTPAgain}
-                    >
-                      Send OTP (SMS)
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div
-                style={{
-                  width: "70vw",
-                  backgroundColor: "#fff5f5",
-                }}
-                className="d-flex flex-column gap-2 px-4 pt-5 pb-3   "
-              >
-                <Form>
-                  <Form.Control
-                    type="text"
-                    placeholder="Full Name"
-                    className=" w-100 px-4 mb-3 my-5 rounded rounded-pill"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                  />
-                  <Form.Control
-                    type="text"
-                    placeholder="+91"
-                    className=" w-100 px-4 mb-3 rounded rounded-pill"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
-                  <Form.Control
-                    type="text"
-                    placeholder="Email"
-                    className=" w-100 px-4 mb-4  rounded rounded-pill"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <Form.Control
-                    type="text"
-                    placeholder="Address"
-                    className=" w-100 px-4 mb-3 rounded rounded-pill"
-                    value={addresss}
-                    onChange={(e) => setAddresss(e.target.value)}
-                  />
-                  <Form.Control
-                    type="text"
-                    placeholder="Password"
-                    className=" w-100 px-4 mb-3 rounded rounded-pill"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </Form>
-                <Button variant="secondary" onClick={handleUseCurrentLocation}>
-                  Use Current Location
-                </Button>
-
-                <Button
-                  variant="success"
-                  className="my-2"
-                  onClick={handleRegister}
-                >
-                  Continue
-                </Button>
-                <p style={{ marginTop: "10px" }} className="text-center">
-                  By continuing, you agree to our <br />
-                  <a
-                    target="_blank"
-                    href="#"
-                    className="text-danger fw-semibold"
-                    style={{
-                      textDecoration: "none",
-                    }}
-                  >
-                    Terms of Service
-                  </a>
-                  . &{" "}
-                  <a
-                    target="_blank"
-                    href="#"
-                    className="text-danger fw-semibold"
-                    style={{
-                      textDecoration: "none",
-                    }}
-                  >
-                    Privacy Policy
-                  </a>
-                </p>
-              </div>
-            )}
-            <div
-              style={{ backgroundColor: "#e3e3e3" }}
-              className="d-flex flex-column justify-content-center align-items-center px-3"
-            >
-              <h1 className="fs-5 text-center mb-5">
-                Our app will be launching soon.
-              </h1>
-              {/* <img
-                            src="appstore.png"
-                            alt="App Store"
-                            className="my-0"
-                          />
-                          <img src="playstore.png" alt="Play Store" /> */}
-
-              <a
-                className="download-btn btn-google"
-                href="#"
-                style={{ width: "9.5rem" }}
-                title="Google Play"
-              >
-                Google Play
-              </a>
-              <a
-                className="download-btn btn-apple"
-                href="#"
-                style={{ width: "9.5rem" }}
-                title="App Store"
-              >
-                App Store
-              </a>
-            </div>
+            <SignUp />
           </Modal.Body>
         </Modal>
       )}
 
       {/* Login Modal */}
-      <Modal show={loginModal} onHide={() => setLoginModal(false)}>
-        <Modal
-          show={loginModal}
-          onHide={() => setLoginModal(false)}
-          aria-labelledby="example-custom-modal-styling-title"
+
+      <Modal
+        show={loginModal}
+        onHide={() => setLoginModal(false)}
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Body
+          className="p-0 rounded-4 d-flex w-max "
+          style={{ minWidth: "22rem" }}
         >
-          <Modal.Body
-            className="p-0 rounded-4 d-flex w-max "
-            style={{ minWidth: "22rem" }}
-          >
-            <Login closeLoginModal={() => setLoginModal(false)} />
-          </Modal.Body>
-        </Modal>
+          <Login closeLoginModal={() => setLoginModal(false)} />
+        </Modal.Body>
       </Modal>
 
       {/* Offcanvas Sidebar */}
