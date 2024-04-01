@@ -66,7 +66,7 @@ function Client_register(){
             
            //to fetch all details api link (https://ipapi.co/json) use this for future reference
             //consoling the url link
-            (googleMapsUrl);
+            console.log(googleMapsUrl);
             // Open the URL in a new tab or window
             //window.open(googleMapsUrl, '_blank');
              setCoordinates(googleMapsUrl);
@@ -75,11 +75,11 @@ function Client_register(){
              setLocationSnackbarOpen(true);
           },
           (error) => {
-            ('Geolocation error:', error);
+            console.log('Geolocation error:', error);
           }
         );
       } else {
-        ('Geolocation is not supported by this browser.');
+        console.log('Geolocation is not supported by this browser.');
       }
     };
     
@@ -102,9 +102,9 @@ function handleagreement(){
   const msg = "have Agreed All the terms and conditions with Minitgo";
   let fullmsg = `${msgi} ${names.firstName} ${names.lastName} ${msg}`;
   setAgrement(fullmsg)
-  (fullmsg)
+  console.log(fullmsg)
   setAgreementstatus(true);
-  (agreement)
+  console.log(agreement)
   handleClose();
 }
   const [open, setOpen] = React.useState(false);
@@ -137,7 +137,7 @@ function handleagreement(){
 
        }).then((response)=> {
         
-          (response);
+          console.log(response);
           setSnackbarMessage('Registration successful!');
     setSnackbarOpen(true);
    // Clear the form fields
@@ -158,9 +158,9 @@ function handleagreement(){
    // Set the formSubmitted state to true
    setFormSubmitted(true);
        }).catch((error) =>{
-        (error);
+        console.log(error);
        })
-      ('Form submitted!');
+      console.log('Form submitted!');
     };
   
   

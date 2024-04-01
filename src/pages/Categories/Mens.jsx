@@ -30,6 +30,7 @@ const Mens = () => {
     products,
     selectedPrice,
     setSearchQuery,
+    offer
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -93,7 +94,7 @@ const Mens = () => {
         product.category.toLowerCase().startsWith("men")
     );
     productsToFilter = mensProduct;
-    if (selectedPrice !== "") {
+    if (selectedPrice !== "" && selectedPrice !== "500 +") {
       const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
 
       const withinRangeProducts = productsToFilter.filter((product) => {
@@ -112,15 +113,79 @@ const Mens = () => {
         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
       );
 
-      productsToFilter = combinedProducts
+      const remainingProducts = productsToFilter.filter((product) => {
+        if (selectedPrice !== "") {
+            const [minPrice] = selectedPrice.split("-").map(Number);
+            const price = parseInt(product.product_price);
+            return price < minPrice;
+        } else {
+            return true; // Include all products if no price range is selected
+        }
+    });
+    
+    remainingProducts.sort(
+        (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+    );
 
+      productsToFilter = [...combinedProducts, ...remainingProducts];
     }
+
+    if (selectedPrice === "500 +") {
+      console.log("above 500")
+      const above500Products = productsToFilter.filter((product) => {
+          const price = parseInt(product.product_price);
+          return price >= 500;
+      });
+  
+      above500Products.sort(
+          (a, b) => parseFloat(b.product_price) - parseFloat(a.product_price)
+      );
+
+      const remainingProducts = productsToFilter.filter((product) => {
+        if (selectedPrice !== "") {
+          let minPrice=500
+            console.log("ELSE MIN",minPrice)
+            const price = parseInt(product.product_price);
+            return price < minPrice;
+        } else {
+            return true; // Include all products if no price range is selected
+        }
+    });
+    console.log("ELSE REMAINING PROD",remainingProducts)
+    
+    remainingProducts.sort(
+        (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+    );
+  
+      productsToFilter = [...above500Products,...remainingProducts];
+  }
+
+  if (offer !== "") {
+    const selectedOffer = parseInt(offer);
+
+    const filteredByOffer = productsToFilter.filter((product) => {
+      // Assuming 'product_offer' is the property containing offer percentage
+      const offerPercentage = parseInt(product.offers);
+      return offerPercentage >= selectedOffer;
+    });
+
+    filteredByOffer.sort(
+      (a, b) => parseFloat(a.offers) - parseFloat(b.offers)
+    );
+
+    if (filteredByOffer.length === 0) {
+      console.log("LENGTH 0", productsToFilter);
+      productsToFilter = productsToFilter;
+    } else {
+      productsToFilter = filteredByOffer;
+    }
+  }
 
     setFilteredProducts(productsToFilter)
 
 
 
-  }, [products, category, selectedPrice]);
+  }, [products, category, selectedPrice,offer]);
 
 
 

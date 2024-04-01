@@ -9,7 +9,10 @@ import myContext from "../components/context/MyContext.js";
 import {
   addToCart,
   showSnackbar,
-  hideSnackbar, addItemToWishlist,hideSnackbarForWishlist, showSnackbarForWishlist
+  hideSnackbar,
+  addItemToWishlist,
+  hideSnackbarForWishlist,
+  showSnackbarForWishlist,
 } from "../components/redux/Slices/CartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -33,6 +36,7 @@ const HomeProducts = () => {
     products,
     selectedPrice,
     searchQuery,
+    offer,
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -52,21 +56,22 @@ const HomeProducts = () => {
   };
 
   // for wishlist button
-  const [wishlistClicked, setWishlistClicked] = useState(Array(products.length).fill(false));
-  const handleWishListToCart =(product,index)=>{
+  const [wishlistClicked, setWishlistClicked] = useState(
+    Array(products.length).fill(false)
+  );
+  const handleWishListToCart = (product, index) => {
     const newWishlistClicked = [...wishlistClicked];
     newWishlistClicked[index] = !newWishlistClicked[index];
     setWishlistClicked(newWishlistClicked);
-    
+
     dispatch(addItemToWishlist(product));
-    dispatch(showSnackbarForWishlist({ message: 'Item added to wishlist!', index }));
+    dispatch(
+      showSnackbarForWishlist({ message: "Item added to wishlist!", index })
+    );
     setTimeout(() => {
       dispatch(hideSnackbarForWishlist());
     }, 1000); // Hide after 3 seconds
-  }
-
-
-
+  };
 
   if (selectedCategory !== "") {
     const url = `/category?selectedCategory=${encodeURIComponent(
@@ -88,7 +93,9 @@ const HomeProducts = () => {
     // Apply price filtering
     let productsToFilter = products;
 
-    if (selectedPrice !== "") {
+    if (selectedPrice !== "" && selectedPrice !== "500 +") {
+      console.log("SELCTED", selectedPrice);
+      console.log("below 500");
       const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
 
       const withinRangeProducts = productsToFilter.filter((product) => {
@@ -107,7 +114,66 @@ const HomeProducts = () => {
         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
       );
 
-      productsToFilter = combinedProducts;
+      const remainingProducts = productsToFilter.filter((product) => {
+        if (selectedPrice !== "") {
+            const [minPrice] = selectedPrice.split("-").map(Number);
+            const price = parseInt(product.product_price);
+            return price < minPrice;
+        } else {
+            return true; // Include all products if no price range is selected
+        }
+    });
+    
+    remainingProducts.sort(
+        (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+    );
+
+      productsToFilter = [...combinedProducts, ...remainingProducts];
+    }
+    if (selectedPrice === "500 +") {
+      console.log("above 500");
+      const above500Products = productsToFilter.filter((product) => {
+        const price = parseInt(product.product_price);
+        return price >= 500;
+      });
+
+      above500Products.sort(
+        (a, b) => parseFloat(b.product_price) - parseFloat(a.product_price)
+      );
+
+      const remainingProducts = productsToFilter.filter((product) => {
+        if (selectedPrice !== "") {
+          let minPrice=500
+            console.log("ELSE MIN",minPrice)
+            const price = parseInt(product.product_price);
+            return price < minPrice;
+        } else {
+            return true; // Include all products if no price range is selected
+        }
+    });
+    console.log("ELSE REMAINING PROD",remainingProducts)
+    
+    remainingProducts.sort(
+        (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+    );
+
+      productsToFilter = [...above500Products, ...remainingProducts];
+    }
+
+    if (offer !== "") {
+      const selectedOffer = parseInt(offer);
+
+      const filteredByOffer = productsToFilter.filter((product) => {
+        // Assuming 'product_offer' is the property containing offer percentage
+        const offerPercentage = parseInt(product.offers);
+        return offerPercentage >= selectedOffer;
+      });
+
+      filteredByOffer.sort(
+        (a, b) => parseFloat(a.offers) - parseFloat(b.offers)
+      );
+
+      productsToFilter = filteredByOffer;
     }
 
     // Apply category and search query filtering
@@ -134,7 +200,7 @@ const HomeProducts = () => {
       } else {
         productsToFilter = products;
 
-        if (selectedPrice !== "") {
+        if (selectedPrice !== "" && selectedPrice !== "500 +") {
           const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
 
           const withinRangeProducts = productsToFilter.filter((product) => {
@@ -156,7 +222,66 @@ const HomeProducts = () => {
             (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
           );
 
-          productsToFilter = combinedProducts;
+          const remainingProducts = productsToFilter.filter((product) => {
+            if (selectedPrice !== "") {
+                const [minPrice] = selectedPrice.split("-").map(Number);
+                const price = parseInt(product.product_price);
+                return price < minPrice;
+            } else {
+                return true; // Include all products if no price range is selected
+            }
+        });
+        
+        remainingProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+        );
+
+          productsToFilter = [...combinedProducts, ...remainingProducts];
+        }
+
+        if (selectedPrice === "500 +") {
+          const above500Products = productsToFilter.filter((product) => {
+            const price = parseInt(product.product_price);
+            return price >= 500;
+          });
+
+          above500Products.sort(
+            (a, b) => parseFloat(b.product_price) - parseFloat(a.product_price)
+          );
+
+          const remainingProducts = productsToFilter.filter((product) => {
+            if (selectedPrice !== "") {
+              let minPrice=500
+                console.log("ELSE MIN",minPrice)
+                const price = parseInt(product.product_price);
+                return price < minPrice;
+            } else {
+                return true; // Include all products if no price range is selected
+            }
+        });
+        console.log("ELSE REMAINING PROD",remainingProducts)
+        
+        remainingProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+        );
+
+          productsToFilter = [...above500Products,...remainingProducts];
+        }
+
+        if (offer !== "") {
+          const selectedOffer = parseInt(offer);
+
+          const filteredByOffer = productsToFilter.filter((product) => {
+            // Assuming 'product_offer' is the property containing offer percentage
+            const offerPercentage = parseInt(product.offers);
+            return offerPercentage >= selectedOffer;
+          });
+
+          filteredByOffer.sort(
+            (a, b) => parseFloat(a.offers) - parseFloat(b.offers)
+          );
+
+          productsToFilter = filteredByOffer;
         }
 
         setFilteredProducts(productsToFilter);
@@ -164,11 +289,7 @@ const HomeProducts = () => {
     } else {
       setFilteredProducts(productsToFilter);
     }
-
-  }, [products, searchQuery, selectedPrice]);
-
-
-
+  }, [products, searchQuery, selectedPrice, offer]);
 
   return (
     <>
@@ -256,7 +377,14 @@ const HomeProducts = () => {
                     </a>
 
                     <div className="d-flex justify-content-center align-items-center ">
-                      <button className={`btn ${wishlistClicked[index] ? "btn-success" : "btn-primary"} w-25 my-2`} onClick={() => handleWishListToCart(product, index)}>❤</button>
+                      <button
+                        className={`btn ${
+                          wishlistClicked[index] ? "btn-success" : "btn-primary"
+                        } w-25 my-2`}
+                        onClick={() => handleWishListToCart(product, index)}
+                      >
+                        ❤
+                      </button>
                       <button
                         onClick={() => handleAddToCart(product, index)}
                         className="btn btn-primary my-2 w-50 ms-2"

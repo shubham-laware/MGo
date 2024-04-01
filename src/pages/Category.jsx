@@ -8,17 +8,19 @@ import { useContext } from "react";
 import myContext from "../components/context/MyContext.js";
 import { addToCart } from "../components/redux/Slices/CartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { showSnackbar,hideSnackbar } from "../components/redux/Slices/CartSlice.js";
+import {
+  showSnackbar,
+  hideSnackbar,
+} from "../components/redux/Slices/CartSlice.js";
 
 const Category = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const [filteredProducts, setFilteredProducts] = useState([]);
-
 
   const [recommendedHeading, setRecommendedHeading] = useState(false);
 
@@ -31,22 +33,22 @@ const Category = () => {
     products,
     selectedPrice,
     setSearchQuery,
+    offer,
   } = context;
 
   const dispatch = useDispatch();
   const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
     dispatch(showSnackbar({ message: "Product added successfully!", index }));
- 
+
     // Wait for 1 second, then hide snackbar
     setTimeout(() => {
       dispatch(hideSnackbar());
-    }, 1000)
+    }, 1000);
   };
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
 
-
-  if(accessoriesCategory !==""){
+  if (accessoriesCategory !== "") {
     const url = `/accessories?selectedCategory=${encodeURIComponent(
       accessoriesCategory
     )}`;
@@ -55,96 +57,317 @@ const Category = () => {
 
   useEffect(() => {
     if (selectedCategory !== "") {
-      const url = `/category?selectedCategory=${encodeURIComponent(selectedCategory)}`;
+      const url = `/category?selectedCategory=${encodeURIComponent(
+        selectedCategory
+      )}`;
       navigate(url);
     }
   }, [selectedCategory, navigate]);
 
-
-
-
-  useEffect(()=>{
+  useEffect(() => {
     setSearchQuery("");
-    setAccessoriesCategory("")
+    setAccessoriesCategory("");
     let productsToFilter = products;
-    if (selectedCategory !== "") {
-        setSelectedCategory(selectedCategory)
+    if (selectedCategory !== "" && selectedCategory !== "AllCategory") {
+      console.log("CATEGORY", selectedCategory);
+      setSelectedCategory(selectedCategory);
 
-        const lowerCaseSelectedCategory = selectedCategory.toLowerCase();
+      const lowerCaseSelectedCategory = selectedCategory.toLowerCase();
 
-        const filteredByCategory = products.filter((product) => {
-          const lowerCaseProductCategory = product.category.toLowerCase();
-          return lowerCaseProductCategory === lowerCaseSelectedCategory;
-        });
+      const filteredByCategory = products.filter((product) => {
+        const lowerCaseProductCategory = product.category.toLowerCase();
+        return lowerCaseProductCategory === lowerCaseSelectedCategory;
+      });
 
-        if (filteredByCategory.length > 0) {
-          productsToFilter = filteredByCategory;
-          let filtered = [...productsToFilter]; // Copy the accessories products array
+      if (filteredByCategory.length > 0) {
+        productsToFilter = filteredByCategory;
+        let filtered = [...productsToFilter]; // Copy the accessories products array
 
-        if (selectedPrice !== "") {
-            const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
+        if (selectedPrice !== "" && selectedPrice !== "500 +") {
+          const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
 
-            filtered = filtered.filter((product) => {
+          const withinRangeProducts = filtered.filter((product) => {
+            const price = parseInt(product.product_price);
+            return price >= minPrice && price <= maxPrice;
+          });
+
+          const aboveRangeProducts = filtered.filter((product) => {
+            const price = parseInt(product.product_price);
+            return price > maxPrice;
+          });
+
+          let combinedProducts = [
+            ...withinRangeProducts,
+            ...aboveRangeProducts,
+          ];
+
+          combinedProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+          );
+
+          const remainingProducts = productsToFilter.filter((product) => {
+            if (selectedPrice !== "") {
+                const [minPrice] = selectedPrice.split("-").map(Number);
                 const price = parseInt(product.product_price);
-                return price >= minPrice && price <= maxPrice;
-            });
+                return price < minPrice;
+            } else {
+                return true; // Include all products if no price range is selected
+            }
+        });
+        
+        remainingProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+        );
 
-            filtered.sort((a, b) => parseFloat(a.product_price) - parseFloat(b.product_price));
+          filtered = [...combinedProducts,...remainingProducts];
+        }
+
+        if (selectedPrice === "500 +") {
+          console.log("Before", filtered);
+          console.log("above 500");
+          const above500Products = filtered.filter((product) => {
+            const price = parseInt(product.product_price);
+            return price >= 500;
+          });
+
+          above500Products.sort(
+            (a, b) => parseFloat(b.product_price) - parseFloat(a.product_price)
+          );
+
+          const remainingProducts = productsToFilter.filter((product) => {
+            if (selectedPrice !== "") {
+               let minPrice=500
+                const price = parseInt(product.product_price);
+                return price < minPrice;
+            } else {
+                return true; // Include all products if no price range is selected
+            }
+        });
+        
+        remainingProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+        );
+
+          filtered = [...above500Products,...remainingProducts];
+        }
+
+        if (offer !== "") {
+          
+          const selectedOffer = parseInt(offer);
+
+          const filteredByOffer = filtered.filter((product) => {
+            // Assuming 'product_offer' is the property containing offer percentage
+            const offerPercentage = parseInt(product.offers);
+            return offerPercentage >= selectedOffer;
+          });
+
+
+          filteredByOffer.sort(
+            (a, b) => parseFloat(a.offers) - parseFloat(b.offers)
+          );
+
+          filtered = filteredByOffer;
         }
 
         if (filtered.length === 0) {
-            filtered = [...productsToFilter];
-            filtered.sort((a, b) => parseFloat(a.product_price) - parseFloat(b.product_price));
+          filtered = [...productsToFilter];
+          filtered.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+          );
         }
 
         setFilteredProducts(filtered);
-        } else {
-          productsToFilter = products;
-          let filtered = [...productsToFilter];
-          if (selectedPrice !== "") {
-            const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
+      } else {
+        productsToFilter = products;
+        let filtered = [...productsToFilter];
+        if (selectedPrice !== "" && selectedPrice !== "500 +") {
+          const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
 
-            filtered = filtered.filter((product) => {
+          const withinRangeProducts = filtered.filter((product) => {
+            const price = parseInt(product.product_price);
+            return price >= minPrice && price <= maxPrice;
+          });
+
+          const aboveRangeProducts = filtered.filter((product) => {
+            const price = parseInt(product.product_price);
+            return price > maxPrice;
+          });
+
+          let combinedProducts = [
+            ...withinRangeProducts,
+            ...aboveRangeProducts,
+          ];
+
+          combinedProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+          );
+
+          const remainingProducts = productsToFilter.filter((product) => {
+            if (selectedPrice !== "") {
+                const [minPrice] = selectedPrice.split("-").map(Number);
                 const price = parseInt(product.product_price);
-                return price >= minPrice && price <= maxPrice;
-            });
+                return price < minPrice;
+            } else {
+                return true; // Include all products if no price range is selected
+            }
+        });
+        
+        remainingProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+        );
 
-            filtered.sort((a, b) => parseFloat(a.product_price) - parseFloat(b.product_price));
+          filtered = [...combinedProducts,...remainingProducts];
+        }
+
+        if (selectedPrice === "500 +") {
+          console.log("above 500");
+          const above500Products = filtered.filter((product) => {
+            const price = parseInt(product.product_price);
+            return price >= 500;
+          });
+
+          above500Products.sort(
+            (a, b) => parseFloat(b.product_price) - parseFloat(a.product_price)
+          );
+
+          const remainingProducts = productsToFilter.filter((product) => {
+            if (selectedPrice !== "") {
+              let minPrice=500
+                const price = parseInt(product.product_price);
+                return price < minPrice;
+            } else {
+                return true; // Include all products if no price range is selected
+            }
+        });
+        
+        remainingProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+        );
+          filtered = [...above500Products,...remainingProducts];
+        }
+
+        if (offer !== "") {
+          const selectedOffer = parseInt(offer);
+
+          const filteredByOffer = filtered.filter((product) => {
+            // Assuming 'product_offer' is the property containing offer percentage
+            const offerPercentage = parseInt(product.offers);
+            return offerPercentage >= selectedOffer;
+          });
+
+
+          filteredByOffer.sort(
+            (a, b) => parseFloat(a.offers) - parseFloat(b.offers)
+          );
+
+          filtered = filteredByOffer;
         }
 
         // If no products match the filters, set filtered products to all accessories of the selected category
         if (filtered.length === 0) {
-            filtered = [...productsToFilter];
-            filtered.sort((a, b) => parseFloat(a.product_price) - parseFloat(b.product_price));
+          filtered = [...productsToFilter];
+          console.log("length :", filtered);
+          filtered.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+          );
         }
 
-          setFilteredProducts(filtered)
-        }
+        setFilteredProducts(filtered);
+      }
+    } else {
+      console.log("ELSE CATEGORY:", selectedCategory);
+      productsToFilter = products;
+      
+      
+      if (selectedPrice !== "" && selectedPrice !== "500 +") {
+        const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
 
-      }else{
-        productsToFilter=products
-        if (selectedPrice !== "") {
-            const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
+        const withinRangeProducts = productsToFilter.filter((product) => {
+          const price = parseInt(product.product_price);
+          return price >= minPrice && price <= maxPrice;
+        });
 
-            productsToFilter = productsToFilter.filter((product) => {
-                const price = parseInt(product.product_price);
-                return price >= minPrice && price <= maxPrice;
-            });
+        const aboveRangeProducts = productsToFilter.filter((product) => {
+          const price = parseInt(product.product_price);
+          return price > maxPrice;
+        });
 
-            productsToFilter.sort((a, b) => parseFloat(a.product_price) - parseFloat(b.product_price));
-        }
-        setFilteredProducts(productsToFilter)
+        let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
+
+        combinedProducts.sort(
+          (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+        );
+
+        const remainingProducts = productsToFilter.filter((product) => {
+          if (selectedPrice !== "") {
+              const [minPrice] = selectedPrice.split("-").map(Number);
+              const price = parseInt(product.product_price);
+              return price < minPrice;
+          } else {
+              return true; // Include all products if no price range is selected
+          }
+      });
+      
+      remainingProducts.sort(
+          (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+      );
+
+        productsToFilter = [...combinedProducts,...remainingProducts];
       }
 
-},[selectedCategory,selectedPrice,products])
+      if (selectedPrice === "500 +") {
+        console.log("above 500");
+        const above500Products = productsToFilter.filter((product) => {
+          const price = parseInt(product.product_price);
+          return price >= 500;
+        });
 
+        above500Products.sort(
+          (a, b) => parseFloat(b.product_price) - parseFloat(a.product_price)
+        );
 
+        const remainingProducts = productsToFilter.filter((product) => {
+          if (selectedPrice !== "") {
+            let minPrice=500
+              console.log("ELSE MIN",minPrice)
+              const price = parseInt(product.product_price);
+              return price < minPrice;
+          } else {
+              return true; // Include all products if no price range is selected
+          }
+      });
+      console.log("ELSE REMAINING PROD",remainingProducts)
+      
+      remainingProducts.sort(
+          (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+      );
 
+        productsToFilter = [...above500Products, ...remainingProducts];
+      }
+      if (offer !== "") {
+        const selectedOffer = parseInt(offer);
+  
+        const filteredByOffer = productsToFilter.filter((product) => {
+          // Assuming 'product_offer' is the property containing offer percentage
+          const offerPercentage = parseInt(product.offers);
+          return offerPercentage >= selectedOffer;
+        });
+  
+        filteredByOffer.sort(
+          (a, b) => parseFloat(a.offers) - parseFloat(b.offers)
+        );
+  
+        if (filteredByOffer.length === 0) {
+          console.log("LENGTH 0", productsToFilter);
+          productsToFilter = productsToFilter;
+        } else {
+          productsToFilter = filteredByOffer;
+        }
+      }
+      setFilteredProducts(productsToFilter);
+    }
+  }, [selectedCategory, selectedPrice, products, offer]);
 
-
-    
-
- 
   return (
     <>
       <br />
@@ -218,7 +441,8 @@ const Category = () => {
                         <p className="product-distance text-secondary ">
                           Distance: {product.distance}km away.
                         </p>
-                        {cart.snackbar.open && cart.snackbar.index === index && (
+                        {cart.snackbar.open &&
+                          cart.snackbar.index === index && (
                             <div
                               style={{ fontSize: "12px" }}
                               className="border text-center rounded w-75 mx-auto"

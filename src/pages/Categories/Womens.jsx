@@ -7,7 +7,13 @@ import { useContext } from "react";
 import myContext from "../../components/context/MyContext.js";
 import { addToCart } from "../../components/redux/Slices/CartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { showSnackbar,hideSnackbar,addItemToWishlist,hideSnackbarForWishlist, showSnackbarForWishlist } from "../../components/redux/Slices/CartSlice.js";
+import {
+  showSnackbar,
+  hideSnackbar,
+  addItemToWishlist,
+  hideSnackbarForWishlist,
+  showSnackbarForWishlist,
+} from "../../components/redux/Slices/CartSlice.js";
 
 const Women = () => {
   useEffect(() => {
@@ -30,12 +36,12 @@ const Women = () => {
     products,
     selectedPrice,
     setSearchQuery,
+    offer,
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const suggestedData = queryParams.get("suggestion");
   const category = queryParams.get("category");
-
 
   if (selectedCategory !== "Women's Fashion") {
     const url = `/category?selectedCategory=${encodeURIComponent(
@@ -44,88 +50,148 @@ const Women = () => {
     navigate(url);
   }
 
-
-  if(accessoriesCategory !==""){
+  if (accessoriesCategory !== "") {
     const url = `/accessories?selectedCategory=${encodeURIComponent(
       accessoriesCategory
     )}`;
     navigate(url);
   }
 
-
   const dispatch = useDispatch();
 
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
 
   const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
     dispatch(showSnackbar({ message: "Product added successfully!", index }));
- 
+
     // Wait for 1 second, then hide snackbar
     setTimeout(() => {
       dispatch(hideSnackbar());
-    }, 1000)
+    }, 1000);
   };
 
+  // for wishlist button
+  const [wishlistClicked, setWishlistClicked] = useState(
+    Array(products.length).fill(false)
+  );
+  const handleWishListToCart = (product, index) => {
+    const newWishlistClicked = [...wishlistClicked];
+    newWishlistClicked[index] = !newWishlistClicked[index];
+    setWishlistClicked(newWishlistClicked);
 
-   // for wishlist button
-   const [wishlistClicked, setWishlistClicked] = useState(Array(products.length).fill(false));
-   const handleWishListToCart =(product,index)=>{
-     const newWishlistClicked = [...wishlistClicked];
-     newWishlistClicked[index] = !newWishlistClicked[index];
-     setWishlistClicked(newWishlistClicked);
-     
-     dispatch(addItemToWishlist(product));
-     dispatch(showSnackbarForWishlist({ message: 'Item added to wishlist!', index }));
-     setTimeout(() => {
-       dispatch(hideSnackbarForWishlist());
-     }, 1000); // Hide after 3 seconds
-   }
+    dispatch(addItemToWishlist(product));
+    dispatch(
+      showSnackbarForWishlist({ message: "Item added to wishlist!", index })
+    );
+    setTimeout(() => {
+      dispatch(hideSnackbarForWishlist());
+    }, 1000); // Hide after 3 seconds
+  };
 
   useEffect(() => {
     setSearchQuery("");
-    setAccessoriesCategory("")
+    setAccessoriesCategory("");
     // Apply price filtering
     let productsToFilter = products;
     const lowerCategory = category.toLowerCase();
-      setSelectedCategory("Women's Fashion")
-     let womensProduct = productsToFilter.filter(
-  (product) =>
-    product.category.toLowerCase().includes("women") ||
-    product.product_name.toLowerCase().includes("women")
-);
-productsToFilter=womensProduct;
-    if (selectedPrice !== "") {
-        const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
-  
-        const withinRangeProducts = productsToFilter.filter((product) => {
-          const price = parseInt(product.product_price);
-          return price >= minPrice && price <= maxPrice;
-        });
-  
-        const aboveRangeProducts = productsToFilter.filter((product) => {
-          const price = parseInt(product.product_price);
-          return price > maxPrice;
-        });
-  
-        let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
-  
-        combinedProducts.sort(
-          (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-        );
+    setSelectedCategory("Women's Fashion");
+    let womensProduct = productsToFilter.filter(
+      (product) =>
+        product.category.toLowerCase().includes("women") ||
+        product.product_name.toLowerCase().includes("women")
+    );
+    productsToFilter = womensProduct;
 
-        productsToFilter=combinedProducts
+    if (selectedPrice !== "" && selectedPrice !== "500 +") {
+      const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
 
-    }
+      const withinRangeProducts = productsToFilter.filter((product) => {
+        const price = parseInt(product.product_price);
+        return price >= minPrice && price <= maxPrice;
+      });
+
+      const aboveRangeProducts = productsToFilter.filter((product) => {
+        const price = parseInt(product.product_price);
+        return price > maxPrice;
+      });
+
+      let combinedProducts = [...withinRangeProducts, ...aboveRangeProducts];
+
+      combinedProducts.sort(
+        (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+      );
+
+      const remainingProducts = productsToFilter.filter((product) => {
+        if (selectedPrice !== "") {
+            const [minPrice] = selectedPrice.split("-").map(Number);
+            const price = parseInt(product.product_price);
+            return price < minPrice;
+        } else {
+            return true; // Include all products if no price range is selected
+        }
+    });
     
-    setFilteredProducts(productsToFilter)
+    remainingProducts.sort(
+        (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+    );
 
-   
+    productsToFilter = [...combinedProducts, ...remainingProducts];
+    }
 
-  }, [products, category,selectedPrice]);
+    if (selectedPrice === "500 +") {
+      console.log("above 500");
+      const above500Products = productsToFilter.filter((product) => {
+        const price = parseInt(product.product_price);
+        return price >= 500;
+      });
 
- 
+      above500Products.sort(
+        (a, b) => parseFloat(b.product_price) - parseFloat(a.product_price)
+      );
 
+      const remainingProducts = productsToFilter.filter((product) => {
+        if (selectedPrice !== "") {
+          let minPrice=500
+            console.log("ELSE MIN",minPrice)
+            const price = parseInt(product.product_price);
+            return price < minPrice;
+        } else {
+            return true; // Include all products if no price range is selected
+        }
+    });
+    console.log("ELSE REMAINING PROD",remainingProducts)
+    
+    remainingProducts.sort(
+        (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+    );
+
+      productsToFilter = [...above500Products, ...remainingProducts];
+    }
+
+    if (offer !== "") {
+      const selectedOffer = parseInt(offer);
+
+      const filteredByOffer = productsToFilter.filter((product) => {
+        // Assuming 'product_offer' is the property containing offer percentage
+        const offerPercentage = parseInt(product.offers);
+        return offerPercentage >= selectedOffer;
+      });
+
+      filteredByOffer.sort(
+        (a, b) => parseFloat(a.offers) - parseFloat(b.offers)
+      );
+
+      if (filteredByOffer.length === 0) {
+        console.log("LENGTH 0", productsToFilter);
+        productsToFilter = productsToFilter;
+      } else {
+        productsToFilter = filteredByOffer;
+      }
+    }
+
+    setFilteredProducts(productsToFilter);
+  }, [products, category, selectedPrice, offer]);
 
   return (
     <>
@@ -200,7 +266,8 @@ productsToFilter=womensProduct;
                         <p className="product-distance text-secondary ">
                           Distance: {product.distance}km away.
                         </p>
-                        {cart.snackbar.open && cart.snackbar.index === index && (
+                        {cart.snackbar.open &&
+                          cart.snackbar.index === index && (
                             <div
                               style={{ fontSize: "12px" }}
                               className="border text-center rounded w-75 mx-auto"
@@ -212,7 +279,14 @@ productsToFilter=womensProduct;
                     </a>
 
                     <div className="d-flex justify-content-center align-items-center ">
-                      <button className={`btn ${wishlistClicked[index] ? "btn-success" : "btn-primary"} w-25 my-2`} onClick={() => handleWishListToCart(product, index)}>❤</button>
+                      <button
+                        className={`btn ${
+                          wishlistClicked[index] ? "btn-success" : "btn-primary"
+                        } w-25 my-2`}
+                        onClick={() => handleWishListToCart(product, index)}
+                      >
+                        ❤
+                      </button>
                       <button
                         onClick={() => handleAddToCart(product, index)}
                         className="btn btn-primary my-2 w-50 ms-2"
@@ -232,9 +306,3 @@ productsToFilter=womensProduct;
 };
 
 export default Women;
-
-
-
-
-
-

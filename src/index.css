@@ -614,7 +614,7 @@
 
  .card-b {
    box-shadow: 0px 0px 0.1dvi rgb(209, 179, 179);
-   border-radius: 20px;
+   border-radius: 10px;
    background-color: #fff5f5;
    transition: box-shadow 0.3s ease;
  }

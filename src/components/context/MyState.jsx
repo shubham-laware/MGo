@@ -9,6 +9,7 @@ const Mystate = (props) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [offer,setOffers] = useState("")
 
 
   useEffect(() => {
@@ -39,6 +40,10 @@ const Mystate = (props) => {
     setSearchQuery(e.target.value);
   };
 
+  const handleOfferChange = (event)=>{
+    setOffers(event.target.value)
+  }
+
 
   return (
     <div>
@@ -57,6 +62,9 @@ const Mystate = (props) => {
           searchQuery,
           setSearchQuery,
           handleSearchInputChange,
+          offer,
+          setOffers,
+          handleOfferChange
         }}
       >
         {props.children}

@@ -37,7 +37,6 @@ function RightSection({ productId }) {
     const fProduct = item[0];
     if (fProduct) {
       setProduct(fProduct);
-      console.log("RATINGS:",product)
     }
   }, [id, products])
 

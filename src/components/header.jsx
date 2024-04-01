@@ -22,6 +22,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectTotalQuantity } from "../components/redux/Slices/CartSlice.js";
 import { Col, Modal } from "react-bootstrap";
+import Login from "../pages/Signin.jsx";
+import { toast } from "react-toastify";
 
 import "./header.css";
 import axios from "axios";
@@ -32,15 +34,54 @@ function Header() {
   const [pincode, setPincode] = useState("");
   const [townDistrict, setTownDistrict] = useState("");
   const [state, setState] = useState("");
-  const [fullName, setFullName] = useState(null);
-  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [addresss, setAddresss] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSnackbarClose = () => {
+    setShowSnackbar(false);
+  };
 
   const [showOTP, setShowOTP] = useState(false);
   const [timer, setTimer] = useState(30);
+  const [sendOTPagain, setSendOTPagain] = useState(false);
+
+  useEffect(() => {
+    let intervalId;
+
+    if (showOTP && sendOTPagain) {
+      intervalId = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer === 1) {
+            // Stop the timer and reset sendOTPagain after 30 seconds
+            clearInterval(intervalId);
+            setSendOTPagain(false);
+            return 30; // Reset the timer back to 30
+          }
+          return prevTimer - 1;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(intervalId); // Clear the interval when the component unmounts
+    };
+  }, [showOTP, sendOTPagain]);
+
+  function handleSendOTPAgain() {
+    setSendOTPagain(true);
+    toast.success("OTP sent successfully", {
+      autoClose: 1000,
+      hideProgressBar: true,
+    });
+  }
 
   const navigate = useNavigate();
   const totalQuantity = useSelector(selectTotalQuantity);
   const [showModal, setShowModal] = useState(false);
+  const [loginModal, setLoginModal] = useState(false);
 
   // State to manage the dropdown title
   const location = (
@@ -147,36 +188,80 @@ function Header() {
     }
   };
 
-  async function handleRegister() {
-    if (!fullName || !phoneNumber) {
+  function handleRegister() {
+    const emailPattern = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
+    const phonePattern = /^[0-9]{10}$/;
+
+    if (
+      fullName === "" ||
+      phoneNumber === "" ||
+      email === "" ||
+      addresss === "" ||
+      password === ""
+    ) {
+      toast.error("All fields are required", {
+        autoClose: 1000,
+        hideProgressBar: true,
+      });
       return;
+    } else if (!phonePattern.test(phoneNumber)) {
+      toast.error("Please enter a valid phone number", {
+        autoClose: 1000,
+        hideProgressBar: true,
+      });
+      return;
+    } else if (!emailPattern.test(email)) {
+      toast.error("Please enter a valid email", {
+        autoClose: 1000,
+        hideProgressBar: true,
+      });
+      return;
+    } else if (password.length < 6 || password.length > 8) {
+      toast.error("Password must be between 6 and 8 characters long", {
+        autoClose: 1000,
+        hideProgressBar: true,
+      });
+      return;
+    } else {
+      const data = {
+        full_name: fullName,
+        phone_number: phoneNumber,
+        email: email,
+        password: password,
+        address: addresss,
+      };
+
+      axios
+        .post(
+          "https://minitgo.com/api/fetch_login.php",
+          JSON.stringify(data),
+          {}
+        )
+        .then((response) => {
+          if (response.data && response.data.length > 0) {
+            const user = response.data[0];
+            console.log("Login successful. User:", user);
+            if (user) {
+              handleOTP();
+            }
+          } else {
+            console.error("Login failed: No user data returned.");
+          }
+        })
+        .catch((error) => {
+          console.error("Login failed:", error);
+        });
     }
-
-    console.log(
-      address,
-      city,
-      pincode,
-      townDistrict,
-      state,
-      fullName,
-      phoneNumber
-    );
-
-    // // Dummy post to a random API
-    // try {
-    //   const response = await axios.post("https://randomapi.com");
-    //   if (response.status === 200) {
-    //     handleOTP();
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
-
-    handleOTP();
   }
 
   function handleOTP() {
+    setTimer(30);
     setShowOTP(true);
+    setSendOTPagain(true);
+    toast.success("OTP sent successfully", {
+      autoClose: 1000,
+      hideProgressBar: true,
+    });
   }
 
   const login = (
@@ -298,7 +383,12 @@ function Header() {
                 className="Dropdown"
               >
                 <NavDropdown.Item>
-                  <div onClick={() => setShowModal(true)} style={{color:'blue'}}>Create an account</div>
+                  <div
+                    onClick={() => setShowModal(true)}
+                    style={{ color: "blue" }}
+                  >
+                    SignUp
+                  </div>
                   {showModal && (
                     <Modal
                       show={showModal}
@@ -310,13 +400,16 @@ function Header() {
                       aria-labelledby="example-custom-modal-styling-title"
                     >
                       <Modal.Body
-                        className="p-0 rounded rounded-2 d-flex w-max"
+                        className="p-0  d-flex w-max"
                         style={{ minWidth: "22rem" }}
                       >
                         {showOTP ? (
                           <div
-                            className="d-flex flex-column gap-2 pt-2 pb-3 ps-5 bg-light  "
-                            style={{ width: "70vw" }}
+                            className="d-flex flex-column gap-2 pt-2 pb-3 ps-5    "
+                            style={{
+                              width: "70vw",
+                              backgroundColor: "#fff5f5",
+                            }}
                           >
                             <div
                               onClick={() => setShowOTP(false)}
@@ -504,7 +597,7 @@ function Header() {
                                     textDecoration: "underline",
                                     cursor: "pointer",
                                   }}
-                                  onClick={() => {}}
+                                  onClick={handleSendOTPAgain}
                                 >
                                   Send OTP (SMS)
                                 </p>
@@ -513,23 +606,47 @@ function Header() {
                           </div>
                         ) : (
                           <div
-                            style={{ width: "70vw" }}
-                            className="d-flex flex-column gap-2 px-4 pt-5 pb-3 bg-light "
+                            style={{
+                              width: "70vw",
+                              backgroundColor: "#fff5f5",
+                            }}
+                            className="d-flex flex-column gap-2 px-4 pt-5 pb-3   "
                           >
                             <Form>
                               <Form.Control
                                 type="text"
                                 placeholder="Full Name"
-                                className=" w-100 px-4 mb-4 my-5 rounded rounded-pill"
+                                className=" w-100 px-4 mb-3 my-5 rounded rounded-pill"
                                 value={fullName}
                                 onChange={(e) => setFullName(e.target.value)}
                               />
                               <Form.Control
                                 type="text"
                                 placeholder="+91"
-                                className=" w-100 px-4 mb-4 rounded rounded-pill"
+                                className=" w-100 px-4 mb-3 rounded rounded-pill"
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
+                              />
+                              <Form.Control
+                                type="text"
+                                placeholder="Email"
+                                className=" w-100 px-4 mb-4  rounded rounded-pill"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                              />
+                              <Form.Control
+                                type="text"
+                                placeholder="Address"
+                                className=" w-100 px-4 mb-3 rounded rounded-pill"
+                                value={addresss}
+                                onChange={(e) => setAddresss(e.target.value)}
+                              />
+                              <Form.Control
+                                type="text"
+                                placeholder="Password"
+                                className=" w-100 px-4 mb-3 rounded rounded-pill"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                               />
                             </Form>
                             <Button
@@ -540,7 +657,7 @@ function Header() {
                             </Button>
 
                             <Button
-                              variant="danger"
+                              variant="success"
                               className="my-2"
                               onClick={handleRegister}
                             >
@@ -610,11 +727,34 @@ function Header() {
                     </Modal>
                   )}
                 </NavDropdown.Item>
+
+                {/* Shubham-  Desktop Login Modal starts here */}
+
                 <NavDropdown.Item>
-                  <Link to="/signin" className="text-decoration-none">
+                  <div
+                    onClick={() => setLoginModal(true)}
+                    style={{ color: "blue" }}
+                  >
                     Login
-                  </Link>
+                  </div>
+
+                  {/* Login Modal */}
+                  <Modal
+                    show={loginModal}
+                    onHide={() => setLoginModal(false)}
+                    aria-labelledby="example-custom-modal-styling-title"
+                  >
+                    <Modal.Body
+                      className="p-0 rounded-4 d-flex w-max "
+                      style={{ minWidth: "22rem" }}
+                    >
+                      <Login closeLoginModal={() => setLoginModal(false)} />
+                    </Modal.Body>
+                  </Modal>
                 </NavDropdown.Item>
+
+                {/* Shubham- Desktop Login modal ends here */}
+
                 <NavDropdown.Divider />
 
                 <NavDropdown.Item>
@@ -739,11 +879,33 @@ function Header() {
               About
             </Link>
             <Link to="/" className="nav-link">
-              Create an account
+              SignUp
             </Link>
-            <Link to="/" className="nav-link">
+
+            {/* Shubham- Mobile Login Modal starts here */}
+
+            <div onClick={() => setLoginModal(true)} style={{ color: "blue" }}>
               Login
-            </Link>
+            </div>
+
+            {/* Login Modal */}
+            <Modal show={loginModal} onHide={() => setLoginModal(false)}>
+              <Modal
+                show={loginModal}
+                onHide={() => setLoginModal(false)}
+                aria-labelledby="example-custom-modal-styling-title"
+              >
+                <Modal.Body
+                  className="p-0 rounded-4 d-flex w-max m-4"
+                  style={{ minWidth: "22rem" }}
+                >
+                  <Login closeLoginModal={() => setLoginModal(false)} />
+                </Modal.Body>
+              </Modal>
+            </Modal>
+            {/* 
+            Shubham- Mobible Login Modal ends here */}
+
             {/* <Link to="/" className="nav-link">
               Minit-Pay
             </Link> */}

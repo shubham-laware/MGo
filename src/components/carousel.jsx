@@ -14,7 +14,6 @@ export default function Carousel() {
   const handleAddToCart = (product, index) => {
     dispatch(addToCart(product));
     dispatch(showSnackbar({ message: "Product added successfully!", index }));
-    console.log("index", index)
 
     // Wait for 1 second, then hide snackbar
     setTimeout(() => {
@@ -22,7 +21,6 @@ export default function Carousel() {
     }, 1000)
   };
   const cart = useSelector(state => state.cart);
-  console.log("carousel compo", cart.snackbar.open)
 
 
   return (

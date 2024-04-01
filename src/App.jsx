@@ -26,13 +26,14 @@ import FindNearMe from './pages/FindNearMe.jsx';
 import Connect from './pages/Connect.jsx';
 import Updates from './pages/Updates.jsx';
 import Mystate from './components/context/MyState.jsx';
-
 import BecomePartner from "./pages/BecomePartner.jsx";
 import Increase from "./pages/Increase.jsx";
 import Accessories from './pages/Categories/Accessories.jsx';
 import Mens from './pages/Categories/Mens.jsx';
 import Womens from './pages/Categories/Womens.jsx';
 import Category from './pages/Category.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
     const location = useLocation();
@@ -88,6 +89,7 @@ const App = () => {
                 <Route exact path="/cdashboard" element={<Clientdashboard />} />
                 <Route exact path="/increase" element={<Increase />} />
             </Routes>
+            <ToastContainer/>
 
             {showFooter() && <Footer />}
         </Mystate>

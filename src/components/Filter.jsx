@@ -5,8 +5,8 @@ import myContext from "./context/MyContext.js";
 
 function Filter({ brand }) {
     const context = useContext(myContext);
-    const { selectedCategory, handleCategoryChange, handlePriceChange, selectedPrice, accessoriesCategory,handleAccessoriesCategoryChange,setSelectedCategory } = context;
-    console.log("selectedPrice", selectedPrice)
+    const { selectedCategory, handleCategoryChange, handlePriceChange, selectedPrice, accessoriesCategory,handleAccessoriesCategoryChange,setSelectedCategory, offer,
+        handleOfferChange } = context;
 
  
     useEffect(() => {
@@ -46,6 +46,7 @@ function Filter({ brand }) {
                                 <option value="200-300">200-300</option>
                                 <option value="300-400">300-400</option>
                                 <option value="400-500">400-500</option>
+                                <option value="500 +">500 +</option>
                             </select>
                         </div>
                         <div className="form-group mt-1">
@@ -72,7 +73,15 @@ function Filter({ brand }) {
                             Todays deals
                         </div>
                         <div className="form-group mt-1">
-                            Offers
+                        <label htmlFor="offerFilter">Offers</label>
+                            <select className="form-control rounded-pill mt-1" id="offerFilter" onChange={handleOfferChange} value={offer}>
+                                <option value="">All</option>
+                                <option value="10">10%</option>
+                                <option value="15">15%</option>
+                                <option value="20">20%</option>
+                                <option value="25">25%</option>
+                                <option value="30">30%</option>
+                            </select>
                         </div>
                         <div className="form-group mt-1">
                             Trending
