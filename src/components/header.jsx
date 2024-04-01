@@ -893,6 +893,8 @@ function Header() {
 
       {/* Offcanvas Sidebar */}
 
+      {/* Mobile view starts here */}
+
       <Offcanvas
         show={showOffcanvas}
         onHide={() => setShowOffcanvas(false)}
@@ -935,16 +937,12 @@ function Header() {
                   About
                 </Link>
 
-                <span
-                  className="nav-link border-bottom"
-                  onClick={() => {
-                    setShowOffcanvas(false);
-                    setShowModal(true);
-                    console.log(true, showModal);
-                  }}
-                >
-                  SignUp
-                </span>
+                <div
+                    onClick={() => setShowModal(true)}
+                    style={{ color: "blue" }}
+                  >
+                    SignUp
+                  </div>
                 {/* Shubham- Mobile Login Modal starts here */}
 
             <span
