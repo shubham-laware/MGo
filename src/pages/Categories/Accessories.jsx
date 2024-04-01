@@ -251,7 +251,7 @@ const Accessories = () => {
           <Filter brand="Test" />
 
           <div className="col-md-10">
-            <div className="d-flex flex-wrap px-5 px-sm-0">
+            <div className="d-flex gap-4 flex-wrap px-5 px-sm-0 mx-4">
               {filteredProducts?.map((product, index) => (
                 <div
                   key={index}
