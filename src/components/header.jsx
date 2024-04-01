@@ -429,7 +429,7 @@ function Header() {
                       aria-labelledby="example-custom-modal-styling-title"
                     >
                       <Modal.Body
-                        className="p-0  d-flex w-max"
+                        className="p-0  d-flex w-max  "
                         style={{ minWidth: "22rem" }}
                       >
                         {showOTP ? (
@@ -888,308 +888,7 @@ function Header() {
           </div>
         </div>
       </Navbar>
-      {showModal && (
-        <Modal
-          show={showModal}
-          onHide={() => {
-            setShowModal(false);
-            setShowOTP(false);
-          }}
-          // dialogClassName="modal-90w"
-          aria-labelledby="example-custom-modal-styling-title"
-        >
-          <Modal.Body
-            className="p-0 rounded rounded-2 d-flex flex-lg-row flex-column w-max"
-            style={{ minWidth: "22rem" }}
-          >
-            {showOTP ? (
-              <div
-                className="d-flex flex-column gap-2 pt-2 pb-3 ps-5 bg-light  "
-                // style={{ width: "70vw" }}
-              >
-                <div
-                  onClick={() => setShowOTP(false)}
-                  className="fs-3 px-1"
-                  style={{
-                    cursor: "pointer",
-                    position: "relative",
-                    bottom: "0.5rem",
-                    right: "2rem",
-                  }}
-                >
-                  ←
-                </div>
-                <h2 className="text-start ">OTP Verification</h2>
-                <p>OTP has sent to +{phoneNumber}</p>
-                <ul
-                  className="d-flex gap-2 justify-content-start ps-1"
-                  style={{ listStyle: "none" }}
-                >
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
-
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
-
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
-
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
-
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
-
-                  <input
-                    type="text"
-                    className="p-1 rounded-pill border text-center"
-                    style={{ width: "30px", outline: "none" }}
-                    maxLength={1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Backspace" &&
-                        e.target.previousElementSibling
-                      ) {
-                        if (e.target.value === "") {
-                          e.target.previousElementSibling.focus();
-                        }
-                      } else if (
-                        e.key.length === 1 &&
-                        e.target.nextElementSibling
-                      ) {
-                        if (e.target.value !== "") {
-                          e.target.nextElementSibling.focus();
-                        }
-                      }
-                    }}
-                  />
-                </ul>
-
-                <div className="mt-3">
-                  <div className=" w-75 text-center fs-3">00:{timer}</div>
-                </div>
-
-                <div className="mt-2  ">
-                  <div
-                    className=" w-75 text-center"
-                    style={{ fontSize: "14px" }}
-                  >
-                    Didn't get it?
-                  </div>
-                </div>
-
-                <div className="">
-                  <div className=" w-75 text-center ">
-                    <p
-                      className="underline"
-                      style={{
-                        textDecoration: "underline",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => {}}
-                    >
-                      Send OTP (SMS)
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div
-                // style={{ width: "70vw" }}
-                className="d-flex flex-column gap-2 px-4 pt-5 pb-3 bg-light "
-              >
-                <Form>
-                  <Form.Control
-                    type="text"
-                    placeholder="Full Name"
-                    className=" w-100 px-4 mb-4 my-5 rounded rounded-pill"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                  />
-                  <Form.Control
-                    type="text"
-                    placeholder="+91"
-                    className=" w-100 px-4 mb-4 rounded rounded-pill"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
-                </Form>
-                <Button variant="secondary" onClick={handleUseCurrentLocation}>
-                  Use Current Location
-                </Button>
-
-                <Button
-                  variant="danger"
-                  className="my-2"
-                  onClick={handleRegister}
-                >
-                  Continue
-                </Button>
-                <p style={{ marginTop: "10px" }} className="text-center">
-                  By continuing, you agree to our <br />
-                  <a
-                    target="_blank"
-                    href="#"
-                    className="text-danger fw-semibold"
-                    style={{
-                      textDecoration: "none",
-                    }}
-                  >
-                    Terms of Service
-                  </a>
-                  . &{" "}
-                  <a
-                    target="_blank"
-                    href="#"
-                    className="text-danger fw-semibold"
-                    style={{
-                      textDecoration: "none",
-                    }}
-                  >
-                    Privacy Policy
-                  </a>
-                </p>
-              </div>
-            )}
-            <div
-              style={{ backgroundColor: "#e3e3e3" }}
-              className="d-flex flex-column justify-content-center align-items-center px-3 py-lg-0 py-4"
-            >
-              <h1 className="fs-5 text-center mb-5">
-                Our app will be launching soon.
-              </h1>
-              {/* <img
-                            src="appstore.png"
-                            alt="App Store"
-                            className="my-0"
-                          />
-                          <img src="playstore.png" alt="Play Store" /> */}
-
-              <a
-                className="download-btn btn-google"
-                href="#"
-                style={{ width: "9.5rem" }}
-                title="Google Play"
-              >
-                Google Play
-              </a>
-              <a
-                className="download-btn btn-apple"
-                href="#"
-                style={{ width: "9.5rem" }}
-                title="App Store"
-              >
-                App Store
-              </a>
-            </div>
-          </Modal.Body>
-        </Modal>
-      )}
+      
       <Catlog />
 
       {/* Offcanvas Sidebar */}
@@ -1244,13 +943,15 @@ function Header() {
                     console.log(true, showModal);
                   }}
                 >
-                  Create an account
+                  SignUp
                 </span>
                 {/* Shubham- Mobile Login Modal starts here */}
 
-            <div onClick={() => setLoginModal(true)} style={{ color: "blue" }}>
+            <span
+              className="nav-link border-bottom"
+            onClick={() => setLoginModal(true)}>
               Login
-            </div>
+            </span>
 
             {/* Login Modal */}
             <Modal show={loginModal} onHide={() => setLoginModal(false)}>
@@ -1258,9 +959,10 @@ function Header() {
                 show={loginModal}
                 onHide={() => setLoginModal(false)}
                 aria-labelledby="example-custom-modal-styling-title"
+                
               >
                 <Modal.Body
-                  className="p-0 rounded-4 d-flex w-max m-4"
+                  className="p-0 rounded-4 d-flex w-max "
                   style={{ minWidth: "22rem" }}
                 >
                   <Login closeLoginModal={() => setLoginModal(false)} />
