@@ -18,6 +18,7 @@ const Profile = () => {
   const [profilePic, setProfilePic] = useState(null);
 
   const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef(null);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -38,6 +39,20 @@ const Profile = () => {
     }
   }, [acceptedFiles]);
 
+  // On focus out functionality
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setShowMenu(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, []);
+
   function handleSave() {
     console.log(`First Name: ${firstNameRef.current.value}`);
     console.log(`Last Name: ${lastNameRef.current.value}`);
@@ -54,9 +69,8 @@ const Profile = () => {
       <br></br>
       <br></br>
       <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+      <br className="d-lg-block d-none"></br>
+      <br className="d-lg-block d-none"></br>
       <div className="custom-container">
         {/* Sidebar for larger screens */}
         <div className="custom-sidebar d-none d-lg-flex">
@@ -65,7 +79,7 @@ const Profile = () => {
           </span>
 
           <div
-            className={`custom-sidebar-item fs-6 bg-light ${
+            className={`custom-sidebar-item fs-5 bg-light ${
               section === "profile" && "active"
             }`}
             onClick={() => setSection("profile")}
@@ -74,7 +88,7 @@ const Profile = () => {
             Profile Settings
           </div>
           <div
-            className={`custom-sidebar-item fs-6 bg-light ${
+            className={`custom-sidebar-item fs-5 bg-light ${
               section === "2fa" && "active"
             }`}
             onClick={() => setSection("2fa")}
@@ -83,7 +97,7 @@ const Profile = () => {
             Two-Factor Authentication
           </div>
           <div
-            className={`custom-sidebar-item fs-6 bg-light ${
+            className={`custom-sidebar-item fs-5 bg-light ${
               section === "orders" && "active"
             }`}
             onClick={() => setSection("orders")}
@@ -92,10 +106,9 @@ const Profile = () => {
             Your Orders
           </div>
         </div>
-
         {/* Hamburger menu for smaller screens */}
-        <div className="d-lg-none">
-          <div className="btn border mb-4" onClick={toggleMenu}>
+        <div className="d-lg-none" ref={menuRef}>
+          <div className="btn border mb-3" onClick={toggleMenu}>
             {showMenu ? (
               <HiMenu style={{ width: "2rem", height: "2rem" }} />
             ) : (
@@ -104,48 +117,50 @@ const Profile = () => {
             <span className="fs-4 fw-bold mx-3">Your Profile</span>
           </div>
 
-          {showMenu && (
-            <div className="custom-sidebar">
-              <div
-                className={`custom-sidebar-item fs-6 bg-light ${
-                  section === "profile" && "active"
-                }`}
-                onClick={() => {
-                  setSection("profile");
-                  setShowMenu(false);
-                }}
-                data-section="profile"
-              >
-                Profile Settings
-              </div>
-              <div
-                className={`custom-sidebar-item fs-6 bg-light ${
-                  section === "2fa" && "active"
-                }`}
-                onClick={() => {
-                  setSection("2fa");
-                  setShowMenu(false);
-                }}
-                data-section="2fa"
-              >
-                Two-Factor Authentication
-              </div>
-              <div
-                className={`custom-sidebar-item fs-6 bg-light ${
-                  section === "orders" && "active"
-                }`}
-                onClick={() => {
-                  setSection("orders");
-                  setShowMenu(false);
-                }}
-                data-section="orders"
-              >
-                Your Orders
-              </div>
+          <div
+            className={`custom-sidebar gap-4 mobile-sidebar px-4 border py-4 mt-2 bg-light shadow shadow-2 ${
+              showMenu ? "active" : ""
+            } position-absolute w-75 rounded`}
+            style={{ zIndex: 100, marginTop: "-1rem" }}
+          >
+            <div
+              className={`custom-sidebar-item fs-5 fw-semibold bg-light ${
+                section === "profile" && "active"
+              }`}
+              onClick={() => {
+                setSection("profile");
+                setShowMenu(false);
+              }}
+              data-section="profile"
+            >
+              Profile Settings
             </div>
-          )}
+            <div
+              className={`custom-sidebar-item fs-5 fw-semibold bg-light ${
+                section === "2fa" && "active"
+              }`}
+              onClick={() => {
+                setSection("2fa");
+                setShowMenu(false);
+              }}
+              data-section="2fa"
+            >
+              Two-Factor Authentication
+            </div>
+            <div
+              className={`custom-sidebar-item fs-5 fw-semibold bg-light ${
+                section === "orders" && "active"
+              }`}
+              onClick={() => {
+                setSection("orders");
+                setShowMenu(false);
+              }}
+              data-section="orders"
+            >
+              Your Orders
+            </div>
+          </div>
         </div>
-
         {section === "profile" && (
           <div className="custom-content">
             <div className="custom-header">
@@ -235,7 +250,7 @@ const Profile = () => {
           </div>
         )}
         {section === "2fa" && (
-          <div className="custom-content">
+          <div className="custom-content d-md-block d-flex flex-column align-items-center ">
             <div className="custom-header">
               <h1>Two-Factor Authentication Section</h1>
             </div>
@@ -243,8 +258,7 @@ const Profile = () => {
               onSubmit={(e) => {
                 e.preventDefault();
               }}
-              className="my-5 mx-md-5 mx-3"
-              style={{ maxWidth: "50%" }}
+              className="my-5 mx-md-5 w-75  "
             >
               <div className="mb-3">
                 <label htmlFor="phone-number" className="form-label fw-bold">
