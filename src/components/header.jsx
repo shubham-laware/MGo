@@ -8,8 +8,16 @@ import { Link } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.css";
 import Logo from "../components/images/minitgo.png";
-import { FaLocationCrosshairs } from "react-icons/fa6";
+import {
+  FaBox,
+  FaCartShopping,
+  FaCommentDots,
+  FaLink,
+  FaLocationCrosshairs,
+  FaRegNewspaper,
+} from "react-icons/fa6";
 import { CiLocationArrow1 } from "react-icons/ci";
+
 // import { BiCartAlt } from "react-icons/bi";
 import cartIcon from "../assets/cart-icon.svg";
 import { BiLogIn } from "react-icons/bi";
@@ -24,7 +32,15 @@ import { selectTotalQuantity } from "../components/redux/Slices/CartSlice.js";
 import Login from "../pages/Signin.jsx";
 import { toast } from "react-toastify";
 import { Col, Modal, Row } from "react-bootstrap";
-import SignUp from '../pages/SignUp.jsx'
+import SignUp from "../pages/SignUp.jsx";
+
+import { IoHome } from "react-icons/io5";
+import { FaCircleInfo, FaUserPlus, FaListCheck } from "react-icons/fa6";
+import { FiLogIn } from "react-icons/fi";
+import { MdContactSupport, MdHelp, MdOutlineUpdate } from "react-icons/md";
+import { BsPersonCircle } from "react-icons/bs";
+import { PiHandshakeBold } from "react-icons/pi";
+import { ImUserPlus } from "react-icons/im";
 
 import "./header.css";
 import axios from "axios";
@@ -35,17 +51,10 @@ function Header() {
   const [pincode, setPincode] = useState("");
   const [townDistrict, setTownDistrict] = useState("");
   const [state, setState] = useState("");
- 
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
   };
-
-
-
- 
-
- 
 
   const navigate = useNavigate();
   const totalQuantity = useSelector(selectTotalQuantity);
@@ -96,9 +105,14 @@ function Header() {
         const userData = data.results[0];
 
         const userName = ` ${userData.name.first} ${userData.name.last}`;
-        const userImage = userData.picture.large;
         const userNumber = userData.cell;
         const userLocation = `${userData.location.country}, ${userData.location.state}`;
+
+        const responseAvatar = await fetch(
+          `https://ui-avatars.com/api/?name=${userName}&background=FFCCBC`
+        );
+        const dataAvatar = await responseAvatar.blob();
+        const userImage = URL.createObjectURL(dataAvatar);
 
         setUser({
           name: userName,
@@ -185,8 +199,6 @@ function Header() {
     } else {
     }
   };
-
- 
 
   const login = (
     <span>
@@ -313,27 +325,6 @@ function Header() {
                   >
                     SignUp
                   </div>
-                  {showModal && (
-                    <Modal
-                      show={showModal}
-                      onHide={() => {
-                        setShowModal(false);
-                        setShowOTP(false);
-                      }}
-                      // dialogClassName="modal-90w"
-                      aria-labelledby="example-custom-modal-styling-title"
-                    >
-                      <Modal.Body
-                        className="p-0  d-flex w-max flex-lg-row flex-column "
-                        style={{ minWidth: "22rem" }}
-                      >
-
-                        <SignUp />
-                        
-                        
-                      </Modal.Body>
-                    </Modal>
-                  )}
                 </NavDropdown.Item>
 
                 {/* Shubham-  Desktop Login Modal starts here */}
@@ -470,6 +461,44 @@ function Header() {
 
       <Catlog />
 
+      {"Modal needs to be outside to be loaded in the mobile version"}
+
+      {showModal && (
+        <Modal
+          show={showModal}
+          onHide={() => {
+            setShowModal(false);
+            setShowOTP(false);
+          }}
+          // dialogClassName="modal-90w"
+          aria-labelledby="example-custom-modal-styling-title"
+        >
+          <Modal.Body
+            className="p-0 d-flex w-max flex-lg-row flex-column  "
+            style={{ minWidth: "10rem", backgroundColor: "#fff5f5" }}
+          >
+            <Modal.Header closeButton className="d-block d-lg-none" />
+
+            <SignUp />
+          </Modal.Body>
+        </Modal>
+      )}
+
+      {/* Login Modal */}
+
+      <Modal
+        show={loginModal}
+        onHide={() => setLoginModal(false)}
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Body
+          className="p-0 rounded-4 d-flex w-max "
+          style={{ minWidth: "22rem" }}
+        >
+          <Login closeLoginModal={() => setLoginModal(false)} />
+        </Modal.Body>
+      </Modal>
+
       {/* Offcanvas Sidebar */}
 
       {/* Mobile view starts here */}
@@ -480,10 +509,16 @@ function Header() {
         placement="end"
       >
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Minitgo</Offcanvas.Title>
+          <Offcanvas.Title>
+            <img
+              src="/src/components/images/minitgo.png"
+              width={100}
+              height={20}
+            />
+          </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <div className="d-flex flex-column justify-content-center align-items-center border-bottom py-4">
+          <div className="d-flex flex-column justify-content-center align-items-center border rounded  py-4 my-2">
             <img
               src={user?.image}
               className="rounded rounded-circle border border-2 border-primary shadow shadow-2"
@@ -497,255 +532,315 @@ function Header() {
             </p>
           </div>
           {/* Sidebar content goes here */}
+
           <Row className="py-1">
             <Col className="col-6">
               <Nav className="flex-column w-100">
                 <Link
                   to="/"
-                  className="nav-link border-bottom"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                   onClick={() => setShowOffcanvas(false)}
                 >
+                  <IoHome
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
                   Home
                 </Link>
 
                 <Link
                   to="/about"
-                  className="nav-link border-bottom"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                   onClick={() => setShowOffcanvas(false)}
                 >
+                  <FaCircleInfo
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
                   About
                 </Link>
 
                 <span
-                    onClick={() => setShowModal(true)}
-                    className="nav-link border-bottom"
-                  >
-                    SignUp
-                  </span>
-
-                {showModal && (
-                    <Modal
-                      show={showModal}
-                      onHide={() => {
-                        setShowModal(false);
-                        setShowOTP(false);
-                      }}
-                      // dialogClassName="modal-90w"
-                      aria-labelledby="example-custom-modal-styling-title"
-                      
-                    >
-                     
-                      <Modal.Body
-                        className="p-0 d-flex w-max flex-lg-row flex-column  "
-                        style={{ minWidth: "10rem", backgroundColor: "#fff5f5", }}
-                      >
-                          <Modal.Header closeButton/>
-
-                        <SignUp />
-                        
-                        
-                      </Modal.Body>
-                    </Modal>
-                  )}
-
-
-                  
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  onClick={() => {
+                    setShowOffcanvas(false);
+                    setShowModal(true);
+                    console.log(true, showModal);
+                  }}
+                >
+                  <FaUserPlus
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
+                  SignUp
+                </span>
                 {/* Shubham- Mobile Login Modal starts here */}
 
                 <span
-                  className="nav-link border-bottom"
-                  onClick={() => setLoginModal(true)}
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  onClick={() => {
+                    setShowOffcanvas(false);
+                    setLoginModal(true);
+                  }}
                 >
+                  <FiLogIn
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
                   Login
                 </span>
 
-                {/* Login Modal */}
-                <Modal show={loginModal} onHide={() => setLoginModal(false)}>
-                  <Modal
-                    show={loginModal}
-                    onHide={() => setLoginModal(false)}
-                    aria-labelledby="example-custom-modal-styling-title"
-                  >
-                    <Modal.Body
-                      className="p-0 rounded-4 d-flex w-max "
-                      style={{ minWidth: "22rem" }}
-                    >
-                      <Login closeLoginModal={() => setLoginModal(false)} />
-                    </Modal.Body>
-                  </Modal>
-                </Modal>
-                {/* 
-            Shubham- Mobible Login Modal ends here */}
-
                 <Link
-                  to="/"
-                  className="nav-link border-bottom"
+                  to="/orders"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                   onClick={() => setShowOffcanvas(false)}
                 >
-                  Address change
+                  <FaListCheck
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
+                  Orders
+                </Link>
+
+                <Link
+                  to="/cart"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  <FaCartShopping
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
+                  Cart
+                </Link>
+
+                <Link
+                  to="/products"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  <FaBox
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
+                  Products
+                </Link>
+
+                <Link
+                  to="/contact"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  <MdContactSupport
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
+                  Contact Us
                 </Link>
               </Nav>
             </Col>
             <Col className="col-6">
               <Nav className="flex-column w-100">
                 <Link
-                  to="/orders"
-                  className="nav-link border-bottom"
+                  to="/profile"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                   onClick={() => setShowOffcanvas(false)}
                 >
-                  Orders
+                  <BsPersonCircle
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
+                  Profile
                 </Link>
-
-                <Link
-                  to="/cart"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Cart
-                </Link>
-
-                <Link
-                  to="/feedback"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Feedback
-                </Link>
-
-                <Link
-                  to="/checkout"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Checkout
-                </Link>
-
-                <Link
-                  to="/products"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Products
-                </Link>
-
-                <Link
-                  to="/category"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Category
-                </Link>
-
-                <Link
-                  to="/accessories"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Accessories
-                </Link>
-
                 <Link
                   to="/connect"
-                  className="nav-link border-bottom"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                   onClick={() => setShowOffcanvas(false)}
                 >
+                  <FaLink
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
                   Connect
                 </Link>
 
                 <Link
-                  to="/contact"
-                  className="nav-link border-bottom"
+                  to="/feedback"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                   onClick={() => setShowOffcanvas(false)}
                 >
-                  Contact Us
+                  <FaCommentDots
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
+                  Feedback
                 </Link>
-
                 <Link
                   to="/blog"
-                  className="nav-link border-bottom"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                   onClick={() => setShowOffcanvas(false)}
                 >
+                  <FaRegNewspaper
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
                   Blog
                 </Link>
 
                 <Link
                   to="/updates"
-                  className="nav-link border-bottom"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                   onClick={() => setShowOffcanvas(false)}
                 >
+                  <MdOutlineUpdate
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
                   Updates
                 </Link>
 
                 <Link
-                  to="/add-blog"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Add Blog
-                </Link>
-
-                <Link
                   to="/partner"
-                  className="nav-link border-bottom"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                   onClick={() => setShowOffcanvas(false)}
                 >
+                  <PiHandshakeBold
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
                   Become a Partner
                 </Link>
 
                 <Link
-                  to="returns"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Return Policy
-                </Link>
-
-                <Link
                   to="/help"
-                  className="nav-link border-bottom"
+                  className="border-bottom py-3 fw-semibold px-2"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                   onClick={() => setShowOffcanvas(false)}
                 >
+                  <MdHelp
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
                   Help
-                </Link>
-
-                <Link
-                  to="/near-me"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Find Near Me
-                </Link>
-
-                <Link
-                  to="/profile"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Profile
-                </Link>
-
-                <Link
-                  to="/clientregister"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Client Register
-                </Link>
-
-                <Link
-                  to="/cdashboard"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Client Dashboard
-                </Link>
-
-                <Link
-                  to="/increase"
-                  className="nav-link border-bottom"
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  Increase
                 </Link>
               </Nav>
             </Col>
