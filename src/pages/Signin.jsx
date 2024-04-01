@@ -70,8 +70,8 @@ const Login = ({ closeLoginModal }) => {
     e.preventDefault();
     console.log(userid);
     console.log(password);
-    const emailPattern = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
-    const phonePattern = /^[0-9]{10}$/;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const phonePattern = /^[0-9]{7}$/;
     if (userid === "" || password === "") {
       toast.error('All fields are required', {
         autoClose: 1000,
@@ -84,20 +84,30 @@ const Login = ({ closeLoginModal }) => {
         hideProgressBar: true
     })
       return;
-    }else if(password.length < 6 || password.length > 8){
+    }else if(password.length < 8 || password.length > 12){
       toast.error('Password must be between 6 and 8 characters long', {
         autoClose: 1000,
         hideProgressBar: true
     })
     return;
     }else{
+      console.log("USER ID:",userid)
+      console.log("PASS:",password)
+      if (
+        (userid !== "john.doe@example.com" && userid !== "5551234") ||
+        password !== "password123"
+    ){
+        toast.error('Invalid credentials', {
+          autoClose: 1000,
+          hideProgressBar: true
+      })
+        return 
+        
+      }else{
 
-      const encodedPassword = encodeURIComponent(password); 
-      console.log("ENCODED:", encodedPassword);
-  
       const data = {
         email : userid,
-        password: encodedPassword,
+        password: password,
       };
   
       axios
@@ -125,6 +135,9 @@ const Login = ({ closeLoginModal }) => {
         console.error("Login failed:", error);
       });
 
+      }
+
+
     }
 
    
@@ -136,11 +149,11 @@ const Login = ({ closeLoginModal }) => {
       <br></br>
 
       <div className="col-md-12 ">
-        <div className="card-b  px-4  py-5 ">
+        <div className="card-b  px-4  py-5   m-0">
           <div className="text-center">
             <img className="logo w-50 " src={Minitgo} />
           </div>
-          <div className="card-body  mt-4">
+          <div className="card-body  mt-4  ">
             <form>
               <div className="form-group mb-2">
                 <h5 className="mb-2">Login</h5>
