@@ -104,7 +104,7 @@ const HomeProducts = () => {
         <p className="px-2" style={{ fontSize: 13.5 }}>Explore our top category's</p>
 
         <div className="row">
-          <div className="col-12 col-md-3">
+          <div className="col-6 col-md-3">
             <div className="subs-cat">
               <h4>Men's Fashion</h4>
               <Link to={{ pathname: '/mens-category', search: `?category=Men's Fashion` }}>
@@ -112,7 +112,7 @@ const HomeProducts = () => {
               </Link>
             </div>
           </div>
-          <div className="col-12 col-md-3">
+          <div className="col-6 col-md-3">
             <div className="subs-cat-2">
               <h4>Women Fashion</h4>
               <Link to={{ pathname: '/womens-category', search: `?category=Women's Fashion` }}>
@@ -120,7 +120,7 @@ const HomeProducts = () => {
               </Link>
             </div>
           </div>
-          <div className=" col-12 col-md-3">
+          <div className="col-6 col-md-3">
             <div className="subs-cat-3">
               <h4>Fashion Accessories</h4>
               <Link to={{ pathname: '/accessories', search: `?category=Accessories` }}>
@@ -128,7 +128,7 @@ const HomeProducts = () => {
               </Link>
             </div>
           </div>
-          <div className="col-12 col-md-3">
+          <div className="col-6 col-md-3">
             <div className="subs-cat-4">
               <h4>Kitchen</h4>
               <button className="btn btn-outline-light rounded-pill">Shop Now</button>
@@ -176,13 +176,12 @@ const HomeProducts = () => {
           </div>
 
           <div className="col-md-10">
-            <div className="row px-4 px-sm-0 mx-5 mx-md-0">
+            <div className="row">
               {
                 products?.map((product, index) => (
                   <div
                     key={index}
                     className="col-6 col-sm-3 py-2"
-                    style={{ width: "220px" }}
                   >
                     <div className="product-card">
                       <a

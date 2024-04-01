@@ -316,12 +316,11 @@ const HomeProducts = () => {
           <Filter brand="Test" />
 
           <div className="col-md-10">
-            <div className=" row  px-5 px-md-0    ">
+            <div className="row">
               {filteredProducts?.map((product, index) => (
                 <div
                   key={index}
-                  className="col-3 py-2 m-2"
-                  style={{ width: "220px" }}
+                  className="col-6 col-sm-3 py-2"
                 >
                   <div className="product-card">
                     <a

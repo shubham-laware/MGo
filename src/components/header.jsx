@@ -207,7 +207,7 @@ function Header() {
               setTownDistrict(components.town || components.district || "");
               setState(components.state || "");
             }
-          } catch (error) {}
+          } catch (error) { }
         },
         (error) => {
           return;
@@ -293,6 +293,7 @@ function Header() {
     });
   }
 
+  
   const login = (
     <span>
       <BiLogIn /> Signin
@@ -888,7 +889,7 @@ function Header() {
           </div>
         </div>
       </Navbar>
-      
+
       <Catlog />
 
       {/* Offcanvas Sidebar */}
@@ -938,36 +939,36 @@ function Header() {
                 </Link>
 
                 <div
-                    onClick={() => setShowModal(true)}
-                    style={{ color: "blue" }}
-                  >
-                    SignUp
-                  </div>
+                  onClick={() => setShowModal(true)}
+                  style={{ color: "blue" }}
+                >
+                  SignUp
+                </div>
                 {/* Shubham- Mobile Login Modal starts here */}
 
-            <span
-              className="nav-link border-bottom"
-            onClick={() => setLoginModal(true)}>
-              Login
-            </span>
+                <span
+                  className="nav-link border-bottom"
+                  onClick={() => setLoginModal(true)}>
+                  Login
+                </span>
 
-            {/* Login Modal */}
-            <Modal show={loginModal} onHide={() => setLoginModal(false)}>
-              <Modal
-                show={loginModal}
-                onHide={() => setLoginModal(false)}
-                aria-labelledby="example-custom-modal-styling-title"
-                
-              >
-                <Modal.Body
-                  className="p-0 rounded-4 d-flex w-max "
-                  style={{ minWidth: "22rem" }}
-                >
-                  <Login closeLoginModal={() => setLoginModal(false)} />
-                </Modal.Body>
-              </Modal>
-            </Modal>
-            {/* 
+                {/* Login Modal */}
+                <Modal show={loginModal} onHide={() => setLoginModal(false)}>
+                  <Modal
+                    show={loginModal}
+                    onHide={() => setLoginModal(false)}
+                    aria-labelledby="example-custom-modal-styling-title"
+
+                  >
+                    <Modal.Body
+                      className="p-0 rounded-4 d-flex w-max "
+                      style={{ minWidth: "22rem" }}
+                    >
+                      <Login closeLoginModal={() => setLoginModal(false)} />
+                    </Modal.Body>
+                  </Modal>
+                </Modal>
+                {/* 
             Shubham- Mobible Login Modal ends here */}
 
                 <Link
