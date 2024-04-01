@@ -11,14 +11,23 @@
 .custom-sidebar {
   transition: all;
   transition-duration: 200ms;
-  
+
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem;
-  gap: 1rem;
+  gap: 1.3rem;
   width: 100%;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+.mobile-sidebar {
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-105%);
+}
+
+.mobile-sidebar.active {
+  transform: translateX(-7%);
 }
 
 .custom-sidebar-item {
