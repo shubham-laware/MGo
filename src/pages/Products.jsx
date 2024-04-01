@@ -36,7 +36,7 @@ const HomeProducts = () => {
     products,
     selectedPrice,
     searchQuery,
-    offer,
+    offer, setOffers
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -90,10 +90,12 @@ const HomeProducts = () => {
   useEffect(() => {
     setAccessoriesCategory("");
     setSelectedCategory("");
+
     // Apply price filtering
     let productsToFilter = products;
 
     if (selectedPrice !== "" && selectedPrice !== "500 +") {
+
       console.log("SELCTED", selectedPrice);
       console.log("below 500");
       const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
@@ -116,17 +118,17 @@ const HomeProducts = () => {
 
       const remainingProducts = productsToFilter.filter((product) => {
         if (selectedPrice !== "") {
-            const [minPrice] = selectedPrice.split("-").map(Number);
-            const price = parseInt(product.product_price);
-            return price < minPrice;
+          const [minPrice] = selectedPrice.split("-").map(Number);
+          const price = parseInt(product.product_price);
+          return price < minPrice;
         } else {
-            return true; // Include all products if no price range is selected
+          return true; // Include all products if no price range is selected
         }
-    });
-    
-    remainingProducts.sort(
+      });
+
+      remainingProducts.sort(
         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-    );
+      );
 
       productsToFilter = [...combinedProducts, ...remainingProducts];
     }
@@ -143,19 +145,20 @@ const HomeProducts = () => {
 
       const remainingProducts = productsToFilter.filter((product) => {
         if (selectedPrice !== "") {
-          let minPrice=500
-            console.log("ELSE MIN",minPrice)
-            const price = parseInt(product.product_price);
-            return price < minPrice;
+
+          let minPrice = 500
+          console.log("ELSE MIN", minPrice)
+          const price = parseInt(product.product_price);
+          return price < minPrice;
         } else {
-            return true; // Include all products if no price range is selected
+          return true; // Include all products if no price range is selected
         }
-    });
-    console.log("ELSE REMAINING PROD",remainingProducts)
-    
-    remainingProducts.sort(
+      });
+      console.log("ELSE REMAINING PROD", remainingProducts)
+
+      remainingProducts.sort(
         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-    );
+      );
 
       productsToFilter = [...above500Products, ...remainingProducts];
     }
@@ -175,6 +178,8 @@ const HomeProducts = () => {
 
       productsToFilter = filteredByOffer;
     }
+
+
 
     // Apply category and search query filtering
     const menRegex = /^(men|man|mens|men's)/;
@@ -224,22 +229,23 @@ const HomeProducts = () => {
 
           const remainingProducts = productsToFilter.filter((product) => {
             if (selectedPrice !== "") {
-                const [minPrice] = selectedPrice.split("-").map(Number);
-                const price = parseInt(product.product_price);
-                return price < minPrice;
+              const [minPrice] = selectedPrice.split("-").map(Number);
+              const price = parseInt(product.product_price);
+              return price < minPrice;
             } else {
-                return true; // Include all products if no price range is selected
+              return true; // Include all products if no price range is selected
             }
-        });
-        
-        remainingProducts.sort(
+          });
+
+          remainingProducts.sort(
             (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-        );
+          );
 
           productsToFilter = [...combinedProducts, ...remainingProducts];
         }
 
         if (selectedPrice === "500 +") {
+
           const above500Products = productsToFilter.filter((product) => {
             const price = parseInt(product.product_price);
             return price >= 500;
@@ -251,21 +257,21 @@ const HomeProducts = () => {
 
           const remainingProducts = productsToFilter.filter((product) => {
             if (selectedPrice !== "") {
-              let minPrice=500
-                console.log("ELSE MIN",minPrice)
-                const price = parseInt(product.product_price);
-                return price < minPrice;
+              let minPrice = 500
+              console.log("ELSE MIN", minPrice)
+              const price = parseInt(product.product_price);
+              return price < minPrice;
             } else {
-                return true; // Include all products if no price range is selected
+              return true; // Include all products if no price range is selected
             }
-        });
-        console.log("ELSE REMAINING PROD",remainingProducts)
-        
-        remainingProducts.sort(
-            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-        );
+          });
+          console.log("ELSE REMAINING PROD", remainingProducts)
 
-          productsToFilter = [...above500Products,...remainingProducts];
+          remainingProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+          );
+
+          productsToFilter = [...above500Products, ...remainingProducts];
         }
 
         if (offer !== "") {
@@ -310,11 +316,11 @@ const HomeProducts = () => {
           <Filter brand="Test" />
 
           <div className="col-md-10">
-            <div className="d-flex flex-wrap px-5 px-sm-0">
+            <div className=" row  px-5 px-md-0    ">
               {filteredProducts?.map((product, index) => (
                 <div
                   key={index}
-                  className="col-6 col-sm-3 py-2 m-2"
+                  className="col-3 py-2 m-2"
                   style={{ width: "220px" }}
                 >
                   <div className="product-card">
@@ -378,16 +384,15 @@ const HomeProducts = () => {
 
                     <div className="d-flex justify-content-center align-items-center ">
                       <button
-                        className={`btn ${
-                          wishlistClicked[index] ? "btn-success" : "btn-primary"
-                        } w-25 my-2`}
+                        className={`btn ${wishlistClicked[index] ? "btn-success" : "btn-primary"
+                          } w-25 my-2`}
                         onClick={() => handleWishListToCart(product, index)}
                       >
                         ❤
                       </button>
                       <button
                         onClick={() => handleAddToCart(product, index)}
-                        className="btn btn-primary my-2 w-50 ms-2"
+                        className="btn btn-primary my-2 ms-2"
                       >
                         Add to cart
                       </button>

@@ -212,7 +212,7 @@ const Women = () => {
           <Filter brand="Test" />
 
           <div className="col-md-10">
-            <div className="d-flex flex-wrap px-5 px-sm-0">
+            <div className="row  px-5 px-md-0 ">
               {filteredProducts?.map((product, index) => (
                 <div
                   key={index}
@@ -289,7 +289,7 @@ const Women = () => {
                       </button>
                       <button
                         onClick={() => handleAddToCart(product, index)}
-                        className="btn btn-primary my-2 w-50 ms-2"
+                        className="btn btn-primary my-2  ms-2"
                       >
                         Add to cart
                       </button>

@@ -924,6 +924,8 @@ function Header() {
 
       {/* Offcanvas Sidebar */}
 
+      {/* Mobile view starts here */}
+
       <Offcanvas
         show={showOffcanvas}
         onHide={() => setShowOffcanvas(false)}

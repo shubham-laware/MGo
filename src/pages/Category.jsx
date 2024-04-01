@@ -387,7 +387,7 @@ const Category = () => {
           <Filter brand="Test" />
 
           <div className="col-md-10">
-            <div className="d-flex flex-wrap">
+            <div className="row  px-5 px-md-0 ">
               {filteredProducts?.map((product, index) => (
                 <div
                   key={index}
@@ -455,7 +455,7 @@ const Category = () => {
 
                     <button
                       onClick={() => handleAddToCart(product, index)}
-                      className="btn btn-primary ms-3 my-3 w-50"
+                      className="btn btn-primary ms-3 my-3 "
                     >
                       Add to cart
                     </button>
