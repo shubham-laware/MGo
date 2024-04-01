@@ -21,9 +21,9 @@ import myContext from "../components/context/MyContext.js";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectTotalQuantity } from "../components/redux/Slices/CartSlice.js";
-import { Col, Modal } from "react-bootstrap";
 import Login from "../pages/Signin.jsx";
 import { toast } from "react-toastify";
+import { Col, Modal, Row } from "react-bootstrap";
 
 import "./header.css";
 import axios from "axios";
@@ -116,6 +116,35 @@ function Header() {
       searchInput.focus();
     }
   };
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("https://randomuser.me/api");
+        const data = await response.json();
+        const userData = data.results[0];
+
+        const userName = ` ${userData.name.first} ${userData.name.last}`;
+        const userImage = userData.picture.large;
+        const userNumber = userData.cell;
+        const userLocation = `${userData.location.country}, ${userData.location.state}`;
+
+        setUser({
+          name: userName,
+          image: userImage,
+          number: userNumber,
+          location: userLocation,
+        });
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   useEffect(() => {
     if (searchQuery !== "") {
       setSelectedCategory("");
@@ -859,7 +888,308 @@ function Header() {
           </div>
         </div>
       </Navbar>
+      {showModal && (
+        <Modal
+          show={showModal}
+          onHide={() => {
+            setShowModal(false);
+            setShowOTP(false);
+          }}
+          // dialogClassName="modal-90w"
+          aria-labelledby="example-custom-modal-styling-title"
+        >
+          <Modal.Body
+            className="p-0 rounded rounded-2 d-flex flex-lg-row flex-column w-max"
+            style={{ minWidth: "22rem" }}
+          >
+            {showOTP ? (
+              <div
+                className="d-flex flex-column gap-2 pt-2 pb-3 ps-5 bg-light  "
+                // style={{ width: "70vw" }}
+              >
+                <div
+                  onClick={() => setShowOTP(false)}
+                  className="fs-3 px-1"
+                  style={{
+                    cursor: "pointer",
+                    position: "relative",
+                    bottom: "0.5rem",
+                    right: "2rem",
+                  }}
+                >
+                  ←
+                </div>
+                <h2 className="text-start ">OTP Verification</h2>
+                <p>OTP has sent to +{phoneNumber}</p>
+                <ul
+                  className="d-flex gap-2 justify-content-start ps-1"
+                  style={{ listStyle: "none" }}
+                >
+                  <input
+                    type="text"
+                    className="p-1 rounded-pill border text-center"
+                    style={{ width: "30px", outline: "none" }}
+                    maxLength={1}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "Backspace" &&
+                        e.target.previousElementSibling
+                      ) {
+                        if (e.target.value === "") {
+                          e.target.previousElementSibling.focus();
+                        }
+                      } else if (
+                        e.key.length === 1 &&
+                        e.target.nextElementSibling
+                      ) {
+                        if (e.target.value !== "") {
+                          e.target.nextElementSibling.focus();
+                        }
+                      }
+                    }}
+                  />
 
+                  <input
+                    type="text"
+                    className="p-1 rounded-pill border text-center"
+                    style={{ width: "30px", outline: "none" }}
+                    maxLength={1}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "Backspace" &&
+                        e.target.previousElementSibling
+                      ) {
+                        if (e.target.value === "") {
+                          e.target.previousElementSibling.focus();
+                        }
+                      } else if (
+                        e.key.length === 1 &&
+                        e.target.nextElementSibling
+                      ) {
+                        if (e.target.value !== "") {
+                          e.target.nextElementSibling.focus();
+                        }
+                      }
+                    }}
+                  />
+
+                  <input
+                    type="text"
+                    className="p-1 rounded-pill border text-center"
+                    style={{ width: "30px", outline: "none" }}
+                    maxLength={1}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "Backspace" &&
+                        e.target.previousElementSibling
+                      ) {
+                        if (e.target.value === "") {
+                          e.target.previousElementSibling.focus();
+                        }
+                      } else if (
+                        e.key.length === 1 &&
+                        e.target.nextElementSibling
+                      ) {
+                        if (e.target.value !== "") {
+                          e.target.nextElementSibling.focus();
+                        }
+                      }
+                    }}
+                  />
+
+                  <input
+                    type="text"
+                    className="p-1 rounded-pill border text-center"
+                    style={{ width: "30px", outline: "none" }}
+                    maxLength={1}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "Backspace" &&
+                        e.target.previousElementSibling
+                      ) {
+                        if (e.target.value === "") {
+                          e.target.previousElementSibling.focus();
+                        }
+                      } else if (
+                        e.key.length === 1 &&
+                        e.target.nextElementSibling
+                      ) {
+                        if (e.target.value !== "") {
+                          e.target.nextElementSibling.focus();
+                        }
+                      }
+                    }}
+                  />
+
+                  <input
+                    type="text"
+                    className="p-1 rounded-pill border text-center"
+                    style={{ width: "30px", outline: "none" }}
+                    maxLength={1}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "Backspace" &&
+                        e.target.previousElementSibling
+                      ) {
+                        if (e.target.value === "") {
+                          e.target.previousElementSibling.focus();
+                        }
+                      } else if (
+                        e.key.length === 1 &&
+                        e.target.nextElementSibling
+                      ) {
+                        if (e.target.value !== "") {
+                          e.target.nextElementSibling.focus();
+                        }
+                      }
+                    }}
+                  />
+
+                  <input
+                    type="text"
+                    className="p-1 rounded-pill border text-center"
+                    style={{ width: "30px", outline: "none" }}
+                    maxLength={1}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "Backspace" &&
+                        e.target.previousElementSibling
+                      ) {
+                        if (e.target.value === "") {
+                          e.target.previousElementSibling.focus();
+                        }
+                      } else if (
+                        e.key.length === 1 &&
+                        e.target.nextElementSibling
+                      ) {
+                        if (e.target.value !== "") {
+                          e.target.nextElementSibling.focus();
+                        }
+                      }
+                    }}
+                  />
+                </ul>
+
+                <div className="mt-3">
+                  <div className=" w-75 text-center fs-3">00:{timer}</div>
+                </div>
+
+                <div className="mt-2  ">
+                  <div
+                    className=" w-75 text-center"
+                    style={{ fontSize: "14px" }}
+                  >
+                    Didn't get it?
+                  </div>
+                </div>
+
+                <div className="">
+                  <div className=" w-75 text-center ">
+                    <p
+                      className="underline"
+                      style={{
+                        textDecoration: "underline",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {}}
+                    >
+                      Send OTP (SMS)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div
+                // style={{ width: "70vw" }}
+                className="d-flex flex-column gap-2 px-4 pt-5 pb-3 bg-light "
+              >
+                <Form>
+                  <Form.Control
+                    type="text"
+                    placeholder="Full Name"
+                    className=" w-100 px-4 mb-4 my-5 rounded rounded-pill"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                  />
+                  <Form.Control
+                    type="text"
+                    placeholder="+91"
+                    className=" w-100 px-4 mb-4 rounded rounded-pill"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                  />
+                </Form>
+                <Button variant="secondary" onClick={handleUseCurrentLocation}>
+                  Use Current Location
+                </Button>
+
+                <Button
+                  variant="danger"
+                  className="my-2"
+                  onClick={handleRegister}
+                >
+                  Continue
+                </Button>
+                <p style={{ marginTop: "10px" }} className="text-center">
+                  By continuing, you agree to our <br />
+                  <a
+                    target="_blank"
+                    href="#"
+                    className="text-danger fw-semibold"
+                    style={{
+                      textDecoration: "none",
+                    }}
+                  >
+                    Terms of Service
+                  </a>
+                  . &{" "}
+                  <a
+                    target="_blank"
+                    href="#"
+                    className="text-danger fw-semibold"
+                    style={{
+                      textDecoration: "none",
+                    }}
+                  >
+                    Privacy Policy
+                  </a>
+                </p>
+              </div>
+            )}
+            <div
+              style={{ backgroundColor: "#e3e3e3" }}
+              className="d-flex flex-column justify-content-center align-items-center px-3 py-lg-0 py-4"
+            >
+              <h1 className="fs-5 text-center mb-5">
+                Our app will be launching soon.
+              </h1>
+              {/* <img
+                            src="appstore.png"
+                            alt="App Store"
+                            className="my-0"
+                          />
+                          <img src="playstore.png" alt="Play Store" /> */}
+
+              <a
+                className="download-btn btn-google"
+                href="#"
+                style={{ width: "9.5rem" }}
+                title="Google Play"
+              >
+                Google Play
+              </a>
+              <a
+                className="download-btn btn-apple"
+                href="#"
+                style={{ width: "9.5rem" }}
+                title="App Store"
+              >
+                App Store
+              </a>
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
       <Catlog />
 
       {/* Offcanvas Sidebar */}
@@ -873,16 +1203,50 @@ function Header() {
           <Offcanvas.Title>Minitgo</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
+          <div className="d-flex flex-column justify-content-center align-items-center border-bottom py-4">
+            <img
+              src={user?.image}
+              className="rounded rounded-circle border border-2 border-primary shadow shadow-2"
+              width={60}
+              height={60}
+            />
+            <h2>{user?.name}</h2>
+            <h5>{user?.number}</h5>
+            <p>
+              <span className="fw-bold">Location:</span> {user?.location}
+            </p>
+          </div>
           {/* Sidebar content goes here */}
-          <Nav className="flex-column">
-            <Link to="/about" className="nav-link">
-              About
-            </Link>
-            <Link to="/" className="nav-link">
-              SignUp
-            </Link>
+          <Row className="py-1">
+            <Col className="col-6">
+              <Nav className="flex-column w-100">
+                <Link
+                  to="/"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Home
+                </Link>
 
-            {/* Shubham- Mobile Login Modal starts here */}
+                <Link
+                  to="/about"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  About
+                </Link>
+
+                <span
+                  className="nav-link border-bottom"
+                  onClick={() => {
+                    setShowOffcanvas(false);
+                    setShowModal(true);
+                    console.log(true, showModal);
+                  }}
+                >
+                  Create an account
+                </span>
+                {/* Shubham- Mobile Login Modal starts here */}
 
             <div onClick={() => setLoginModal(true)} style={{ color: "blue" }}>
               Login
@@ -906,16 +1270,179 @@ function Header() {
             {/* 
             Shubham- Mobible Login Modal ends here */}
 
-            {/* <Link to="/" className="nav-link">
-              Minit-Pay
-            </Link> */}
-            <Link to="/" className="nav-link">
-              Address change
-            </Link>
-            <Link to="/" className="nav-link">
-              Home
-            </Link>
-          </Nav>
+                <Link
+                  to="/"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Address change
+                </Link>
+              </Nav>
+            </Col>
+            <Col className="col-6">
+              <Nav className="flex-column w-100">
+                <Link
+                  to="/orders"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Orders
+                </Link>
+
+                <Link
+                  to="/cart"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Cart
+                </Link>
+
+                <Link
+                  to="/feedback"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Feedback
+                </Link>
+
+                <Link
+                  to="/checkout"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Checkout
+                </Link>
+
+                <Link
+                  to="/products"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Products
+                </Link>
+
+                <Link
+                  to="/category"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Category
+                </Link>
+
+                <Link
+                  to="/accessories"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Accessories
+                </Link>
+
+                <Link
+                  to="/connect"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Connect
+                </Link>
+
+                <Link
+                  to="/contact"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Contact Us
+                </Link>
+
+                <Link
+                  to="/blog"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Blog
+                </Link>
+
+                <Link
+                  to="/updates"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Updates
+                </Link>
+
+                <Link
+                  to="/add-blog"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Add Blog
+                </Link>
+
+                <Link
+                  to="/partner"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Become a Partner
+                </Link>
+
+                <Link
+                  to="returns"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Return Policy
+                </Link>
+
+                <Link
+                  to="/help"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Help
+                </Link>
+
+                <Link
+                  to="/near-me"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Find Near Me
+                </Link>
+
+                <Link
+                  to="/profile"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Profile
+                </Link>
+
+                <Link
+                  to="/clientregister"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Client Register
+                </Link>
+
+                <Link
+                  to="/cdashboard"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Client Dashboard
+                </Link>
+
+                <Link
+                  to="/increase"
+                  className="nav-link border-bottom"
+                  onClick={() => setShowOffcanvas(false)}
+                >
+                  Increase
+                </Link>
+              </Nav>
+            </Col>
+          </Row>
         </Offcanvas.Body>
       </Offcanvas>
     </>
