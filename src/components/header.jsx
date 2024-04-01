@@ -190,7 +190,7 @@ function Header() {
               setTownDistrict(components.town || components.district || "");
               setState(components.state || "");
             }
-          } catch (error) {}
+          } catch (error) { }
         },
         (error) => {
           return;
