@@ -265,7 +265,7 @@ const HomeProducts = () => {
             (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
         );
 
-          productsToFilter = [...above500Products,...remainingProducts];
+          productsToFilter = [...above500Products,...rem];
         }
 
         if (offer !== "") {

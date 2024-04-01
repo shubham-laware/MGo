@@ -429,14 +429,14 @@ function Header() {
                       aria-labelledby="example-custom-modal-styling-title"
                     >
                       <Modal.Body
-                        className="p-0  d-flex w-max  "
+                        className="p-0  d-flex w-max flex-lg-row flex-column "
                         style={{ minWidth: "22rem" }}
                       >
                         {showOTP ? (
                           <div
                             className="d-flex flex-column gap-2 pt-2 pb-3 ps-5    "
                             style={{
-                              width: "70vw",
+                              minWidth: "70%",
                               backgroundColor: "#fff5f5",
                             }}
                           >
@@ -636,7 +636,7 @@ function Header() {
                         ) : (
                           <div
                             style={{
-                              width: "70vw",
+                              minWidth: "70%",
                               backgroundColor: "#fff5f5",
                             }}
                             className="d-flex flex-column gap-2 px-4 pt-5 pb-3   "
@@ -723,7 +723,7 @@ function Header() {
                         )}
                         <div
                           style={{ backgroundColor: "#e3e3e3" }}
-                          className="d-flex flex-column justify-content-center align-items-center px-3"
+                          className="d-flex flex-column justify-content-center align-items-center px-3 py-5"
                         >
                           <h1 className="fs-5 text-center mb-5">
                             Our app will be launching soon.
