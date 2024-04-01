@@ -176,7 +176,7 @@ const HomeProducts = () => {
           </div>
 
           <div className="col-md-10">
-            <div className="d-flex gap-2 flex-wrap px-5 px-sm-0">
+            <div className="d-flex gap-4 flex-wrap px-5 px-sm-0 mx-4">
               {
                 products?.map((product, index) => (
                   <div
