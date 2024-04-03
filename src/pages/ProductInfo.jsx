@@ -126,15 +126,15 @@ function ProductInfo() {
                   style={{ height: "158px" }}
                 >
                   <textarea
-                    className=" h-100 w-100 rounded-top p-2"
+                    className=" h-100 w-100 rounded p-2"
                     rows="5"
                     placeholder="Enter comments"
                     style={{ resize: "none", outline: "none" }}
                   ></textarea>
                 </div>
-               <div className="w-100 d-flex justify-content-end border border-black   rounded-bottom">
+               <div className="w-100 d-flex justify-content-end mt-1  ">
                <button
-                  className="py-1 px-5  bg-body-secondary  "
+                  className="py-1 px-5  bg-body-secondary  rounded "
                   style={{ border: "solid 1px", borderColor: "#a29898" }}
                 >
                   Send
