@@ -138,7 +138,7 @@ const Footer = () => {
 
                             {/* Column 4 - On larger screens, it will occupy 3 columns (col-lg-3) */}
                             <div className="col-lg-3 col-md-6 mb-4 mb-md-0 text-center">
-                                <h5 className="fs-6">We Help You</h5>
+                                <h5 className="fs-5">We Help You</h5>
                                 <ul className="list-unstyled mb-0 text-center">
                                     <li>
                                         <Link

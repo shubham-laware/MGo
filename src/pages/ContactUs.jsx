@@ -39,7 +39,7 @@ function ContactUs() {
               <input type="checkbox" className='form-check-input' />
               <label className='form-check-label text-secondary'>I agree to receive newsletters, product updates, and exclusive offers from Vimeo</label>
             </div>
-            <button className='btn btn-dark'>Contact</button>
+            <button className='btn btn-primary'>Contact</button>
           </form>
         </div>
       </div>
