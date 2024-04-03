@@ -34,7 +34,7 @@ import Womens from './pages/Categories/Womens.jsx';
 import Category from './pages/Category.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Advertisement from './pages/Advertisement.jsx';
+
 
 const App = () => {
     const location = useLocation();
@@ -89,7 +89,7 @@ const App = () => {
                 <Route exact path="*" element={<Notfound />} />
                 <Route exact path="/cdashboard" element={<Clientdashboard />} />
                 <Route exact path="/increase" element={<Increase />} />
-                <Route exact path="/ad" element={<Advertisement/>}/>
+              
             </Routes>
             <ToastContainer/>
 

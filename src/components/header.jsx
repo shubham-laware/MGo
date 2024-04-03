@@ -491,6 +491,7 @@ function Header() {
         show={loginModal}
         onHide={() => setLoginModal(false)}
         aria-labelledby="example-custom-modal-styling-title"
+        className=" bg-opacity"
       >
         <Modal.Body
           className="p-0 rounded-4 d-flex w-max "

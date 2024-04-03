@@ -4,6 +4,7 @@ import Filter from "../components/Filter";
 import Ban from "../components/images/product.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import StarRatings from "../components/ProductInfo/StarRatings.jsx";
+import cartIcon from "../assets/cart-icon.svg";
 import { useContext } from "react";
 import myContext from "../components/context/MyContext.js";
 import {
@@ -36,7 +37,8 @@ const HomeProducts = () => {
     products,
     selectedPrice,
     searchQuery,
-    offer, setOffers
+    offer,
+    setOffers,
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -95,7 +97,6 @@ const HomeProducts = () => {
     let productsToFilter = products;
 
     if (selectedPrice !== "" && selectedPrice !== "500 +") {
-
       console.log("SELCTED", selectedPrice);
       console.log("below 500");
       const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
@@ -145,16 +146,15 @@ const HomeProducts = () => {
 
       const remainingProducts = productsToFilter.filter((product) => {
         if (selectedPrice !== "") {
-
-          let minPrice = 500
-          console.log("ELSE MIN", minPrice)
+          let minPrice = 500;
+          console.log("ELSE MIN", minPrice);
           const price = parseInt(product.product_price);
           return price < minPrice;
         } else {
           return true; // Include all products if no price range is selected
         }
       });
-      console.log("ELSE REMAINING PROD", remainingProducts)
+      console.log("ELSE REMAINING PROD", remainingProducts);
 
       remainingProducts.sort(
         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
@@ -178,8 +178,6 @@ const HomeProducts = () => {
 
       productsToFilter = filteredByOffer;
     }
-
-
 
     // Apply category and search query filtering
     const menRegex = /^(men|man|mens|men's)/;
@@ -245,7 +243,6 @@ const HomeProducts = () => {
         }
 
         if (selectedPrice === "500 +") {
-
           const above500Products = productsToFilter.filter((product) => {
             const price = parseInt(product.product_price);
             return price >= 500;
@@ -257,15 +254,15 @@ const HomeProducts = () => {
 
           const remainingProducts = productsToFilter.filter((product) => {
             if (selectedPrice !== "") {
-              let minPrice = 500
-              console.log("ELSE MIN", minPrice)
+              let minPrice = 500;
+              console.log("ELSE MIN", minPrice);
               const price = parseInt(product.product_price);
               return price < minPrice;
             } else {
               return true; // Include all products if no price range is selected
             }
           });
-          console.log("ELSE REMAINING PROD", remainingProducts)
+          console.log("ELSE REMAINING PROD", remainingProducts);
 
           remainingProducts.sort(
             (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
@@ -318,10 +315,7 @@ const HomeProducts = () => {
           <div className="col-md-10">
             <div className="row">
               {filteredProducts?.map((product, index) => (
-                <div
-                  key={index}
-                  className="col-6 col-sm-3 py-2"
-                >
+                <div key={index} className="col-6 col-sm-3 py-2">
                   <div className="product-card">
                     <a
                       href={`/${product.product_id}`}
@@ -381,7 +375,7 @@ const HomeProducts = () => {
                       </div>
                     </a>
 
-                    <div className="d-flex justify-content-center align-items-center ">
+                    {/* <div className="d-flex justify-content-center align-items-center ">
                       <button
                         className={`btn ${wishlistClicked[index] ? "btn-success" : "btn-primary"
                           } w-25 my-2`}
@@ -394,6 +388,22 @@ const HomeProducts = () => {
                         className="btn btn-primary my-2 ms-2"
                       >
                         Add to cart
+                      </button>
+                    </div> */}
+
+                    <div className="d-flex justify-content-center align-items-center gap-2">
+                      <button
+                        className="btn btn-primary  ms-2"
+                        onClick={() => handleAddToCart(product, index)}
+                      >
+                        <img
+                          className="img-fluid"
+                          src={cartIcon}
+                          style={{ height:'20px'}}
+                        />
+                      </button>
+                      <button className="btn btn-primary my-2  ms-2 px-2 py-1">
+                        Buy Now
                       </button>
                     </div>
                   </div>

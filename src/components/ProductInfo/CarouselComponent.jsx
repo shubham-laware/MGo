@@ -40,7 +40,7 @@ function CarouselComponent({productId}) {
 
     return (
       
-      <div id="carouselExampleIndicators" className=" carousel slide v " data-bs-ride="carousel" style={{height:'520px'}}>
+      <div id="carouselExampleIndicators" className=" carousel slide v w-100 border rounded-2" data-bs-ride="carousel" style={{height:'100%'}}>
         <div className="carousel-inner rounded h-100">
           {images.map((img, index) => (
             <div key={index} className={` h-100 carousel-item${index === 0 ? ' active' : ''}`}  >
@@ -48,11 +48,11 @@ function CarouselComponent({productId}) {
             </div>
           ))}
         </div>
-        <button className="carousel-control-prev  bg-secondary " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style={{height:"30px", top:"50%",width:"40px"}}>
+        <button className="carousel-control-prev  bg-secondary rounded-circle p-2 ms-1" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style={{height:"30px", top:"50%",width:"35px"}}>
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
           <span className="visually-hidden">Previous</span>
         </button>
-        <button className="carousel-control-next bg-secondary " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style={{height:"30px", top:"50%",width:"40px"}}>
+        <button className="carousel-control-next bg-secondary rounded-circle p-2 me-1 " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style={{height:"30px", top:"50%",width:"35px"}}>
           <span className="carousel-control-next-icon" aria-hidden="true"></span>
           <span className="visually-hidden">Next</span>
         </button>

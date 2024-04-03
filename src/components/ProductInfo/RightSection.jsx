@@ -1,24 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
-import cartIcon from "../../assets/cart.svg";
+import cartIcon from "../../assets/cart-icon.svg";
 import StarRatings from "./StarRatings";
 import paypalIcon from "../../assets/paypal.svg";
 import mastercardIcon from "../../assets/mastercard.svg";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import myContext from "../context/MyContext";
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../../components/redux/Slices/CartSlice';
-
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../components/redux/Slices/CartSlice";
 
 function RightSection({ productId }) {
   const [cart, setCart] = useState([]);
-  const totalQuantity = cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
+  const totalQuantity = cart.reduce(
+    (total, cartItem) => total + cartItem.quantity,
+    0
+  );
   const [snackbarOpen, setSnackbarOpen] = useState([]);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
   const id = productId;
-
 
   useEffect(() => {
     axios
@@ -26,52 +27,34 @@ function RightSection({ productId }) {
       .then((response) => {
         setProducts(response.data.data);
       })
-      .catch((error) => {
-
-      });
+      .catch((error) => {});
   }, []);
 
-
   useEffect(() => {
-    const item = products.filter(productItem => productItem.product_id === id);
+    const item = products.filter(
+      (productItem) => productItem.product_id === id
+    );
     const fProduct = item[0];
     if (fProduct) {
       setProduct(fProduct);
     }
-  }, [id, products])
+  }, [id, products]);
 
   const dispatch = useDispatch();
   const handleAddToCart = () => {
     dispatch(addToCart(product));
   };
 
- 
- 
   return (
     <>
       {product && (
-        <section className="w-100 md:w-50 px-md-4 ">
-          <div className=" d-flex flex-column gap-2 ">
-            <div className="d-flex flex-column gap-2 ">
-              <div className="d-flex">
-                {/* <div className="bg-body-secondary  rounded p-2 d-flex align-items-center gap-2">
-                  <span className="small">❤️ Wishlist</span>
-                  <span className="small d-flex align-items-center">
-                    <img
-                      src={cartIcon}
-                      alt="cartIcon"
-                      className="w-100"
-                      style={{ maxWidth: "24px" }}
-                    />
-                    Cart
-                  </span>
-                </div> */}
-              </div>
-
+        <section className="w-100 md:w-50 px-md-4">
+          <div className=" d-flex flex-column gap-1  ">
+            <div className="d-flex flex-column gap-1">
               <h2 style={{ textAlign: "justify" }}>{product.product_name}</h2>
 
               <div className="d-flex  gap-4 align-items-center w-100 ">
-                <div className="d-flex align-items-center  gap-2 ">
+                <div className="d-flex align-items-center   ">
                   <StarRatings rating={product.product_ratings} />
                 </div>
 
@@ -83,103 +66,99 @@ function RightSection({ productId }) {
               </p>
             </div>
 
-            <div className="border-top h-100 py-2 d-flex flex-column gap-4 ">
-              <div className="d-flex flex-column gap-1 pt-2">
+            <div className="border-top h-100   d-flex flex-column gap-3 ">
+              <div className="d-flex flex-column gap-1  pt-2">
+                <h2 className="fw-semibold fs-5 text-start">Select Color</h2>
+
+                <div
+                  className="d-flex justify-content-between mx-1 mx-md-0 "
+                  style={{ height: "60px" }}
+                >
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="border rounded-2 "
+                      style={{ height: "100%", width: "60px" }}
+                    >
+                      {product && product[`product_image${index + 1}`] && (
+                        <img
+                          src={product[`product_image${index + 1}`]}
+                          alt={`Image ${index + 1}`}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                          }}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="d-grid gap-1">
                 <h2 className="fw-semibold fs-5 text-start">Select Size</h2>
-                <div className="d-flex gap-4" style={{ fontSize: "12px" }}>
+                <div
+                  className="d-grid gap-4"
+                  style={{
+                    fontSize: "12px",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(35px, 1fr))",
+                  }}
+                >
                   <span
-                    className="border py-1 px-2 bg-body-secondary rounded "
-                    style={{ width: "35px", textAlign: "center" }}
-                    role="button"
+                    className="border py-1 px-1 bg-body-secondary rounded text-center"
                   >
                     M
                   </span>
                   <span
-                    className="border  py-1 px-2 bg-body-secondary rounded "
-                    style={{ width: "35px", textAlign: "center" }}
-                    role="button"
+                    className="border py-1  bg-body-secondary rounded text-center"
                   >
                     S
                   </span>
                   <span
-                    className="border py-1 px-2 bg-body-secondary  rounded "
-                    style={{ width: "35px", textAlign: "center" }}
-                    role="button"
+                    className="border py-1  bg-body-secondary rounded text-center"
                   >
                     L
                   </span>
                   <span
-                    className="border  py-1 px-2 bg-body-secondary rounded "
-                    style={{ width: "35px", textAlign: "center" }}
-                    role="button"
+                    className="border py-1  bg-body-secondary rounded text-center"
                   >
                     XL
                   </span>
                   <span
-                    className="border  py-1 px-2 bg-body-secondary  rounded "
-                    style={{ width: "35px", textAlign: "center" }}
-                    role="button"
+                    className="border py-1  bg-body-secondary rounded text-center"
                   >
                     2XL
                   </span>
+                  
                 </div>
               </div>
 
-              <div className="d-flex flex-column gap-1 ">
-                <h2 className="fw-semibold fs-5 text-start">Select Color</h2>
-                <div className="d-flex gap-4">
-                  <div
-                    className="border rounded px-1 py-1 d-flex "
-                    role="button"
-                  >
-                    <span className="border  d-inline-block py-2 px-2 rounded bg-primary"></span>
-                  </div>
-                  <div
-                    className="border rounded px-1 py-1 d-flex"
-                    role="button"
-                  >
-                    <span className="border d-inline-block py-2 px-2 rounded bg-success"></span>
-                  </div>
-                  <div
-                    className="border rounded px-1 py-1 d-flex "
-                    role="button"
-                  >
-                    <span className="border  d-inline-block py-2 px-2 rounded bg-danger"></span>
-                  </div>
-                  <div
-                    className="border rounded px-1 py-1 d-flex "
-                    role="button"
-                  >
-                    <span className="border  d-inline-block py-2 px-2 rounded bg-dark"></span>
-                  </div>
-                </div>
-              </div>
               <div className="d-flex flex-column gap-1">
-                <div className="d-flex flex-column flex-md-row align-items-center  justify-content-between">
-                  <h2 className="  fs-4 text-start ">Description</h2>
-
-                  <div className="d-flex  w-75">
-
-                    <button
-
-                      onClick={() => handleAddToCart(product)}
-                      className="btn btn-primary ms-3 my-3 w-50"
-                    >
-                      Add to cart
-                    </button>
-
-                   <Link  to="/checkout" className="w-50">
-                    <button className="btn btn-primary ms-3 my-3 w-100">Buy</button>
-                   </Link>
-
-                  </div>
-
+                <div className="d-flex flex-column flex-md-row  justify-content-between">
+                  <h2 className="  fs-4 text-start d-flex align-items-center ">Description</h2>
                 </div>
 
                 <p className=" fs-6" style={{ textAlign: "justify" }}>
                   {product.product_discription}
                 </p>
               </div>
+
+
+              <div className="d-flex gap-3 pb-1">
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      className="btn btn-primary "
+                      style={{width:'60px'}}
+                    >
+                    <img src={cartIcon} alt="AddToCart" style={{width:'20px',height:'100%'}} />
+                    </button>
+
+                    <Link to="/checkout" style={{width:'150px'}}>
+                      <button className="btn btn-primary   w-100">
+                        Buy Now
+                      </button>
+                    </Link>
+                  </div>
 
               <div className="d-flex flex-column gap-1 ">
                 <h2 className="  fs-4 text-start">Product Details</h2>
@@ -232,25 +211,7 @@ function RightSection({ productId }) {
                 </ul>
               </div>
 
-              {/* <div className="  h-100 d-flex flex-column">
-                <div
-                  className=" position-relative "
-                  style={{ height: "158px" }}
-                >
-                  <textarea
-                    className=" h-100 w-100 rounded-top p-2"
-                    rows="5"
-                    placeholder="Enter comments"
-                    style={{ resize: "none", outline: "none" }}
-                  ></textarea>
-                </div>
-                <button
-                  className="py-1  bg-body-secondary  rounded-bottom w-100 "
-                  style={{ border: "solid 1px", borderColor: "#a29898" }}
-                >
-                  Send
-                </button>
-              </div> */}
+             
             </div>
           </div>
         </section>
