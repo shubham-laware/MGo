@@ -77,13 +77,8 @@ function ProductInfo() {
             </div>
           </div>
 
+        
           <div id="reviews-section">
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
 
             <div className="h-120px w-100 d-flex flex-column gap-1 pt-2 ">
               <h3 className="m-2">Reviews</h3>

@@ -100,6 +100,7 @@ const HomeProducts = () => {
 
 
       <div className="container">
+       
         <h3> <BiSolidCategory className='fs-2 p-1' />Top Category's</h3>
         <p className="px-2" style={{ fontSize: 13.5 }}>Explore our top category's</p>
 
@@ -137,9 +138,11 @@ const HomeProducts = () => {
             </div>
           </div>
         </div>
+        
+     
       </div>
       <br></br>
-      <div className="container">
+      <div className="mx-0 mx-md-5 px-0 px-md-5">
         <h3><FaLocationDot className='fs-2 p-1' />Nearby</h3>
         <p className="px-2" style={{ fontSize: 13.5 }}>Increase distance for more products! </p>
 

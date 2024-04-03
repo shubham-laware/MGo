@@ -25,7 +25,7 @@ export default function Banner() {
     <>
    
      
-<Container className='banner'>
+<div className='container' style={{marginTop:"110px"}}>
   <Row>
     <div className="custom-bg ">
       <Col xs={6} sm={6} className='left-box '>
@@ -44,7 +44,7 @@ export default function Banner() {
       </Col>
     </div>
   </Row>
-</Container>
+</div>
 <br></br>
 </>
   
