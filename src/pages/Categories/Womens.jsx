@@ -7,6 +7,7 @@ import { useContext } from "react";
 import myContext from "../../components/context/MyContext.js";
 import { addToCart } from "../../components/redux/Slices/CartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
+import cartIcon from "../../assets/cart-icon.svg";
 import {
   showSnackbar,
   hideSnackbar,
@@ -277,20 +278,19 @@ const Women = () => {
                       </div>
                     </a>
 
-                    <div className="d-flex justify-content-center align-items-center ">
+                    <div className="d-flex justify-content-center align-items-center gap-2">
                       <button
-                        className={`btn ${
-                          wishlistClicked[index] ? "btn-success" : "btn-primary"
-                        } w-25 my-2`}
-                        onClick={() => handleWishListToCart(product, index)}
-                      >
-                        ❤
-                      </button>
-                      <button
+                        className="btn btn-primary  ms-2"
                         onClick={() => handleAddToCart(product, index)}
-                        className="btn btn-primary my-2  ms-2"
                       >
-                        Add to cart
+                        <img
+                          className="img-fluid"
+                          src={cartIcon}
+                          style={{ height:'20px'}}
+                        />
+                      </button>
+                      <button className="btn btn-primary my-2  ms-2 px-2 py-1">
+                        Buy Now
                       </button>
                     </div>
                   </div>

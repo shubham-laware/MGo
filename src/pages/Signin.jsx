@@ -149,34 +149,33 @@ const Login = ({ closeLoginModal }) => {
       <br></br>
 
       <div className="col-md-12 ">
-        <div className="card-b  px-4  py-5   m-0">
+        <div className="card-b  px-4  py-5   m-0 ">
           <div className="text-center">
-            <img className="logo w-50 " src={Minitgo} />
+            <h4 style={{fontWeight:'bold', fontSize:'30px'}}>Sign in</h4>
           </div>
           <div className="card-body  mt-4  ">
             <form>
-              <div className="form-group mb-2">
-                <h5 className="mb-2">Login</h5>
-                <label htmlFor="email">Email or Phone</label>
+              <div className="form-group mb-3">
+                <label htmlFor="email" className="ps-1 mb-1">Email or Phone</label>
                 <input
                   type="email"
-                  className="form-control"
+                  className="form-control rounded-5"
                   id="email"
                   onChange={(e) => setUserID(e.target.value)}
                   placeholder="Enter email or phone"
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
+              <div className="form-group ">
+                <label htmlFor="password" className="ps-1 mb-1">Password</label>
                 <input
                   type="password"
-                  className="form-control"
+                  className="form-control rounded-5"
                   id="password"
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                 />
               </div>
-              <div className="form-check c-box mb-2 mt-2  ">
+              <div className="form-check c-box mb-2 mt-3 ">
                 <input
                   type="checkbox"
                   className="form-check-input "
@@ -184,18 +183,22 @@ const Login = ({ closeLoginModal }) => {
                   checked={rememberMe}
                   onChange={handleRememberMeChange}
                 />
-                <label className="form-check-label " htmlFor="rememberMe">
+                <label className="form-check-label  " htmlFor="rememberMe">
                   Keep me logged in
                 </label>
               </div>
+              <div className=" d-flex justify-content-center">
               <button
                 type="submit"
-                className="btn btn-primary btn-l"
+                className="btn btn-primary btn-l px-5 rounded-5"
                 onClick={handleSubmit}
               >
                 Login
               </button>
-              <a
+              </div>
+             
+             <div className="fs-6 d-flex justify-content-center">
+             <a
                 href="#"
                 onClick={handleForgotPassword}
                 className="forgot-password-link"
@@ -205,6 +208,7 @@ const Login = ({ closeLoginModal }) => {
               <a href="/register" className="forgot-password-link">
                 Create an Account!
               </a>
+             </div>
             </form>
           </div>
         </div>

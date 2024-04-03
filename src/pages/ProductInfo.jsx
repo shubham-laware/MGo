@@ -123,6 +123,27 @@ function ProductInfo() {
               </div>
             </div>
           </div>
+
+
+          <div className="  h-100 d-flex flex-column">
+                <div
+                  className=" position-relative "
+                  style={{ height: "158px" }}
+                >
+                  <textarea
+                    className=" h-100 w-100 rounded-top p-2"
+                    rows="5"
+                    placeholder="Enter comments"
+                    style={{ resize: "none", outline: "none" }}
+                  ></textarea>
+                </div>
+                <button
+                  className="py-1  bg-body-secondary  rounded-bottom w-100 "
+                  style={{ border: "solid 1px", borderColor: "#a29898" }}
+                >
+                  Send
+                </button>
+              </div>
         </div>
       </div>
     </main>

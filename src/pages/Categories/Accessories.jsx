@@ -5,6 +5,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import StarRatings from "../../components/ProductInfo/StarRatings.jsx";
 import { useContext } from "react";
 import myContext from "../../components/context/MyContext.js";
+import cartIcon from "../../assets/cart-icon.svg";
+
 import {
   addToCart,
   hideSnackbarForWishlist,
@@ -316,20 +318,19 @@ const Accessories = () => {
                       </div>
                     </a>
 
-                    <div className="d-flex justify-content-center align-items-center ">
+                    <div className="d-flex justify-content-center align-items-center gap-2">
                       <button
-                        className={`btn ${
-                          wishlistClicked[index] ? "btn-success" : "btn-primary"
-                        } w-25 my-2`}
-                        onClick={() => handleWishListToCart(product, index)}
-                      >
-                        ❤
-                      </button>
-                      <button
+                        className="btn btn-primary  ms-2"
                         onClick={() => handleAddToCart(product, index)}
-                        className="btn btn-primary my-2  ms-2"
                       >
-                        Add to cart
+                        <img
+                          className="img-fluid"
+                          src={cartIcon}
+                          style={{ height:'20px'}}
+                        />
+                      </button>
+                      <button className="btn btn-primary my-2  ms-2 px-2 py-1">
+                        Buy Now
                       </button>
                     </div>
                   </div>

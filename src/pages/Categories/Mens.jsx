@@ -6,6 +6,7 @@ import StarRatings from "../../components/ProductInfo/StarRatings.jsx";
 import { useContext } from "react";
 import myContext from "../../components/context/MyContext.js";
 import { addToCart } from "../../components/redux/Slices/CartSlice.js";
+import cartIcon from "../../assets/cart-icon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { showSnackbar, hideSnackbar, addItemToWishlist,hideSnackbarForWishlist, showSnackbarForWishlist } from "../../components/redux/Slices/CartSlice.js";
 
@@ -273,13 +274,19 @@ const Mens = () => {
                       </div>
                     </a>
 
-                    <div className="d-flex justify-content-center align-items-center ">
-                      <button className={`btn ${wishlistClicked[index] ? "btn-success" : "btn-primary"} w-25 my-2`} onClick={() => handleWishListToCart(product, index)}>❤</button>
+                    <div className="d-flex justify-content-center align-items-center gap-2">
                       <button
+                        className="btn btn-primary  ms-2"
                         onClick={() => handleAddToCart(product, index)}
-                        className="btn btn-primary my-2  ms-2"
                       >
-                        Add to cart
+                        <img
+                          className="img-fluid"
+                          src={cartIcon}
+                          style={{ height:'20px'}}
+                        />
+                      </button>
+                      <button className="btn btn-primary my-2  ms-2 px-2 py-1">
+                        Buy Now
                       </button>
                     </div>
                   </div>

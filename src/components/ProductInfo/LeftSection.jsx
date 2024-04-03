@@ -6,6 +6,7 @@ import axios from "axios";
 
 
 
+
 function LeftSection({ productId, scrollToReviews }) {
     const [product, setProduct] = useState(null);
 
@@ -27,9 +28,22 @@ function LeftSection({ productId, scrollToReviews }) {
     return (
         <>
             {product && (
-                <section className="w-100 md:w-50 d-flex flex-column gap-4  position-relative px-md-4">
-                    <div className="w-100  rounded-lg position-relative" >
+                <section className="w-100 md:w-50 d-flex flex-column gap-4  position-relative px-md-4 h-100   ">
+                    <div className="w-100  rounded-lg position-relative  d-flex justify-between  " >
+
+                        <div className=" col-2 d-flex flex-column  justify-content-between   ">
+
+                        {Array.from({ length: 5 }).map((_, index) => (
+                            <div key={index} className=" border  rounded-2  " style={{height:'80px'}}>
+                                {product[`product_image${index + 1}`] && <img src={product[`product_image${index + 1}`]} alt={`Image ${index + 1}`} style={{ width: '100%', height:'100%'}}  className="rounded-2" />}
+                            </div>
+                        ))}
+
+                        </div>
+                        <div className="col-10 ps-3  " style={{height:'500px'}}>
                         <CarouselComponent productId={productId} />
+                        </div>
+                      
                     </div>
                     <div className=" d-flex ">
                         <div className="border rounded d-flex flex-column  w-100 px-md-4 gap-2 px-1">
@@ -79,9 +93,9 @@ function LeftSection({ productId, scrollToReviews }) {
                         </div>
                     </div>
 
-                    <div className="  d-flex flex-column  py-2 rounded gap-4" onClick={scrollToReviews} style={{cursor:'pointer'}}>
-                        <div className="d-flex flex-column gap-1 border rounded px-4 pt-3">
-                            <h2 className=" fs-4 text-start">Ratings & Reviews</h2>
+                    <div className="  d-flex flex-column  py-3  rounded gap-4" onClick={scrollToReviews} style={{cursor:'pointer'}}>
+                        <div className="d-flex flex-column gap-1 border rounded px-4 pt-3 ">
+                            <h2 className=" fs-4 text-start mt-1">Ratings & Reviews</h2>
                             <div className="d-flex fl ">
                                 <div className="w-50 d-flex flex-column  gap-2 ">
                                     <span className="fs-1">{product.product_ratings}</span>
@@ -90,7 +104,7 @@ function LeftSection({ productId, scrollToReviews }) {
                                 </div>
 
                                 <div className="w-50  py-2">
-                                    <ul className="list-unstyled   h-100">
+                                    <ul className="list-unstyled   h-100  d-flex flex-column gap-1">
                                         <li className="d-flex gap-1">
                                             <span>5</span>
                                             <div className=" w-100 d-flex justify-content-center align-items-center pl-1">

@@ -105,7 +105,7 @@ const HomeProducts = () => {
 
         <div className="row">
           <div className="col-6 col-md-3">
-            <div className="subs-cat">
+            <div className="subs-cat  d-flex flex-column justify-content-center">
               <h4>Men's Fashion</h4>
               <Link to={{ pathname: '/mens-category', search: `?category=Men's Fashion` }}>
                 <button className="btn btn-outline-light rounded-pill">Shop Now</button>
@@ -113,7 +113,7 @@ const HomeProducts = () => {
             </div>
           </div>
           <div className="col-6 col-md-3">
-            <div className="subs-cat-2">
+            <div className="subs-cat-2  d-flex flex-column justify-content-center">
               <h4>Women Fashion</h4>
               <Link to={{ pathname: '/womens-category', search: `?category=Women's Fashion` }}>
                 <button className="btn btn-outline-light rounded-pill">Shop Now</button>
@@ -121,7 +121,7 @@ const HomeProducts = () => {
             </div>
           </div>
           <div className="col-6 col-md-3">
-            <div className="subs-cat-3">
+            <div className="subs-cat-3  d-flex flex-column justify-content-center">
               <h4>Fashion Accessories</h4>
               <Link to={{ pathname: '/accessories', search: `?category=Accessories` }}>
                 <button className="btn btn-outline-light rounded-pill">Shop Now</button>
@@ -129,9 +129,11 @@ const HomeProducts = () => {
             </div>
           </div>
           <div className="col-6 col-md-3">
-            <div className="subs-cat-4">
+            <div className="subs-cat-4  d-flex flex-column justify-content-center">
               <h4>Kitchen</h4>
-              <button className="btn btn-outline-light rounded-pill">Shop Now</button>
+              <Link>
+                <button className="btn btn-outline-light rounded-pill">Shop Now</button>
+              </Link>
             </div>
           </div>
         </div>

@@ -589,7 +589,7 @@
  }
 
  .product-card img {
-   margin-bottom: 15px;
+   /* margin-bottom: 15px; */
  }
 
  .button-group {
@@ -617,12 +617,18 @@
    border-radius: 10px;
    background-color: #fff5f5;
    transition: box-shadow 0.3s ease;
+  
  }
 
+ .bg-opacity {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* 
  .card-b:hover {
    box-shadow: 0px 0px 1.5dvi rgb(209, 179, 179, 10);
 
- }
+ } */
 
 
  @keyframes fade-in {
