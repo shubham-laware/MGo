@@ -1,5 +1,5 @@
 import React from 'react';
-import image from "../assets/addImage.png"
+import image from "../assets/addImage1.png"
 import appStore from "../../public/appstore.png"
 import googlePlay from "../../public/googlePlay.png"
 
