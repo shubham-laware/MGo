@@ -232,7 +232,7 @@ function RightSection({ productId }) {
                 </ul>
               </div>
 
-              <div className="  h-100 d-flex flex-column">
+              {/* <div className="  h-100 d-flex flex-column">
                 <div
                   className=" position-relative "
                   style={{ height: "158px" }}
@@ -250,7 +250,7 @@ function RightSection({ productId }) {
                 >
                   Send
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>

@@ -11,7 +11,7 @@ const Slider = () => {
    
   return (
     <>
-    <Container className='add-container'>
+    <div className='container'>
     <p className='p-2'>Sponsored <BiInfoCircle className='fa-1'/></p>
     <Row>
     <Link to="/products" className=' '>
@@ -21,7 +21,7 @@ const Slider = () => {
         </Col>
         </Link>
       </Row>
-  </Container>
+  </div>
  <hr></hr>
  <br></br>
  <br></br>

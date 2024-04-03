@@ -99,7 +99,7 @@ export const Checkout = () => {
                       <div className="ms-auto">************1038</div>
                     </div>
                   </div>
-                  <button className="btn btn-secondary btn-lg">
+                  <button className="btn btn-primary btn-lg">
                     Proceed to payment
                   </button>
                 </div>
