@@ -327,17 +327,18 @@ const HomeProducts = () => {
                     >
                       <div
                         className="product-image"
-                        style={{ height: "250px" }}
+                       
                       >
                         <img
                           src={product.product_image1}
                           alt="Product 1"
-                          className="h-100 img-fluid"
+                         
                         />
-                      </div>
-                      <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
+                        <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
                         {product.offers}% Off
                       </div>
+                      </div>
+                      
                       <div className="product-content">
                         <h6>{product.product_name} </h6>
                         <h5>
@@ -375,21 +376,6 @@ const HomeProducts = () => {
                       </div>
                     </a>
 
-                    {/* <div className="d-flex justify-content-center align-items-center ">
-                      <button
-                        className={`btn ${wishlistClicked[index] ? "btn-success" : "btn-primary"
-                          } w-25 my-2`}
-                        onClick={() => handleWishListToCart(product, index)}
-                      >
-                        ❤
-                      </button>
-                      <button
-                        onClick={() => handleAddToCart(product, index)}
-                        className="btn btn-primary my-2 ms-2"
-                      >
-                        Add to cart
-                      </button>
-                    </div> */}
 
                     <div className="d-flex justify-content-center align-items-center gap-2">
                       <button

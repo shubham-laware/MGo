@@ -406,17 +406,16 @@ const Category = () => {
                     >
                       <div
                         className="product-image"
-                        style={{ height: "250px" }}
                       >
                         <img
                           src={product.product_image1}
                           alt="Product 1"
-                          className="h-100 img-fluid"
                         />
-                      </div>
-                      <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
+                         <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
                         {product.offers}% Off
                       </div>
+                      </div>
+                     
                       <div className="product-content">
                         <h6>{product.product_name} </h6>
                         <h5>
