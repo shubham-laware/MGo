@@ -300,7 +300,7 @@ const Accessories = () => {
                             {product.product_stock}
                           </span>
                         </h5>
-                        <div className="product-rating text-warning">
+                        <div className="product-rating text-warning d-flex mb-2">
                           Rating:{" "}
                           <StarRatings rating={product.product_ratings} />
                         </div>

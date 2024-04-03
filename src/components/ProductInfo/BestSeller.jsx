@@ -67,11 +67,11 @@ function BestSellers() {
             { length: Math.ceil(products.length / slidesToShow) },
             (_, i) => (
               <div key={i} className={`carousel-item${i === 0 ? " active" : ""}`}>
-                <div className="d-flex  justify-content-center gap-4">
+                <div className="d-flex  justify-content-center gap-4 ">
                   {products
                     .slice(i * slidesToShow, (i + 1) * slidesToShow)
                     .map((product, index) => (
-                      <div key={index} className=" ">
+                      <div key={index} className="  w-75 w-sm-50 w-md-25">
                         <ProductCard product={product} index={index} />
                       </div>
                     ))}

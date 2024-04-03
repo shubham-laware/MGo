@@ -1,11 +1,11 @@
 import React from 'react';
 import image from "../assets/addImage1.png"
-import appStore from "../../public/appstore.png"
+
 import googlePlay from "../../public/googlePlay.png"
 
 const Advertisement = () => {
     return (
-        <div className="container mb-2 mt-1" style={{ backgroundColor: "#e4d6d2" }} >
+        <div className="container my-5" style={{ backgroundColor: "#e4d6d2" }} >
             <div className="row p-5 " >
                 <div className="col-md-8 " >
                     <h2 className="fw-bold text-start">MINITGO</h2>
@@ -16,8 +16,8 @@ const Advertisement = () => {
                     </div>
                     <p className='fs-4'>LAUNCHING SOON...</p>
                     <div className="d-flex gap-2 flex-wrap">
-                        <img src={appStore} alt="App Image" className="app-image bg-light border-none" style={{ height: "4rem" }} />
-                        <img src={googlePlay} alt="App Image" className="app-image " style={{ height: "4rem" }} />
+                        <img src='/appstore.png' alt="App Image" className="app-image bg-light border-none" style={{ height: "4rem" }} />
+                        <img src='/googlePlay.png' alt="App Image" className="app-image " style={{ height: "4rem" }} />
 
                     </div>
                     <div className="col-md-4 d-flex gap-2 mt-5 ">

@@ -74,7 +74,7 @@ function Recommendations() {
                   {products
                     .slice(i * slidesToShow, (i + 1) * slidesToShow)
                     .map((product, index) => (
-                      <div key={index} className="">
+                      <div key={index} className=" w-75 w-sm-50 w-md-25">
                         <ProductCard product={product} index={index} />
                       </div>
                     ))}

@@ -132,12 +132,14 @@ function ProductInfo() {
                     style={{ resize: "none", outline: "none" }}
                   ></textarea>
                 </div>
-                <button
-                  className="py-1  bg-body-secondary  rounded-bottom w-100 "
+               <div className="w-100 d-flex justify-content-end border border-black   rounded-bottom">
+               <button
+                  className="py-1 px-5  bg-body-secondary  "
                   style={{ border: "solid 1px", borderColor: "#a29898" }}
                 >
                   Send
                 </button>
+               </div>
               </div>
         </div>
       </div>
