@@ -48,11 +48,11 @@ function CarouselComponent({productId}) {
             </div>
           ))}
         </div>
-        <button className="carousel-control-prev  bg-secondary rounded-circle p-2 ms-1" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style={{height:"30px", top:"50%",width:"35px",backgroundColor: "blue" }}>
+        <button className="carousel-control-prev   rounded-circle p-2 ms-1" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style={{height:"30px", top:"50%",width:"35px", backgroundColor: "blue !important",}}>
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
           <span className="visually-hidden">Previous</span>
         </button>
-        <button className="carousel-control-next bg-secondary rounded-circle p-2 me-1 " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style={{height:"30px", top:"50%",width:"35px",backgroundColor: "blue"}}>
+        <button className="carousel-control-next  rounded-circle p-2 me-1 " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style={{height:"30px", top:"50%",width:"35px",backgroundColor: "blue"}}>
           <span className="carousel-control-next-icon" aria-hidden="true"></span>
           <span className="visually-hidden">Next</span>
         </button>

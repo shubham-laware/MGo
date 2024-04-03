@@ -71,7 +71,7 @@ function BestSellers() {
                   {products
                     .slice(i * slidesToShow, (i + 1) * slidesToShow)
                     .map((product, index) => (
-                      <div key={index} className="">
+                      <div key={index} className=" ">
                         <ProductCard product={product} index={index} />
                       </div>
                     ))}

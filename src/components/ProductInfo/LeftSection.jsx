@@ -93,7 +93,7 @@ function LeftSection({ productId, scrollToReviews }) {
                         </div>
                     </div>
 
-                    <div className="  d-flex flex-column  py-3  rounded gap-4" onClick={scrollToReviews} style={{cursor:'pointer'}}>
+                    <div className="  d-flex flex-column   rounded gap-4" onClick={scrollToReviews} style={{cursor:'pointer'}}>
                         <div className="d-flex flex-column gap-1 border rounded px-4 pt-3 ">
                             <h2 className=" fs-4 text-start mt-1">Ratings & Reviews</h2>
                             <div className="d-flex fl ">
@@ -104,7 +104,7 @@ function LeftSection({ productId, scrollToReviews }) {
                                 </div>
 
                                 <div className="w-50  py-2">
-                                    <ul className="list-unstyled   h-100  d-flex flex-column gap-1">
+                                    <ul className="list-unstyled   h-100  d-flex flex-column ">
                                         <li className="d-flex gap-1">
                                             <span>5</span>
                                             <div className=" w-100 d-flex justify-content-center align-items-center pl-1">

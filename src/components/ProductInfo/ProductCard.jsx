@@ -47,7 +47,7 @@ function ProductCard({ product, index }) {
  
 
   return (
-    <div key={index} className="col-6 col-sm-3 py-2 w-100">
+    <div key={index} className="col-6 col-sm-3 py-2 w-100 ">
     <div className="product-card">
       <a
         href={`/${product.product_id}`}
