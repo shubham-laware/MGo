@@ -77,70 +77,76 @@ function ProductInfo() {
             </div>
           </div>
 
-        
-          <div id="reviews-section">
-
-            <div className="h-120px w-100 d-flex flex-column gap-1 pt-2 ">
-              <h3 className="m-2">Reviews</h3>
-              <div style={{}}>
-                <ul
-                  className="border rounded p-2 h-100"
-                  style={{
-                    scrollbarWidth: "thin",
-                    fontSize: "16px",
-                    listStyle: "none",
-                  }}
-                >
-                  {reviews.map((review) => (
-                    <li className="border-top py-3" key={review.id}>
-                      {editingReviewId === review.id ? (
-                        <div>
-                          <input
-                            type="text"
-                            value={reviewText[review.id] || ""}
-                            onChange={(e) => handleReviewChange(e, review.id)}
-                            className="w-50 p-1"
-                          />
-                          <button className="btn btn-primary my-2 px-5 mx-3" onClick={() => handleReviewSave(review.id)}>Save</button>
-                        </div>
-                      ) : (
-                        <div className="d-flex justify-content-between align-items-center">
-                          <span className="fw-semibold">
-                            {review.name}: {review.text}
-                          </span>
-                          <button  className="btn btn-primary my-2 px-5" onClick={() => handleReviewEdit(review.id)}>Edit</button>
-                        </div>
-                      )}
-                    </li>
-                  ))}
-
-                </ul>
+          <div className=" d-flex  flex-column flex-md-row  gap-3  mb-2">
+            
+            <div id="reviews-section " className="w-100  reviews-w-md">
+              <div className="h-120px w-100 d-flex flex-column gap-1 pt-2 ">
+                <h3 className="m-2">Reviews</h3>
+                <div style={{}}>
+                  <ul
+                    className="border rounded p-2 h-100"
+                    style={{
+                      scrollbarWidth: "thin",
+                      fontSize: "16px",
+                      listStyle: "none",
+                    }}
+                  >
+                    {reviews.map((review) => (
+                      <li className="border-top py-1" key={review.id}>
+                        {editingReviewId === review.id ? (
+                          <div>
+                            <input
+                              type="text"
+                              value={reviewText[review.id] || ""}
+                              onChange={(e) => handleReviewChange(e, review.id)}
+                              className="w-50 p-1"
+                            />
+                            <button
+                              className="btn btn-primary my-2 px-5 mx-3"
+                              onClick={() => handleReviewSave(review.id)}
+                            >
+                              Save
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="d-flex justify-content-between align-items-center">
+                            <div className="">
+                              <span className="fw-semibold">{review.name}</span>:  <span style={{fontSize:'15px'}}>{review.text}</span>
+                            </div>
+                            <button
+                              className="btn btn-primary my-2 px-5"
+                              onClick={() => handleReviewEdit(review.id)}
+                            >
+                              Edit
+                            </button>
+                          </div>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
 
-
-          <div className="  h-100 d-flex flex-column">
-                <div
-                  className=" position-relative "
-                  style={{ height: "158px" }}
-                >
-                  <textarea
-                    className=" h-100 w-100 rounded p-2"
-                    rows="5"
-                    placeholder="Enter comments"
-                    style={{ resize: "none", outline: "none" }}
-                  ></textarea>
-                </div>
-               <div className="w-100 d-flex justify-content-end mt-1  ">
-               <button
+            <div className="  h-100 d-flex flex-column w-100  mt-md-5 pt-3 comments-w-md ">
+              <div className=" position-relative  comments-height" >
+                <textarea
+                  className=" h-100 w-100 rounded p-2"
+                  rows="5"
+                  placeholder="Enter comments"
+                  style={{ resize: "none", outline: "none" }}
+                ></textarea>
+              </div>
+              <div className="w-100 d-flex justify-content-end mt-1  ">
+                <button
                   className="py-1 px-5  bg-body-secondary  rounded "
                   style={{ border: "solid 1px", borderColor: "#a29898" }}
                 >
                   Send
                 </button>
-               </div>
               </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>

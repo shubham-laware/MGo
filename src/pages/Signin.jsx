@@ -66,13 +66,40 @@ const Login = ({ closeLoginModal }) => {
     setResetEmail("");
   };
 
+
+  function fetchUserInfoAndStoreInSession(email) {
+    console.log("EMAIL:",email)
+    axios
+      .post("https://minitgo.com/api/fetch_login.php", JSON.stringify({ email }), {})
+      .then((response) => {
+        if (response.data && response.data.length > 0) {
+          const user = response.data[0];
+          const userInfo = {
+            id: user.id,
+            fullName: user.full_name,
+            phoneNumber: user.phone_number,
+            email: user.email,
+            address:user.Address,
+            officeAddress:user.office_address
+          };
+          console.log("USER INFO:",userInfo)
+          } else {
+          console.error("Failed to fetch user information: No data returned.");
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch user information:", error);
+      });
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     console.log(userid);
     console.log(password);
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const phonePattern = /^[0-9]{7}$/;
-    if (userid === "" || password === "") {
+    // if (userid === "" || password === "") {
+      if (userid === "" ) {
       toast.error('All fields are required', {
         autoClose: 1000,
         hideProgressBar: true
@@ -84,19 +111,23 @@ const Login = ({ closeLoginModal }) => {
         hideProgressBar: true
     })
       return;
-    }else if(password.length < 8 || password.length > 12){
-      toast.error('Password must be between 6 and 8 characters long', {
-        autoClose: 1000,
-        hideProgressBar: true
-    })
+    // }else if(password.length < 8 || password.length > 12){
+    //   toast.error('Password must be between 8 and 12 characters long', {
+    //     autoClose: 1000,
+    //     hideProgressBar: true
+    // })
     return;
     }else{
       console.log("USER ID:",userid)
       console.log("PASS:",password)
-      if (
-        (userid !== "john.doe@example.com" && userid !== "5551234") ||
-        password !== "password123"
-    ){
+    //   if (
+    //     (userid !== "pranalii@gmail.com" && userid !== "5551234") ||
+    //     password !== "password123"
+    // )
+    if (
+      (userid !== "pranalii@gmail.com" && userid !== "5551234") 
+  )
+    {
         toast.error('Invalid credentials', {
           autoClose: 1000,
           hideProgressBar: true
@@ -120,6 +151,7 @@ const Login = ({ closeLoginModal }) => {
           console.log("Login successful. User:", user);
           if(user){
             closeLoginModal()
+            fetchUserInfoAndStoreInSession(data.email)
             toast.success('Login successfull', {
               autoClose: 1000,
               hideProgressBar: true

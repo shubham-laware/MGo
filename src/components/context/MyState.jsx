@@ -10,6 +10,8 @@ const Mystate = (props) => {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [offer,setOffers] = useState("")
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
 
 
   useEffect(() => {
@@ -44,6 +46,11 @@ const Mystate = (props) => {
     setOffers(event.target.value)
   }
 
+  const handleImageClick = (index) => {
+    console.log('imageclicked')
+    setSelectedImageIndex(index); // Update the selected image index
+};
+
 
   return (
     <div>
@@ -64,7 +71,10 @@ const Mystate = (props) => {
           handleSearchInputChange,
           offer,
           setOffers,
-          handleOfferChange
+          handleOfferChange,
+          selectedImageIndex,
+          setSelectedImageIndex,
+          handleImageClick
         }}
       >
         {props.children}
