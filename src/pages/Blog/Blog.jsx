@@ -1,197 +1,175 @@
-import React,{useEffect,useState} from "react";
-import img1 from '../../assets/MicrosoftTeams-image.png'
+import React, { useEffect, useState } from "react";
+import img1 from '../../assets/blogPage/lightBlueGirl.jpg'
 import img2 from '../../assets/Ultra realistic full body photo of a French male m (2).jpg'
 import img3 from '../../assets/Ultra realistic full body photo of a French male m.jpg'
 import img4 from '../../assets/Photo ultra définition.jpg'
-import img5 from '../../assets/Photo ultra définition (1).jpg'
+import img5 from '../../assets/blogPage/lastOne.jpg'
 import img6 from '../../assets/Ultra realistic full body photo of a French male m (1).jpg'
 import img7 from '../../assets/best-deal3-removebg-preview.png'
 import img8 from '../../assets/A light blue skirt set with an A-line ankle-length (1).jpg'
 import img9 from '../../assets/The indian woman wearing a black dress is posing i.jpg'
-import img10 from '../../assets/happy alien. 25 year old male.jpg'
+import img10 from '../../assets/blogPage/men.jpg'
 
 
 
 const Blog = () => {
-    const [blogs, setBlogs] = useState([]);
+    //     const [blogs, setBlogs] = useState([]);
+    //     // "https://minitgo.com/api/fetch_blog.php"
 
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await fetch('https://minitgo.com/api/fetch_blog.php');
+    //             const result = await response.json();
+    //             setBlogs(result.data || []); // Fallback to an empty array if data is not present
+    //             console.log('Fetched Blogs:', result.data);
+    //         } catch (error) {
+    //             console.error('Fetching blogs failed:', error);
+    //         }
+    //     };
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        const fetchBlogs = async () => {
-            try {
-                const response = await axios.get(
-                    "https://minitgo.com/api/fetch_blog.php"
-                );
-                setBlogs(response.data.data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-
-        fetchBlogs();
-    }, []);
-
+    //     fetchData();
+    // }, []);
     return (
         <>
-            <div className="d-flex flex-column container">
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <div className="col-12  mt-3"style={{marginTop:''}}>
-                    <div className="image-container mx-auto" style={{ position: 'relative', overflow: 'hidden' ,width:'100%'  }}>
-                        <img src={img1} alt="xd" style={{ width: '100%', display: 'block', marginTop: '' }} />
+
+            <div className="container shadow bg-body rounded border border-1 mb-3">
+                <div className="row after:col-12  mt-3" style={{ marginTop: '200px' }}>
+                    <div className="mx-auto p-0" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
+                        <img className="img-fluid" src={img1} alt="xd" style={{ width: '100%', height: "100vh", display: 'block', marginTop: '' }} />
                         <div className="text-overlay mb-5" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', padding: '20px', boxSizing: 'border-box' }}>
-                            <h4 style={{ color: 'white', margin: '0' }}>MINITGO</h4>
-                            <h1 style={{ color: 'white', margin: '0' }}>Supreme Summer Sale</h1>
-                            <p style={{ color: 'white', margin: '0' }}>Up to 50% off</p>
+                            <h3 className="text-white fw-normal mx-5" style={{ letterSpacing: "5px" }}>MINITGO</h3>
+                            <h1 className="text-white fw-normal mx-5" style={{ fontSize: "60px" }}>Supreme Summer Sale</h1>
+                            <h3 className="text-white fw-normal mx-5" style={{ fontSize: "60px" }}>Up to 50% off</h3>
                         </div>
                     </div>
-
-
                 </div>
-                <div className="row  justify-content-center  w-100">
-                    <h2 className="mt-5 mb-5">Spring Sale Per Category</h2>
+            </div>
 
-                    <div className="col-sm-4 mt-2 col-md-2 text-center" style={{ overflow: 'hidden',  }}>
-                        <img src={img6} alt="Image 1" className="img-fluid" style={{ height: '13rem', width: '15rem' }} />
-                        <h4>Outwear</h4>
+
+            <div className="container shadow bg-body rounded  border border-1 mb-3" >
+                <h1 className="text-black fw-normal text-center mt-5" style={{ letterSpacing: "5px" }}>Spring Sale Per Category</h1>
+                <div className="img-block d-flex justify-content-evenly align-items-center my-5 py-5 flex-wrap">
+                    <div className="col-sm-4 mt-2 col-md-2 text-center" style={{ overflow: 'hidden', }}>
+                        <img src={img6} alt="Image 1" className="img-fluid" style={{ height: '16rem', width: '16rem' }} />
+                        <h3 className="mt-4">Outwear</h3>
                     </div>
 
-                    <div className="col-sm-4 mt-2 col-md-2 mx-4 text-center" style={{ overflow: 'hidden',  }}>
-                        <img src={img8} alt="Image 2" className="img-fluid" style={{ height: '13rem', width: '15rem' }} />
-                        <h4>Trending</h4>
+                    <div className="col-sm-4 mt-2 col-md-2 mx-4 text-center" style={{ overflow: 'hidden', }}>
+                        <img src={img8} alt="Image 2" className="img-fluid" style={{ height: '16rem', width: '16rem' }} />
+                        <h3 className="mt-4">Trending</h3>
                     </div>
 
-                    <div className="col-sm-4 mt-2 col-md-2 mx-4 text-center" style={{ overflow: 'hidden',  }}>
-                        <img src={img7} alt="Image 3" className="img-fluid" style={{ height: '13rem', width: '15rem' }} />
-                        <h4>Footwear</h4>
+                    <div className="col-sm-4 mt-2 col-md-2 mx-4 text-center" style={{ overflow: 'hidden', }}>
+                        <img src={img6} alt="Image 3" className="img-fluid" style={{ height: '16rem', width: '16rem' }} />
+                        <h3 className="mt-4">Footwear</h3>
                     </div>
                 </div>
+            </div>
 
-
-                <div className="row mt-5  ">
-                    <h2 className="mt-5 text-center w-100">New Arrivals</h2>
-                </div>
-                <div className="row m-3 ">
-                    <div className="col-sm-4 mt-5 position-relative" style={{ paddingRight: 0 }}>
-                        <img src={img4} alt="Image 1" className="img-fluid h-100 w-100" />
+            <div className="container shadow bg-body rounded  border border-1 mb-3">
+                <h1 className="text-black fw-normal text-center mt-5" style={{ letterSpacing: "5px" }}>New Arrivals</h1>
+                <div className="row">
+                    <div className="col-sm-4 mt-5 position-relative p-0" style={{ paddingLeft: 0, paddingRight: 0 }}>
+                        <img src={img4} alt="Image 1" className="img-fluid w-100" style={{ height: "501px" }} />
                         <div className="text-overlay mb-3" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', padding: '20px', boxSizing: 'border-box' }}>
-                            <h3 style={{ color: 'white', margin: '0' }}>The Pantsuit <br></br> Collection</h3>
+                            <h1 className="text-center text-white fw-normal">The Pantsuit <br></br> Collection</h1>
                         </div>
                     </div>
-                    <div className="col-sm-4 mt-5 position-relative" style={{ paddingLeft: 0, paddingRight: 0 }}>
-                        <img src={img2} alt="Image 2" className="img-fluid h-100 w-100" />
+                    <div className="col-sm-4 mt-5 position-relative p-0" style={{ paddingLeft: 0, paddingRight: 0 }}>
+                        <img src={img2} alt="Image 2" className="img-fluid w-100" style={{ height: "501px" }} />
                         <div className="text-overlay mb-3" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', padding: '20px', boxSizing: 'border-box' }}>
-                            <h3 style={{ color: 'white', margin: '0' }}>Sharp and sweet Menswear</h3>
+                            <h1 className="text-center text-white fw-normal" >Sharp and sweet Menswear</h1>
                         </div>
                     </div>
-                    <div className="col-sm-4 mt-5 position-relative" style={{ paddingLeft: 0 }}>
-                        <img src={img5} alt="Image 3" className="img-fluid h-100 w-100" />
+                    <div className="col-sm-4 mt-5 position-relative p-0" style={{ paddingLeft: 0, paddingRight: 0 }}>
+                        <img src={img5} alt="Image 3" className="img-fluid  w-100" style={{ height: "501px" }} />
                         <div className="text-overlay mb-3" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', padding: '20px', boxSizing: 'border-box' }}>
-                            <h3 style={{ color: 'white', margin: '0' }}>Adventures Await Accessories</h3>
+                            <h1 className="text-center text-white fw-normal ">Adventures Await Accessories</h1>
                         </div>
                     </div>
                 </div>
-
+            </div>
 
             
-
-
-
-
-<div className="row justify-content-center w-100">
-    <h2 className="mt-5 mb-5">Bestsellers by Category</h2>
-    <div className="col-sm-4 mt-2 col-md-2 position-relative text-center" style={{ overflow: 'hidden', height: '13rem', width: '13rem' }}>
-        <img src={img6} alt="Image 1" className="img-fluid" style={{ height: '100%', width: '100%' }} />
-        <h5 className="image-overlay" style={{ position: 'absolute', top: '80%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white' }}>Dresses</h5>
-    </div>
-    <div className="col-sm-4 mt-2 col-md-2 mx-4 position-relative text-center" style={{ overflow: 'hidden', height: '13rem', width: '13rem' }}>
-        <img src={img3} alt="Image 2" className="img-fluid" style={{ height: '100%', width: '100%' }} />
-        <h5 className="image-overlay" style={{ position: 'absolute', top: '80%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white' }}>Knitwear</h5>
-    </div>
-    <div className="col-sm-4 mt-2 col-md-2 mx-4 position-relative text-center" style={{ overflow: 'hidden', height: '13rem', width: '13rem' }}>
-        <img src={img9} alt="Image 3" className="img-fluid" style={{ height: '100%', width: '100%' }} />
-        <h5 className="image-overlay" style={{ position: 'absolute', top: '80%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white' }}>CropTops</h5>
-    </div>
-</div>
-
-
-
-
-
-
-
-                <div className="mt-5" style={{ position: 'relative', height: '250px', overflow: 'hidden' }}>
-                    <img src={img10} alt="Image" style={{ width: '100%', height: 'auto', position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
-                    <div style={{ position: 'absolute', top: '50%', left: '25%', transform: 'translate(-50%, -50%)', color: 'white' }}>
-                        <h2 style={{ margin: '0', fontSize: '45px', color: 'white' }}>Visit Our<br></br>Physical Stores</h2>
+            <div className="container shadow bg-body rounded border border-1 mb-3">
+                <h1 className="text-black fw-normal text-center mt-5" style={{ letterSpacing: "5px" }}>Bestsellers by Category</h1>
+                <div className="row justify-content-center align-items-center my-5 py-5">
+                    <div className="col-12 col-md-3 mt-2 text-center position-relative">
+                        <img src={img6} alt="Image 1" className="img-fluid" />
+                        <h3 className="image-overlay text-white" style={{ position: 'absolute', bottom: '10%', left: '50%', transform: 'translateX(-50%)', letterSpacing: "3px" }}>Dresses</h3>
+                    </div>
+                    <div className="col-12 col-md-3 mt-2 mx-4 text-center position-relative">
+                        <img src={img3} alt="Image 2" className="img-fluid"  />
+                        <h3 className="image-overlay text-white" style={{ position: 'absolute', bottom: '10%', left: '50%', transform: 'translateX(-50%)', letterSpacing: "3px" }}>Knitwear</h3>
+                    </div>
+                    <div className="col-12 col-md-3 mt-2 mx-4 text-center position-relative">
+                        <img src={img9} alt="Image 3" className="img-fluid" style={{height:"500px"}}/>
+                        <h3 className="image-overlay text-white" style={{ position: 'absolute', bottom: '10%', left: '50%', transform: 'translateX(-50%)', letterSpacing: "3px" }}>Crop Tops</h3>
                     </div>
                 </div>
+            </div>
 
 
 
 
+            <div className="container shadow bg-body rounded  border border-1 mb-3 p-0" style={{ height: "100vh" }}>
+                <div className="" style={{ position: 'relative', height: '450px', overflow: 'hidden' }}>
+                    <img src={img10} alt="Image" style={{ width: '100%', height: '45rem', position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
+                    <div style={{ position: 'absolute', top: '50%', left: '25%', transform: 'translate(-50%, -50%)', color: 'white' }}>
+                        <h1 className="text-white visit-title" style={{ margin: '0', fontSize: '65px', letterSpacing: "5px" }}>Visit Our<br></br>Physical Stores</h1>
+                        <button className="btn btn-lg btn-primary px-5 mt-5 visit-button">Visit</button>
+                    </div>
 
-                <div className="mt-5" >
-                    {/*  */}
+                </div>
+            </div>
 
-                    <div className="image-container" style={{ position: 'relative', overflow: 'hidden' ,height:'700px' }}>
-                        <img src={img5} alt="xd" style={{ width: '100%', display: 'block',  }} />
-                        <div className="text-overlay d-flex flex-column justify-content-start align-items-center" style={{ position: 'absolute', top: '0', left: '0', width: '100%', padding: '20px', boxSizing: 'border-box' }}>
-                            <hr className="hr" style={{ borderColor: 'white' }} />
-                            <h1 style={{ color: 'white', margin: '0' }}>Need Anything?</h1>
-                            <hr className="hr" style={{ borderColor: 'white' }} />
-                            <div className="d-flex justify-content-between pt-3 mt-5 gap-4" style={{ color: 'white', margin: '0' }}>
-                                <p className="mb-0" style={{ marginRight: '' }}>FAQs</p>
-                                <p className="text-muted mb-0">
+            <div className="container shadow bg-body rounded  border border-1 mb-4 p-0">
+                <div className="m-0 p-0" style={{ position: 'relative', overflow: 'hidden' }}>
+                    <img src={img5} alt="xd" style={{ width: '100%', display: 'block', height: "100vh" }} />
+                    <div className="" style={{ position: 'absolute', top: '0', left: '0', width: '100%', padding: '20px', boxSizing: 'border-box' }}>
+                        <h1 className="text-white mt-5 text-center" style={{ margin: '0', letterSpacing: "5px" }}>Need Anything?</h1>
+                        <div className="mt-5 pt-5" >
+                            <hr className="hr text-white mt-5 pt-5" style={{ position: 'absolute', borderColor: 'white', width: '100%', margin: '0', opacity: "2.25" }} />
+                            <div className="d-flex justify-content-evenly pt-3 mt-5" style={{ color: 'white', margin: '0' }}>
+                                <h3 className="mb-0" style={{ marginRight: '' }}>FAQs</h3>
+                                <h4 className="text-muted mb-0">
                                     <span className="me-4" style={{ color: 'white', }}>Click here</span>{" "}
-                                </p>
+                                </h4>
                             </div>
-                            <hr className="hr" style={{ borderColor: 'white' }} />
-                            <div className="d-flex justify-content-between pt-3 gap-4" style={{ color: 'white', margin: '0' }}>
-                                <p className="mb-0" style={{ marginRight: '' }}>Track my Parcel</p>
-                                <p className="text-muted mb-0">
-                                    <span className="me-4" style={{ color: 'white' ,margin:'0' }}>Click here</span>{" "}
-                                </p>
+                            <hr className="hr text-white mt-1 pt-1" style={{ position: 'absolute', borderColor: 'white', width: '100%', margin: '0', opacity: "2.25" }} />
+                            <div className="d-flex justify-content-evenly pt-3" style={{ color: 'white', margin: '0' }}>
+                                <h3 className="mb-0" style={{ marginRight: '' }}>Track My Parcel</h3>
+                                <h4 className="text-muted mb-0">
+                                    <span className="me-4 mx-0" style={{ color: 'white' }}>Click here</span>{" "}
+                                </h4>
                             </div>
-                            <hr className="hr" style={{ borderColor: 'white' }} />
-                            <div className="d-flex justify-content-between pt-3 gap-4" style={{ color: 'white', margin: '0' }}>
-                                <p className="mb-0" style={{ marginRight: '' }}>Email Address</p>
-                                <p className="text-muted mb-0">
-                                    <span className="me-4" style={{ color: 'white', margin: '0' }}>minitgo@gmail.com</span>{" "}
-                                </p>
+                            <hr className="hr text-white mt-1 pt-1" style={{ position: 'absolute', borderColor: 'white', width: '100%', margin: '0', opacity: "2.25" }} />
+                            <div className="d-flex justify-content-evenly pt-3" style={{ color: 'white', margin: '0' }}>
+                                <h3 className="mb-0" style={{ marginRight: '' }}>Email Address</h3>
+                                <h4 className="text-muted mb-0">
+                                    <span className="me-4" style={{ color: 'white' }}>hello@gmail.com</span>{" "}
+                                </h4>
                             </div>
-                            <hr className="hr" style={{ borderColor: 'white' }} />
-                            <div className="d-flex justify-content-between pt-3" style={{ color: 'white', margin: '0' }}>
-                                <p className="mb-0" style={{ marginRight: '2rem' }}>Socials</p>
-                                <p className="text-muted mb-0">
-                                    <span className="me-4" style={{ color: 'white', margin: '0' }}>@reallygreatsite</span>{" "}
-                                </p>
+                            <hr className="hr text-white mt-1 pt-1" style={{ position: 'absolute', borderColor: 'white', width: '100vw', margin: '0', opacity: "2.25" }} />
+                            <div className="d-flex justify-content-evenly pt-3 " style={{ color: 'white', margin: '0' }}>
+                                <h3 className="mb-0 " style={{ marginRight: '' }}>Socials</h3>
+                                <h4 className="text-muted mb-0 ">
+                                    <span className="me-4" style={{ color: 'white' }}>@reallygreate</span>{" "}
+                                </h4>
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br /><br />
+
 
             </div>
+
+
         </>
 
     );
 };
 
 export default Blog;
+

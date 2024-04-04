@@ -620,9 +620,9 @@
   
  }
 
- .bg-opacity {
-  background-color: rgba(0, 0, 0, 0.8);
-}
+ /* .bg-opacity {
+  background-color: rgba(0, 0, 0, );
+} */
 
 /* 
  .card-b:hover {

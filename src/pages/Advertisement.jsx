@@ -20,8 +20,8 @@ const Advertisement = () => {
                     </div>
                     <div className="col-md-4 d-flex gap-2 mt-5 ">
                         <span className='border border-black rounded-circle px-4 py-3' ><i className="fa fa-facebook" aria-hidden="true" style={{ color: "#000" }}></i></span>
-                        <span className='border border-black rounded-circle px-4 py-3'><i class="fa fa-instagram" aria-hidden="true" style={{ color: "#000" }}></i></span>
-                        <span className='border border-black rounded-circle px-4 py-3'><i class="fa fa-twitter" aria-hidden="true" style={{ color: "#000" }}></i></span>
+                        <span className='border border-black rounded-circle px-4 py-3'><i className="fa fa-instagram" aria-hidden="true" style={{ color: "#000" }}></i></span>
+                        <span className='border border-black rounded-circle px-4 py-3'><i className="fa fa-twitter" aria-hidden="true" style={{ color: "#000" }}></i></span>
 
                     </div>
 
