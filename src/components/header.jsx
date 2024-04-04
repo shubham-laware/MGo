@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.css";
 import Logo from "../components/images/minitgo.png";
@@ -51,8 +51,6 @@ function Header() {
   const [pincode, setPincode] = useState("");
   const [townDistrict, setTownDistrict] = useState("");
   const [state, setState] = useState("");
-
-
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
@@ -171,6 +169,15 @@ function Header() {
     }
   };
 
+  const locationState = useLocation();
+  const openLoginModal = locationState?.state?.openLoginModal;
+
+  useEffect(() => {
+    if (openLoginModal) {
+      setLoginModal(true);
+    }
+  }, [openLoginModal]);
+
   const handleUseCurrentLocation = () => {
     // Use browser geolocation API to get the current location
     if (navigator.geolocation) {
@@ -192,7 +199,7 @@ function Header() {
               setTownDistrict(components.town || components.district || "");
               setState(components.state || "");
             }
-          } catch (error) { }
+          } catch (error) {}
         },
         (error) => {
           return;
@@ -202,11 +209,12 @@ function Header() {
     }
   };
 
+  const fullName = JSON.parse(localStorage.getItem("user"))?.fullName;
+  console.log(fullName);
 
-  const fullName = JSON.parse(localStorage.getItem('user'))?.fullName;
-  console.log(fullName)
-
-  const login = fullName ? fullName : (
+  const login = fullName ? (
+    fullName
+  ) : (
     <span>
       <BiLogIn /> Signin
     </span>
@@ -324,56 +332,60 @@ function Header() {
                 id="collasible-nav-dropdown"
                 className="Dropdown"
               >
-                <NavDropdown.Item>
-                  <div
-                    onClick={() => setShowModal(true)}
-                    style={{ color: "blue" }}
-                  >
-                    SignUp
-                  </div>
-                </NavDropdown.Item>
-
-                {/* Shubham-  Desktop Login Modal starts here */}
-
-                <NavDropdown.Item>
-                  <div
-                    onClick={() => setLoginModal(true)}
-                    style={{ color: "blue" }}
-                  >
-                    Login
-                  </div>
-
-                  {/* Login Modal */}
-                  <Modal
-                    show={loginModal}
-                    onHide={() => setLoginModal(false)}
-                    aria-labelledby="example-custom-modal-styling-title"
-                  >
-                    <Modal.Body
-                      className="p-0 rounded-4 d-flex w-max "
-                      style={{ minWidth: "22rem" }}
+                {fullName && (
+                  <>
+                    <NavDropdown.Item>
+                      <Link to="/profile" className="text-decoration-none ">
+                        {" "}
+                        Profile{" "}
+                      </Link>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <Link to="/profile" className="text-decoration-none ">
+                        {" "}
+                        Address change{" "}
+                      </Link>
+                    </NavDropdown.Item>
+                  </>
+                )}
+                {fullName ? (
+                  <NavDropdown.Item>
+                    <div
+                      onClick={() => {
+                        localStorage.removeItem("user");
+                        window.location.reload();
+                      }}
+                      style={{ color: "red" }}
                     >
-                      <Login closeLoginModal={() => setLoginModal(false)} />
-                    </Modal.Body>
-                  </Modal>
-                </NavDropdown.Item>
+                      <BiLogIn className="me-2" />
+                      Logout
+                    </div>
+                  </NavDropdown.Item>
+                ) : (
+                  <>
+                    <NavDropdown.Item>
+                      <div
+                        onClick={() => setShowModal(true)}
+                        style={{ color: "blue" }}
+                      >
+                        SignUp
+                      </div>
+                    </NavDropdown.Item>
+
+                    <NavDropdown.Item>
+                      <div
+                        onClick={() => setLoginModal(true)}
+                        style={{ color: "blue" }}
+                      >
+                        Login
+                      </div>
+                    </NavDropdown.Item>
+                  </>
+                )}
 
                 {/* Shubham- Desktop Login modal ends here */}
 
                 <NavDropdown.Divider />
-
-                <NavDropdown.Item>
-                  <Link to="/register" className="text-decoration-none ">
-                    {" "}
-                    Address change{" "}
-                  </Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link to="/profile" className="text-decoration-none ">
-                    {" "}
-                    Profile{" "}
-                  </Link>
-                </NavDropdown.Item>
               </NavDropdown>
               <Link
                 to="/orders"
