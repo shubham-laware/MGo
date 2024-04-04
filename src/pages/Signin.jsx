@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import Modal from "react-modal";
 import Minitgo from "../components/images/minitgo.png";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const modalStyles = {
   overlay: {
@@ -34,7 +34,6 @@ const closebtn = {
 };
 
 const Login = ({ closeLoginModal }) => {
-
   // Shubham- Login functionality starts here
 
   const [rememberMe, setRememberMe] = useState(false);
@@ -66,31 +65,7 @@ const Login = ({ closeLoginModal }) => {
     setResetEmail("");
   };
 
-
-  function fetchUserInfoAndStoreInSession(email) {
-    console.log("EMAIL:",email)
-    axios
-      .post("https://minitgo.com/api/fetch_login.php", JSON.stringify({ email }), {})
-      .then((response) => {
-        if (response.data && response.data.length > 0) {
-          const user = response.data[0];
-          const userInfo = {
-            id: user.id,
-            fullName: user.full_name,
-            phoneNumber: user.phone_number,
-            email: user.email,
-            address:user.Address,
-            officeAddress:user.office_address
-          };
-          console.log("USER INFO:",userInfo)
-          } else {
-          console.error("Failed to fetch user information: No data returned.");
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to fetch user information:", error);
-      });
-  }
+ 
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -98,81 +73,93 @@ const Login = ({ closeLoginModal }) => {
     console.log(password);
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const phonePattern = /^[0-9]{7}$/;
-    // if (userid === "" || password === "") {
-      if (userid === "" ) {
-      toast.error('All fields are required', {
+    if (userid === "" || password === "") {
+      // if (userid === "" ) {
+      toast.error("All fields are required", {
         autoClose: 1000,
-        hideProgressBar: true
-    })
+        hideProgressBar: true,
+      });
       return;
-    }else if (!emailPattern.test(userid) && !phonePattern.test(userid)) {
-      toast.error('Please enter a valid email or phone number', {
+    } else if (!emailPattern.test(userid) && !phonePattern.test(userid)) {
+      toast.error("Please enter a valid email or phone number", {
         autoClose: 1000,
-        hideProgressBar: true
-    })
+        hideProgressBar: true,
+      });
       return;
-    // }else if(password.length < 8 || password.length > 12){
-    //   toast.error('Password must be between 8 and 12 characters long', {
-    //     autoClose: 1000,
-    //     hideProgressBar: true
-    // })
-    return;
-    }else{
-      console.log("USER ID:",userid)
-      console.log("PASS:",password)
-    //   if (
-    //     (userid !== "pranalii@gmail.com" && userid !== "5551234") ||
-    //     password !== "password123"
-    // )
-    if (
-      (userid !== "pranalii@gmail.com" && userid !== "5551234") 
-  )
-    {
-        toast.error('Invalid credentials', {
-          autoClose: 1000,
-          hideProgressBar: true
-      })
-        return 
-        
-      }else{
+    } else if (password.length < 8 || password.length > 12) {
+      toast.error("Password must be between 8 and 12 characters long", {
+        autoClose: 1000,
+        hideProgressBar: true,
+      });
+      return;
+    } else {
+      console.log("USER ID:", userid);
+      console.log("PASS:", password);
 
       const data = {
-        email : userid,
+        email: userid,
         password: password,
       };
-  
       axios
-      .post("https://minitgo.com/api/fetch_login.php", JSON.stringify(data), {
-      
-      })
-      .then((response) => {
-        if (response.data && response.data.length > 0) {
-          const user = response.data[0];
-          console.log("Login successful. User:", user);
-          if(user){
-            closeLoginModal()
-            fetchUserInfoAndStoreInSession(data.email)
-            toast.success('Login successfull', {
+        .get("https://minitgo.com/api/fetch_login.php")
+        .then((response) => {
+          if (response.data && response.data.length > 0) {
+            const allUsers = response.data;
+
+            const foundUser = allUsers.find(
+              (user) => user.email === data.email
+            );
+
+            if (foundUser) {
+              // User with the provided email is found
+              if (foundUser.password === data.password) {
+                console.log("Login successful");
+                closeLoginModal();
+                toast.success("Login successfull", {
+                  autoClose: 1000,
+                  hideProgressBar: true,
+                });
+
+
+                const userData = {
+                  userId:foundUser.id,
+                  fullName: foundUser.full_name,
+                  phoneNumber: foundUser.phone_number,
+                  email: foundUser.email,
+                  address: foundUser.Address,
+                  officeAddress: foundUser.office_address,
+              };
+
+                localStorage.setItem('user',JSON.stringify(userData));
+
+                console.log('FOUNDUSER,',userData)
+
+                setUserID("");
+                setPassword("");
+              } else {
+                toast.error("Invalid Password", {
+                  autoClose: 1000,
+                  hideProgressBar: true,
+                });
+                console.log("Invalid password");
+              }
+            } else {
+              toast.error('Invalid Email', {
+                autoClose: 1000,
+                hideProgressBar: true
+            })
+            }
+          } else {
+            toast.error('Server Error', {
               autoClose: 1000,
               hideProgressBar: true
           })
-            setUserID("");
-            setPassword("")
           }
-        } else {
-          console.error("Login failed: No user data returned.");
-        }
-      })
-      .catch((error) => {
-        console.error("Login failed:", error);
-      });
-
-      }
-
-
+        })
+        .catch((error) => {
+          console.error("Failed to fetch user information:", error);
+        });
     }
-
-   
   }
 
   // Shubham- Login Functionality ends here
@@ -183,12 +170,14 @@ const Login = ({ closeLoginModal }) => {
       <div className="col-md-12 ">
         <div className="card-b  px-4  py-5   m-0 ">
           <div className="text-center">
-            <h4 style={{fontWeight:'bold', fontSize:'30px'}}>Sign in</h4>
+            <h4 style={{ fontWeight: "bold", fontSize: "30px" }}>Sign in</h4>
           </div>
           <div className="card-body  mt-4  ">
             <form>
               <div className="form-group mb-3">
-                <label htmlFor="email" className="ps-1 mb-1">Email or Phone</label>
+                <label htmlFor="email" className="ps-1 mb-1">
+                  Email or Phone
+                </label>
                 <input
                   type="email"
                   className="form-control rounded-5"
@@ -198,7 +187,9 @@ const Login = ({ closeLoginModal }) => {
                 />
               </div>
               <div className="form-group ">
-                <label htmlFor="password" className="ps-1 mb-1">Password</label>
+                <label htmlFor="password" className="ps-1 mb-1">
+                  Password
+                </label>
                 <input
                   type="password"
                   className="form-control rounded-5"
@@ -220,27 +211,27 @@ const Login = ({ closeLoginModal }) => {
                 </label>
               </div>
               <div className=" d-flex justify-content-center">
-              <button
-                type="submit"
-                className="btn btn-primary btn-l px-5 rounded-5"
-                onClick={handleSubmit}
-              >
-                Login
-              </button>
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-l px-5 rounded-5"
+                  onClick={handleSubmit}
+                >
+                  Login
+                </button>
               </div>
-             
-             <div className="fs-6 d-flex justify-content-center">
-             <a
-                href="#"
-                onClick={handleForgotPassword}
-                className="forgot-password-link"
-              >
-                Forgot Password?
-              </a>
-              <a href="/register" className="forgot-password-link">
-                Create an Account!
-              </a>
-             </div>
+
+              <div className="fs-6 d-flex justify-content-center">
+                <a
+                  href="#"
+                  onClick={handleForgotPassword}
+                  className="forgot-password-link"
+                >
+                  Forgot Password?
+                </a>
+                <a href="/register" className="forgot-password-link">
+                  Create an Account!
+                </a>
+              </div>
             </form>
           </div>
         </div>

@@ -52,6 +52,8 @@ function Header() {
   const [townDistrict, setTownDistrict] = useState("");
   const [state, setState] = useState("");
 
+
+
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
   };
@@ -200,7 +202,11 @@ function Header() {
     }
   };
 
-  const login = (
+
+  const fullName = JSON.parse(localStorage.getItem('user'))?.fullName;
+  console.log(fullName)
+
+  const login = fullName ? fullName : (
     <span>
       <BiLogIn /> Signin
     </span>
