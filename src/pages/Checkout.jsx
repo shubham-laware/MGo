@@ -1,11 +1,22 @@
 import { Link } from "react-router-dom";
 
-import { useContext } from "react";
+import { useState } from "react";
 
 import { useSelector } from "react-redux";
 
+import { IoMdCash } from "react-icons/io";
+import { FaGooglePay } from "react-icons/fa";
+import { SiPaytm } from "react-icons/si";
+import { IoHome } from "react-icons/io5";
+import { HiBuildingOffice } from "react-icons/hi2";
+
 export const Checkout = () => {
-  const cart = useSelector(state => state.cart.items);
+  const cart = useSelector((state) => state.cart.items);
+  const [paymentMethod, setPaymentMethod] = useState("Cash On Delivery");
+  const [selectedAddress, setSelectedAddress] = useState({
+    type: "Home Address",
+    location: "1234 Random St, City, Country",
+  });
 
   function calculateTotalPrice() {
     let totalPrice = 0;
@@ -15,6 +26,8 @@ export const Checkout = () => {
 
     return totalPrice;
   }
+
+  console.log(cart);
 
   return (
     <>
@@ -69,39 +82,227 @@ export const Checkout = () => {
                     <div className="d-flex align-items-center pe-2">
                       <input
                         type="radio"
-                        name="radioNoLabel"
-                        id="radioNoLabel1"
-                        checked
+                        name="paymentMethod"
+                        id="cashOnDelivery"
+                        checked={paymentMethod === "Cash On Delivery"}
+                        onChange={() => setPaymentMethod("Cash On Delivery")}
                       />
                     </div>
                     <div className="rounded border d-flex w-100 p-3 align-items-center">
-                      <p className="mb-0">
-                        <i className="fab fa-cc-visa text-primary pe-2"></i>
-                        Visa Debit Card
+                      <p className="mb-0 fw-semibold">
+                        <IoMdCash
+                          className="me-2"
+                          style={{ width: "1.8rem", height: "1.8rem" }}
+                        />
+                        Cash On Delivery
                       </p>
-                      <div className="ms-auto">************3456</div>
+                      {/* <div className="ms-auto">************3456</div> */}
                     </div>
                   </div>
                   <div className="d-flex flex-row pb-3">
                     <div className="d-flex align-items-center pe-2">
                       <input
                         type="radio"
-                        name="radioNoLabel"
-                        id="radioNoLabel1"
-                        checked
+                        name="paymentMethod"
+                        id="onlinePayment"
+                        checked={paymentMethod === "Paytm / GPay"}
+                        onChange={() => setPaymentMethod("Paytm / GPay")}
                       />
                     </div>
                     <div className="rounded border d-flex w-100 p-3 align-items-center">
-                      <p className="mb-0">
-                        <i className="fab fa-cc-mastercard text-dark pe-2"></i>
-                        Mastercard Office
+                      <p className="mb-0 fw-semibold">
+                        <SiPaytm
+                          className="me-2"
+                          style={{ height: "3rem", width: "3rem" }}
+                        />
+                        {"/"}
+                        <FaGooglePay
+                          className="mx-2"
+                          style={{ height: "3rem", width: "3rem" }}
+                        />
                       </p>
-                      <div className="ms-auto">************1038</div>
+                      {/* <div className="ms-auto">************1038</div>ss */}
                     </div>
                   </div>
-                  <button className="btn btn-primary btn-lg">
-                    Proceed to payment
+                  <hr />
+                  <div className="d-flex flex-column pb-3">
+                    <h2 className="fw-semibold mt-1 mb-3">Select Address</h2>
+                    <div className="d-flex flex-row pb-3">
+                      <div className="d-flex align-items-center pe-2">
+                        <input
+                          type="radio"
+                          name="address"
+                          id="homeAddress"
+                          checked={selectedAddress.type === "Home Address"}
+                          onChange={() =>
+                            setSelectedAddress({
+                              type: "Home Address",
+                              location: "1234 Random St, City, Country",
+                            })
+                          }
+                        />
+                      </div>
+                      <div className="rounded border d-flex w-100 p-3 align-items-center">
+                        <p className="mb-0 fw-semibold">
+                          <IoHome
+                            className="me-2"
+                            style={{ width: "1.5rem", height: "1.5rem" }}
+                          />
+                          Home Address
+                        </p>
+                        <span className="ms-auto fs-6">
+                          {"1234 Random St, City, Country"}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="d-flex flex-row pb-3">
+                      <div className="d-flex align-items-center pe-2">
+                        <input
+                          type="radio"
+                          name="address"
+                          id="officeAddress"
+                          checked={selectedAddress.type === "Office Address"}
+                          onChange={() =>
+                            setSelectedAddress({
+                              type: "Office Address",
+                              location: "5678 Business Ave, Town, Country",
+                            })
+                          }
+                        />
+                      </div>
+                      <div className="rounded border d-flex w-100 p-3 align-items-center">
+                        <p className="mb-0 fw-semibold">
+                          {" "}
+                          <HiBuildingOffice
+                            className="me-2"
+                            style={{ width: "1.5rem", height: "1.5rem" }}
+                          />
+                          Office Address
+                        </p>
+                        <span className="ms-auto fs-6">
+                          {"5678 Business Ave, Town, Country"}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="d-flex flex-row pb-3">
+                      <div className="d-flex align-items-center pe-2">
+                        <input
+                          type="radio"
+                          name="address"
+                          id="currentAddress"
+                          checked={selectedAddress.type === "Current Address"}
+                          onChange={() =>
+                            setSelectedAddress({
+                              type: "Current Address",
+                              location: "Not Available",
+                            })
+                          }
+                        />
+                      </div>
+                      <div className="rounded border d-flex w-100 p-3 align-items-center">
+                        <button className="mb-0 fw-semibold btn btn-primary">
+                          Use Current Address
+                        </button>
+                        {/* <span className="ms-auto fs-6">
+                          {"Street #4, City 59 , India"}
+                        </span> */}
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-lg"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Place Order
                   </button>
+
+                  <div
+                    className="modal fade"
+                    id="exampleModal"
+                    tabIndex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="exampleModalLabel">
+                            Order Confirmation
+                          </h5>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div className="modal-body bg-light">
+                          <h3 className="mb-0 mx-3 text-start">Items:</h3>
+                          <hr />
+                          <div className="product-section my-2">
+                            {cart?.map((item, index) => {
+                              return (
+                                <div
+                                  key={index}
+                                  className="col-12 mx-md-auto px-3 my-2 product-item d-flex justify-content-start gap-4"
+                                >
+                                  <img
+                                    src={item.product_image1}
+                                    alt="Product"
+                                    width={70}
+                                    height={70}
+                                    className="border rounded p-1"
+                                  />
+                                  <div className="d-flex flex-column ">
+                                    {" "}
+                                    <h5>{item.client_name}</h5>
+                                    <p className="fs-5">
+                                      {item.product_price}₹
+                                    </p>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                          <hr />
+                          <div className="px-3 payment-info">
+                            <h4>Payment Information</h4>
+                            <div className="mt-3 d-flex justify-content-between">
+                              <h5>Method:</h5> <h6>{paymentMethod}</h6>
+                            </div>
+                          </div>
+                          <hr />
+
+                          <div className="px-3 address-info">
+                            <h4>Shipping Information</h4>
+                            <div className="mt-3 d-flex justify-content-between">
+                              <h5>Location: </h5>
+                              <h6>{selectedAddress.location}</h6>
+                            </div>
+                          </div>
+                          <hr />
+
+                          <div className="px-3 total-amount d-flex justify-content-between align-items-center">
+                            <h3>Total Amount:</h3>
+                            <h5 className="text-success">
+                              {calculateTotalPrice() + 350} RS
+                            </h5>
+                          </div>
+                          <hr />
+                        </div>
+                        <div className="modal-footer">
+                          <button
+                            type="button"
+                            className="btn btn-primary mx-auto"
+                          >
+                            Confirm Order
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="col-md-5 col-xl-4 offset-xl-1">
