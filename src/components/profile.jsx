@@ -1,7 +1,7 @@
 import "../components/Profile.css";
 import { useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import Imgs from "../components/images/men.jpg";
 import { MdMenuOpen } from "react-icons/md";
 import { HiMenu, HiMenuAlt1 } from "react-icons/hi";
@@ -22,6 +22,8 @@ const Profile = () => {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
 
+  const navigate = useNavigate();
+
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -36,12 +38,15 @@ const Profile = () => {
   });
 
   useEffect(() => {
+    if (!localStorage.getItem("user"))
+      navigate("/", { state: { openLoginModal: true } });
+  }, [navigate]);
+
+  useEffect(() => {
     if (acceptedFiles.length > 0) {
       setProfilePic(URL.createObjectURL(acceptedFiles[0]));
     }
   }, [acceptedFiles]);
-
-
 
   // - FEtch API start
   const [userData, setuserData] = useState(null);
@@ -50,20 +55,23 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://minitgo.com/api/fetch_login.php');
-        const result = await response.json();
-        setuserData(result);
-        console.log(" profile page data", data)
-        console.log("Full Name", data?.[0]?.full_name);
-        console.log(firstNameRef);
+        const response = await fetch("https://minitgo.com/api/fetch_login.php");
+        const results = await response.json();
+
+        const userId = JSON.parse(localStorage.getItem("user"))?.userId;
+
+        const user = results.find((user) => user.id === userId);
+        if (!user) {
+          navigate("/", { state: { openLoginModal: true } });
+        }
+        setuserData(user);
       } catch (error) {
         setError(error);
       }
     };
 
     fetchData();
-  }, []);
-
+  }, [navigate]);
 
   // for update the data
   // Function to handle the API request
@@ -74,18 +82,17 @@ const Profile = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData[0]), // Assuming data contains the updated profile information
+        body: JSON.stringify(userData), // Assuming data contains the updated profile information
       });
       const result = await response.json();
       // Handle the response as needed
       console.log("Profile updated successfully:", result);
-      toast.success(result.message)
+      toast.success(result.message);
     } catch (error) {
       setError(error);
       console.error("Error updating profile:", error);
     }
   };
-
 
   function handleUpdateProfile() {
     updateProfile(); // Call the updateProfile function to make the API request
@@ -111,6 +118,7 @@ const Profile = () => {
       <br></br>
       <br></br>
       <br></br>
+      <br></br>
       <br className="d-lg-block d-none"></br>
       <br className="d-lg-block d-none"></br>
       <div className="custom-container">
@@ -121,24 +129,27 @@ const Profile = () => {
           </span>
 
           <div
-            className={`custom-sidebar-item fs-5 bg-light ${section === "profile" && "active"
-              }`}
+            className={`custom-sidebar-item fs-5 bg-light ${
+              section === "profile" && "active"
+            }`}
             onClick={() => setSection("profile")}
             data-section="profile"
           >
             Profile Settings
           </div>
           <div
-            className={`custom-sidebar-item fs-5 bg-light ${section === "2fa" && "active"
-              }`}
+            className={`custom-sidebar-item fs-5 bg-light ${
+              section === "2fa" && "active"
+            }`}
             onClick={() => setSection("2fa")}
             data-section="2fa"
           >
             Two-Factor Authentication
           </div>
           <div
-            className={`custom-sidebar-item fs-5 bg-light ${section === "orders" && "active"
-              }`}
+            className={`custom-sidebar-item fs-5 bg-light ${
+              section === "orders" && "active"
+            }`}
             onClick={() => setSection("orders")}
             data-section="orders"
           >
@@ -157,13 +168,15 @@ const Profile = () => {
           </div>
 
           <div
-            className={`custom-sidebar gap-4 mobile-sidebar px-4 border py-4 mt-2 bg-light shadow shadow-2 ${showMenu ? "active" : ""
-              } position-absolute w-75 rounded`}
+            className={`custom-sidebar gap-4 mobile-sidebar px-4 border py-4 mt-2 bg-light shadow shadow-2 ${
+              showMenu ? "active" : ""
+            } position-absolute w-75 rounded`}
             style={{ zIndex: 100, marginTop: "-1rem" }}
           >
             <div
-              className={`custom-sidebar-item fs-5 fw-semibold bg-light ${section === "profile" && "active"
-                }`}
+              className={`custom-sidebar-item fs-5 fw-semibold bg-light ${
+                section === "profile" && "active"
+              }`}
               onClick={() => {
                 setSection("profile");
                 setShowMenu(false);
@@ -173,8 +186,9 @@ const Profile = () => {
               Profile Settings
             </div>
             <div
-              className={`custom-sidebar-item fs-5 fw-semibold bg-light ${section === "2fa" && "active"
-                }`}
+              className={`custom-sidebar-item fs-5 fw-semibold bg-light ${
+                section === "2fa" && "active"
+              }`}
               onClick={() => {
                 setSection("2fa");
                 setShowMenu(false);
@@ -184,8 +198,9 @@ const Profile = () => {
               Two-Factor Authentication
             </div>
             <div
-              className={`custom-sidebar-item fs-5 fw-semibold bg-light ${section === "orders" && "active"
-                }`}
+              className={`custom-sidebar-item fs-5 fw-semibold bg-light ${
+                section === "orders" && "active"
+              }`}
               onClick={() => {
                 setSection("orders");
                 setShowMenu(false);
@@ -200,7 +215,10 @@ const Profile = () => {
           <div className="custom-content">
             <div className="custom-header">
               <h1>Profile Settings</h1>
-              <button className="custom-save-button bg-dark" onClick={handleUpdateProfile}>
+              <button
+                className="custom-save-button bg-dark"
+                onClick={handleUpdateProfile}
+              >
                 Update
               </button>
             </div>
@@ -236,90 +254,92 @@ const Profile = () => {
                 <div className="row">
                   <div className="col-md-2"></div>
                   <div className="col-md-8">
-
-                    <label htmlFor="full_name" className="mt-2">Full Name</label>
+                    <label htmlFor="full_name" className="mt-2">
+                      Full Name
+                    </label>
                     <input
                       type="text"
                       id="full_name"
                       className="mt-1"
                       placeholder="Enter your full name"
-                      value={userData && userData[0] && userData[0].full_name ? userData[0].full_name : ""}
+                      value={
+                        userData && userData.full_name ? userData.full_name : ""
+                      }
                       ref={fullNameRef}
                       onChange={(e) => {
                         const newValue = e.target.value;
-                        setuserData((prevState) => {
-                          const newData = prevState ? [...prevState] : [];
-                          if (newData.length > 0) {
-                            newData[0].full_name = newValue;
-                          }
-                          return newData;
-                        });
+                        setuserData((prevState) => ({
+                          ...prevState,
+                          full_name: newValue,
+                        }));
                       }}
                     />
 
-
-                    <label htmlFor="email mt-1" className="mt-2">Email</label>
+                    <label htmlFor="email mt-1" className="mt-2">
+                      Email
+                    </label>
                     <input
                       type="email"
-                      id='email'
+                      id="email"
                       className="mt-1"
-                      value={userData && userData[0] && userData[0].email ? userData[0].email : ""}
+                      value={userData && userData.email ? userData.email : ""}
                       ref={emailRef}
                       onChange={(e) => {
                         const newValue = e.target.value;
-                        setuserData((prevState) => {
-                          const newData = prevState ? [...prevState] : [];
-                          if (newData.length > 0) {
-                            newData[0].email = newValue;
-                          }
-                          return newData;
-                        });
-
+                        setuserData((prevState) => ({
+                          ...prevState,
+                          email: newValue,
+                        }));
                       }}
-
                     />
-                    <label htmlFor="address" className="mt-2">Address</label>
+                    <label htmlFor="address" className="mt-2">
+                      Address
+                    </label>
                     <input
                       type="text"
                       id="address"
                       className="mt-1"
                       placeholder="Enter your address"
-                      value={userData && userData[0] && userData[0].Address ? userData[0].Address : ""}
+                      value={
+                        userData && userData.Address ? userData.Address : ""
+                      }
                       ref={addressRef}
                       onChange={(e) => {
                         const newValue = e.target.value;
-                        setuserData((prevState) => {
-                          const newData = prevState ? [...prevState] : [];
-                          if (newData.length > 0) {
-                            newData[0].Address = newValue;
-                          }
-                          return newData;
-                        });
+                        setuserData((prevState) => ({
+                          ...prevState,
+                          Address: newValue,
+                        }));
                       }}
                     />
-                    <label htmlFor="address" className="mt-2">Office Address</label>
+                    <label htmlFor="address" className="mt-2">
+                      Office Address
+                    </label>
                     <input
                       type="text"
                       id="address"
                       className="mt-1"
                       placeholder="Office address"
-                      value={userData && userData[0] && userData[0].office_address ? userData[0].office_address : ""}
+                      value={
+                        userData && userData.office_address
+                          ? userData.office_address
+                          : ""
+                      }
                       ref={officeAddressRef}
                       onChange={(e) => {
                         const newValue = e.target.value;
-                        setuserData((prevState) => {
-                          const newData = prevState ? [...prevState] : [];
-                          if (newData.length > 0) {
-                            newData[0].office_address = newValue;
-                          }
-                          return newData;
-                        });
+                        setuserData((prevState) => ({
+                          ...prevState,
+                          office_address: newValue,
+                        }));
                       }}
                     />
                     <div className="text-center">
                       <button
                         className="custom-update-password bg-dark"
-                        onClick={() => setShowPasswordFields(!showPasswordFields)}
+                        onClick={() =>
+                          setShowPasswordFields(!showPasswordFields)
+                        }
                       >
                         Reset Password
                       </button>
@@ -333,19 +353,14 @@ const Profile = () => {
                           id="email"
                           placeholder="Enter your email"
                         />
-                        <button
-                          className="custom-update-password bg-dark"
-
-                        >
+                        <button className="custom-update-password bg-dark">
                           Send link
                         </button>
-
                       </div>
                     )}
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         )}
