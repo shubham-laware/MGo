@@ -21,6 +21,10 @@ function RightSection({ productId }) {
   const [product, setProduct] = useState({});
   const id = productId;
 
+  const {handleImageClick}=useContext(myContext);
+
+
+
   useEffect(() => {
     axios
       .get("https://minitgo.com/api/fetch_products.php")
@@ -44,6 +48,9 @@ function RightSection({ productId }) {
   const handleAddToCart = () => {
     dispatch(addToCart(product));
   };
+
+
+
 
   return (
     <>
@@ -71,14 +78,17 @@ function RightSection({ productId }) {
                 <h2 className="fw-semibold fs-5 text-start">Select Color</h2>
 
                 <div
-                  className="d-flex justify-content-between mx-1 mx-md-0 "
+                  className="d-flex gap-3 mx-1 mx-md-0 "
                   style={{ height: "60px" }}
                 >
-                  {Array.from({ length: 5 }).map((_, index) => (
+                  {Array.from({ length: 5 }).map((_, index) => 
+                   product[`product_image${index + 1}`] && ( 
+                  
                     <div
                       key={index}
                       className="border rounded-2 "
-                      style={{ height: "100%", width: "60px" }}
+                      style={{ height: "100%", width: "60px",cursor:'pointer' }}
+                      onClick={() => handleImageClick(index)}
                     >
                       {product && product[`product_image${index + 1}`] && (
                         <img
@@ -135,7 +145,7 @@ function RightSection({ productId }) {
 
               <div className="d-flex flex-column gap-1">
                 <div className="d-flex flex-column flex-md-row  justify-content-between">
-                  <h2 className="  fs-4 text-start d-flex align-items-center ">Description</h2>
+                  <h2 className="  fs-4 text-start d-flex align-items-center ">Product Details</h2>
                 </div>
 
                 <p className=" fs-6" style={{ textAlign: "justify" }}>
@@ -161,7 +171,7 @@ function RightSection({ productId }) {
                   </div>
 
               <div className="d-flex flex-column gap-1 ">
-                <h2 className="  fs-4 text-start">Product Details</h2>
+                <h2 className="  fs-4 text-start">Description</h2>
                 <ul className="list-unstyled d-flex flex-column gap-1 fs-6">
                   <li>
                     <span>→ </span>100% Cotton

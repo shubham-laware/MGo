@@ -823,6 +823,28 @@
   .w-md-25 {
     width: 25% !important;
   }
+
+  .reviews-w-md{
+    width: 75%;
+  }
+
+  .comments-w-md{
+    width: 25%;
+  }
 }
+
+
+
+  
+.comments-height{
+  height: 150px;
+}
+
+@media (min-width: 768px) {
+  .comments-height{
+    height: 225px;
+  }
+}
+
 
  
