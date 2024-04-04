@@ -122,6 +122,7 @@ const Login = ({ closeLoginModal }) => {
 
 
                 const userData = {
+                  userId:foundUser.id,
                   fullName: foundUser.full_name,
                   phoneNumber: foundUser.phone_number,
                   email: foundUser.email,
