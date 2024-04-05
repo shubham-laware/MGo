@@ -379,17 +379,17 @@ const HomeProducts = () => {
 
                     <div className="d-flex justify-content-center align-items-center gap-2">
                       <button
-                        className="btn btn-primary  ms-2"
+                        className="btn btn-primary ms-2"
                         onClick={() => handleAddToCart(product, index)}
                       >
                         <img
-                          className="img-fluid"
+                          className="img-fluid "
                           src={cartIcon}
                           style={{ height:'20px'}}
                         />
                       </button>
                       <button className="btn btn-primary my-2  ms-2 px-2 py-1">
-                        Buy Now
+                       <Link to="/checkout" style={{textDecoration:"none",color:"#000"}}> Buy Now</Link>
                       </button>
                     </div>
                   </div>

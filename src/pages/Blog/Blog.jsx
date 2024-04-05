@@ -116,7 +116,7 @@ const Blog = () => {
 
 
 
-            <div className="container shadow bg-body rounded  border border-1 mb-3 p-0 visit-container" style={{ height: "100vh" }}>
+            <div className="container shadow bg-body rounded  border border-1 mb-3 p-0 visit-container" style={{ height: "80vh" }}>
                 <div className="" style={{ position: 'relative', height: '450px', overflow: 'hidden' }}>
                     <img src={img10} className="visitImage" alt="Image" style={{ width: '100%', height: '45rem', position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
                     <div style={{ position: 'absolute', top: '50%', left: '25%', transform: 'translate(-50%, -50%)', color: 'white' }}>
