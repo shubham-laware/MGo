@@ -7,7 +7,7 @@ import { FaStore, FaCartShopping } from "react-icons/fa6";
 import cartIcon from "../assets/cart-icon.svg";
 import { selectTotalQuantity } from "../components/redux/Slices/CartSlice";
 import { useSelector } from "react-redux";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function Catlog() {
   const totalQuantity = useSelector(selectTotalQuantity);
@@ -15,11 +15,11 @@ export default function Catlog() {
     <div className="catlog filter">
 
 
-      <ul className="catlog-names me-lg-0 me-3 " style={{ position: "relative", right: "55px" ,top:"12px" }}>
+      <ul className="catlog-names me-lg-0 me-3 " style={{ position: "relative", right: "55px", top: "12px" }}>
 
         <li className="nav-link cat-nav">
           <Dropdown>
-            <Dropdown.Toggle variant="light" id="dropdown-basic" className=" rounded-pill set-range" style={{position:"relative",bottom:"5px"}}>
+            <Dropdown.Toggle variant="light" id="dropdown-basic" className=" rounded-pill set-range" style={{ position: "relative", bottom: "5px" }}>
               Range
             </Dropdown.Toggle>
 
@@ -34,27 +34,27 @@ export default function Catlog() {
         </li>
 
         <li className="nav-link cat-nav d-lg-none d-block " style={{ position: "relative" }}>
-        <Link
-                  to="/cart"
-                  className="border-bottom py-3 fw-semibold px-2"
-                  style={{
-                    textDecoration: "none",
-                    color: "black",
-                  }}>
-                     <img
-            src={cartIcon}
-            alt="Cart"
-            className=" text-black"
-            style={{ height: "35px", width: "30px" }}
-          />
-          <h6
-            className=" w-100  position-absolute text-center "
-            style={{ top: "5px",fontSize: "14px" }}
-          >
-            {totalQuantity}
-          </h6>
-                  </Link>
-       
+          <Link
+            to="/cart"
+            className="border-bottom py-3 fw-semibold px-2"
+            style={{
+              textDecoration: "none",
+              color: "black",
+            }}>
+            <img
+              src={cartIcon}
+              alt="Cart"
+              className=" text-black"
+              style={{ height: "35px", width: "30px" }}
+            />
+            <h6
+              className=" w-100  position-absolute text-center "
+              style={{ top: "5px", fontSize: "14px" }}
+            >
+              {totalQuantity}
+            </h6>
+          </Link>
+
         </li>
 
 

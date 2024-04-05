@@ -45,7 +45,7 @@ const AddBlog = () => {
 
     return (
         <div
-            className="container p-5 d-flex flex-column gap-4 shadow-lg"
+            className="container d-flex flex-column gap-4 shadow-lg"
             style={{ marginBlock: "10rem" }}
         >
             <h1 className="text-center fw-bold">Add a new Blog Post</h1>

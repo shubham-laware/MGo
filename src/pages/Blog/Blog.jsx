@@ -35,7 +35,7 @@ const Blog = () => {
         window.scrollTo(0, 0);
       },[])
     return (
-        <div className="mt-3 mt-md-5 pt-5"> 
+        <div className="mt-3 mt-md-5"> 
             <div className="container shadow bg-body rounded border border-1 mb-3 mt-5 p-0">
                 <div className="row after:col-12  m-0 ">
                     <div className="mx-auto p-0 " style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
