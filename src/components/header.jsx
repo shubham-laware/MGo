@@ -423,16 +423,16 @@ function Header() {
           </Navbar.Collapse>
         </Container>
         <div className="mobile-menu-logo d-lg-none">
-          <div className="mobile-search">
+          <div className="mobile-search mt-2">
             <Form.Control
-              style={{ margin: "0 0px 0 32px" }}
               type="search"
-              placeholder=" Ex: T-Shirt near me"
-              className=" search-box"
+              placeholder="Ex: T-Shirt near me"
+              className="col-12 search-box"
               aria-label="Search"
               value={searchQuery}
               onChange={handleSearchInputChange}
               onKeyPress={handleKeyPress}
+              style={{width:"123%"}}
             />
 
             <Form />
