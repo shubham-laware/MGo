@@ -104,8 +104,8 @@ const Blog = () => {
                         <h3 className="image-overlay text-white" style={{ position: 'absolute', bottom: '10%', left: '50%', transform: 'translateX(-50%)', letterSpacing: "3px" }}>Knitwear</h3>
                     </div>
                     <div className="col-12 col-md-3 mt-2 mx-4 text-center position-relative">
-                        <img src={img9} alt="Image 3" className="img-fluid" style={{height:"500px"}}/>
-                        <h3 className="image-overlay text-white" style={{ position: 'absolute', bottom: '10%', left: '50%', transform: 'translateX(-50%)', letterSpacing: "3px" }}>Crop Tops</h3>
+                    <img src={img6} alt="Image 2" className="img-fluid"  />
+                        <h3 className="image-overlay text-white" style={{ position: 'absolute', bottom: '10%', left: '50%', transform: 'translateX(-50%)', letterSpacing: "3px" }}>Crop Top</h3>
                     </div>
                 </div>
             </div>
@@ -113,9 +113,9 @@ const Blog = () => {
 
 
 
-            <div className="container shadow bg-body rounded  border border-1 mb-3 p-0" style={{ height: "100vh" }}>
+            <div className="container shadow bg-body rounded  border border-1 mb-3 p-0 visit-container" style={{ height: "100vh" }}>
                 <div className="" style={{ position: 'relative', height: '450px', overflow: 'hidden' }}>
-                    <img src={img10} alt="Image" style={{ width: '100%', height: '45rem', position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
+                    <img src={img10} className="visitImage" alt="Image" style={{ width: '100%', height: '45rem', position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
                     <div style={{ position: 'absolute', top: '50%', left: '25%', transform: 'translate(-50%, -50%)', color: 'white' }}>
                         <h1 className="text-white visit-title" style={{ margin: '0', fontSize: '65px', letterSpacing: "5px" }}>Visit Our<br></br>Physical Stores</h1>
                         <button className="btn btn-lg btn-primary px-5 mt-5 visit-button">Visit</button>
@@ -129,34 +129,26 @@ const Blog = () => {
                     <img src={img5} alt="xd" style={{ width: '100%', display: 'block', height: "100vh" }} />
                     <div className="" style={{ position: 'absolute', top: '0', left: '0', width: '100%', padding: '20px', boxSizing: 'border-box' }}>
                         <h1 className="text-white mt-5 text-center" style={{ margin: '0', letterSpacing: "5px" }}>Need Anything?</h1>
-                        <div className="mt-5 pt-5" >
+                        <div className="mt-5 pt-5 " >
                             <hr className="hr text-white mt-5 pt-5" style={{ position: 'absolute', borderColor: 'white', width: '100%', margin: '0', opacity: "2.25" }} />
-                            <div className="d-flex justify-content-evenly pt-3 mt-5" style={{ color: 'white', margin: '0' }}>
-                                <h3 className="mb-0" style={{ marginRight: '' }}>FAQs</h3>
-                                <h4 className="text-muted mb-0">
-                                    <span className="me-4" style={{ color: 'white', }}>Click here</span>{" "}
-                                </h4>
+                            <div className="d-flex gap-1 pt-3 mt-5 info-div text-center" style={{ color: 'white', margin: '0' }}>
+                                <h3 className="mb-0 w-25 ">FAQs</h3>
+                                <h4 className="mb-0 text-white w-25 ">Click here</h4>
                             </div>
                             <hr className="hr text-white mt-1 pt-1" style={{ position: 'absolute', borderColor: 'white', width: '100%', margin: '0', opacity: "2.25" }} />
-                            <div className="d-flex justify-content-evenly pt-3" style={{ color: 'white', margin: '0' }}>
-                                <h3 className="mb-0" style={{ marginRight: '' }}>Track My Parcel</h3>
-                                <h4 className="text-muted mb-0">
-                                    <span className="me-4 mx-0" style={{ color: 'white' }}>Click here</span>{" "}
-                                </h4>
+                            <div className="d-flex gap-1 pt-3 info-div text-center" style={{ color: 'white', margin: '0' }}>
+                                <h3 className="mb-0 w-25 ">Track My Parcel</h3>
+                                <h4 className="mb-0 text-white w-25 ">Click here</h4>
                             </div>
                             <hr className="hr text-white mt-1 pt-1" style={{ position: 'absolute', borderColor: 'white', width: '100%', margin: '0', opacity: "2.25" }} />
-                            <div className="d-flex justify-content-evenly pt-3" style={{ color: 'white', margin: '0' }}>
-                                <h3 className="mb-0" style={{ marginRight: '' }}>Email Address</h3>
-                                <h4 className="text-muted mb-0">
-                                    <span className="me-4" style={{ color: 'white' }}>hello@gmail.com</span>{" "}
-                                </h4>
+                            <div className="d-flex gap-1 pt-3 info-div text-center" style={{wordWrap: "break-word", margin: '0' }}>
+                                <h3 className="mb-0 w-25 text-white" >Email Address</h3>
+                                <h4 className="mb-0 text-white w-25 ">hello@gmail.com</h4>
                             </div>
                             <hr className="hr text-white mt-1 pt-1" style={{ position: 'absolute', borderColor: 'white', width: '100vw', margin: '0', opacity: "2.25" }} />
-                            <div className="d-flex justify-content-evenly pt-3 " style={{ color: 'white', margin: '0' }}>
-                                <h3 className="mb-0 " style={{ marginRight: '' }}>Socials</h3>
-                                <h4 className="text-muted mb-0 ">
-                                    <span className="me-4" style={{ color: 'white' }}>@reallygreate</span>{" "}
-                                </h4>
+                            <div className="d-flex gap-1 pt-3 info-div text-center" style={{ color: 'white', margin: '0' }}>
+                                <h3 className="mb-0 w-25 ">Socials</h3>
+                                <h4 className="mb-0 text-white w-25 ">grate</h4>
                             </div>
                         </div>
                     </div>

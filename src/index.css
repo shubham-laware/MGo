@@ -617,14 +617,14 @@
    border-radius: 10px;
    background-color: #fff5f5;
    transition: box-shadow 0.3s ease;
-  
+
  }
 
  /* .bg-opacity {
   background-color: rgba(0, 0, 0, );
 } */
 
-/* 
+ /* 
  .card-b:hover {
    box-shadow: 0px 0px 1.5dvi rgb(209, 179, 179, 10);
 
@@ -814,37 +814,76 @@
 
  /* for caresoul */
  @media (min-width: 375px) {
-  .w-sm-50 {
-    width: 70% !important;
+   .w-sm-50 {
+     width: 70% !important;
+   }
+ }
+
+ @media (min-width: 768px) {
+   .w-md-25 {
+     width: 25% !important;
+   }
+
+   .reviews-w-md {
+     width: 75%;
+   }
+
+   .comments-w-md {
+     width: 25%;
+   }
+ }
+
+
+
+
+ .comments-height {
+   height: 150px;
+ }
+
+ @media (min-width: 768px) {
+   .comments-height {
+     height: 225px;
+   }
+ }
+
+ /* for blog page */
+
+ @media (min-width: 280px) {
+   .visit-title {
+     padding-left: 31px !important;
+     text-align: center !important;
+     font-size: 20px !important;
+   }
+
+   .visit-button {
+     position: absolute !important;
+     left: 70px;
+   }
+
+   .visitImage {
+     height: 25 rem !important;
+     top: 44% !important;
+   }
+
+   .info-div {
+     display: flex !important;
+     justify-content: space-between !important;
+   }
+ }
+
+ @media (min-width: 768px) {
+   .visit-title {
+     padding-left: 15px !important;
+     text-align: center !important;
+     font-size: 30px !important;
+   }
+
+   .visit-button {
+     position: absolute !important;
+     left: 70px;
+   }
+   .info-div {
+    display: flex !important;
+    justify-content: space-evenly !important;
   }
-}
-
-@media (min-width: 768px) {
-  .w-md-25 {
-    width: 25% !important;
-  }
-
-  .reviews-w-md{
-    width: 75%;
-  }
-
-  .comments-w-md{
-    width: 25%;
-  }
-}
-
-
-
-  
-.comments-height{
-  height: 150px;
-}
-
-@media (min-width: 768px) {
-  .comments-height{
-    height: 225px;
-  }
-}
-
-
- 
+ }
