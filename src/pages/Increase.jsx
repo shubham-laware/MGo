@@ -8,7 +8,7 @@ const Increase = () => {
   return (
     <div
       className="container d-flex flex-column gap-3"
-      style={{ marginBlock: "7rem" }}
+      style={{ marginBlock: "12vh" }}
     >
       <div className="w-100 d-flex justify-content-between align-items-center p-3 border border-2 rounded rounded-lg">
         <div className="d-flex flex-column justify-content-center">
