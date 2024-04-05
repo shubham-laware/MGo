@@ -39,7 +39,7 @@ const Blog = () => {
             <div className="container shadow bg-body rounded border border-1 mb-3 mt-5 p-0">
                 <div className="row after:col-12  m-0 ">
                     <div className="mx-auto p-0 " style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-                        <img className="img-fluid " src={img1} alt="xd" style={{ width: '100%', height: "100vh", display: 'block', marginTop: '' }} />
+                        <img className="img-fluid " src={img1} alt="xd" style={{ width: '100%', height: "90vh", display: 'block', marginTop: '' }} />
                         <div className="text-overlay mb-5" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', padding: '20px', boxSizing: 'border-box' }}>
                             <h3 className="text-white fw-normal mx-5" style={{ letterSpacing: "5px" }}>MINITGO</h3>
                             <h1 className="text-white fw-normal mx-5" style={{ fontSize: "60px" }}>Supreme Summer Sale</h1>
@@ -116,7 +116,7 @@ const Blog = () => {
 
 
 
-            <div className="container shadow bg-body rounded  border border-1 mb-3 p-0 visit-container" style={{ height: "100vh" }}>
+            <div className="container shadow bg-body rounded  border border-1 mb-3 p-0 visit-container" style={{ height: "80vh" }}>
                 <div className="" style={{ position: 'relative', height: '450px', overflow: 'hidden' }}>
                     <img src={img10} className="visitImage" alt="Image" style={{ width: '100%', height: '45rem', position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
                     <div style={{ position: 'absolute', top: '50%', left: '25%', transform: 'translate(-50%, -50%)', color: 'white' }}>

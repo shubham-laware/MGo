@@ -209,15 +209,18 @@ export const Checkout = () => {
                       </div>
                     </div>
                   </div>
+                  <div className="place-button mx-4">
                   <button
                     type="button"
-                    className="btn btn-primary btn-lg"
+                    className="btn btn-primary btn-lg "
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
                   >
                     Place Order
                   </button>
 
+                  </div>
+                  
                   <div
                     className="modal fade"
                     id="exampleModal"
