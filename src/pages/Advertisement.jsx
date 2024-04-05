@@ -28,7 +28,7 @@ const Advertisement = () => {
                 </div>
                 <div className="col-md-4" >
                     <div className="text-center">
-                        <img src={image} alt="App Image" className="app-image" style={{ width: "20rem", height: "35rem" }} />
+                        <img src={image} alt="App Image" className="app-image img-fluid mt-3 mt-md-0" style={{ width: "20rem",height:"35rem" }} />
                     </div>
                 </div>
             </div>
