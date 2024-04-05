@@ -3,7 +3,7 @@ import image from "../assets/addImage1.png"
 
 const Advertisement = () => {
     return (
-        <div className="container my-5" style={{ backgroundColor: "#e4d6d2" }} >
+        <div className="container my-5 rounded-4" style={{ backgroundColor: "#e4d6d2" }} >
             <div className="row p-5 " >
                 <div className="col-md-8 " >
                     <h2 className="fw-bold text-start">MINITGO</h2>
@@ -18,17 +18,17 @@ const Advertisement = () => {
                         <img src='/googlePlay.png' alt="App Image" className="app-image " style={{ height: "4rem" }} />
 
                     </div>
-                    <div className="col-md-4 d-flex gap-2 mt-5 ">
-                        <span className='border border-black rounded-circle px-4 py-3' ><i className="fa fa-facebook" aria-hidden="true" style={{ color: "#000" }}></i></span>
-                        <span className='border border-black rounded-circle px-4 py-3'><i className="fa fa-instagram" aria-hidden="true" style={{ color: "#000" }}></i></span>
-                        <span className='border border-black rounded-circle px-4 py-3'><i className="fa fa-twitter" aria-hidden="true" style={{ color: "#000" }}></i></span>
-
+                    <div className="col-md-4 d-flex gap-2 mt-5">
+                        <span className='border border-black rounded-circle px-2 py-2' ><i className="fa fa-facebook fs-6" aria-hidden="true" style={{ color: "#000" }}></i></span>
+                        <span className='border border-black rounded-circle px-2 py-2'><i className="fa fa-instagram fs-6" aria-hidden="true" style={{ color: "#000" }}></i></span>
+                        <span className='border border-black rounded-circle px-2 py-2'><i className="fa fa-twitter fs-6" aria-hidden="true" style={{ color: "#000" }}></i></span>
                     </div>
+
 
                 </div>
                 <div className="col-md-4" >
                     <div className="text-center">
-                        <img src={image} alt="App Image" className="app-image" style={{ width: "20rem",height:"35rem" }} />
+                        <img src={image} alt="App Image" className="app-image" style={{ width: "20rem", height: "35rem" }} />
                     </div>
                 </div>
             </div>
