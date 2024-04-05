@@ -58,7 +58,6 @@ function Header() {
 
   const navigate = useNavigate();
   const totalQuantity = useSelector(selectTotalQuantity);
-  const [showModal, setShowModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
 
   // State to manage the dropdown title
@@ -85,6 +84,8 @@ function Header() {
     handleSearchInputChange,
     products,
     setSelectedCategory,
+    showModal,
+    setShowModal,
   } = context;
   // code for serach
   const [searchSuggestions, setSearchSuggestions] = useState([]);
@@ -485,7 +486,6 @@ function Header() {
           show={showModal}
           onHide={() => {
             setShowModal(false);
-            setShowOTP(false);
           }}
           // dialogClassName="modal-90w"
           aria-labelledby="example-custom-modal-styling-title"

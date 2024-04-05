@@ -11,6 +11,8 @@ const Mystate = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [offer,setOffers] = useState("")
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+
 
 
 
@@ -74,7 +76,9 @@ const Mystate = (props) => {
           handleOfferChange,
           selectedImageIndex,
           setSelectedImageIndex,
-          handleImageClick
+          handleImageClick,
+          showModal,
+          setShowModal
         }}
       >
         {props.children}
