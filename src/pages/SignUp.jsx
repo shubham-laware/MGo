@@ -326,11 +326,13 @@ function SignUp() {
           }}
           className="d-flex flex-column gap-2 px-4 pt-1 pb-3   "
         >
+           
           <Form>
+          <h4 className="mt-4">Signup</h4>
             <Form.Control
               type="text"
               placeholder="Full Name"
-              className=" w-100 px-4 mb-3 my-5 rounded rounded-pill"
+              className=" w-100 px-4 mb-3 my-3 rounded rounded-pill"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
             />

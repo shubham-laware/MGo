@@ -18,7 +18,7 @@ const Advertisement = () => {
                         <img src='/googlePlay.png' alt="App Image" className="app-image " style={{ height: "4rem" }} />
 
                     </div>
-                    <div className="col-md-4 d-flex gap-2 mt-5">
+                    <div className="col-md-4 d-flex gap-2 mt-5 icon-block">
                         <span className='border border-black rounded-circle px-2 py-2' ><i className="fa fa-facebook fs-6" aria-hidden="true" style={{ color: "#000" }}></i></span>
                         <span className='border border-black rounded-circle px-2 py-2'><i className="fa fa-instagram fs-6" aria-hidden="true" style={{ color: "#000" }}></i></span>
                         <span className='border border-black rounded-circle px-2 py-2'><i className="fa fa-twitter fs-6" aria-hidden="true" style={{ color: "#000" }}></i></span>
