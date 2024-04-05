@@ -167,12 +167,12 @@ const Login = ({ closeLoginModal }) => {
     <>
       <br></br>
 
-      <div className="col-md-12 ">
+      <div className="col-md-12  w-100">
         <div className="card-b  px-4  py-5   m-0 ">
           <div className="text-center">
             <h4 style={{ fontWeight: "bold", fontSize: "30px" }}>Sign in</h4>
           </div>
-          <div className="card-body  mt-4  ">
+          <div className="card-body  mt-4   ">
             <form>
               <div className="form-group mb-3">
                 <label htmlFor="email" className="ps-1 mb-1">
@@ -180,7 +180,7 @@ const Login = ({ closeLoginModal }) => {
                 </label>
                 <input
                   type="email"
-                  className="form-control rounded-5"
+                  className="form-control rounded-5 w-100"
                   id="email"
                   onChange={(e) => setUserID(e.target.value)}
                   placeholder="Enter email or phone"
@@ -192,7 +192,7 @@ const Login = ({ closeLoginModal }) => {
                 </label>
                 <input
                   type="password"
-                  className="form-control rounded-5"
+                  className="form-control rounded-5 w-100"
                   id="password"
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"

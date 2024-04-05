@@ -225,8 +225,7 @@ function Header() {
       <Navbar
         collapseOnSelect
         expand="lg"
-        className=" bg-light fixed-top shadow  border border-red"
-       
+        className=" bg-light fixed-top shadow  "
       >
         <Container>
           <Navbar.Brand>
@@ -274,10 +273,10 @@ function Header() {
               </NavDropdown>
             </Nav>
             <Form.Control
-              // style={{ margin: "0 0px 0 32px" }}
+              style={{ margin: "0 0px 0 32px" }}
               type="search"
               placeholder=" Ex: T-Shirt near me"
-              className=" search-box mx-3"
+              className=" search-box"
               aria-label="Search"
               value={searchQuery}
               onChange={handleSearchInputChange}
@@ -426,10 +425,10 @@ function Header() {
         <div className="mobile-menu-logo d-lg-none">
           <div className="mobile-search">
             <Form.Control
-              // style={{ margin: "0 0px 0 32px" }}
+              style={{ margin: "0 0px 0 32px" }}
               type="search"
               placeholder=" Ex: T-Shirt near me"
-              className=" search-box col-12"
+              className=" search-box"
               aria-label="Search"
               value={searchQuery}
               onChange={handleSearchInputChange}
@@ -480,6 +479,8 @@ function Header() {
       </Navbar>
 
       <Catlog />
+
+      {"Modal needs to be outside to be loaded in the mobile version"}
 
       {showModal && (
         <Modal

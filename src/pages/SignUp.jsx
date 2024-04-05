@@ -175,8 +175,8 @@ function SignUp() {
         hideProgressBar: true,
       });
       return;
-    } else if (password.length < 6 || password.length > 8) {
-      toast.error("Password must be between 6 and 8 characters long", {
+    } else if (password.length < 8 || password.length > 12) {
+      toast.error("Password must be between 8 and 12 characters long", {
         autoClose: 1000,
         hideProgressBar: true,
       });

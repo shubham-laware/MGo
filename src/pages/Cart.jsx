@@ -3,11 +3,15 @@ import { BsTrash3 } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useContext, useEffect } from "react";
 import myContext from "../components/context/MyContext";
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { addQuantity, deleteQuantity, removeFromCart, deleteWishList } from "../components/redux/Slices/CartSlice";
-import { selectTotalQuantity } from '../components/redux/Slices/CartSlice.js';
-
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {
+  addQuantity,
+  deleteQuantity,
+  removeFromCart,
+  deleteWishList,
+} from "../components/redux/Slices/CartSlice";
+import { selectTotalQuantity } from "../components/redux/Slices/CartSlice.js";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -16,7 +20,7 @@ const Cart = () => {
   function calculateTotalPrice() {
     let totalPrice = 0;
     cartData.forEach((cartItem) => {
-      totalPrice += parseInt(cartItem.product_price) * (cartItem.quantity);
+      totalPrice += parseInt(cartItem.product_price) * cartItem.quantity;
     });
     return totalPrice;
   }
@@ -88,10 +92,9 @@ const Cart = () => {
     },
   ];
 
-
   //redux code start
 
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
   const cartData = cart.items;
   const wishListData = cart.wishList;
   const totalQuantity = useSelector(selectTotalQuantity);
@@ -106,13 +109,11 @@ const Cart = () => {
 
   const DeleteQty = (productId) => {
     dispatch(deleteQuantity({ product_id: productId }));
-  }
-
+  };
 
   const handleDeleteFromWishList = (productId) => {
     dispatch(deleteWishList({ product_id: productId }));
-  }
-
+  };
 
   return (
     <>
@@ -175,25 +176,29 @@ const Cart = () => {
                             className="d-flex mb-4"
                             style={{ maxWidth: "300px" }}
                           >
-                            <button className="btn btn-primary px-3 me-2"
+                            <button
+                              className="btn btn-primary px-3 me-2"
                               onClick={() => DeleteQty(cart_item.product_id)}
                             >
                               <i className="minus"> - </i>
                             </button>
                             <div
                               className="form-control text-center"
-                              placeholder="Quantity">
+                              placeholder="Quantity"
+                            >
                               {cart_item.quantity}
-
                             </div>
-                            <button className="btn btn-primary px-3 ms-2 "
+                            <button
+                              className="btn btn-primary px-3 ms-2 "
                               onClick={() => handleAddQty(cart_item.product_id)}
                             >
                               <i className="plus"> + </i>
                             </button>
                           </div>
                           <p className="text-start text-md-center">
-                            <strong>{cart_item.quantity} * {cart_item.product_price}</strong>
+                            <strong>
+                              {cart_item.quantity} * {cart_item.product_price}
+                            </strong>
                           </p>
                         </div>
                         <hr className="my-2" />
@@ -242,76 +247,84 @@ const Cart = () => {
                 </div>
               </div>
 
-
               {/* wistlist */}
-              {wishListData?.length > 0 ? (<div className="row mt-4">
-                <div className="card">
-                  <div className="card-header py-2 rounded-pill">
-                    <h5 className="mb-0">WishList Items</h5>
-                  </div>
-                  <div className="d-flex scrollable-content gap-3  my-3 overflow-y-hidden">
-                    <div className="card">
-                      <div className="d-flex gap-3   overflow-x-auto my-1">
-                        {wishListData.map((prod, index) => (
-                          <div
-                            key={index}
-                            className="col-6 col-sm-3 py-2"
-                            style={{ width: "220px" }}
-                          >
-                            <div className="product-card">
-                              <div
-                                className="product-image"
-                                style={{ height: "250px" }}
-                              >
-                                <img
-                                  src={prod.product_image1}
-                                  alt="Product 1"
-                                  className="h-100 img-fluid"
-                                />
-                              </div>
-                              
-                              <div className="product-content">
-                                <h6>{prod.product_name} </h6>
-                                <h5>
-                                  Price: <sup>&#x20B9;</sup>
-                                  {prod.product_price}
-                                  <span className="text-decoration-line-through text-muted fs-6 fw-light">
-                                    599
-                                  </span>
-                                  <span
-                                    className="text-muted"
-                                    style={{
-                                      fontSize: "13px",
-                                    }}
-                                  >
-                                    {" "}
-                                    {prod.product_stock}
-                                  </span>
-                                </h5>
-                              </div>
-                              <div className="d-flex justify-content-center align-items-center ">
-                                <button
-                                  className="btn btn-dark mx-2"
-                                  onClick={() =>
-                                    handleDeleteFromWishList(prod.product_id)
-                                  }
+              {wishListData?.length > 0 ? (
+                <div className="row mt-4">
+                  <div className="card">
+                    <div className="card-header py-2 rounded-pill">
+                      <h5 className="mb-0">WishList Items</h5>
+                    </div>
+                    <div className="d-flex scrollable-content gap-3  my-3 overflow-y-hidden">
+                      <div className="card">
+                        <div className="d-flex gap-3   overflow-x-auto my-1">
+                          {wishListData.map((prod, index) => (
+                            <div
+                              key={index}
+                              className="col-6 col-sm-3 py-2"
+                              style={{ width: "220px" }}
+                            >
+                              <div className="product-card">
+                                <div
+                                  className="product-image"
+                                  style={{ height: "250px" }}
                                 >
-                                  <BsTrash3 />
-                                </button>
-                                <button className="btn btn-dark w-100 mx-2 px-5">
-                                <Link to="/checkout" style={{ textDecoration: 'none', color: 'white' }}> Buy</Link>
-                                </button>
+                                  <img
+                                    src={prod.product_image1}
+                                    alt="Product 1"
+                                    className="h-100 img-fluid"
+                                  />
+                                </div>
+
+                                <div className="product-content">
+                                  <h6>{prod.product_name} </h6>
+                                  <h5>
+                                    Price: <sup>&#x20B9;</sup>
+                                    {prod.product_price}
+                                    <span className="text-decoration-line-through text-muted fs-6 fw-light">
+                                      599
+                                    </span>
+                                    <span
+                                      className="text-muted"
+                                      style={{
+                                        fontSize: "13px",
+                                      }}
+                                    >
+                                      {" "}
+                                      {prod.product_stock}
+                                    </span>
+                                  </h5>
+                                </div>
+                                <div className="d-flex justify-content-center align-items-center ">
+                                  <button
+                                    className="btn btn-dark mx-2"
+                                    onClick={() =>
+                                      handleDeleteFromWishList(prod.product_id)
+                                    }
+                                  >
+                                    <BsTrash3 />
+                                  </button>
+                                  <button className="btn btn-dark w-100 mx-2 px-5">
+                                    <Link
+                                      to="/checkout"
+                                      style={{
+                                        textDecoration: "none",
+                                        color: "white",
+                                      }}
+                                    >
+                                      {" "}
+                                      Buy
+                                    </Link>
+                                  </button>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>) : null
-              }
-
+              ) : null}
             </div>
             <div className="col-md-4">
               <div className="card mb-4">
@@ -338,11 +351,13 @@ const Cart = () => {
                       </span>
                     </li>
                   </ul>
-                  <Link to="/checkout">
-                    <button  className="btn btn-lg btn-block btn-primary">
-                    Go to checkout
-                    </button>
-                   </Link>
+                  {cartData.length > 0 && (
+                    <Link to="/checkout">
+                      <button className="btn btn-lg btn-block btn-primary">
+                        Go to checkout
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </div>
               {/* div for Recomended */}
@@ -381,13 +396,8 @@ const Cart = () => {
                   ))}
                 </div>
               </div>
-
-
             </div>
           </div>
-
-
-
         </div>
       </section>
     </>
