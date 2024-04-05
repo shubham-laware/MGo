@@ -36,7 +36,7 @@ export const Checkout = () => {
       <br></br>
       <br></br>
 
-      <div className="container-fluid p-5" style={{ backgroundColor: "#eee" }}>
+      <div className="container mt-5 border border-1 p-0" style={{ backgroundColor: "#eee" }}>
         <div className="card">
           <div className="card-body">
             <div className="row justify-content-center pb-5">
@@ -212,15 +212,14 @@ export const Checkout = () => {
                   <div className="place-button mx-4">
                   <button
                     type="button"
-                    className="btn btn-primary btn-lg "
+                    className="btn btn-primary btn-lg"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
                   >
                     Place Order
                   </button>
-
                   </div>
-                  
+
                   <div
                     className="modal fade"
                     id="exampleModal"

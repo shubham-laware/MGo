@@ -25,7 +25,7 @@ export default function Banner() {
     <>
    
      
-<div className='container' style={{marginTop:"110px",overflowX:"hidden"}}>
+<div className='container' style={{marginTop:"30px"}}>
   <Row>
     <div className="custom-bg ">
       <Col xs={6} sm={6} className='left-box '>

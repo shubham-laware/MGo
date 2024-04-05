@@ -1,5 +1,6 @@
 import React from 'react';
 import image from "../assets/addImage1.png"
+import { FaXTwitter,FaFacebook,FaSquareInstagram } from "react-icons/fa6";
 
 const Advertisement = () => {
     return (
@@ -19,21 +20,22 @@ const Advertisement = () => {
 
                     </div>
                     <div className="col-md-2 d-flex justify-content-center align-items-center gap-2 mt-5 social-icons">
-                        <div className="icon border border-black rounded-circle p-2">
-                        <a href="https://facebook.com" className="social-icon " target="_blank" rel="noopener noreferrer" style={{textDecoration:"none",color:"#000"}}>
-                            <i className="fab fa-facebook-f"></i>
-                        </a>
-                        </div>
-                        <div className="icon border border-black rounded-circle p-2">
-                        <a href="https://instagram.com" className="social-icon" target="_blank" rel="noopener noreferrer" style={{textDecoration:"none",color:"#000"}}>
-                            <i className="fab fa-instagram"></i>
-                        </a>
-                        </div>
-                        <div className="icon border border-black rounded-circle p-2">
-                        <a href="https://twitter.com" className="social-icon" target="_blank" rel="noopener noreferrer" style={{textDecoration:"none",color:"#000"}}>
-                            <i className="fab fa-twitter"></i>
-                        </a>
-                        </div>
+                       
+                            <a href="https://facebook.com" className="social-icon p-1" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "#000" }}>
+                            <FaFacebook style={{height:"2rem",width:"2rem"}}/>
+                            </a>
+                        
+                       
+                            <a href="https://instagram.com" className="social-icon p-1" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "#000" }}>
+                            <FaSquareInstagram style={{height:"2rem",width:"2rem"}}/>
+                            </a>
+                       
+                       
+                            <a href="https://twitter.com" className="social-icon p-1" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "#000" }}>
+                            <FaXTwitter style={{height:"2rem",width:"2rem"}}/>
+                            </a>
+
+                        
                     </div>
 
 
