@@ -30,7 +30,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectTotalQuantity } from "../components/redux/Slices/CartSlice.js";
 import Login from "../pages/Signin.jsx";
-import { toast } from "react-toastify";
 import { Col, Modal, Row } from "react-bootstrap";
 import SignUp from "../pages/SignUp.jsx";
 
@@ -40,10 +39,8 @@ import { FiLogIn } from "react-icons/fi";
 import { MdContactSupport, MdHelp, MdOutlineUpdate } from "react-icons/md";
 import { BsPersonCircle } from "react-icons/bs";
 import { PiHandshakeBold } from "react-icons/pi";
-import { ImUserPlus } from "react-icons/im";
 
 import "./header.css";
-import axios from "axios";
 
 function Header() {
   const [address, setAddress] = useState("");
@@ -225,7 +222,7 @@ function Header() {
       <Navbar
         collapseOnSelect
         expand="lg"
-        className=" bg-light fixed-top shadow  "
+        className="fixed-top bg-light  shadow  "
       >
         <Container>
           <Navbar.Brand>
@@ -432,7 +429,7 @@ function Header() {
               value={searchQuery}
               onChange={handleSearchInputChange}
               onKeyPress={handleKeyPress}
-              style={{width:"123%"}}
+              style={{ width: "123%" }}
             />
 
             <Form />
