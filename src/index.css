@@ -848,7 +848,7 @@
 
  /* for blog page */
 
- @media (min-width: 280px) {
+ @media (min-width: 300px) {
    .visit-title {
      padding-left: 31px !important;
      text-align: center !important;
@@ -869,6 +869,7 @@
      display: flex !important;
      justify-content: space-between !important;
    }
+
  }
 
  @media (min-width: 768px) {
