@@ -30,13 +30,16 @@ const Blog = () => {
 
     //     fetchData();
     // }, []);
-    return (
-        <>
 
-            <div className="container shadow bg-body rounded border border-1 mb-3">
-                <div className="row after:col-12  mt-3" style={{ marginTop: '200px' }}>
-                    <div className="mx-auto p-0" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-                        <img className="img-fluid" src={img1} alt="xd" style={{ width: '100%', height: "100vh", display: 'block', marginTop: '' }} />
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+      },[])
+    return (
+        <div className="mt-3 mt-md-5 pt-5"> 
+            <div className="container shadow bg-body rounded border border-1 mb-3 mt-5 p-0">
+                <div className="row after:col-12  m-0 ">
+                    <div className="mx-auto p-0 " style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
+                        <img className="img-fluid " src={img1} alt="xd" style={{ width: '100%', height: "100vh", display: 'block', marginTop: '' }} />
                         <div className="text-overlay mb-5" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', padding: '20px', boxSizing: 'border-box' }}>
                             <h3 className="text-white fw-normal mx-5" style={{ letterSpacing: "5px" }}>MINITGO</h3>
                             <h1 className="text-white fw-normal mx-5" style={{ fontSize: "60px" }}>Supreme Summer Sale</h1>
@@ -158,7 +161,7 @@ const Blog = () => {
             </div>
 
 
-        </>
+        </div>
 
     );
 };
