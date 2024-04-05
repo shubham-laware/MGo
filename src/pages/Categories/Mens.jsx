@@ -286,7 +286,7 @@ const Mens = () => {
                         />
                       </button>
                       <button className="btn btn-primary my-2  ms-2 px-2 py-1">
-                        Buy Now
+                       <Link to="/checkout" style={{textDecoration:"none",color:"#000"}}> Buy Now</Link>
                       </button>
                     </div>
                   </div>
