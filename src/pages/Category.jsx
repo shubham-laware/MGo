@@ -372,11 +372,7 @@ const Category = () => {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+     
       <br />
       <br />
       {/* we are coming soon */}

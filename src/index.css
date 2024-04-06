@@ -6,7 +6,7 @@
 
  /* Mobile Header styling here*/
  .mobile-menu-logo {
-   font-size: 33px;
+   /* font-size: 33px; */
 
  }
 
@@ -140,9 +140,11 @@
 
  }
 
+
+
  .catlog-names {
-   display: flex;
-   padding-left: 150px;
+   display: flex; 
+  padding-left: 100px;
  }
 
  .cat-nav {
@@ -498,10 +500,10 @@
 
    .catlog {
 
-     background: none;
-     margin-top: 0px;
-     margin-left: 31%;
-     width: 0px;
+     background: #e4d6d2 !important;
+     margin-top: 100px !important;
+     /* margin-left: 31%; */
+     width: 100% !important;
    }
 
    .set-range {
@@ -701,6 +703,7 @@
 
  }
 
+
  /* Ipad mini Responsive Styles */
  @media screen and (min-width: 767px) and (max-width: 768px) {
    .mobile-search {
@@ -711,6 +714,7 @@
 
    .catlog {
      margin-left: 20%;
+     background-color: #171717 !important;
    }
 
    .left-box h1 {
@@ -907,3 +911,6 @@
      justify-content: space-evenly !important;
    }
  }
+
+ 
+

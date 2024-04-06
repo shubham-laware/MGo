@@ -72,6 +72,7 @@ function Header() {
   };
   // State to manage Offcanvas visibility
   const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const [showLeftSideOffcanvas, setShowLeftSideOffcanvas] = useState(false);
 
   // context code add
   const context = useContext(myContext);
@@ -157,6 +158,7 @@ function Header() {
     setSearchSuggestions([]);
   };
 
+
   const handleSuggestionClick = (productName) => {
     setSearchQuery(productName);
   };
@@ -197,7 +199,7 @@ function Header() {
               setTownDistrict(components.town || components.district || "");
               setState(components.state || "");
             }
-          } catch (error) {}
+          } catch (error) { }
         },
         (error) => {
           return;
@@ -207,8 +209,13 @@ function Header() {
     }
   };
 
-  const fullName = JSON.parse(localStorage.getItem("user"))?.fullName;
+  const userData = JSON.parse(localStorage.getItem("user"));
+  console.log(userData, "userData")
+  const fullName = userData.fullName;
   console.log(fullName);
+  const userLocation = userData.address;
+  console.log(userLocation);
+
 
   const login = fullName ? (
     fullName
@@ -217,27 +224,56 @@ function Header() {
       <BiLogIn /> Signin
     </span>
   );
+
   return (
     <>
       <Navbar
         collapseOnSelect
         expand="lg"
-        className="fixed-top bg-light  shadow  "
+        className="fixed-top bg-light shadow"
       >
-        <Container>
-          <Navbar.Brand>
+        <Container className="justify-content-between">
+          <Navbar.Brand className="d-flex gap-2">
             <Link to="/">
-              <img src={Logo} style={{ width: "115px" }} />
+              <img src={Logo} style={{ width: "90px" }} />
             </Link>
+            <div className="mobile-menu-logo d-lg-none d-flex profile-data">
+              <span className="profile d-flex align-items-center " onClick={() => setShowLeftSideOffcanvas(true)}>
+                <img src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png" style={{ height: "2rem", width: "2rem" }} />
+              </span>
+              <div className="userData mx-2  d-flex flex-column">
+                <span style={{ fontSize: "10px" }}>{fullName}</span>
+                <span style={{ fontSize: "10px" }}>Delivered to-{userLocation}</span>
+              </div>
+            </div>
           </Navbar.Brand>
-          <div className="mobile-menu-logo d-lg-none">
-            <Catlog />
+
+
+
+          {/* for mobile vieww */}
+          <div className="mobile-menu-logo d-lg-none d-flex gap-2 align-items-center">
+
+            <div
+              className="nav-link cat-nav d-lg-none d-block text-center "
+              style={{ position: "relative" }}
+            >
+              <img
+                src={cartIcon}
+                alt="Cart"
+                style={{ height: "2rem", width: "2rem" }}
+              />
+              <h6 style={{ position: "absolute", top: "0.5rem", left: "1.6rem" }}>
+                {totalQuantity}
+              </h6>
+            </div>
+            <BiMenuAltRight
+              className="mobile-menu-logo d-lg-none"
+              onClick={() => setShowOffcanvas(true)}
+              style={{ fontSize: "33px" }}
+            />
           </div>
 
-          <BiMenuAltRight
-            className="mobile-menu-logo d-lg-none"
-            onClick={() => setShowOffcanvas(true)}
-          />
+
 
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -285,14 +321,11 @@ function Header() {
             <Button
               className=" search-btn"
               variant="outline-success"
-              onClick={handleGoButton}
-            >
+              onClick={handleGoButton}>
               Go
             </Button>
-            <div
-              className="suggestion position-absolute"
-              style={{ width: "760px" }}
-            >
+
+            <div className="suggestion position-absolute" style={{ width: "760px" }}>
               <div
                 className="container position-absolute"
                 style={{
@@ -473,11 +506,11 @@ function Header() {
             </div>
           </div>
         </div>
+
       </Navbar>
 
       <Catlog />
 
-      {"Modal needs to be outside to be loaded in the mobile version"}
 
       {showModal && (
         <Modal
@@ -520,6 +553,7 @@ function Header() {
 
       {/* Mobile view starts here */}
 
+      {/* this is right side */}
       <Offcanvas
         show={showOffcanvas}
         onHide={() => setShowOffcanvas(false)}
@@ -580,7 +614,7 @@ function Header() {
                     textDecoration: "none",
                     color: "black",
                   }}
-                  onClick={() => setShowOffcanvas(false)}
+                  onClick={() => setShowOffcanvas(true)}
                 >
                   <FaCircleInfo
                     className="me-3 "
@@ -862,6 +896,51 @@ function Header() {
               </Nav>
             </Col>
           </Row>
+        </Offcanvas.Body>
+      </Offcanvas>
+
+
+      {/* this is left side */}
+      <Offcanvas
+        show={showLeftSideOffcanvas}
+        onHide={() => setShowLeftSideOffcanvas(false)}
+        placement="start"
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>
+            <img
+              src="/src/components/images/minitgo.png"
+              width={100}
+              height={20}
+            />
+          </Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <div className="d-flex flex-column justify-content-center align-items-center border rounded  py-4 my-2">
+            <img
+              src={user?.image}
+              className="rounded rounded-circle border border-2 border-primary shadow shadow-2"
+              width={60}
+              height={60}
+            />
+            <h2>{user?.name}</h2>
+            <h5>{user?.number}</h5>
+            <p>
+              <span className="fw-bold">Location:</span> {user?.location}
+            </p>
+          </div>
+          {/* Sidebar content goes here */}
+          <div className="btn-block">
+            <div className="btn d-block border border-3 mt-3"> <button className="btn btn-outline fw-bold">Your Orders</button></div>
+
+            <div className="btn d-block border border-3 mt-3" > <button className="btn btn-outline fw-bold">Profile Edit</button></div>
+
+            <div className="btn d-block border border-3 mt-3"> <button className="btn btn-outline fw-bold">Address Change</button></div>
+
+
+            <span className="d-block text-center mt-3 fw-bold">Logout</span>
+          </div>
+
         </Offcanvas.Body>
       </Offcanvas>
     </>

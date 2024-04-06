@@ -12,7 +12,8 @@ const Mystate = (props) => {
   const [offer,setOffers] = useState("")
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
-
+ // for hide modal
+ const [showfilterModal, setShowFilterModal] = useState(false);
 
 
 
@@ -37,6 +38,7 @@ const Mystate = (props) => {
 
   const handlePriceChange = (event) => {
     setselectedPrice(event.target.value);
+    setShowFilterModal(false)
   };
 
   // Handle search input change
@@ -78,7 +80,8 @@ const Mystate = (props) => {
           setSelectedImageIndex,
           handleImageClick,
           showModal,
-          setShowModal
+          setShowModal,
+          showfilterModal
         }}
       >
         {props.children}

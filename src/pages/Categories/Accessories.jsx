@@ -236,11 +236,7 @@ const Accessories = () => {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+     
       <br />
       <br />
       {/* we are coming soon */}

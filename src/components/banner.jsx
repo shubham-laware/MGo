@@ -10,18 +10,18 @@ import myContext from "./context/MyContext";
 
 /* banner */
 export default function Banner() {
-  const context = useContext(myContext);
-  const { setSearchQuery } = context;
+  // const context = useContext(myContext);
+  // const { setSearchQuery } = context;
 
   const navigate = useNavigate();
 
   function handleNavigateToProducts() {
     navigate("/products");
-    setSearchQuery("");
+    // setSearchQuery("");
   }
   return (
     <>
-      <div className="container" style={{ marginTop: "12vh" }}>
+      <div className="container" style={{ marginTop: "15px" }}>
         <Row>
           <div className="custom-bg ">
             <Col xs={6} sm={6} className="left-box ">
