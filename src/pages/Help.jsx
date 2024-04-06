@@ -25,7 +25,7 @@ function Help() {
     setBotVisbility(!botVisibility);
   };
   return (
-    <div className="min-vh-100 position-relative my-md-4 py-5 bg-body-tertiary ">
+    <div className="min-vh-100 position-relative my-md-4 py-1 bg-body-tertiary ">
       <div className=" container">
         <header
           className="mt-5 "
