@@ -52,7 +52,7 @@ function ProductInfo() {
   };
 
   return (
-    <main className="min-vh-100 py-4  px-md-5 " style={{ marginTop: "125px" }}>
+    <main className="min-vh-100 py-4  px-md-5 mt-2">
       <div className="container-fluid  px-md-5  d-flex flex-column gap-4">
         <div className="row  gap-2 px-md-5 ">
           <div className="col ">

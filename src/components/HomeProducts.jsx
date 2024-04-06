@@ -332,7 +332,9 @@ const HomeProducts = () => {
                         }}
                        
                       >
-                        <h6 >{product.product_name} </h6>
+                       {product.product_name.length > 15
+                            ? product.product_name.substring(0, 25) + "..."
+                            : product.product_name}
                       </a>
                       <h5>
                         Price: <sup>&#x20B9;</sup>
