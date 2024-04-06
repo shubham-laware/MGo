@@ -4,11 +4,11 @@ import "../components/Increase.css";
 const Increase = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
+  }, []);
   return (
     <div
       className="container d-flex flex-column gap-3"
-      style={{ marginBlock: "10rem" }}
+      style={{ marginBlock: "12vh" }}
     >
       <div className="w-100 d-flex justify-content-between align-items-center p-3 border border-2 rounded rounded-lg">
         <div className="d-flex flex-column justify-content-center">
@@ -97,7 +97,7 @@ const Increase = () => {
       {/* new design */}
       <div className="row border border-2 rounded rounded-lg">
         <div className=" p-3 col-md-6 order-2 order-md-1">
-         <div
+          <div
             onClick={() => {
               document.getElementById("section-1")?.scrollIntoView({
                 block: "center",
@@ -106,7 +106,7 @@ const Increase = () => {
             }}
             className="p-3 rounded rounded-2 border border-2 fw-semibold fs-5 increase-items m-2"
           >
-           <span className="p-3">  Get the Elite Badge</span>
+            <span className="p-3"> Get the Elite Badge</span>
           </div>
           <div
             onClick={() => {
@@ -139,7 +139,9 @@ const Increase = () => {
             }}
             className="p-3 rounded rounded-2 border border-2 fw-semibold fs-5 increase-items  m-2"
           >
-             <span className="p-3">Reduce Returns through customer feedback</span>
+            <span className="p-3">
+              Reduce Returns through customer feedback
+            </span>
           </div>
           <div
             onClick={() => {
@@ -150,7 +152,9 @@ const Increase = () => {
             }}
             className=" p-3 rounded rounded-2 border border-2 fw-semibold fs-5 increase-items  m-2"
           >
-           <span className="p-3">Manage your Business on the go with minitgo Seller App</span> 
+            <span className="p-3">
+              Manage your Business on the go with minitgo Seller App
+            </span>
           </div>
           <div
             onClick={() => {
@@ -161,12 +165,16 @@ const Increase = () => {
             }}
             className="p-3 rounded rounded-2 border border-2 fw-semibold fs-5 increase-items  m-2"
           >
-           <span className="p-3">Get help anytime</span> 
+            <span className="p-3">Get help anytime</span>
           </div>
-         
         </div>
         <div className="col-md-6 order-1 order-md-2">
-          <img src="/man-working.jpg" className="img-fluid my-3" width={500} height={200}></img> 
+          <img
+            src="/man-working.jpg"
+            className="img-fluid my-3"
+            width={500}
+            height={200}
+          ></img>
         </div>
       </div>
 

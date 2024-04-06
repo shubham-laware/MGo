@@ -30,7 +30,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectTotalQuantity } from "../components/redux/Slices/CartSlice.js";
 import Login from "../pages/Signin.jsx";
-import { toast } from "react-toastify";
 import { Col, Modal, Row } from "react-bootstrap";
 import SignUp from "../pages/SignUp.jsx";
 
@@ -40,10 +39,8 @@ import { FiLogIn } from "react-icons/fi";
 import { MdContactSupport, MdHelp, MdOutlineUpdate } from "react-icons/md";
 import { BsPersonCircle } from "react-icons/bs";
 import { PiHandshakeBold } from "react-icons/pi";
-import { ImUserPlus } from "react-icons/im";
 
 import "./header.css";
-import axios from "axios";
 
 function Header() {
   const [address, setAddress] = useState("");
@@ -225,7 +222,7 @@ function Header() {
       <Navbar
         collapseOnSelect
         expand="lg"
-        className=" bg-light fixed-top shadow  "
+        className="fixed-top bg-light  shadow  "
       >
         <Container>
           <Navbar.Brand>
@@ -423,16 +420,16 @@ function Header() {
           </Navbar.Collapse>
         </Container>
         <div className="mobile-menu-logo d-lg-none">
-          <div className="mobile-search">
+          <div className="mobile-search mt-2">
             <Form.Control
-              style={{ margin: "0 0px 0 32px" }}
               type="search"
-              placeholder=" Ex: T-Shirt near me"
-              className=" search-box"
+              placeholder="Ex: T-Shirt near me"
+              className="col-12 search-box"
               aria-label="Search"
               value={searchQuery}
               onChange={handleSearchInputChange}
               onKeyPress={handleKeyPress}
+              style={{ width: "123%" }}
             />
 
             <Form />

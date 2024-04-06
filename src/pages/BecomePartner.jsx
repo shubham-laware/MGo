@@ -8,7 +8,7 @@ const fileUrl = "";
 function BecomePartner() {
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
+  }, []);
 
   const handleDownloadVideo = () => {
     try {
@@ -31,9 +31,8 @@ function BecomePartner() {
       <br />
       <br />
       <br />
-      <br />
 
-      <div className="container my-3 border border-1 rounded-2 p-3 mb-5 bg-white rounded">
+      <div className="container my-lg-3 border border-1 rounded-2 p-3 mb-5 bg-white rounded">
         <nav class=" d-flex rounded-2 py-2 ">
           <div className="container-fluid d-flex flex-row mr-5 ">
             <p
@@ -45,10 +44,7 @@ function BecomePartner() {
             </p>
 
             <div className="">
-              <button
-                type="button"
-                className="btn rounded-5 btn-primary py-2"
-              >
+              <button type="button" className="btn rounded-3 btn-primary py-2">
                 Start Selling
               </button>
             </div>
@@ -127,12 +123,16 @@ function BecomePartner() {
                   height: "250px",
                   backgroundColor: "rgb(235, 233, 205)",
                   cursor: "pointer",
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
               >
-                <span class="fs-3 fw-bold" style={{ color: 'rgb(238, 161, 135)' }} >Easy integration</span>
+                <span
+                  class="fs-3 fw-bold"
+                  style={{ color: "rgb(238, 161, 135)" }}
+                >
+                  Easy integration
+                </span>
                 <div class="mt-1">
                   <span class="fw-bold fs-6 text-secondary">
                     You can seamlessly incorporate MinitGo's features into your
@@ -146,12 +146,16 @@ function BecomePartner() {
                   height: "250px",
                   backgroundColor: " rgb(235, 233, 205)",
                   cursor: "pointer",
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
               >
-                <span class="fs-3 fw-bold" style={{ color: 'rgb(238, 161, 135)' }}>Benefits of selling on MinitGo</span>
+                <span
+                  class="fs-3 fw-bold"
+                  style={{ color: "rgb(238, 161, 135)" }}
+                >
+                  Benefits of selling on MinitGo
+                </span>
                 <div class="mt-1">
                   <span class="fw-bold fs-6 text-secondary">
                     Adding MinitGo to your product lineup diversifies your
@@ -165,12 +169,16 @@ function BecomePartner() {
                   height: "250px",
                   backgroundColor: "rgb(235, 233, 205)",
                   cursor: "pointer",
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
               >
-                <span class="fs-3 fw-bold " style={{ color: 'rgb(238, 161, 135)' }}>Fee and payments</span>
+                <span
+                  class="fs-3 fw-bold "
+                  style={{ color: "rgb(238, 161, 135)" }}
+                >
+                  Fee and payments
+                </span>
                 <div class="mt-1">
                   <span class="fw-bold fs-6 text-secondary">
                     Discover hassle-free payments with our flexible fee
@@ -181,14 +189,18 @@ function BecomePartner() {
               </div>
             </div>
 
-            <div class='row mt-5 mb-5 border-top pt-5'>
-              <div class='col mt-1'>
-                <span class='fs-2' style={{ letterSpacing: "3px", wordSpacing: '3px' }}>From five members to fifteen, a little trust can go a long way</span>
+            <div class="row mt-5 mb-5 border-top pt-5">
+              <div class="col mt-1">
+                <span
+                  class="fs-2"
+                  style={{ letterSpacing: "3px", wordSpacing: "3px" }}
+                >
+                  From five members to fifteen, a little trust can go a long way
+                </span>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </>
   );
