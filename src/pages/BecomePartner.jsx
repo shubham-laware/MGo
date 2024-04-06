@@ -26,11 +26,7 @@ function BecomePartner() {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+  
 
       <div className="container my-lg-3 border border-1 rounded-2 p-3 mb-5 bg-white rounded">
         <nav class=" d-flex rounded-2 py-2 ">

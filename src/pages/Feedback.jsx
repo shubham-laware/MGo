@@ -7,9 +7,7 @@ function Feedback() {
 
   return (
     <>
-      <br></br>
-      <br></br>
-      <br></br>
+     
       <br></br>
       <br></br>
       <br className="d-md-block d-none"></br>

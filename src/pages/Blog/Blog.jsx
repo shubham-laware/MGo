@@ -37,11 +37,6 @@ const Blog = () => {
     return (
         <>
             <div className="d-flex flex-column container">
-              
-               
-                <br />
-                <br />
-                <br />
                 <br />
                 <div className="col-12  mt-3"style={{marginTop:''}}>
                 <style>

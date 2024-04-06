@@ -6,8 +6,8 @@ function ReturnPolicy() {
   }, []);
 
   return (
-    <div className=" py-md-5 ">
-      <div className=" container  mt-5 py-4">
+    <div className=" py-md-1 ">
+      <div className=" container  mt-3 py-4">
         <div className=" text-center py-3">
           <h3>Return Policy</h3>
           <h4 style={{ textDecoration: "underline" }}>General Return Policy</h4>

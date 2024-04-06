@@ -117,13 +117,9 @@ const Cart = () => {
 
   return (
     <>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-
+    
       <section className="h-100 gradient-custom">
-        <div className="container py-5 h-100">
+        <div className="container h-100">
           <div className="row justify-content-center my-4">
             <div className="col-md-8">
               <div className="card mb-4">
