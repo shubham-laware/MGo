@@ -65,8 +65,6 @@ const Login = ({ closeLoginModal }) => {
     setResetEmail("");
   };
 
- 
-
   function handleSubmit(e) {
     e.preventDefault();
     console.log(userid);
@@ -101,64 +99,81 @@ const Login = ({ closeLoginModal }) => {
         password: password,
       };
       axios
-        .get("https://minitgo.com/api/fetch_login.php")
-        .then((response) => {
-          if (response.data && response.data.length > 0) {
-            const allUsers = response.data;
-
-            const foundUser = allUsers.find(
-              (user) => user.email === data.email
-            );
-
-            if (foundUser) {
-              // User with the provided email is found
-              if (foundUser.password === data.password) {
-                console.log("Login successful");
-                closeLoginModal();
-                toast.success("Login successfull", {
-                  autoClose: 1000,
-                  hideProgressBar: true,
-                });
-
-
-                const userData = {
-                  userId:foundUser.id,
-                  fullName: foundUser.full_name,
-                  phoneNumber: foundUser.phone_number,
-                  email: foundUser.email,
-                  address: foundUser.Address,
-                  officeAddress: foundUser.office_address,
-              };
-
-                localStorage.setItem('user',JSON.stringify(userData));
-
-                console.log('FOUNDUSER,',userData)
-
-                setUserID("");
-                setPassword("");
-              } else {
-                toast.error("Invalid Password", {
-                  autoClose: 1000,
-                  hideProgressBar: true,
-                });
-                console.log("Invalid password");
-              }
-            } else {
-              toast.error('Invalid Email', {
-                autoClose: 1000,
-                hideProgressBar: true
-            })
-            }
-          } else {
-            toast.error('Server Error', {
+      .get("https://minitgo.com/api/fetch_login.php")
+      .then((response) => {
+        if (response.data && response.data.length > 0) {
+          const allUsers = response.data;
+    
+          // Find user by both email and password
+          const foundUser = allUsers.find(
+            (user) => user.email === userid && user.password === password
+          );
+    
+          if (foundUser) {
+            console.log("Login successful");
+            closeLoginModal();
+            toast.success("Login successfull", {
               autoClose: 1000,
-              hideProgressBar: true
-          })
+              hideProgressBar: true,
+            });
+    
+            const userData = {
+              userId: foundUser.id,
+              fullName: foundUser.full_name,
+              phoneNumber: foundUser.phone_number,
+              email: foundUser.email,
+              address: foundUser.Address,
+              officeAddress: foundUser.office_address,
+            };
+    
+            localStorage.setItem("user", JSON.stringify(userData));
+    
+            console.log("FOUND USER:", userData);
+    
+            setUserID("");
+            setPassword("");
+          } else {
+            const findByEmail = allUsers.find((user) => user.email === userid);
+    
+            const findByPassword = allUsers.find(
+              (user) => user.password === password
+            );
+    
+            if (findByEmail && findByPassword) {
+              toast.error("Invalid email and password", {
+                autoClose: 1000,
+                hideProgressBar: true,
+              });
+            } else if (findByEmail) {
+              toast.error("Invalid Password", {
+                autoClose: 1000,
+                hideProgressBar: true,
+              });
+            } else if (findByPassword) {
+              toast.error("Invalid Email", {
+                autoClose: 1000,
+                hideProgressBar: true,
+              });
+            } else {
+              // No user found with the provided email and password
+              toast.error("Please Sign Up", {
+                autoClose: 1000,
+                hideProgressBar: true,
+              });
+            }
           }
-        })
-        .catch((error) => {
-          console.error("Failed to fetch user information:", error);
-        });
+        } else {
+          // No users found in API response
+          toast.error("Error SignIn", {
+            autoClose: 1000,
+            hideProgressBar: true,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch user information:", error);
+      });
+    
     }
   }
 

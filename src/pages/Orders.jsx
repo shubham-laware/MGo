@@ -440,23 +440,23 @@ const OrdersPage = () => {
                             </div>
 
                             <div className="d-flex flex-wrap align-items-center py-3">
-                              <Link
+                              {/* <Link
                                 to="/"
                                 className="btn btn-primary mx-1"
                                 role="button"
                                 aria-disabled=""
                               >
                                 Track
-                              </Link>
+                              </Link> */}
 
-                              <Link
+                              {/* <Link
                                 to="/"
                                 className="btn btn-light border rounded-pill mx-1"
                                 role="button"
                                 aria-disabled=""
                               >
                                 Feedback
-                              </Link>
+                              </Link> */}
 
                               <Link
                                 to="/"
@@ -617,23 +617,23 @@ const OrdersPage = () => {
                             </div>
 
                             <div className="d-flex flex-wrap align-items-center py-3">
-                              <Link
+                              {/* <Link
                                 to="/"
                                 className="btn btn-primary mx-1"
                                 role="button"
                                 aria-disabled=""
                               >
                                 Track
-                              </Link>
+                              </Link> */}
 
-                              <Link
+                              {/* <Link
                                 to="/"
                                 className="btn btn-light border rounded-pill mx-1"
                                 role="button"
                                 aria-disabled=""
                               >
                                 Feedback
-                              </Link>
+                              </Link> */}
 
                               <Link
                                 to="/"

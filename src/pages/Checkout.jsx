@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 
@@ -13,6 +13,7 @@ import { HiBuildingOffice } from "react-icons/hi2";
 export const Checkout = () => {
   const cart = useSelector((state) => state.cart.items);
   const [paymentMethod, setPaymentMethod] = useState("Cash On Delivery");
+  const [userCoordinates,setUserCoordinates]=useState('')
   const [selectedAddress, setSelectedAddress] = useState({
     type: "Home Address",
     location: "1234 Random St, City, Country",
@@ -27,7 +28,88 @@ export const Checkout = () => {
     return totalPrice;
   }
 
-  console.log(cart);
+
+
+  // console.log('CART:',cart)
+
+
+
+  const handleUseCurrentLocation = () => {
+    // Use browser geolocation API to get the current location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          // console.log("LAT:",latitude)
+          // console.log("LONG",longitude)
+          const coordinates = `${latitude},${longitude}`;
+          setUserCoordinates(coordinates)
+          setSelectedAddress({
+            type:'Current Address',
+            location:coordinates
+          })
+          // try {
+          //   const response = await fetch(
+          //     `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=AIzaSyCMG4GzxbEmqfSZ-uaDOhF55sgxi9sumc4`
+          //   ); // Replace 'YOUR_API_KEY' with your actual API key
+          //   const data = await response.json();
+          //   if (data.results.length > 0) {
+          //     const { components } = data.results[0];
+          //     setAddress(components.road || "");
+          //     setCity(
+          //       components.city || components.town || components.village || ""
+          //     );
+          //     setPincode(components.postcode || "");
+          //     setTownDistrict(components.town || components.district || "");
+          //     setState(components.state || "");
+          //   }
+          // } catch (error) {}
+        },
+        (error) => {
+          return;
+        }
+      );
+    } else {
+    }
+  };
+
+  useEffect(() => {
+    handleUseCurrentLocation();
+  }, []);
+
+  useEffect(() => {
+    handleConfirmOrder();
+  }, [userCoordinates]);
+
+
+
+ function handleConfirmOrder (){
+  handleUseCurrentLocation();
+
+  const userDetails=JSON.parse(localStorage.getItem("user"))
+  // console.log("DET",userDetails)
+
+  const productDetails = cart.map(item => ({
+    product_id: item.product_id,
+    product_name: item.product_name,
+    product_color1: item.product_color1,
+    product_title: item.product_title,
+    client_name: item.client_name,
+    client_id: item.client_id,
+    coordinates: item.coordinates,
+    quantity: item.quantity
+  }));
+
+  const orderDetails={
+    user_id:userDetails.userId,
+    user_coordinates:userCoordinates,
+    user_address:userDetails.address,
+    user_name:userDetails.fullName,
+    product_details:productDetails
+  }
+
+  console.log("ORDER DETAILS",orderDetails)
+ }
 
   return (
     <>
@@ -191,18 +273,13 @@ export const Checkout = () => {
                           name="address"
                           id="currentAddress"
                           checked={selectedAddress.type === "Current Address"}
-                          onChange={() =>
-                            setSelectedAddress({
-                              type: "Current Address",
-                              location: "Not Available",
-                            })
-                          }
+                          onChange={handleUseCurrentLocation}
                         />
                       </div>
                       <div className="rounded border d-flex w-100 p-3 align-items-center">
-                        <button className="mb-0 fw-semibold btn btn-primary">
+                        
                           Use Current Address
-                        </button>
+                      
                         {/* <span className="ms-auto fs-6">
                           {"Street #4, City 59 , India"}
                         </span> */}
@@ -298,6 +375,7 @@ export const Checkout = () => {
                           <button
                             type="button"
                             className="btn btn-primary mx-auto"
+                            onClick={handleConfirmOrder}
                           >
                             Confirm Order
                           </button>
