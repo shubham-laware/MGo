@@ -44,7 +44,7 @@ function BecomePartner() {
             </p>
 
             <div className="">
-              <button type="button" className="btn rounded-5 btn-primary py-2">
+              <button type="button" className="btn rounded-3 btn-primary py-2">
                 Start Selling
               </button>
             </div>
