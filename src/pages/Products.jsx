@@ -296,13 +296,8 @@ const HomeProducts = () => {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+     
+    
       {/* we are coming soon */}
       <div className="container">
         <h6>

@@ -1,23 +1,48 @@
 // Import the CSS file for animations
 import Dropdown from "react-bootstrap/Dropdown";
 import cartIcon from "../assets/cart-icon.svg";
-
+import React, { useState, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectTotalQuantity } from "../components/redux/Slices/CartSlice.js";
+import { FiFilter } from "react-icons/fi";
+import Filter from "./Filter.jsx";
+import myContext from "./context/MyContext";
+
+
 
 export default function Catlog() {
+  const [mobileView, setMobileView] = useState(false)
   const totalQuantity = useSelector(selectTotalQuantity);
+  const context = useContext(myContext);
+  const { products } = context;
+  console.log("catlog page", products)
+
+  const location = useLocation();
+  const showFilter = () => {
+    // Check if location pathname is not '/signin' or '/register'
+    return (
+      location.pathname === "/products" ||
+      location.pathname === "/mens-category" ||
+      location.pathname === "/womens-category" ||
+      location.pathname === "/accessories" ||
+      location.pathname === "/category"
+    );
+  };
+
+  const { showfilterModal } = context;
 
   return (
-    <div className="catlog fixed-top filter">
-      <div
-        className="catlog-names d-flex justify-content-center align-items-center gap-1"
-        style={{ marginLeft: "2.7rem" }}
+    <>
+           <div className="catlog filter">
+               <div
+        className="catlog-names mx-lg-2 d-flex gap-1 info-div text-center mt-1"
+      // style={{ marginLeft: "2.7rem" }}
       >
         <div className="nav-link cat-nav mb-2">
           <Dropdown>
             <Dropdown.Toggle
-              variant="light mx-2"
+              variant="light"
               id="dropdown-basic"
               className=" rounded-pill set-range btn-primary"
             >
@@ -43,7 +68,7 @@ export default function Catlog() {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-        <div
+        {/* <div
           className="nav-link cat-nav d-lg-none d-block text-center"
           style={{ position: "relative" }}
         >
@@ -55,8 +80,44 @@ export default function Catlog() {
           <h6 style={{ position: "absolute", top: "0.5rem", left: "1.6rem" }}>
             {totalQuantity}
           </h6>
+        </div> */}
+
+
+        {
+          showFilter() && (
+            <div className="nav-link cat-nav d-lg-none d-block " style={{marginLeft:"12rem"}}>
+              <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setMobileView(true)}> Filter</button>
+            </div>
+          )
+        }
+
+
+      </div>
+              </div>
+      {/* <div className="catlog filter w-100">
+     
+
+      </div> */}
+
+      {/* filter modal */}
+      
+      <div className="modal fade bottom" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">Filter</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+
+              <Filter mobileView={mobileView} />
+
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+      {/* modal end */}
+    </>
+
   );
 }

@@ -193,12 +193,7 @@ const Mens = () => {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+    
       <br />
       {/* we are coming soon */}
       <div className="container">

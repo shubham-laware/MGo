@@ -34,6 +34,7 @@ import Womens from "./pages/Categories/Womens.jsx";
 import Category from "./pages/Category.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Catlog from "./components/catlog.jsx";
 
 const App = () => {
   const location = useLocation();
@@ -56,8 +57,8 @@ const App = () => {
 
   return (
     <Mystate>
-      {showHeader() && <Header />}
-
+      {showHeader() && <Header /> }
+      {/* <Header /> <Catlog/> */}
       <Routes>
         <Route exact path="/" element={<Home />} />
         {/* <Route path="/signin" element={<Login />} /> */}
