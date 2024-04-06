@@ -210,11 +210,20 @@ function Header() {
   };
 
   const userData = JSON.parse(localStorage.getItem("user"));
-  console.log(userData, "userData")
-  const fullName = userData.fullName;
-  console.log(fullName);
-  const userLocation = userData.address;
-  console.log(userLocation);
+
+  let fullName
+  let userLocation
+  if(userData){
+    console.log(userData, "userData")
+     fullName = userData.fullName;
+    console.log(fullName);
+     userLocation = userData.address;
+    console.log(userLocation);
+  }else{
+     fullName="SignIn"
+     userLocation='Address';
+  }
+ 
 
 
   const login = fullName ? (
@@ -509,6 +518,7 @@ function Header() {
 
       </Navbar>
 
+      
       <Catlog />
 
 

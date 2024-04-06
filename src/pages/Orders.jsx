@@ -7,13 +7,12 @@ import { productImages } from "../components/ProductInfo/data";
 
 const OrdersPage = () => {
   return (
-    <>
-      <Header />
+    <div className="border ">
+      {/* <br></br>
       <br></br>
       <br></br>
       <br></br>
-      <br></br>
-      <br></br>
+      <br></br> */}
 
       {/* inside layout */}
 
@@ -259,7 +258,7 @@ const OrdersPage = () => {
 
       {/* outside layout */}
 
-      <div className=" mt-1   py-4 ">
+      <div className=" mt-1  ">
       <div className=" d-flex  flex-wrap justify-content-center  ">
         <div className="  col-12 col-md-8">
           <section className="">
@@ -686,7 +685,7 @@ const OrdersPage = () => {
         </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
