@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const DistanceCalculator = () => {
-  const [startLat, setStartLat] = useState('');
-  const [startLng, setStartLng] = useState('');
-  const [destLat, setDestLat] = useState('');
-  const [destLng, setDestLng] = useState('');
-  const [distance, setDistance] = useState('');
+  const [startLat, setStartLat] = useState("");
+  const [startLng, setStartLng] = useState("");
+  const [destLat, setDestLat] = useState("");
+  const [destLng, setDestLng] = useState("");
+  const [distance, setDistance] = useState("");
 
   const calculateDistance = () => {
+    const degToRad = (degrees) => {
+      return (degrees * Math.PI) / 180;
+    };
+    
     const startLatRad = degToRad(Number(startLat));
     const startLngRad = degToRad(Number(startLng));
     const destLatRad = degToRad(Number(destLat));
@@ -32,28 +36,40 @@ const DistanceCalculator = () => {
     setDistance(distanceInKm.toFixed(2));
   };
 
-  const degToRad = (degrees) => {
-    return (degrees * Math.PI) / 180;
-  };
-
   return (
     <div>
       <h2>Distance Calculator</h2>
       <div>
         <label>Starting Latitude:</label>
-        <input type="text" value={startLat} onChange={(e) => setStartLat(e.target.value)} />
+        <input
+          type="text"
+          value={startLat}
+          onChange={(e) => setStartLat(e.target.value)}
+        />
       </div>
       <div>
         <label>Starting Longitude:</label>
-        <input type="text" value={startLng} onChange={(e) => setStartLng(e.target.value)} />
+        <input
+          type="text"
+          value={startLng}
+          onChange={(e) => setStartLng(e.target.value)}
+        />
       </div>
       <div>
         <label>Destination Latitude:</label>
-        <input type="text" value={destLat} onChange={(e) => setDestLat(e.target.value)} />
+        <input
+          type="text"
+          value={destLat}
+          onChange={(e) => setDestLat(e.target.value)}
+        />
       </div>
       <div>
         <label>Destination Longitude:</label>
-        <input type="text" value={destLng} onChange={(e) => setDestLng(e.target.value)} />
+        <input
+          type="text"
+          value={destLng}
+          onChange={(e) => setDestLng(e.target.value)}
+        />
       </div>
       <button onClick={calculateDistance}>Calculate Distance</button>
       {distance && <div>Distance: {distance} km</div>}

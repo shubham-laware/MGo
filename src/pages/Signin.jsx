@@ -65,8 +65,6 @@ const Login = ({ closeLoginModal }) => {
     setResetEmail("");
   };
 
- 
-
   function handleSubmit(e) {
     e.preventDefault();
     console.log(userid);
@@ -120,19 +118,20 @@ const Login = ({ closeLoginModal }) => {
                   hideProgressBar: true,
                 });
 
-
                 const userData = {
-                  userId:foundUser.id,
+                  userId: foundUser.id,
                   fullName: foundUser.full_name,
                   phoneNumber: foundUser.phone_number,
                   email: foundUser.email,
                   address: foundUser.Address,
                   officeAddress: foundUser.office_address,
-              };
+                  lat: foundUser.lat,
+                  log: foundUser.log,
+                };
 
-                localStorage.setItem('user',JSON.stringify(userData));
+                localStorage.setItem("user", JSON.stringify(userData));
 
-                console.log('FOUNDUSER,',userData)
+                console.log("FOUNDUSER,", userData);
 
                 setUserID("");
                 setPassword("");
@@ -144,16 +143,16 @@ const Login = ({ closeLoginModal }) => {
                 console.log("Invalid password");
               }
             } else {
-              toast.error('Invalid Email', {
+              toast.error("Invalid Email", {
                 autoClose: 1000,
-                hideProgressBar: true
-            })
+                hideProgressBar: true,
+              });
             }
           } else {
-            toast.error('Server Error', {
+            toast.error("Server Error", {
               autoClose: 1000,
-              hideProgressBar: true
-          })
+              hideProgressBar: true,
+            });
           }
         })
         .catch((error) => {
