@@ -98,7 +98,7 @@ function Filter({ brand, mobileView }) {
 
 
             <div className="col-md-2 filter-s">
-                <div className="container-sm container-md">
+             
                     <div className='shadow filter-bg'>
                         <form>
                             <div className="form-group mt-1">
@@ -163,7 +163,7 @@ function Filter({ brand, mobileView }) {
                             </div>
                         </form>
                     </div>
-                </div>
+               
             </div>
 
         </>
