@@ -25,7 +25,7 @@ function Filter({ brand, mobileView }) {
             {/* for mobile view  */}
             {
                 mobileView && (
-                    <div className="col-md-2 d-lg-none">
+                    <div className="col-md-2">
                         <div className="container-sm container-md">
                             <div className=''>
                                 <form>

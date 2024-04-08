@@ -718,7 +718,7 @@
  @media screen and (min-width: 767px) and (max-width: 768px) {
    .mobile-search {
      margin-top: -17%;
-     margin-left: 125%;
+     margin-left: 75%;
 
    }
 
@@ -741,8 +741,9 @@
    }
 
    .filter-s {
-     display: block;
-   }
+    display: none;
+  }
+    
    #cartNo{
     margin-top: 10px;
    }
@@ -752,12 +753,12 @@
  @media screen and (min-width: 819px) and (max-width: 821px) {
    .mobile-search {
      margin-top: -17%;
-     margin-left: 125%;
+     margin-left: 75%;
 
    }
 
    .catlog {
-     margin-left: 20%;
+     /* margin-left: 20%; */
    }
 
    .left-box h1 {
@@ -772,6 +773,9 @@
      height: 20.5vh;
 
    }
+   .filter-s {
+    display: none;
+  }
  }
 
  .floating-card {
@@ -925,5 +929,55 @@
    }
  }
 
+
+  
  
 
+ /* for open filter modal from bottom */
+ @keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.modal.fade .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.filter-modal{
+  animation: slideInFromBottom 0.5s forwards;
+}
+
+@media screen and (min-width: 767px) and (max-width: 770px) {
+  .filter-button {
+   margin-left:37rem !important;
+  }
+}
+
+@media screen and (min-width: 820px) and (max-width: 1024px) {
+
+ .filter-button {
+   margin-left:37rem !important;
+  }
+.catlog {
+margin-top: 68px !important;
+  }
+} 
+
+@media screen and (min-width: 912px)and (max-width: 912px) {
+  .catlog {
+    margin-top: 100px !important;
+      }
+      /* .mobile-search {
+        margin-left: 158px !important;
+      } */
+}
+
+@media screen and (min-width: 540px)and (max-width: 540px) {
+  .filter-button {
+    margin-left:22rem !important;
+   }
+   .mobile-search {
+    width: 151% !important;
+   }
+}
