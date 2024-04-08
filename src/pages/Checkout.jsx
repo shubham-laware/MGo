@@ -31,11 +31,7 @@ export const Checkout = () => {
 
   return (
     <>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-
+    
       <div className="container mt-5 border border-1 p-0" style={{ backgroundColor: "#eee" }}>
         <div className="card">
           <div className="card-body">
