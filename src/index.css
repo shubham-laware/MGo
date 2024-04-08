@@ -912,5 +912,20 @@
    }
  }
 
+
+  /* for open filter modal from bottom */
+  @keyframes slideInFromBottom {
+    0% {
+      transform: translateY(100%);
+    }
+ 
+    100% {
+      transform: translateY(0);
+    }
+  }
+ 
+  .modal.fade .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.filter-modal{
+    animation: slideInFromBottom 0.5s forwards;
+  }
  
 
