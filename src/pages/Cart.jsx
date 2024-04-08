@@ -365,7 +365,7 @@ const Cart = () => {
                   {products.map((prod, index) => (
                     <div
                       key={index}
-                      className="d-flex  flex-column bg-light  shadow rounded px-4"
+                      className="d-flex  flex-column justify-content-between bg-light  shadow rounded px-4"
                       style={{ height: "430px" }}
                     >
                       <img
@@ -379,7 +379,7 @@ const Cart = () => {
                           <p className="text-muted">{prod.description}</p>
                           <p className="text-muted">{prod.size}</p>
                         </div>
-                        <div className="d-flex justify-content-center align-items-center fs-4 my-1 pb-1">
+                        <div className="d-flex justify-content-center align-items-center fs-4 my-1 pb-1 mt-auto">
                           <button className="btn  btn-dark w-100">❤</button>
                           <div className="d-flex ">
                             <button className="btn btn-dark w-100 mx-2 px-5">
