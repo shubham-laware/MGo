@@ -214,7 +214,7 @@ export const Checkout = () => {
                     type="button"
                     className="btn btn-primary btn-lg"
                     data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    data-bs-target="#placeOrderModal"
                   >
                     Place Order
                   </button>
@@ -222,15 +222,15 @@ export const Checkout = () => {
 
                   <div
                     className="modal fade"
-                    id="exampleModal"
+                    id="placeOrderModal"
                     tabIndex="-1"
-                    aria-labelledby="exampleModalLabel"
+                    aria-labelledby="placeOrderModal"
                     aria-hidden="true"
                   >
                     <div className="modal-dialog">
                       <div className="modal-content">
                         <div className="modal-header">
-                          <h5 className="modal-title" id="exampleModalLabel">
+                          <h5 className="modal-title" id="placeOrderModal">
                             Order Confirmation
                           </h5>
                           <button

@@ -370,6 +370,21 @@ const Category = () => {
     }
   }, [selectedCategory, selectedPrice, products, offer]);
 
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <>
      
@@ -413,9 +428,13 @@ const Category = () => {
                       </div>
                      
                       <div className="product-content">
-                      {product.product_name.length > 15
-                            ? product.product_name.substring(0, 25) + "..."
-                            : product.product_name}
+                      {windowWidth <= 1024
+                          ? product.product_name.length > 15
+                            ? product.product_name.substring(0, 15) + "..."
+                            : product.product_name
+                          : product.product_name.length > 20
+                          ? product.product_name.substring(0, 25) + "..."
+                          : product.product_name}
                         <h5>
                           Price: <sup>&#x20B9;</sup>
                           {product.product_price}

@@ -294,10 +294,24 @@ const HomeProducts = () => {
     }
   }, [products, searchQuery, selectedPrice, offer]);
 
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <>
-     
-    <br></br>
+      <br></br>
       {/* we are coming soon */}
       <div className="container">
         <h6>
@@ -320,24 +334,21 @@ const HomeProducts = () => {
                         color: "black",
                       }}
                     >
-                      <div
-                        className="product-image"
-                       
-                      >
-                        <img
-                          src={product.product_image1}
-                          alt="Product 1"
-                         
-                        />
+                      <div className="product-image">
+                        <img src={product.product_image1} alt="Product 1" />
                         <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
-                        {product.offers}% Off
+                          {product.offers}% Off
+                        </div>
                       </div>
-                      </div>
-                      
+
                       <div className="product-content">
-                      {product.product_name.length > 15
-                            ? product.product_name.substring(0, 25) + "..."
-                            : product.product_name}
+                        {windowWidth <= 1024
+                          ? product.product_name.length > 15
+                            ? product.product_name.substring(0, 15) + "..."
+                            : product.product_name
+                          : product.product_name.length > 20
+                          ? product.product_name.substring(0, 25) + "..."
+                          : product.product_name}
                         <h5>
                           Price: <sup>&#x20B9;</sup>
                           {product.product_price}
@@ -373,7 +384,6 @@ const HomeProducts = () => {
                       </div>
                     </a>
 
-
                     <div className="d-flex justify-content-center align-items-center gap-2">
                       <button
                         className="btn btn-primary ms-2"
@@ -382,11 +392,17 @@ const HomeProducts = () => {
                         <img
                           className="img-fluid "
                           src={cartIcon}
-                          style={{ height:'20px'}}
+                          style={{ height: "20px" }}
                         />
                       </button>
                       <button className="btn btn-primary my-2  ms-2 px-2 py-1">
-                       <Link to="/checkout" style={{textDecoration:"none",color:"#000"}}> Buy Now</Link>
+                        <Link
+                          to="/checkout"
+                          style={{ textDecoration: "none", color: "#000" }}
+                        >
+                          {" "}
+                          Buy Now
+                        </Link>
                       </button>
                     </div>
                   </div>

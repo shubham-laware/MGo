@@ -24,7 +24,7 @@ export default function Banner() {
       <div className="container" style={{ marginTop: "15px" }}>
         <Row>
           <div className="custom-bg ">
-            <Col xs={6} sm={6} className="left-box ">
+            <Col className="left-box ">
               <br></br>
               <h1 className="typing-text">
                 Get Delivery In{" "}
@@ -49,7 +49,7 @@ export default function Banner() {
               </p>
             </Col>
             <Col xs={6} sm={6} className="right-box">
-              <img className="imgs" src={Add} />
+              <img className="imgs " src={Add}  />
             </Col>
           </div>
         </Row>

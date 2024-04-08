@@ -158,7 +158,6 @@ function Header() {
     setSearchSuggestions([]);
   };
 
-
   const handleSuggestionClick = (productName) => {
     setSearchQuery(productName);
   };
@@ -199,7 +198,7 @@ function Header() {
               setTownDistrict(components.town || components.district || "");
               setState(components.state || "");
             }
-          } catch (error) { }
+          } catch (error) {}
         },
         (error) => {
           return;
@@ -211,21 +210,16 @@ function Header() {
 
   const userData = JSON.parse(localStorage.getItem("user"));
 
-  let fullName
-  let userLocation
-  if(userData){
-    console.log(userData, "userData")
-     fullName = userData.fullName;
-    console.log(fullName);
-     userLocation = userData.address;
-    console.log(userLocation);
-  }else{
-     fullName="SignIn"
-     userLocation='Address';
+  const fullName = userData ? userData.fullName : null;
+  const userLocation = userData ? userData.address : null;
+  const phoneNumber = userData ? userData.phoneNumber : null;
+
+  function getInitials(fullName) {
+    return fullName
+      .split(" ")
+      .map((name) => name.charAt(0))
+      .join("");
   }
- 
-
-
   const login = fullName ? (
     fullName
   ) : (
@@ -247,21 +241,29 @@ function Header() {
               <img src={Logo} style={{ width: "90px" }} />
             </Link>
             <div className="mobile-menu-logo d-lg-none d-flex profile-data">
-              <span className="profile d-flex align-items-center " onClick={() => setShowLeftSideOffcanvas(true)}>
-                <img src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png" style={{ height: "2rem", width: "2rem" }} />
+              <span
+                className="profile d-flex align-items-center "
+                onClick={() => setShowLeftSideOffcanvas(true)}
+              >
+                <img
+                  src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png"
+                  style={{ height: "2rem", width: "2rem" }}
+                />
               </span>
-              <div className="userData mx-2  d-flex flex-column">
-                <span style={{ fontSize: "10px" }}>{fullName}</span>
-                <span style={{ fontSize: "10px" }}>Delivered to-{userLocation}</span>
-              </div>
+              {fullName &&(
+                 <div className="userData mx-2  d-flex flex-column">
+                 <span style={{ fontSize: "10px" }}>{fullName}</span>
+                 <span style={{ fontSize: "10px" }}>
+                   Delivered to-{userLocation}
+                 </span>
+               </div>
+              )}
+             
             </div>
           </Navbar.Brand>
 
-
-
           {/* for mobile vieww */}
           <div className="mobile-menu-logo d-lg-none d-flex gap-2 align-items-center">
-
             <div
               className="nav-link cat-nav d-lg-none d-block text-center "
               style={{ position: "relative" }}
@@ -271,7 +273,9 @@ function Header() {
                 alt="Cart"
                 style={{ height: "2rem", width: "2rem" }}
               />
-              <h6 style={{ position: "absolute", top: "0.5rem", left: "1.6rem" }}>
+              <h6
+                style={{ position: "absolute", top: "0.5rem", left: "1.6rem" }}
+              >
                 {totalQuantity}
               </h6>
             </div>
@@ -281,8 +285,6 @@ function Header() {
               style={{ fontSize: "33px" }}
             />
           </div>
-
-
 
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -330,11 +332,15 @@ function Header() {
             <Button
               className=" search-btn"
               variant="outline-success"
-              onClick={handleGoButton}>
+              onClick={handleGoButton}
+            >
               Go
             </Button>
 
-            <div className="suggestion position-absolute" style={{ width: "760px" }}>
+            <div
+              className="suggestion position-absolute"
+              style={{ width: "760px" }}
+            >
               <div
                 className="container position-absolute"
                 style={{
@@ -515,12 +521,9 @@ function Header() {
             </div>
           </div>
         </div>
-
       </Navbar>
 
-      
       <Catlog />
-
 
       {showModal && (
         <Modal
@@ -579,18 +582,8 @@ function Header() {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <div className="d-flex flex-column justify-content-center align-items-center border rounded  py-4 my-2">
-            <img
-              src={user?.image}
-              className="rounded rounded-circle border border-2 border-primary shadow shadow-2"
-              width={60}
-              height={60}
-            />
-            <h2>{user?.name}</h2>
-            <h5>{user?.number}</h5>
-            <p>
-              <span className="fw-bold">Location:</span> {user?.location}
-            </p>
+          <div className="d-flex flex-column justify-content-center align-items-center border rounded   my-2 " style={{height:'150px'}}>
+           <img src="man-working.jpg" alt="IMG" className="w-100 h-100" />
           </div>
           {/* Sidebar content goes here */}
 
@@ -637,52 +630,6 @@ function Header() {
                   About
                 </Link>
 
-                <span
-                  className="border-bottom py-3 fw-semibold px-2"
-                  style={{
-                    textDecoration: "none",
-                    color: "black",
-                  }}
-                  onClick={() => {
-                    setShowOffcanvas(false);
-                    setShowModal(true);
-                    console.log(true, showModal);
-                  }}
-                >
-                  <FaUserPlus
-                    className="me-3 "
-                    style={{
-                      width: "1.3rem",
-                      height: "1.3rem",
-                      color: "#E4AAAA",
-                    }}
-                  />
-                  SignUp
-                </span>
-                {/* Shubham- Mobile Login Modal starts here */}
-
-                <span
-                  className="border-bottom py-3 fw-semibold px-2"
-                  style={{
-                    textDecoration: "none",
-                    color: "black",
-                  }}
-                  onClick={() => {
-                    setShowOffcanvas(false);
-                    setLoginModal(true);
-                  }}
-                >
-                  <FiLogIn
-                    className="me-3 "
-                    style={{
-                      width: "1.3rem",
-                      height: "1.3rem",
-                      color: "#E4AAAA",
-                    }}
-                  />
-                  Login
-                </span>
-
                 <Link
                   to="/orders"
                   className="border-bottom py-3 fw-semibold px-2"
@@ -701,26 +648,6 @@ function Header() {
                     }}
                   />
                   Orders
-                </Link>
-
-                <Link
-                  to="/cart"
-                  className="border-bottom py-3 fw-semibold px-2"
-                  style={{
-                    textDecoration: "none",
-                    color: "black",
-                  }}
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  <FaCartShopping
-                    className="me-3 "
-                    style={{
-                      width: "1.3rem",
-                      height: "1.3rem",
-                      color: "#E4AAAA",
-                    }}
-                  />
-                  Cart
                 </Link>
 
                 <Link
@@ -766,25 +693,6 @@ function Header() {
             </Col>
             <Col className="col-6">
               <Nav className="flex-column w-100">
-                <Link
-                  to="/profile"
-                  className="border-bottom py-3 fw-semibold px-2"
-                  style={{
-                    textDecoration: "none",
-                    color: "black",
-                  }}
-                  onClick={() => setShowOffcanvas(false)}
-                >
-                  <BsPersonCircle
-                    className="me-3 "
-                    style={{
-                      width: "1.3rem",
-                      height: "1.3rem",
-                      color: "#E4AAAA",
-                    }}
-                  />
-                  Profile
-                </Link>
                 <Link
                   to="/connect"
                   className="border-bottom py-3 fw-semibold px-2"
@@ -909,7 +817,6 @@ function Header() {
         </Offcanvas.Body>
       </Offcanvas>
 
-
       {/* this is left side */}
       <Offcanvas
         show={showLeftSideOffcanvas}
@@ -926,31 +833,119 @@ function Header() {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <div className="d-flex flex-column justify-content-center align-items-center border rounded  py-4 my-2">
-            <img
-              src={user?.image}
-              className="rounded rounded-circle border border-2 border-primary shadow shadow-2"
-              width={60}
-              height={60}
-            />
-            <h2>{user?.name}</h2>
-            <h5>{user?.number}</h5>
-            <p>
-              <span className="fw-bold">Location:</span> {user?.location}
-            </p>
-          </div>
+          {fullName && (
+            <div className="d-flex flex-column justify-content-center align-items-center border rounded  py-4 my-2">
+
+              <div
+               className="rounded rounded-circle border border-2 border-primary " 
+               style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "1.5rem",
+                height:'60px',
+                width:'60px'
+              }}>
+               {getInitials(fullName)}
+              </div>
+
+              <h2 className="mt-2">{fullName}</h2>
+              <h5>{phoneNumber}</h5>
+              <p>
+                <span className="fw-bold">Location:</span> {userLocation}
+              </p>
+            </div>
+          )}
+
           {/* Sidebar content goes here */}
           <div className="btn-block">
-            <div className="btn d-block border border-3 mt-3"> <button className="btn btn-outline fw-bold">Your Orders</button></div>
+            {fullName && <></>}
 
-            <div className="btn d-block border border-3 mt-3" > <button className="btn btn-outline fw-bold">Profile Edit</button></div>
+            {fullName ? (
+              <div >
+                <div className=" py-3 px-2 w-100 ">
+                  <Link
+                    to="/profile"
+                    className="border-bottom py-3 fw-semibold  d-block w-100 "
+                    style={{
+                      textDecoration: "none",
+                      color: "black",
+                    }}
+                    onClick={() => setShowLeftSideOffcanvas(false)}
+                  >
+                    <BsPersonCircle
+                      className="me-3 "
+                      style={{
+                        width: "1.3rem",
+                        height: "1.3rem",
+                        color: "#E4AAAA",
+                      }}
+                    />
+                    Profile
+                  </Link>
+                </div>
 
-            <div className="btn d-block border border-3 mt-3"> <button className="btn btn-outline fw-bold">Address Change</button></div>
+                <div
+                  onClick={() => {
+                    localStorage.removeItem("user");
+                    window.location.reload();
+                  }}
+                  style={{ color: "red" }}
+                  className=" py-3 px-2"
+                >
+                  <BiLogIn className="me-3" />
+                  Logout
+                </div>
+              </div>
+            ) : (
+              <>
+                <div
+                  className="border-bottom py-3 fw-semibold px-2 "
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  onClick={() => {
+                    setShowLeftSideOffcanvas(false);
+                    setShowModal(true);
+                    console.log(true, showModal);
+                  }}
+                >
+                  <FaUserPlus
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
+                  SignUp
+                </div>
 
-
-            <span className="d-block text-center mt-3 fw-bold">Logout</span>
+                <div
+                  className="border-bottom py-3 fw-semibold px-2  "
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  onClick={() => {
+                    setShowLeftSideOffcanvas(false);
+                    setLoginModal(true);
+                  }}
+                >
+                  <FiLogIn
+                    className="me-3 "
+                    style={{
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      color: "#E4AAAA",
+                    }}
+                  />
+                  Login
+                </div>
+              </>
+            )}
           </div>
-
         </Offcanvas.Body>
       </Offcanvas>
     </>
