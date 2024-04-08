@@ -254,7 +254,8 @@ function Header() {
                 <div className="userData mx-2  d-flex flex-column">
                   <span style={{ fontSize: "10px" }}>{fullName}</span>
                   <span style={{ fontSize: "10px" }}>
-                    Delivered to-{userLocation}
+                    {/* Delivered to-only13char */}
+                    Delivered to- {userLocation?.length > 20 ? userLocation?.substring(0, 13) + '...' : userLocation}
                   </span>
                 </div>
               )}
