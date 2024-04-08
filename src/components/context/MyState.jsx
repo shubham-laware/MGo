@@ -5,17 +5,16 @@ import axios from "axios";
 const Mystate = (props) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPrice, setselectedPrice] = useState("");
-  const [accessoriesCategory,setAccessoriesCategory]=useState("")
+  const [selectedDistance, setSelectedDistance] = useState("all");
+  const [accessoriesCategory, setAccessoriesCategory] = useState("");
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [offer,setOffers] = useState("")
+  const [offer, setOffers] = useState("");
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
- // for hide modal
- const [showfilterModal, setShowFilterModal] = useState(false);
-
-
+  // for hide modal
+  const [showfilterModal, setShowFilterModal] = useState(false);
 
   useEffect(() => {
     axios
@@ -32,13 +31,18 @@ const Mystate = (props) => {
     setSelectedCategory(event.target.value);
   };
 
-  const handleAccessoriesCategoryChange=(event)=>{
-    setAccessoriesCategory(event.target.value)
-  }
+  const handleAccessoriesCategoryChange = (event) => {
+    setAccessoriesCategory(event.target.value);
+  };
 
   const handlePriceChange = (event) => {
     setselectedPrice(event.target.value);
-    setShowFilterModal(false)
+    setShowFilterModal(false);
+  };
+
+  const handleDistanceChange = (event) => {
+    setSelectedDistance(event.target.value);
+    setShowFilterModal(false);
   };
 
   // Handle search input change
@@ -46,15 +50,14 @@ const Mystate = (props) => {
     setSearchQuery(e.target.value);
   };
 
-  const handleOfferChange = (event)=>{
-    setOffers(event.target.value)
-  }
+  const handleOfferChange = (event) => {
+    setOffers(event.target.value);
+  };
 
   const handleImageClick = (index) => {
-    console.log('imageclicked')
+    console.log("imageclicked");
     setSelectedImageIndex(index); // Update the selected image index
-};
-
+  };
 
   return (
     <div>
@@ -81,7 +84,10 @@ const Mystate = (props) => {
           handleImageClick,
           showModal,
           setShowModal,
-          showfilterModal
+          showfilterModal,
+          selectedDistance,
+          handleDistanceChange,
+          setSelectedDistance,
         }}
       >
         {props.children}
