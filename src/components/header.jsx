@@ -449,16 +449,18 @@ function Header() {
                   width: "50px",
                 }}
               >
-                <div className=" w-100 h-100 position-relative d-flex flex-column justify-content-end align-items-center">
+                <div className=" w-100 h-100 position-relative d-flex flex-column justify-content-center align-items-center">
                   <img
                     src={cartIcon}
                     alt="Cart"
-                    className="w-100 "
+                    className="w-100 mx-auto "
+                    
                     style={{ height: "35px" }}
                   />
                   <h6
                     className=" w-100  position-absolute text-center "
-                    style={{ top: "3px", left: "3px", fontSize: "14px" }}
+                    id="cartNo"
+                    style={{ top: "3px", left: "1px", fontSize: "14px" }}
                   >
                     {totalQuantity}
                   </h6>

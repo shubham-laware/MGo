@@ -31,9 +31,9 @@ export default function Carousel() {
           <span className=" text-muted p-2" style={{ fontSize: 13.5 }}>Nearst trending products</span>
           <div className="rounded-full"></div>
         </div>
-        <div className="d-flex gap-3 overflow-x-auto my-3">
+        <div className="d-flex gap-3 overflow-x-auto my-3 ">
           {products.map((prod, index) => (
-            <div key={index} className="prod px-4 shadow rounded bg-light ">
+            <div key={index} className="prod px-4 shadow rounded bg-light  ">
               <a
                 href={`/${prod.product_id}`}
                 target="_blank"
@@ -43,7 +43,7 @@ export default function Carousel() {
                 }}
               >
 
-                <div key={index} className="d-flex flex-column "  >
+                <div key={index} className="d-flex flex-column justify-content-between   " style={{height:'700px'}} >
                   <img className="w-100 rounded" src={prod.product_image1} alt={`Image ${prod.product_id}`} />
                   <div className="d-flex flex-column justify-content-between p-2">
                     <div className="d-flex flex-column">
@@ -63,7 +63,7 @@ export default function Carousel() {
                   </div>
                 </div>
               </a>
-              <div className="d-flex justify-content-center align-items-center fs-4 my-3">
+              <div className="d-flex justify-content-center align-items-center fs-4 mt-auto mb-3 ">
 
                 <button className="btn  btn-dark w-100 " style={{ whiteSpace: 'nowrap' }} onClick={() => handleAddToCart(prod, index)}> Add To Cart</button>
                 <div className="d-flex ">

@@ -244,9 +244,9 @@ const HomeProducts = () => {
           </div>
 
           <div className="col-md-10">
-            <div className="row">
+            <div className="row" >
               {products?.map((product, index) => (
-                <div key={index} className="col-6 col-sm-3 py-2">
+                <div key={index} className="col-6 col-sm-3 py-2" id="sections">
                   <div className="product-card">
                     <div className="product-image">
                       <div
@@ -317,12 +317,12 @@ const HomeProducts = () => {
                           <span className="visually-hidden">Next</span>
                         </button>
                       </div>
-                      <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
+                      <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light mt-2">
                         {product.offers}% Off
                       </div>
                     </div>
 
-                    <div className="product-content ">
+                    <div className="product-content mt-3  ">
                       <a
                         href={`/${product.product_id}`}
                         target="_blank"
@@ -368,7 +368,8 @@ const HomeProducts = () => {
                       )}
                     </div>
 
-                    <div className="d-flex justify-content-center align-items-center ">
+                    <div className="d-flex justify-content-center align-items-center " id="btns-sections">
+                      <div>
                       <button
                         className={`btn ${
                           wishlistClicked[index] ? "btn-success" : "btn-primary"
@@ -383,6 +384,7 @@ const HomeProducts = () => {
                       >
                         Add to cart
                       </button>
+                    </div>
                     </div>
                   </div>
                 </div>

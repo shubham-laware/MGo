@@ -667,45 +667,51 @@
 
  /* Mobile Responsive Styles */
  @media (max-width: 768px) {
-   .container.login {
-     padding: 0.1px;
-   }
+  .container.login {
+    padding: 0.1px;
+  }
 
-   .col-md-6 {
-     max-width: 100%;
-   }
+  .col-md-6 {
+    max-width: 100%;
+  }
 
-   .card-b {
-     margin-bottom: 20px;
-   }
+  .card-b {
+    margin-bottom: 20px;
+  }
 
-   .form-group {
-     margin-bottom: 10px;
-   }
+  .form-group {
+    margin-bottom: 10px;
+  }
 
-   .btn-l {
-     width: 50%;
-   }
-
-   .forgot-password-link {
-     display: block;
-     margin-top: 10px;
-   }
-
-   .filter-s {
-     display: none;
-   }
-
-   .product-image img {
-     height: 29.5vh;
-
-   }
-
-   /* for filter dropdown  */
-   /* option{
+  .btn-l {
     width: 50%;
-   } */
- }
+  }
+
+  .forgot-password-link {
+    display: block;
+    margin-top: 10px;
+  }
+
+  .filter-s {
+    display: none;
+  }
+
+  .product-image img {
+    height: 29.5vh;
+  }
+
+  .product-card {
+    height: 520px;
+    display: flex; /* Enable Flexbox */
+    flex-direction: column; /* Arrange children in a column */
+    justify-content: space-between; /* Place content at the beginning and end of the container */
+  }
+
+  #btns-sections {
+    margin-top: auto; /* Push the buttons to the bottom */
+  }
+}
+
 
 
  /* Ipad mini Responsive Styles */
@@ -737,6 +743,10 @@
    .filter-s {
     display: none;
   }
+    
+   #cartNo{
+    margin-top: 10px;
+   }
  }
 
  /* Ipad Air Responsive Styles */
