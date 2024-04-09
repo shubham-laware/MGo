@@ -40,7 +40,7 @@ const HomeProducts = () => {
     searchQuery,
     offer,
     setOffers,
-    isNewProduct
+    isNewProduct,
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -91,6 +91,9 @@ const HomeProducts = () => {
     navigate(url);
   }
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userCords = user ? [user.lat, user.log] : null;
+
   const calculateDistance = (startLat, startLng, destLat, destLng) => {
     if (!startLat || !startLng || !destLat || !destLng) return Infinity;
 
@@ -130,43 +133,45 @@ const HomeProducts = () => {
     let productsToFilter = products;
 
     // Distance filtering
-    console.log(selectedDistance);
-    if (selectedDistance !== "all" && localStorage.getItem("user")) {
-      console.log(productsToFilter);
-      const user = JSON.parse(localStorage.getItem("user"));
-      const userCords = [user.lat, user.log];
+    if (selectedDistance !== "all" && userCords) {
       const range = selectedDistance || "5";
 
-      const productsWithoutCoordinates = productsToFilter.filter(
-        (product) => !product.lat || !product.log
-      );
-      let productsLeft = products.filter(
-        (product) =>
-          calculateDistance(...userCords, product.lat, product.log) >
-          Number(range)
-      );
-
+      let newFilteredProducts = [];
+      let productsLeft = [];
+      let productsWithoutCoordinates = [];
       const uniqueCategories = {};
-      const newFilteredProducts = [];
+      productsToFilter.forEach((product) => {
+        const distance =
+          product.distance ||
+          calculateDistance(...userCords, product.lat, product.log);
+        product.distance = distance;
 
-      products.forEach((product) => {
-        if (
-          calculateDistance(...userCords, product.lat, product.log) <=
-          Number(range)
-        ) {
+        if (distance !== null) {
           if (!uniqueCategories[product.category]) {
-            newFilteredProducts.push(product);
-            uniqueCategories[product.category] = true;
+            if (distance <= Number(range)) {
+              newFilteredProducts.push(product);
+              uniqueCategories[product.category] = true;
+            } else {
+              productsLeft.push(product);
+            }
           } else {
             productsLeft.push(product);
           }
+        } else {
+          productsWithoutCoordinates.push(product);
         }
       });
 
+      // Sort the newFilteredProducts and productsLeft lists in ascending order based on distance
+      newFilteredProducts.sort(
+        (a, b) => Number(a.distance) - Number(b.distance)
+      );
+      productsLeft.sort((a, b) => Number(a.distance) - Number(b.distance));
+
       productsToFilter = [
         ...newFilteredProducts,
-        ...productsWithoutCoordinates,
         ...productsLeft,
+        ...productsWithoutCoordinates,
       ];
     }
 
@@ -434,77 +439,91 @@ const HomeProducts = () => {
                         </div>
 
                         <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
-                        <div style={{ fontSize: "14px" }}>
-                          {product.category}
-                          {isNewProduct(product.date) && <span className="ms-4" style={{color:'#ffc107'}}>New</span>}
-                        </div>
-                        <a
-                          href={`/${product.product_id}`}
-                          target="_blank"
-                          style={{
-                            textDecoration: "none",
-                            color: "black",
-                          }}
-                        >
-                          {windowWidth <= 1024
-                            ? product.product_name.length > 15
-                              ? product.product_name.substring(0, 15) + "..."
-                              : product.product_name
-                            : product.product_name.length > 20
-                            ? product.product_name.substring(0, 25) + "..."
-                            : product.product_name}
-
-                           
-                        </a>
-                        <h5 className="mt-1">
-                          <sup>&#x20B9;</sup>
-                          {product.product_price}
-                          <span className="text-decoration-line-through text-muted fs-6 fw-light">
-                            599
-                          </span>
-                          <span
-                            className="text-muted"
+                          <div style={{ fontSize: "14px" }}>
+                            {product.category}
+                            {isNewProduct(product.date) && (
+                              <span
+                                className="ms-4"
+                                style={{ color: "#ffc107" }}
+                              >
+                                New
+                              </span>
+                            )}
+                          </div>
+                          <a
+                            href={`/${product.product_id}`}
+                            target="_blank"
                             style={{
-                              fontSize: "13px",
+                              textDecoration: "none",
+                              color: "black",
                             }}
                           >
-                            {" "}
-                            {product.product_stock}
-                          </span>
-                        </h5>
+                            {windowWidth <= 1024
+                              ? product.product_name.length > 15
+                                ? product.product_name.substring(0, 15) + "..."
+                                : product.product_name
+                              : product.product_name.length > 20
+                              ? product.product_name.substring(0, 25) + "..."
+                              : product.product_name}
+                          </a>
+                          <h5 className="mt-1">
+                            <sup>&#x20B9;</sup>
+                            {product.product_price}
+                            <span className="text-decoration-line-through text-muted fs-6 fw-light">
+                              599
+                            </span>
+                            <span
+                              className="text-muted"
+                              style={{
+                                fontSize: "13px",
+                              }}
+                            >
+                              {" "}
+                              {product.product_stock}
+                            </span>
+                          </h5>
 
-                        <div className="d-flex justify-content-between ">
-                          <h6>
-                            Size: <span>{product.product_size}</span>
-                          </h6>
-                          <h6 className="">
-                            Color: <span>{product.product_color1}</span>
-                          </h6>
-                        </div>
-                      
-                          <div className="" >
+                          <div className="d-flex justify-content-between ">
+                            <h6>
+                              Size: <span>{product.product_size}</span>
+                            </h6>
+                            <h6 className="">
+                              Color: <span>{product.product_color1}</span>
+                            </h6>
+                          </div>
+
+                          <div className="">
                             {product.product_discription.length > 40
                               ? product.product_discription.slice(0, 40) + "..."
                               : product.product_discription}
                           </div>
-                        
-                        <div className="product-rating text-warning d-flex ">
-                          Rating:{" "}
-                          <StarRatings rating={product.product_ratings} />
-                        </div>
-                        <div className="product-distance text-secondary ">
-                          Distance: {product.distance}km away.
-                        </div>
-                        {cart.snackbar.open &&
-                          cart.snackbar.index === index && (
-                            <div
-                              style={{ fontSize: "12px" }}
-                              className="border text-center rounded w-75 mx-auto"
-                            >
-                              {cart.snackbar.message}
+
+                          <div className="product-rating text-warning d-flex ">
+                            Rating:{" "}
+                            <StarRatings rating={product.product_ratings} />
+                          </div>
+                          {userCords && (
+                            <div className="product-distance text-secondary ">
+                              Distance:{" "}
+                              {product.distance ||
+                                calculateDistance(
+                                  ...userCords,
+                                  product.lat,
+                                  product.log
+                                )}
+                              km away.
                             </div>
                           )}
-                      </div>
+                          {cart.snackbar.open &&
+                            cart.snackbar.index === index && (
+                              <div
+                                style={{ fontSize: "12px" }}
+                                className="border text-center rounded w-75 mx-auto"
+                              >
+                                {cart.snackbar.message}
+                              </div>
+                            )}
+                        </div>
                       </a>
 
                       <div className="d-flex justify-content-center align-items-center gap-2 mt-1">
