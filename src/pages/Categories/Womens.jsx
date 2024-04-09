@@ -38,6 +38,7 @@ const Women = () => {
     selectedPrice,
     setSearchQuery,
     offer,
+    isNewProduct
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -250,16 +251,32 @@ const Women = () => {
                       </div>
                       </div>
                       
-                      <div className="product-content">
-                      {windowWidth <= 1024
-                          ? product.product_name.length > 15
-                            ? product.product_name.substring(0, 15) + "..."
-                            : product.product_name
-                          : product.product_name.length > 20
-                          ? product.product_name.substring(0, 25) + "..."
-                          : product.product_name}
-                        <h5>
-                          Price: <sup>&#x20B9;</sup>
+                      
+               <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
+                        <div style={{ fontSize: "14px" }}>
+                          {product.category}
+                          {isNewProduct(product.date) && <span className="ms-4" style={{color:'#ffc107'}}>New</span>}
+                        </div>
+                        <a
+                          href={`/${product.product_id}`}
+                          target="_blank"
+                          style={{
+                            textDecoration: "none",
+                            color: "black",
+                          }}
+                        >
+                         {windowWidth <= 1024
+                            ? product.product_name.length > 15
+                              ? product.product_name.substring(0, 15) + "..."
+                              : product.product_name
+                            : product.product_name.length > 20
+                            ? product.product_name.substring(0, 20) + "..."
+                            : product.product_name}
+
+                           
+                        </a>
+                        <h5 className="mt-1">
+                          <sup>&#x20B9;</sup>
                           {product.product_price}
                           <span className="text-decoration-line-through text-muted fs-6 fw-light">
                             599
@@ -274,13 +291,29 @@ const Women = () => {
                             {product.product_stock}
                           </span>
                         </h5>
-                        <div className="product-rating text-warning d-flex mb-2">
+
+                        <div className="d-flex justify-content-between ">
+                          <h6>
+                            Size: <span>{product.product_size}</span>
+                          </h6>
+                          <h6 className="">
+                            Color: <span>{product.product_color1}</span>
+                          </h6>
+                        </div>
+                      
+                          <div className="" >
+                            {product.product_discription.length > 40
+                              ? product.product_discription.slice(0, 40) + "..."
+                              : product.product_discription}
+                          </div>
+                        
+                        <div className="product-rating text-warning d-flex ">
                           Rating:{" "}
                           <StarRatings rating={product.product_ratings} />
                         </div>
-                        <p className="product-distance text-secondary ">
+                        <div className="product-distance text-secondary ">
                           Distance: {product.distance}km away.
-                        </p>
+                        </div>
                         {cart.snackbar.open &&
                           cart.snackbar.index === index && (
                             <div

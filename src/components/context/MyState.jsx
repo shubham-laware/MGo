@@ -60,6 +60,18 @@ const Mystate = (props) => {
     setSelectedImageIndex(index); // Update the selected image index
   };
 
+  function isNewProduct(dateString) {
+    const productDate = dateString instanceof Date ? dateString : new Date(dateString);
+     const currentDate = new Date();
+    const fiveDaysAgo = new Date(currentDate);
+    fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
+      const timeDifference = Math.abs(productDate.getTime() - fiveDaysAgo.getTime());
+  
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+  
+    return daysDifference <= 5;
+  }
+
   return (
     <div>
       <myContext.Provider
@@ -90,6 +102,7 @@ const Mystate = (props) => {
           handleDistanceChange,
           forgetPasswordModal,
           setForgetPasswordModal,
+          isNewProduct
         }}
       >
         {props.children}
