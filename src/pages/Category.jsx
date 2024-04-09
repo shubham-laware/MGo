@@ -402,91 +402,85 @@ const Category = () => {
           <div className="col-md-10">
             <div className="row">
               {filteredProducts?.map((product, index) => (
-                <div
-                  key={index}
-                  className="col-6 col-sm-3 py-2"
-                >
-                  <div className="product-card">
-                    <a
-                      href={`/${product.product_id}`}
-                      target="_blank"
-                      style={{
-                        textDecoration: "none",
-                        color: "black",
-                      }}
-                    >
-                      <div
-                        className="product-image"
-                      >
-                        <img
-                          src={product.product_image1}
-                          alt="Product 1"
-                        />
-                         <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
-                        {product.offers}% Off
-                      </div>
-                      </div>
-                     
-                      <div className="product-content">
-                      {windowWidth <= 1024
-                          ? product.product_name.length > 15
-                            ? product.product_name.substring(0, 15) + "..."
-                            : product.product_name
-                          : product.product_name.length > 20
-                          ? product.product_name.substring(0, 25) + "..."
-                          : product.product_name}
-                        <h5>
-                          Price: <sup>&#x20B9;</sup>
-                          {product.product_price}
-                          <span className="text-decoration-line-through text-muted fs-6 fw-light">
-                            599
-                          </span>
-                          <span
-                            className="text-muted"
-                            style={{
-                              fontSize: "13px",
-                            }}
-                          >
-                            {" "}
-                            {product.product_stock}
-                          </span>
-                        </h5>
-                        <div className="product-rating text-warning d-flex mb-2">
-                          Rating:{" "}
-                          <StarRatings rating={product.product_ratings} />
-                        </div>
-                        <p className="product-distance text-secondary ">
-                          Distance: {product.distance}km away.
-                        </p>
-                        {cart.snackbar.open &&
-                          cart.snackbar.index === index && (
-                            <div
-                              style={{ fontSize: "12px" }}
-                              className="border text-center rounded w-75 mx-auto"
-                            >
-                              {cart.snackbar.message}
-                            </div>
-                          )}
-                      </div>
-                    </a>
-
-                    <div className="d-flex justify-content-center align-items-center gap-2">
-                      <button
-                        className="btn btn-primary  ms-2"
-                        onClick={() => handleAddToCart(product, index)}
-                      >
-                        <img
-                          className="img-fluid"
-                          src={cartIcon}
-                          style={{ height:'20px'}}
-                        />
-                      </button>
-                      <button className="btn btn-primary my-2  ms-2 px-2 py-1">
-                       <Link to="/checkout" style={{textDecoration:"none",color:"#000"}}> Buy Now</Link>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+             <div
+             key={index}
+             className="col-6 col-sm-3 py-2"
+           >
+             <div className="product-card">
+               <div className="product-image" style={{ position: "relative" }}>
+                 <img src={product.product_image1} style={{ width: '100%' }} alt="Product 1" />
+                 <span style={{ position: "absolute", top: "5px", right: "5px", background: "yellow", padding: "5px", fontSize: "10px" }}>Real Image</span>
+                 <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
+                   {product.offers}% Off
+                 </div>
+               </div>
+           
+               <div className="product-content">
+                 {/* Product Name */}
+                 {windowWidth <= 1024
+                   ? product.product_name.length > 15
+                     ? product.product_name.substring(0, 15) + "..."
+                     : product.product_name
+                   : product.product_name.length > 20
+                   ? product.product_name.substring(0, 25) + "..."
+                   : product.product_name}
+                 {/* Price and other details */}
+                 <h5>
+                   Price: <sup>&#x20B9;</sup>
+                   {product.product_price}
+                   <span className="text-decoration-line-through text-muted fs-6 fw-light">
+                     599
+                   </span>
+                   <span
+                     className="text-muted"
+                     style={{
+                       fontSize: "13px",
+                     }}
+                   >
+                     {" "}
+                     {product.product_stock}
+                   </span>
+                 </h5>
+                 {/* Product Rating */}
+                 <div className="product-rating text-warning d-flex mb-2">
+                   Rating: <StarRatings rating={product.product_ratings} />
+                 </div>
+                 {/* Distance */}
+                 <p className="product-distance text-secondary ">
+                   Distance: {product.distance}km away.
+                 </p>
+                 {/* Snackbar */}
+                 {cart.snackbar.open && cart.snackbar.index === index && (
+                   <div
+                     style={{ fontSize: "12px" }}
+                     className="border text-center rounded w-75 mx-auto"
+                   >
+                     {cart.snackbar.message}
+                   </div>
+                 )}
+               </div>
+           
+               {/* Buttons */}
+               <div className="d-flex justify-content-center align-items-center gap-2">
+                 <button
+                   className="btn btn-primary  ms-2"
+                   onClick={() => handleAddToCart(product, index)}
+                 >
+                   <img
+                     className="img-fluid"
+                     src={cartIcon}
+                     style={{ height: "20px" }}
+                   />
+                 </button>
+                 <button className="btn btn-primary my-2  ms-2 px-2 py-1">
+                   <Link to="/checkout" style={{ textDecoration: "none", color: "#000" }}>
+                     Buy Now
+                   </Link>
+                 </button>
+               </div>
+             </div>
+           </div>
+           
               ))}
             </div>
           </div>

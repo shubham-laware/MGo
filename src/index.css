@@ -501,7 +501,7 @@
    .catlog {
 
      background: #e4d6d2 !important;
-     margin-top: 100px;
+     margin-top: 110px;
      /* margin-left: 31%; */
      width: 100% !important;
    }
@@ -1040,4 +1040,8 @@
   .filter-button {
     margin-left: 51rem !important;
   }
+  .catlog {
+    margin-top: 70px !important;
+  
+  } 
  }
