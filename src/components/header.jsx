@@ -253,13 +253,13 @@ function Header() {
             </Link>
             <div className="mobile-menu-logo d-lg-none d-flex profile-data">
               <span
-                className="profile d-flex align-items-center "
+                className="profile d-flex align-items-centrer "
                 onClick={() => setShowLeftSideOffcanvas(true)}
               >
                 <img
             src={profileIcon}
             alt="Profile"
-            style={{ height: "2rem", width: "2rem", color:'blue' }}
+            style={{ height: "2rem", width: "2rem" }}
           />
               </span>
               {fullName && (
@@ -273,10 +273,11 @@ function Header() {
                         <>
                           <FaLocationDot className="fs-5 p-1" />
                           <span style={{ fontSize: '12px' }}>
-                            {userLocation.length > 20 ? userLocation.substring(0, 10) + '...' : userLocation}
+                            {userLocation.length > 20 ? userLocation.substring(0, 8) + '...' : userLocation}
                           </span>
                         </>
                       )}
+                      
                     </div>
 
                   </span>
