@@ -36,6 +36,7 @@ const HomeProducts = () => {
     setAccessoriesCategory,
     products,
     selectedPrice,
+    selectedDistance,
     searchQuery,
     offer,
     setOffers,
@@ -89,12 +90,78 @@ const HomeProducts = () => {
     navigate(url);
   }
 
+  const calculateDistance = (startLat, startLng, destLat, destLng) => {
+    if (!startLat || !startLng || !destLat || !destLng) return Infinity;
+
+    const degToRad = (degrees) => {
+      return (degrees * Math.PI) / 180;
+    };
+
+    const startLatRad = degToRad(Number(startLat));
+    const startLngRad = degToRad(Number(startLng));
+    const destLatRad = degToRad(Number(destLat));
+    const destLngRad = degToRad(Number(destLng));
+
+    const earthRadius = 6371; // Radius of the Earth in kilometers
+
+    const latDiffRad = destLatRad - startLatRad;
+    const lngDiffRad = destLngRad - startLngRad;
+
+    const a =
+      Math.sin(latDiffRad / 2) * Math.sin(latDiffRad / 2) +
+      Math.cos(startLatRad) *
+        Math.cos(destLatRad) *
+        Math.sin(lngDiffRad / 2) *
+        Math.sin(lngDiffRad / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distanceInKm = earthRadius * c;
+
+    console.log(
+      `UserLat: ${startLat}, UserLong: ${startLng}, ProductLat: ${destLat}, ProductLong: ${destLng}`
+    );
+    console.log(distanceInKm.toFixed(2));
+    return distanceInKm.toFixed(2);
+  };
+
   useEffect(() => {
     setAccessoriesCategory("");
     setSelectedCategory("");
 
     // Apply price filtering
     let productsToFilter = products;
+
+    // Distance filtering
+    if (
+      selectedDistance !== "all" &&
+      selectedDistance !== "null" &&
+      localStorage.getItem("user")
+    ) {
+      console.log("Distance filtering");
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      const userCords = [user.lat, user.log];
+
+      const range = selectedDistance;
+
+      const productsWithoutCoordinates = productsToFilter.filter(
+        (product) => !product.lat || !product.log
+      );
+
+      const newFilteredProducts = products.filter((product) =>
+        range === "20"
+          ? calculateDistance(...userCords, product.lat, product.log) >=
+            Number(range)
+          : calculateDistance(...userCords, product.lat, product.log) <=
+            Number(range)
+      );
+
+      productsToFilter = [
+        ...newFilteredProducts,
+        ...productsWithoutCoordinates,
+      ];
+    }
 
     if (selectedPrice !== "" && selectedPrice !== "500 +") {
       console.log("SELCTED", selectedPrice);
@@ -292,8 +359,14 @@ const HomeProducts = () => {
     } else {
       setFilteredProducts(productsToFilter);
     }
-  }, [products, searchQuery, selectedPrice, offer]);
-
+  }, [
+    products,
+    searchQuery,
+    selectedPrice,
+    offer,
+    selectedCategory,
+    selectedDistance,
+  ]);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -302,10 +375,10 @@ const HomeProducts = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -323,91 +396,100 @@ const HomeProducts = () => {
 
           <div className="col-md-10">
             <div className="row">
-              {filteredProducts?.map((product, index) => (
-                <div key={index} className="col-6 col-sm-3 py-2">
-                  <div className="product-card">
-                    <a
-                      href={`/${product.product_id}`}
-                      target="_blank"
-                      style={{
-                        textDecoration: "none",
-                        color: "black",
-                      }}
-                    >
-                      <div className="product-image">
-                        <img src={product.product_image1} alt="Product 1" />
-                        <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
-                          {product.offers}% Off
+              {filteredProducts?.length === 0 ? (
+                <div
+                  className="col-12 py-2 text-center fs-4 fw-semibold"
+                  id="sections"
+                >
+                  No Products Found
+                </div>
+              ) : (
+                filteredProducts?.map((product, index) => (
+                  <div key={index} className="col-6 col-sm-3 py-2">
+                    <div className="product-card">
+                      <a
+                        href={`/${product.product_id}`}
+                        target="_blank"
+                        style={{
+                          textDecoration: "none",
+                          color: "black",
+                        }}
+                      >
+                        <div className="product-image">
+                          <img src={product.product_image1} alt="Product 1" />
+                          <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
+                            {product.offers}% Off
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="product-content">
-                        {windowWidth <= 1024
-                          ? product.product_name.length > 15
-                            ? product.product_name.substring(0, 15) + "..."
-                            : product.product_name
-                          : product.product_name.length > 20
-                          ? product.product_name.substring(0, 25) + "..."
-                          : product.product_name}
-                        <h5>
-                          Price: <sup>&#x20B9;</sup>
-                          {product.product_price}
-                          <span className="text-decoration-line-through text-muted fs-6 fw-light">
-                            599
-                          </span>
-                          <span
-                            className="text-muted"
-                            style={{
-                              fontSize: "13px",
-                            }}
+                        <div className="product-content">
+                          {windowWidth <= 1024
+                            ? product.product_name.length > 15
+                              ? product.product_name.substring(0, 15) + "..."
+                              : product.product_name
+                            : product.product_name.length > 20
+                            ? product.product_name.substring(0, 25) + "..."
+                            : product.product_name}
+                          <h5>
+                            Price: <sup>&#x20B9;</sup>
+                            {product.product_price}
+                            <span className="text-decoration-line-through text-muted fs-6 fw-light">
+                              599
+                            </span>
+                            <span
+                              className="text-muted"
+                              style={{
+                                fontSize: "13px",
+                              }}
+                            >
+                              {" "}
+                              {product.product_stock}
+                            </span>
+                          </h5>
+                          <div className="product-rating text-warning d-flex mb-2">
+                            Rating:{" "}
+                            <StarRatings rating={product.product_ratings} />
+                          </div>
+                          <p className="product-distance text-secondary ">
+                            Distance: {product.distance}km away.
+                          </p>
+                          {cart.snackbar.open &&
+                            cart.snackbar.index === index && (
+                              <div
+                                style={{ fontSize: "12px" }}
+                                className="border text-center rounded w-75 mx-auto"
+                              >
+                                {cart.snackbar.message}
+                              </div>
+                            )}
+                        </div>
+                      </a>
+
+                      <div className="d-flex justify-content-center align-items-center gap-2">
+                        <button
+                          className="btn btn-primary ms-2"
+                          onClick={() => handleAddToCart(product, index)}
+                        >
+                          <img
+                            className="img-fluid "
+                            src={cartIcon}
+                            style={{ height: "20px" }}
+                          />
+                        </button>
+                        <button className="btn btn-primary my-2  ms-2 px-2 py-1">
+                          <Link
+                            to="/checkout"
+                            style={{ textDecoration: "none", color: "#000" }}
                           >
                             {" "}
-                            {product.product_stock}
-                          </span>
-                        </h5>
-                        <div className="product-rating text-warning d-flex mb-2">
-                          Rating:{" "}
-                          <StarRatings rating={product.product_ratings} />
-                        </div>
-                        <p className="product-distance text-secondary ">
-                          Distance: {product.distance}km away.
-                        </p>
-                        {cart.snackbar.open &&
-                          cart.snackbar.index === index && (
-                            <div
-                              style={{ fontSize: "12px" }}
-                              className="border text-center rounded w-75 mx-auto"
-                            >
-                              {cart.snackbar.message}
-                            </div>
-                          )}
+                            Buy Now
+                          </Link>
+                        </button>
                       </div>
-                    </a>
-
-                    <div className="d-flex justify-content-center align-items-center gap-2">
-                      <button
-                        className="btn btn-primary ms-2"
-                        onClick={() => handleAddToCart(product, index)}
-                      >
-                        <img
-                          className="img-fluid "
-                          src={cartIcon}
-                          style={{ height: "20px" }}
-                        />
-                      </button>
-                      <button className="btn btn-primary my-2  ms-2 px-2 py-1">
-                        <Link
-                          to="/checkout"
-                          style={{ textDecoration: "none", color: "#000" }}
-                        >
-                          {" "}
-                          Buy Now
-                        </Link>
-                      </button>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
         </div>

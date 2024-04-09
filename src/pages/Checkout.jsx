@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useSelector } from "react-redux";
 
@@ -17,6 +17,18 @@ export const Checkout = () => {
     type: "Home Address",
     location: "1234 Random St, City, Country",
   });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Assuming mobile screen width is less than 768px
+    };
+    handleResize(); // Initial check
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   function calculateTotalPrice() {
     let totalPrice = 0;
@@ -31,14 +43,69 @@ export const Checkout = () => {
 
   return (
     <>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
 
       <div className="container mt-5 border border-1 p-0" style={{ backgroundColor: "#eee" }}>
         <div className="card">
           <div className="card-body">
+
+
+    {/*Shafeeq updated to display order recap section on top in mobile view and in right side in medium screen */}
+
+            <div className="d-md-none">
+              <div
+                className="rounded  d-flex flex-column p-2"
+                style={{ backgroundColor: "#f8f9fa" }}
+              >
+                <div className="p-2 me-3">
+                  <h4>Order Recap</h4>
+                </div>
+                <div className="p-2 d-flex">
+                  <div className="col-8">Contracted Price</div>
+                  <div className="ms-auto">{calculateTotalPrice()} RS</div>
+                </div>
+                <div className="p-2 d-flex">
+                  <div className="col-8">TAX Amount</div>
+                  <div className="ms-auto">0.00</div>
+                </div>
+                <div className="p-2 d-flex">
+                  <div className="col-8">TAX Amount</div>
+                  <div className="ms-auto">0.00</div>
+                </div>
+                <div className="p-2 d-flex">
+                  <div className="col-8">TAX Amount</div>
+                  <div className="ms-auto">0.00</div>
+                </div>
+                <div className="border-top px-2 mx-2"></div>
+                <div className="p-2 d-flex pt-3">
+                  <div className="col-8">Total TAX Amount</div>
+                  <div className="ms-auto">50 RS</div>
+                </div>
+                <div className="p-2 d-flex">
+                  <div className="col-8">Discount</div>
+                  <div className="ms-auto">0.00</div>
+                </div>
+                <div className="border-top px-2 mx-2"></div>
+                <div className="p-2 d-flex pt-3">
+                  <div className="col-8">shipping</div>
+                  <div className="ms-auto">
+                    <b>100 RS</b>
+                  </div>
+                </div>
+
+                <div className="border-top px-2 mx-2"></div>
+                <div className="p-2 d-flex pt-3">
+                  <div className="col-8">
+                    <b>Total</b>
+                  </div>
+                  <div className="ms-auto">
+                    <b className="text-success">
+                      {calculateTotalPrice() + 350} RS
+                    </b>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="row justify-content-center pb-5">
               <div className="col-md-7 col-xl-5 mb-4 mb-md-0">
                 <div className="py-4 d-flex flex-row">
@@ -210,14 +277,14 @@ export const Checkout = () => {
                     </div>
                   </div>
                   <div className="place-button mx-4">
-                  <button
-                    type="button"
-                    className="btn btn-primary btn-lg"
-                    data-bs-toggle="modal"
-                    data-bs-target="#placeOrderModal"
-                  >
-                    Place Order
-                  </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-lg"
+                      data-bs-toggle="modal"
+                      data-bs-target="#placeOrderModal"
+                    >
+                      Place Order
+                    </button>
                   </div>
 
                   <div
@@ -307,16 +374,17 @@ export const Checkout = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-5 col-xl-4 offset-xl-1">
+              <div className="col-md-5 col-xl-4 offset-xl-1 order-md-1"> {/* Order first on medium and up screens */}
                 <div className="py-4 d-flex justify-content-end">
                   <h6>
                     <Link to="/cart">Cancel and return to website</Link>
                   </h6>
                 </div>
-                <div
-                  className="rounded d-flex flex-column p-2"
-                  style={{ backgroundColor: "#f8f9fa" }}
-                >
+
+                
+   {/*Shafeeq added this section to hide the order recap section in bottom of the screen in mobile view*/}
+                <div className={`rounded  d-flex flex-column p-2 ${isMobile ? 'd-none d-sm-block' : ''}`} style={{ backgroundColor: "#f8f9fa" }}>
+
                   <div className="p-2 me-3">
                     <h4>Order Recap</h4>
                   </div>
@@ -352,12 +420,7 @@ export const Checkout = () => {
                       <b>100 RS</b>
                     </div>
                   </div>
-                  <div className="p-2 d-flex">
-                    <div className="col-8">Wallet Balance</div>
-                    <div className="ms-auto">
-                      <b>200 RS</b>
-                    </div>
-                  </div>
+
                   <div className="border-top px-2 mx-2"></div>
                   <div className="p-2 d-flex pt-3">
                     <div className="col-8">
@@ -381,3 +444,4 @@ export const Checkout = () => {
 };
 
 export default Checkout;
+

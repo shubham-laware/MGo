@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
@@ -22,15 +22,13 @@ function SignUp() {
   const [OTP, setOTP] = useState("");
   const [showSignUpModal, setShowSignUpModal] = useState(true);
 
-  const [credentials,setCredentials]=useState('');
+  const [credentials, setCredentials] = useState("");
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  const context=useContext(myContext);
+  const context = useContext(myContext);
 
-  const {showModal,
-    setShowModal}=context
-
+  const { showModal, setShowModal } = context;
 
   useEffect(() => {
     let intervalId;
@@ -105,22 +103,24 @@ function SignUp() {
           {}
         )
         .then((response) => {
-          console.log("RESPONSE",response)
+          console.log("RESPONSE", response);
           const responseData = response.data;
           if (responseData.includes("Data inserted successfully")) {
-            console.log("CRED:",credentials)
+            console.log("CRED:", credentials);
             const userData = {
-              // userId:foundUser.id,
+              userId: credentials.id,
               fullName: credentials.full_name,
               phoneNumber: credentials.phone_number,
               email: credentials.email,
               address: credentials.Address,
-              // officeAddress: foundUser.office_address,
-          };
-            localStorage.setItem('user',JSON.stringify(userData));
+              officeAddress: credentials.office_address,
+              lat: credentials.lat,
+              log: credentials.log,
+            };
+            localStorage.setItem("user", JSON.stringify(userData));
             setShowOTP(false);
             setShowSignUpModal(false);
-            setShowModal(false)
+            setShowModal(false);
             toast.success("User registered successfully", {
               autoClose: 1000,
               hideProgressBar: true,
@@ -132,11 +132,8 @@ function SignUp() {
         .catch((error) => {
           console.error("Login failed:", error);
         });
-      navigate('/')
+      navigate("/");
 
-    
-      
-     
       // Proceed with registration or any other action
     } else {
       toast.error("Invalid OTP. Please try again.", {
@@ -183,6 +180,7 @@ function SignUp() {
       });
       return;
     } else {
+<<<<<<< HEAD
       axios
         .get("https://minitgo.com/api/fetch_login.php")
         .then((response) => {
@@ -226,6 +224,28 @@ function SignUp() {
         .catch((error) => {
           console.error("Failed to fetch user information:", error);
         });
+=======
+      const data = {
+        full_name: fullName,
+        phone_number: phoneNumber,
+        email: email,
+        password: password,
+        Address: addresss,
+        location_coordinates: "40.7128° N, 74.0060° W",
+      };
+
+      setCredentials(data);
+
+      console.log("DATA", data);
+
+      const OTPvalue = generateOTP();
+
+      setOTP(OTPvalue);
+
+      sendOTPtoEmail(OTPvalue);
+
+      // sendEmail('therohitsing58@gmail.com','OTP CODE','223344')
+>>>>>>> a05ca11ba63185f07fa7aeb8fb91615897169e71
     }
   }
   

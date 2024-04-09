@@ -200,7 +200,7 @@ function Header() {
               setTownDistrict(components.town || components.district || "");
               setState(components.state || "");
             }
-          } catch (error) {}
+          } catch (error) { }
         },
         (error) => {
           return;
@@ -252,35 +252,40 @@ function Header() {
                   style={{ height: "2rem", width: "2rem" }}
                 />
               </span>
-              {fullName &&(
-                 <div className="userData mx-2  d-flex flex-column">
-                 <span style={{ fontSize: "10px" }}>{fullName}</span>
-                 <span style={{ fontSize: "10px" }}>
-                   Delivered to-{userLocation}
-                 </span>
-               </div>
+              {fullName && (
+                <div className="userData mx-2  d-flex flex-column">
+                  <span style={{ fontSize: "10px" }}>{fullName}</span>
+                  <span style={{ fontSize: "10px" }}>
+                    {/* Delivered to-only13char */}
+                    Delivered to- {userLocation?.length > 20 ? userLocation?.substring(0, 13) + '...' : userLocation}
+                  </span>
+                </div>
               )}
-             
+
             </div>
           </Navbar.Brand>
 
           {/* for mobile vieww */}
           <div className="mobile-menu-logo d-lg-none d-flex gap-2 align-items-center">
-            <div
-              className="nav-link cat-nav d-lg-none d-block text-center "
-              style={{ position: "relative" }}
-            >
-              <img
-                src={cartIcon}
-                alt="Cart"
-                style={{ height: "2rem", width: "2rem" }}
-              />
-              <h6
-                style={{ position: "absolute", top: "0.5rem", left: "1.6rem" }}
+            <Link
+              to="/cart" style={{color:"#000"}}>
+              <div
+                className="nav-link cat-nav d-lg-none d-block text-center "
+                style={{ position: "relative" }}
               >
-                {totalQuantity}
-              </h6>
-            </div>
+                <img
+                  src={cartIcon}
+                  alt="Cart"
+                  style={{ height: "2rem", width: "2rem" }}
+                />
+                <h6
+                  style={{ position: "absolute", top: "0.5rem", left: "1.6rem" }}
+                >
+                  {totalQuantity}
+                </h6>
+              </div>
+            </Link>
+
             <BiMenuAltRight
               className="mobile-menu-logo d-lg-none"
               onClick={() => setShowOffcanvas(true)}
@@ -451,16 +456,18 @@ function Header() {
                   width: "50px",
                 }}
               >
-                <div className=" w-100 h-100 position-relative d-flex flex-column justify-content-end align-items-center">
+                <div className=" w-100 h-100 position-relative d-flex flex-column justify-content-center align-items-center">
                   <img
                     src={cartIcon}
                     alt="Cart"
-                    className="w-100 "
+                    className="w-100 mx-auto "
+
                     style={{ height: "35px" }}
                   />
                   <h6
                     className=" w-100  position-absolute text-center "
-                    style={{ top: "3px", left: "3px", fontSize: "14px" }}
+                    id="cartNo"
+                    style={{ top: "3px", left: "1px", fontSize: "14px" }}
                   >
                     {totalQuantity}
                   </h6>
@@ -592,8 +599,8 @@ function Header() {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <div className="d-flex flex-column justify-content-center align-items-center border rounded   my-2 " style={{height:'150px'}}>
-           <img src="man-working.jpg" alt="IMG" className="w-100 h-100" />
+          <div className="d-flex flex-column justify-content-center align-items-center border rounded   my-2 " style={{ height: '150px' }}>
+            <img src="man-working.jpg" alt="IMG" className="w-100 h-100" />
           </div>
           {/* Sidebar content goes here */}
 
@@ -847,16 +854,16 @@ function Header() {
             <div className="d-flex flex-column justify-content-center align-items-center border rounded  py-4 my-2">
 
               <div
-               className="rounded rounded-circle border border-2 border-primary " 
-               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "1.5rem",
-                height:'60px',
-                width:'60px'
-              }}>
-               {getInitials(fullName)}
+                className="rounded rounded-circle border border-2 border-primary "
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "1.5rem",
+                  height: '60px',
+                  width: '60px'
+                }}>
+                {getInitials(fullName)}
               </div>
 
               <h2 className="mt-2">{fullName}</h2>

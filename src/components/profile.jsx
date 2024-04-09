@@ -114,18 +114,14 @@ const Profile = () => {
   }, []);
   return (
     <>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+    
       <br className="d-lg-block d-none"></br>
       <br className="d-lg-block d-none"></br>
       <div className="custom-container">
         {/* Sidebar for larger screens */}
         <div className="custom-sidebar d-none d-lg-flex">
           <span className="fs-4 fw-bold mx-3 border-bottom w-100 pb-2">
-            Your Profile
+            Profile
           </span>
 
           <div

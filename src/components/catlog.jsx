@@ -85,7 +85,7 @@ export default function Catlog() {
 
         {
           showFilter() && (
-            <div className="nav-link cat-nav d-lg-none d-block " style={{marginLeft:"12rem"}}>
+            <div className="nav-link cat-nav d-lg-none d-block filter-button" style={{marginLeft:"12rem"}}>
               <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal" onClick={() => setMobileView(true)}> Filter</button>
             </div>
           )
@@ -102,7 +102,7 @@ export default function Catlog() {
       {/* filter modal */}
       
       <div className="modal fade bottom" id="filterModal" tabindex="-1" aria-labelledby="filterModal" aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable filter-modal">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="filterModal">Filter</h5>
