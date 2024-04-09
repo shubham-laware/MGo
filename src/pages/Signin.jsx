@@ -33,10 +33,6 @@ const Login = ({ closeLoginModal }) => {
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a05ca11ba63185f07fa7aeb8fb91615897169e71
   function handleSubmit(e) {
     e.preventDefault();
     console.log(userid);
@@ -97,11 +93,8 @@ const Login = ({ closeLoginModal }) => {
                   email: foundUser.email,
                   address: foundUser.Address,
                   officeAddress: foundUser.office_address,
-<<<<<<< HEAD
-=======
                   lat: foundUser.lat,
                   log: foundUser.log,
->>>>>>> a05ca11ba63185f07fa7aeb8fb91615897169e71
                 };
 
                 localStorage.setItem("user", JSON.stringify(userData));

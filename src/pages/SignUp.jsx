@@ -180,7 +180,6 @@ function SignUp() {
       });
       return;
     } else {
-<<<<<<< HEAD
       axios
         .get("https://minitgo.com/api/fetch_login.php")
         .then((response) => {
@@ -224,28 +223,6 @@ function SignUp() {
         .catch((error) => {
           console.error("Failed to fetch user information:", error);
         });
-=======
-      const data = {
-        full_name: fullName,
-        phone_number: phoneNumber,
-        email: email,
-        password: password,
-        Address: addresss,
-        location_coordinates: "40.7128° N, 74.0060° W",
-      };
-
-      setCredentials(data);
-
-      console.log("DATA", data);
-
-      const OTPvalue = generateOTP();
-
-      setOTP(OTPvalue);
-
-      sendOTPtoEmail(OTPvalue);
-
-      // sendEmail('therohitsing58@gmail.com','OTP CODE','223344')
->>>>>>> a05ca11ba63185f07fa7aeb8fb91615897169e71
     }
   }
   
