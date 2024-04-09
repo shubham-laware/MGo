@@ -24,7 +24,7 @@ const HomeProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [images, setImages] = useState([]);
 
-  const [distanceValue, setDistanceValue] = useState("5");
+  const [distanceValue, setDistanceValue] = useState("all");
 
   useEffect(() => {
     setFilteredProducts(products);
@@ -168,11 +168,8 @@ const HomeProducts = () => {
     setDistanceValue(e?.target?.value || 5);
     if (!userCords) return;
 
-    const range = distanceValue;
-    if (range === "all" || range === "null") {
-      setFilteredProducts(products);
-      return;
-    }
+    const range =
+      distanceValue && distanceValue === "all" ? "5" : distanceValue || "5";
 
     let productsToFilter = products;
 
@@ -332,7 +329,6 @@ const HomeProducts = () => {
                     <option value="10">10 km</option>
                     <option value="15">15 km</option>
                     <option value="20">20 km</option>
-                    <option value="null"> </option>
                   </select>
                 </div>
                 <div className="form-group">

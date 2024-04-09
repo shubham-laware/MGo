@@ -5,7 +5,7 @@ import axios from "axios";
 const Mystate = (props) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPrice, setselectedPrice] = useState("");
-  const [selectedDistance, setSelectedDistance] = useState("5");
+  const [selectedDistance, setSelectedDistance] = useState("all");
   const [accessoriesCategory, setAccessoriesCategory] = useState("");
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);

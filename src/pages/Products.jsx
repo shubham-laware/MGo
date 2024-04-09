@@ -133,8 +133,11 @@ const HomeProducts = () => {
     let productsToFilter = products;
 
     // Distance filtering
-    if (selectedDistance !== "all" && userCords) {
-      const range = selectedDistance || "5";
+    if (userCords) {
+      const range =
+        selectedDistance && selectedDistance === "all"
+          ? "5"
+          : selectedDistance || "5";
 
       let newFilteredProducts = [];
       let productsLeft = [];
