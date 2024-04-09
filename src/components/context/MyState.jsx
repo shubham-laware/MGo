@@ -5,7 +5,7 @@ import axios from "axios";
 const Mystate = (props) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPrice, setselectedPrice] = useState("");
-  const [selectedDistance, setSelectedDistance] = useState("all");
+  const [selectedDistance, setSelectedDistance] = useState("5");
   const [accessoriesCategory, setAccessoriesCategory] = useState("");
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -13,12 +13,9 @@ const Mystate = (props) => {
   const [offer, setOffers] = useState("");
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
- const [showfilterModal, setShowFilterModal] = useState(false);
+  const [showfilterModal, setShowFilterModal] = useState(false);
 
- const [forgetPasswordModal, setForgetPasswordModal] = useState(false);
-
-
-
+  const [forgetPasswordModal, setForgetPasswordModal] = useState(false);
 
   useEffect(() => {
     axios
@@ -61,9 +58,7 @@ const Mystate = (props) => {
   const handleImageClick = (index) => {
     console.log("imageclicked");
     setSelectedImageIndex(index); // Update the selected image index
-};
-
-
+  };
 
   return (
     <div>
@@ -91,8 +86,10 @@ const Mystate = (props) => {
           showModal,
           setShowModal,
           showfilterModal,
-       
-          forgetPasswordModal, setForgetPasswordModal
+          selectedDistance,
+          handleDistanceChange,
+          forgetPasswordModal,
+          setForgetPasswordModal,
         }}
       >
         {props.children}
