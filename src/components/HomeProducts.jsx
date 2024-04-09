@@ -418,7 +418,11 @@ const HomeProducts = () => {
                             <span className="visually-hidden">Next</span>
                           </button>
                         </div>
-                        <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light mt-2">
+                        <div
+                          className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${
+                            product.offers === "0" && "invisible"
+                          }`}
+                        >
                           {product.offers}% Off
                         </div>
                       </div>

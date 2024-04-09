@@ -153,20 +153,19 @@ const Accessories = () => {
         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
       );
 
-      
       const remainingProducts = filtered.filter((product) => {
         if (selectedPrice !== "") {
-            const [minPrice] = selectedPrice.split("-").map(Number);
-            const price = parseInt(product.product_price);
-            return price < minPrice;
+          const [minPrice] = selectedPrice.split("-").map(Number);
+          const price = parseInt(product.product_price);
+          return price < minPrice;
         } else {
-            return true; // Include all products if no price range is selected
+          return true; // Include all products if no price range is selected
         }
-    });
-    
-    remainingProducts.sort(
+      });
+
+      remainingProducts.sort(
         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-    );
+      );
 
       filtered = [...combinedProducts, ...remainingProducts];
     }
@@ -184,27 +183,25 @@ const Accessories = () => {
 
       const remainingProducts = filtered.filter((product) => {
         if (selectedPrice !== "") {
-          let minPrice=500
-            console.log("ELSE MIN",minPrice)
-            const price = parseInt(product.product_price);
-            return price < minPrice;
+          let minPrice = 500;
+          console.log("ELSE MIN", minPrice);
+          const price = parseInt(product.product_price);
+          return price < minPrice;
         } else {
-            return true; // Include all products if no price range is selected
+          return true; // Include all products if no price range is selected
         }
-    });
-    console.log("ELSE REMAINING PROD",remainingProducts)
-    
-    remainingProducts.sort(
+      });
+      console.log("ELSE REMAINING PROD", remainingProducts);
+
+      remainingProducts.sort(
         (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-    );
+      );
 
-      if(above500Products.length>0){
-        filtered = [...above500Products,...remainingProducts];
-      }else{
-        filtered=filtered
+      if (above500Products.length > 0) {
+        filtered = [...above500Products, ...remainingProducts];
+      } else {
+        filtered = filtered;
       }
-
-     
     }
 
     if (offer !== "") {
@@ -215,7 +212,6 @@ const Accessories = () => {
         const offerPercentage = parseInt(product.offers);
         return offerPercentage >= selectedOffer;
       });
-
 
       filteredByOffer.sort(
         (a, b) => parseFloat(a.offers) - parseFloat(b.offers)
@@ -242,16 +238,15 @@ const Accessories = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   return (
     <>
-     
       <br />
       <br />
       {/* we are coming soon */}
@@ -266,10 +261,7 @@ const Accessories = () => {
           <div className="col-md-10">
             <div className="row">
               {filteredProducts?.map((product, index) => (
-                <div
-                  key={index}
-                  className="col-6 col-sm-3 py-2"
-                >
+                <div key={index} className="col-6 col-sm-3 py-2">
                   <div className="product-card">
                     <a
                       href={`/${product.product_id}`}
@@ -279,19 +271,17 @@ const Accessories = () => {
                         color: "black",
                       }}
                     >
-                      <div
-                        className="product-image"
+                      <div className="product-image">
+                        <img src={product.product_image1} alt="Product 1" />
+                        <div
+                          className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${
+                            product.offers === "0" && "invisible"
+                          }`}
+                        >
+                          {product.offers}% Off
+                        </div>
+                      </div>
                      
-                      >
-                        <img
-                          src={product.product_image1}
-                          alt="Product 1"
-                         
-                        />
-                         <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
-                        {product.offers}% Off
-                      </div>
-                      </div>
                      
                      
                <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
@@ -376,11 +366,17 @@ const Accessories = () => {
                         <img
                           className="img-fluid"
                           src={cartIcon}
-                          style={{ height:'20px'}}
+                          style={{ height: "20px" }}
                         />
                       </button>
                       <button className="btn btn-primary my-2  ms-2 px-2 py-1">
-                       <Link to="/checkout" style={{textDecoration:"none",color:"#000"}}> Buy Now</Link>
+                        <Link
+                          to="/checkout"
+                          style={{ textDecoration: "none", color: "#000" }}
+                        >
+                          {" "}
+                          Buy Now
+                        </Link>
                       </button>
                     </div>
                   </div>
