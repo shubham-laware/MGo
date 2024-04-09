@@ -20,7 +20,7 @@ const HomeProducts = () => {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useState("");
   const context = useContext(myContext);
-  const { products, isNewProduct } = context;
+  const { products,isNewProduct } = context;
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [images, setImages] = useState([]);
 
@@ -134,7 +134,7 @@ const HomeProducts = () => {
   const userCords = user ? [user.lat, user.log] : null;
 
   const calculateDistance = (startLat, startLng, destLat, destLng) => {
-    if (!startLat || !startLng || !destLat || !destLng) return null;
+    if (!startLat || !startLng || !destLat || !destLng) return Infinity;
 
     const degToRad = (degrees) => {
       return (degrees * Math.PI) / 180;
@@ -161,60 +161,35 @@ const HomeProducts = () => {
 
     const distanceInKm = earthRadius * c;
 
+    console.log(
+      `UserLat: ${startLat}, UserLong: ${startLng}, ProductLat: ${destLat}, ProductLong: ${destLng}`
+    );
+    console.log(distanceInKm.toFixed(2));
     return distanceInKm.toFixed(2);
   };
 
   const handleDistanceSelect = (e) => {
-    setDistanceValue(e?.target?.value || 5);
-    if (!userCords) return;
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) return;
 
     const range =
       distanceValue && distanceValue === "all" ? "5" : distanceValue || "5";
 
-    let productsToFilter = products;
+    const productsWithoutCoordinates = products.filter(
+      (product) => !product.lat || !product.log
+    );
 
-    let newFilteredProducts = [];
-    let productsLeft = [];
-    let productsWithoutCoordinates = [];
-    const uniqueCategories = {};
-    productsToFilter.forEach((product) => {
-      const distance =
-        product.distance ||
-        calculateDistance(...userCords, product.lat, product.log);
-      product.distance = distance;
+    const newFilteredProducts = products.filter((product) =>
+      range === "20"
+        ? calculateDistance(...userCords, product.lat, product.log) >=
+          Number(range)
+        : calculateDistance(...userCords, product.lat, product.log) <=
+          Number(range)
+    );
 
-      if (distance !== null) {
-        if (!uniqueCategories[product.category]) {
-          if (distance <= Number(range)) {
-            newFilteredProducts.push(product);
-            uniqueCategories[product.category] = true;
-          } else {
-            productsLeft.push(product);
-          }
-        } else {
-          productsLeft.push(product);
-        }
-      } else {
-        productsWithoutCoordinates.push(product);
-      }
-    });
-
-    // Sort the newFilteredProducts and productsLeft lists in ascending order based on distance
-    newFilteredProducts.sort((a, b) => Number(a.distance) - Number(b.distance));
-    productsLeft.sort((a, b) => Number(a.distance) - Number(b.distance));
-
-    productsToFilter = [
-      ...newFilteredProducts,
-      ...productsLeft,
-      ...productsWithoutCoordinates,
-    ];
-
-    setFilteredProducts(productsToFilter);
+    newFilteredProducts.push(...productsWithoutCoordinates);
+    setFilteredProducts(newFilteredProducts);
   };
-
-  useEffect(() => {
-    if (products?.length) handleDistanceSelect();
-  }, [products]);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -229,6 +204,13 @@ const HomeProducts = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+
+
+  
+  
+ 
+  
 
   return (
     <>
@@ -321,7 +303,6 @@ const HomeProducts = () => {
                   <select
                     className="form-control rounded-pill"
                     id="distanceFilter"
-                    value={distanceValue}
                     onChange={handleDistanceSelect}
                   >
                     <option value="all">All</option>
@@ -348,7 +329,7 @@ const HomeProducts = () => {
             </div>
           </div>
 
-          <div className="col-md-10">
+          <div className="col-md-10 ">
             <div className="row">
               {filteredProducts?.length === 0 ? (
                 <div
@@ -361,8 +342,9 @@ const HomeProducts = () => {
                 filteredProducts?.map((product, index) => (
                   <div
                     key={index}
-                    className="col-6 col-sm-3 py-2"
+                    className="col-6 col-sm-4 col-md-6 col-lg-4 col-xl-3 py-2 "
                     id="sections"
+                    
                   >
                     <div className="product-card">
                       <div className="product-image">
@@ -443,33 +425,38 @@ const HomeProducts = () => {
                         </div>
                       </div>
 
-                      <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
-                        <div style={{ fontSize: "14px" }}>
-                          {product.category}
-                          {isNewProduct(product.date) && (
-                            <span className="ms-4" style={{ color: "#ffc107" }}>
-                              New
-                            </span>
-                          )}
+                      <div className="product-content d-flex flex-column gap-1 pt-3  px-2">
+                        <div style={{ fontSize: "14px" }} className="d-flex justify-content-between">
+                          <span>{product.category}</span>
+                          <div>
+                          {isNewProduct(product.date) && <span className="btn  btn-secondary p-0 px-1" style={{color:'#ffc107',fontSize:'14px'}}>New</span>}
+                          </div>
                         </div>
                         <a
                           href={`/${product.product_id}`}
                           target="_blank"
                           style={{
                             textDecoration: "none",
-                            color: "black",
+                            color: "black"
                           }}
+
+                          className="fw-semibold"
+
                         >
                           {windowWidth <= 1024
                             ? product.product_name.length > 15
                               ? product.product_name.substring(0, 15) + "..."
                               : product.product_name
-                            : product.product_name.length > 20
-                            ? product.product_name.substring(0, 25) + "..."
+                            : product.product_name.length > 23
+                            ? product.product_name.substring(0, 23) + "..."
                             : product.product_name}
+
+                           
                         </a>
+
+                        <div className="d-flex align-items-center justify-content-between">
                         <h5 className="mt-1">
-                          <sup>&#x20B9;</sup>
+                        ₹
                           {product.product_price}
                           <span className="text-decoration-line-through text-muted fs-6 fw-light">
                             599
@@ -484,29 +471,46 @@ const HomeProducts = () => {
                             {product.product_stock}
                           </span>
                         </h5>
-
-                        <div className="d-flex justify-content-between ">
-                          <h6>
-                            Size: <span>{product.product_size}</span>
-                          </h6>
-                          <h6 className="">
-                            Color: <span>{product.product_color1}</span>
-                          </h6>
+                        <div>
+                            <span className="fw-semibold">Size:</span> <span>{product.product_size}</span>
+                          </div>
                         </div>
+                       
 
-                        <div className="">
-                          {product.product_discription.length > 40
-                            ? product.product_discription.slice(0, 40) + "..."
+                        <div className="d-flex justify-content-between " style={{fontSize:'14px'}}>
+                          <div>
+                            <span className="fw-semibold"></span> <span>{product.material}</span>
+                          </div>
+                          <div className="">
+                            <span className="fw-semibold">Color:</span> <span>{product.product_color1}</span>
+                          </div>
+                        </div>
+                      
+                          <div className="mt-1" style={{textAlign:'justify'}} >
+
+                          {windowWidth <= 576
+                            ? product.product_discription.length > 20
+                              ? product.product_discription.substring(0, 19) + "..."
+                              : product.product_discription
+                            :product.product_discription.length > 50
+                            ? product.product_discription.slice(0, 45) + "..."
                             : product.product_discription}
-                        </div>
 
+
+                            {/* {product.product_discription.length > 50
+                              ? product.product_discription.slice(0, 45) + "..."
+                              : product.product_discription} */}
+                          </div>
+                        
+
+                        <div className="d-flex justify-content-between mt-1">
                         <div className="product-rating text-warning d-flex ">
-                          Rating:{" "}
+                          
                           <StarRatings rating={product.product_ratings} />
                         </div>
                         {userCords && (
                           <div className="product-distance text-secondary ">
-                            Distance:{" "}
+                           
                             {product.distance ||
                               calculateDistance(
                                 ...userCords,
@@ -516,6 +520,9 @@ const HomeProducts = () => {
                             km away.
                           </div>
                         )}
+                        </div>
+                       
+                       
                         {cart.snackbar.open &&
                           cart.snackbar.index === index && (
                             <div
@@ -528,10 +535,10 @@ const HomeProducts = () => {
                       </div>
 
                       <div
-                        className="d-flex justify-content-center align-items-center  mt-1"
+                        className="d-flex align-items-center mt-2 px-2"
                         id="btns-sections"
                       >
-                        <div>
+                        <div className="  w-100 d-flex justify-content-between">
                           <button
                             className={`btn ${
                               wishlistClicked[index]

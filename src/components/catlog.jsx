@@ -82,16 +82,8 @@ export default function Catlog() {
 
           {showFilter() && (
             // style={{marginLeft:"12rem"}}  filter-button
-            <div className="nav-link cat-nav d-lg-none d-block">
-              <button
-                className="btn btn-primary rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#filterModal"
-                onClick={() => setMobileView(true)}
-              >
-                {" "}
-                Filter
-              </button>
+            <div className="nav-link cat-nav d-md-none d-block">
+              <button className="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#filterModal" onClick={() => setMobileView(true)}> Filter</button>
             </div>
           )}
         </div>

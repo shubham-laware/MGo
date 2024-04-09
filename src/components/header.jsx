@@ -317,7 +317,8 @@ function Header() {
                   style={{ height: "2rem", width: "2rem" }}
                 />
                 <h6
-                  style={{ position: "absolute", top: "0.5rem", left: "1.6rem" }}
+                className=""
+                  style={{ position: "absolute", top: "0.5rem", left: "1.3rem" }}
                 >
                   {totalQuantity}
                 </h6>

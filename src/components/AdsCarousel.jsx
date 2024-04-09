@@ -59,6 +59,8 @@ function AdsCarousel({ products }) {
     );
   };
 
+  
+
   return (
     <>
       <div
