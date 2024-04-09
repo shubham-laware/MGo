@@ -240,7 +240,7 @@ function Header() {
       <Navbar
         collapseOnSelect
         expand="lg"
-        className="fixed-top bg-light shadow"
+        className="fixed-top bg-light shadow "
       >
         <Container className="justify-content-between">
           <Navbar.Brand className="d-flex gap-2">
@@ -521,17 +521,17 @@ function Header() {
             </Nav>
           </Navbar.Collapse>
         </Container>
-        <div className="mobile-menu-logo d-lg-none">
+        <div className="mobile-menu-logo d-lg-none w-100  ">
           <div className="mobile-search mt-2">
             <Form.Control
               type="search"
               placeholder="Ex: T-Shirt near me"
-              className="col-12 search-box"
+              className=" search-box"
               aria-label="Search"
               value={searchQuery}
               onChange={handleSearchInputChange}
               onKeyPress={handleKeyPress}
-              style={{ width: "123%" }}
+              style={{ width: "90%" }}
             />
 
             <Form />
@@ -540,6 +540,7 @@ function Header() {
               className=" search-btn"
               variant="outline-success"
               onClick={handleGoButton}
+              
             >
               Go
             </Button>
