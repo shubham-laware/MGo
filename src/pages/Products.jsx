@@ -40,7 +40,7 @@ const HomeProducts = () => {
     searchQuery,
     offer,
     setOffers,
-    isNewProduct
+    isNewProduct,
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -91,6 +91,9 @@ const HomeProducts = () => {
     navigate(url);
   }
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userCords = user ? [user.lat, user.log] : null;
+
   const calculateDistance = (startLat, startLng, destLat, destLng) => {
     if (!startLat || !startLng || !destLat || !destLng) return Infinity;
 
@@ -130,43 +133,45 @@ const HomeProducts = () => {
     let productsToFilter = products;
 
     // Distance filtering
-    console.log(selectedDistance);
-    if (selectedDistance !== "all" && localStorage.getItem("user")) {
-      console.log(productsToFilter);
-      const user = JSON.parse(localStorage.getItem("user"));
-      const userCords = [user.lat, user.log];
+    if (selectedDistance !== "all" && userCords) {
       const range = selectedDistance || "5";
 
-      const productsWithoutCoordinates = productsToFilter.filter(
-        (product) => !product.lat || !product.log
-      );
-      let productsLeft = products.filter(
-        (product) =>
-          calculateDistance(...userCords, product.lat, product.log) >
-          Number(range)
-      );
-
+      let newFilteredProducts = [];
+      let productsLeft = [];
+      let productsWithoutCoordinates = [];
       const uniqueCategories = {};
-      const newFilteredProducts = [];
+      productsToFilter.forEach((product) => {
+        const distance =
+          product.distance ||
+          calculateDistance(...userCords, product.lat, product.log);
+        product.distance = distance;
 
-      products.forEach((product) => {
-        if (
-          calculateDistance(...userCords, product.lat, product.log) <=
-          Number(range)
-        ) {
+        if (distance !== null) {
           if (!uniqueCategories[product.category]) {
-            newFilteredProducts.push(product);
-            uniqueCategories[product.category] = true;
+            if (distance <= Number(range)) {
+              newFilteredProducts.push(product);
+              uniqueCategories[product.category] = true;
+            } else {
+              productsLeft.push(product);
+            }
           } else {
             productsLeft.push(product);
           }
+        } else {
+          productsWithoutCoordinates.push(product);
         }
       });
 
+      // Sort the newFilteredProducts and productsLeft lists in ascending order based on distance
+      newFilteredProducts.sort(
+        (a, b) => Number(a.distance) - Number(b.distance)
+      );
+      productsLeft.sort((a, b) => Number(a.distance) - Number(b.distance));
+
       productsToFilter = [
         ...newFilteredProducts,
-        ...productsWithoutCoordinates,
         ...productsLeft,
+        ...productsWithoutCoordinates,
       ];
     }
 
@@ -414,26 +419,46 @@ const HomeProducts = () => {
                 filteredProducts?.map((product, index) => (
                   <div key={index} className="col-6 col-sm-4 col-md-6 col-lg-4 col-xl-3 py-2">
                     <div className="product-card">
-                      <a
-                        href={`/${product.product_id}`}
-                        target="_blank"
-                        style={{
-                          textDecoration: "none",
-                          color: "black",
-                        }}
+                      <div
+                        className="product-image"
+                        style={{ position: "relative" }}
                       >
-                        <div className="product-image">
-                          <img src={product.product_image1} alt="Product 1" />
-                          <div
-                            className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${
-                              product.offers === "0" && "invisible"
-                            }`}
-                          >
-                            {product.offers}% Off
-                          </div>
+                        <a
+                          href={`/${product.product_id}`}
+                          target="_blank"
+                          style={{
+                            textDecoration: "none",
+                            color: "black",
+                          }}
+                        >
+                          <img
+                            src={product.product_image1}
+                            style={{ width: "100%" }}
+                            alt="Product 1"
+                          />
+                        </a>
+                        <span
+                          style={{
+                            position: "absolute",
+                            top: "5px",
+                            right: "5px",
+                            background: "yellow",
+                            padding: "5px",
+                            fontSize: "10px",
+                          }}
+                        >
+                          Live Image
+                        </span>
+                        <div
+                          className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${
+                            product.offers === "0" && "invisible"
+                          }`}
+                        >
+                          {product.offers}% Off
                         </div>
+                      </div>
 
-                        <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
+                      <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
                         <div style={{ fontSize: "14px" }}>
                           {product.category}
                           {isNewProduct(product.date) && <span className="ms-4 btn  btn-secondary p-0 px-1" style={{color:'#ffc107',fontSize:'14px'}}>New</span>}
@@ -456,8 +481,6 @@ const HomeProducts = () => {
                             : product.product_name.length > 20
                             ? product.product_name.substring(0, 23) + "..."
                             : product.product_name}
-
-                           
                         </a>
                         <h5 className="mt-1">
                           <sup>&#x20B9;</sup>
@@ -467,9 +490,7 @@ const HomeProducts = () => {
                           </span>
                           <span
                             className="text-muted"
-                            style={{
-                              fontSize: "13px",
-                            }}
+                            style={{ fontSize: "13px" }}
                           >
                             {" "}
                             {product.product_stock}
@@ -495,9 +516,18 @@ const HomeProducts = () => {
                           Rating:{" "}
                           <StarRatings rating={product.product_ratings} />
                         </div>
-                        <div className="product-distance text-secondary ">
-                          Distance: {product.distance}km away.
-                        </div>
+                        {userCords && (
+                          <div className="product-distance text-secondary ">
+                            Distance:{" "}
+                            {product.distance ||
+                              calculateDistance(
+                                ...userCords,
+                                product.lat,
+                                product.log
+                              )}
+                            km away.
+                          </div>
+                        )}
                         {cart.snackbar.open &&
                           cart.snackbar.index === index && (
                             <div
@@ -508,7 +538,6 @@ const HomeProducts = () => {
                             </div>
                           )}
                       </div>
-                      </a>
 
                       <div
                         className="d-flex align-items-center mt-2 px-2"
@@ -543,6 +572,7 @@ const HomeProducts = () => {
           </div>
         </div>
       </div>
+      <></>
     </>
   );
 };

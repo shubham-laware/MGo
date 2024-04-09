@@ -9,14 +9,11 @@ import { FiFilter } from "react-icons/fi";
 import Filter from "./Filter.jsx";
 import myContext from "./context/MyContext";
 
-
-
 export default function Catlog() {
-  const [mobileView, setMobileView] = useState(false)
+  const [mobileView, setMobileView] = useState(false);
   const totalQuantity = useSelector(selectTotalQuantity);
   const context = useContext(myContext);
   const { products } = context;
-  console.log("catlog page", products)
 
   const location = useLocation();
   const showFilter = () => {
@@ -35,41 +32,41 @@ export default function Catlog() {
 
   return (
     <>
-           <div className="catlog filter">
-               <div
-        className="catlog-names mx-lg-2 d-flex gap-1 info-div text-center mt-1"
-      // style={{ marginLeft: "2.7rem" }}
-      >
-        <div className="nav-link cat-nav mb-2">
-          <Dropdown>
-            <Dropdown.Toggle
-              variant="light"
-              id="dropdown-basic"
-              className=" rounded-pill set-range btn-primary"
-            >
-              Range
-            </Dropdown.Toggle>
+      <div className="catlog filter">
+        <div
+          className="catlog-names mx-lg-2 d-flex gap-1 info-div text-center mt-1"
+          // style={{ marginLeft: "2.7rem" }}
+        >
+          <div className="nav-link cat-nav mb-2">
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="light"
+                id="dropdown-basic"
+                className=" rounded-pill set-range btn-primary"
+              >
+                Range
+              </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">
-                Distance 8<sup>km</sup>
-              </Dropdown.Item>
-              <Dropdown.Item href="#/action-2">
-                Distance 12<sup>km</sup>
-              </Dropdown.Item>
-              <Dropdown.Item href="#/action-3">
-                Distance 20<sup>km</sup>
-              </Dropdown.Item>
-              <Dropdown.Item href="#/action-3">
-                Distance 25<sup>km</sup>
-              </Dropdown.Item>
-              <Dropdown.Item href="#/action-3">
-                More than 25<sup>km</sup>
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
-        {/* <div
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">
+                  Distance 8<sup>km</sup>
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-2">
+                  Distance 12<sup>km</sup>
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-3">
+                  Distance 20<sup>km</sup>
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-3">
+                  Distance 25<sup>km</sup>
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-3">
+                  More than 25<sup>km</sup>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+          {/* <div
           className="nav-link cat-nav d-lg-none d-block text-center"
           style={{ position: "relative" }}
         >
@@ -83,43 +80,48 @@ export default function Catlog() {
           </h6>
         </div> */}
 
-
-        {
-          showFilter() && (
+          {showFilter() && (
             // style={{marginLeft:"12rem"}}  filter-button
             <div className="nav-link cat-nav d-md-none d-block">
               <button className="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#filterModal" onClick={() => setMobileView(true)}> Filter</button>
             </div>
-          )
-        }
-
-
+          )}
+        </div>
       </div>
-              </div>
       {/* <div className="catlog filter w-100">
      
 
       </div> */}
 
       {/* filter modal */}
-      
-      <div className="modal fade bottom" id="filterModal" tabindex="-1" aria-labelledby="filterModal" aria-hidden="true">
+
+      <div
+        className="modal fade bottom"
+        id="filterModal"
+        tabindex="-1"
+        aria-labelledby="filterModal"
+        aria-hidden="true"
+      >
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable filter-modal">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="filterModal">Filter</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h5 className="modal-title" id="filterModal">
+                Filter
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div className="modal-body">
-
               <Filter mobileView={mobileView} />
-
             </div>
           </div>
         </div>
       </div>
       {/* modal end */}
     </>
-
   );
 }

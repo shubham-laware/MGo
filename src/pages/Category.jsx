@@ -535,7 +535,7 @@ const Category = () => {
                         id="btns-sections"
                       >
                         <div className="  w-100 d-flex justify-content-between">
-                        <button
+                         <button
                           className="btn btn-primary  my-2 "
                           onClick={() => handleAddToCart(product, index)}
                          
