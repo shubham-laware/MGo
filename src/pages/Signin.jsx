@@ -1,69 +1,37 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import Modal from "react-modal";
+import { Modal } from "react-bootstrap";
 import Minitgo from "../components/images/minitgo.png";
 import axios from "axios";
 import { toast } from "react-toastify";
-
-const modalStyles = {
-  overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    zIndex: 9999,
-  },
-  content: {
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    maxWidth: "500px",
-    width: "100%",
-    padding: "30px",
-    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.5)",
-    borderRadius: "20px",
-    boxSizing: "none",
-    animation: "fade-in 0.5s",
-  },
-};
-
-const closebtn = {
-  border: "none",
-  boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
-  padding: "5px",
-  borderRadius: "50px",
-  color: "red",
-  width: "35px",
-};
+import myContext from "../components/context/MyContext";
+import { Link } from "react-router-dom";
 
 const Login = ({ closeLoginModal }) => {
   // Shubham- Login functionality starts here
 
+
   const [rememberMe, setRememberMe] = useState(false);
   const [showResetModal, setShowResetModal] = useState(false);
-  const [resetEmail, setResetEmail] = useState("");
   const [userid, setUserID] = useState("");
   const [password, setPassword] = useState("");
+
+
+  const context=useContext(myContext)
+
+  const {forgetPasswordModal, setForgetPasswordModal}=context;
 
   const handleRememberMeChange = (event) => {
     setRememberMe(event.target.checked);
   };
 
-  const handleForgotPassword = (event) => {
-    event.preventDefault();
-    setShowResetModal(true);
-  };
 
-  const handleResetEmailChange = (event) => {
-    setResetEmail(event.target.value);
-  };
+  function handleForgetPasswordModal(){
+    setForgetPasswordModal(true);
+    closeLoginModal();
+  }
 
-  const handleResetPassword = (event) => {
-    event.preventDefault();
-    setShowResetModal(false);
-  };
 
-  const closeModal = () => {
-    setShowResetModal(false);
-    setResetEmail("");
-  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -166,6 +134,8 @@ const Login = ({ closeLoginModal }) => {
     <>
       <br></br>
 
+      {/* SignIn starts here */}
+
       <div className=" w-100  ">
         <div className="card-b  px-4 border   py-5   m-0 ">
           <div className="text-center">
@@ -219,59 +189,30 @@ const Login = ({ closeLoginModal }) => {
                 </button>
               </div>
 
-              <div className="fs-6 d-flex justify-content-center">
-                <a
-                  href="#"
-                  onClick={handleForgotPassword}
-                  className="forgot-password-link"
-                >
+              <div className="fs-6 d-flex justify-content-center d-flex align-items-center gap-2">
+                <div onClick={handleForgetPasswordModal} style={{ color:'#297efc',cursor:'pointer'}} className=" d-flex align-items-center ">
                   Forgot Password?
-                </a>
-                <a href="/register" className="forgot-password-link">
+                </div>
+                <div>
+                <Link to="/register"  className=" d-flex align-items-center ">
                   Create an Account!
-                </a>
+                </Link>
+                </div>
+                
               </div>
             </form>
           </div>
         </div>
       </div>
+      
 
-      <Modal
-        isOpen={showResetModal}
-        onRequestClose={closeModal}
-        contentLabel="Reset Password"
-        style={modalStyles}
-      >
-        <div className="modal-header ">
-          <h5 className="modal-title">Reset Password</h5>
-          <button
-            type="button"
-            style={closebtn}
-            onClick={closeModal}
-            aria-label="Close"
-          >
-            <span aria-hidden="true">X</span>
-          </button>
-        </div>
-        <div className="modal-body">
-          <form onSubmit={handleResetPassword}>
-            <div className="form-group">
-              <label htmlFor="resetEmail">Email address</label>
-              <input
-                type="email"
-                className="form-control"
-                id="resetEmail"
-                placeholder="Enter email"
-                value={resetEmail}
-                onChange={handleResetEmailChange}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Send Confirmation Code
-            </button>
-          </form>
-        </div>
-      </Modal>
+      
+
+      {/* SignIn Ends here */}
+
+
+
+     
 
       <br></br>
       <br></br>
