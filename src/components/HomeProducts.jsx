@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { BiSolidCategory } from "react-icons/bi";
 import { FaLocationDot } from "react-icons/fa6";
+
 import $ from "jquery"; // Import jQuery
 import myContext from "./context/MyContext";
 import { Link } from "react-router-dom";
