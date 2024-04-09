@@ -419,120 +419,135 @@ const HomeProducts = () => {
                 filteredProducts?.map((product, index) => (
                   <div key={index} className="col-6 col-sm-3 py-2">
                     <div className="product-card">
-                      <a
-                        href={`/${product.product_id}`}
-                        target="_blank"
-                        style={{
-                          textDecoration: "none",
-                          color: "black",
-                        }}
+                      <div
+                        className="product-image"
+                        style={{ position: "relative" }}
                       >
-                        <div className="product-image">
-                          <img src={product.product_image1} alt="Product 1" />
-                          <div
-                            className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${
-                              product.offers === "0" && "invisible"
-                            }`}
+                        <a
+                          href={`/${product.product_id}`}
+                          target="_blank"
+                          style={{
+                            textDecoration: "none",
+                            color: "black",
+                          }}
+                        >
+                          <img
+                            src={product.product_image1}
+                            style={{ width: "100%" }}
+                            alt="Product 1"
+                          />
+                        </a>
+                        <span
+                          style={{
+                            position: "absolute",
+                            top: "5px",
+                            right: "5px",
+                            background: "yellow",
+                            padding: "5px",
+                            fontSize: "10px",
+                          }}
+                        >
+                          Live Image
+                        </span>
+                        <div
+                          className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${
+                            product.offers === "0" && "invisible"
+                          }`}
+                        >
+                          {product.offers}% Off
+                        </div>
+                      </div>
+
+                      <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
+                        <div style={{ fontSize: "14px" }}>
+                          {product.category}
+                          {isNewProduct(product.date) && (
+                            <span className="ms-4" style={{ color: "#ffc107" }}>
+                              New
+                            </span>
+                          )}
+                        </div>
+                        <a
+                          href={`/${product.product_id}`}
+                          target="_blank"
+                          style={{
+                            textDecoration: "none",
+                            color: "black",
+                          }}
+                        >
+                          {windowWidth <= 1024
+                            ? product.product_name.length > 15
+                              ? product.product_name.substring(0, 15) + "..."
+                              : product.product_name
+                            : product.product_name.length > 20
+                            ? product.product_name.substring(0, 25) + "..."
+                            : product.product_name}
+                        </a>
+                        <h5 className="mt-1">
+                          <sup>&#x20B9;</sup>
+                          {product.product_price}
+                          <span className="text-decoration-line-through text-muted fs-6 fw-light">
+                            599
+                          </span>
+                          <span
+                            className="text-muted"
+                            style={{ fontSize: "13px" }}
                           >
-                            {product.offers}% Off
-                          </div>
+                            {" "}
+                            {product.product_stock}
+                          </span>
+                        </h5>
+
+                        <div className="d-flex justify-content-between ">
+                          <h6>
+                            Size: <span>{product.product_size}</span>
+                          </h6>
+                          <h6 className="">
+                            Color: <span>{product.product_color1}</span>
+                          </h6>
                         </div>
 
-                        <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
-                          <div style={{ fontSize: "14px" }}>
-                            {product.category}
-                            {isNewProduct(product.date) && (
-                              <span
-                                className="ms-4"
-                                style={{ color: "#ffc107" }}
-                              >
-                                New
-                              </span>
-                            )}
+                        <div className="">
+                          {product.product_discription.length > 40
+                            ? product.product_discription.slice(0, 40) + "..."
+                            : product.product_discription}
+                        </div>
+
+                        <div className="product-rating text-warning d-flex ">
+                          Rating:{" "}
+                          <StarRatings rating={product.product_ratings} />
+                        </div>
+                        {userCords && (
+                          <div className="product-distance text-secondary ">
+                            Distance:{" "}
+                            {product.distance ||
+                              calculateDistance(
+                                ...userCords,
+                                product.lat,
+                                product.log
+                              )}
+                            km away.
                           </div>
-                          <a
-                            href={`/${product.product_id}`}
-                            target="_blank"
-                            style={{
-                              textDecoration: "none",
-                              color: "black",
-                            }}
-                          >
-                            {windowWidth <= 1024
-                              ? product.product_name.length > 15
-                                ? product.product_name.substring(0, 15) + "..."
-                                : product.product_name
-                              : product.product_name.length > 20
-                              ? product.product_name.substring(0, 25) + "..."
-                              : product.product_name}
-                          </a>
-                          <h5 className="mt-1">
-                            <sup>&#x20B9;</sup>
-                            {product.product_price}
-                            <span className="text-decoration-line-through text-muted fs-6 fw-light">
-                              599
-                            </span>
-                            <span
-                              className="text-muted"
-                              style={{
-                                fontSize: "13px",
-                              }}
+                        )}
+                        {cart.snackbar.open &&
+                          cart.snackbar.index === index && (
+                            <div
+                              style={{ fontSize: "12px" }}
+                              className="border text-center rounded w-75 mx-auto"
                             >
-                              {" "}
-                              {product.product_stock}
-                            </span>
-                          </h5>
-
-                          <div className="d-flex justify-content-between ">
-                            <h6>
-                              Size: <span>{product.product_size}</span>
-                            </h6>
-                            <h6 className="">
-                              Color: <span>{product.product_color1}</span>
-                            </h6>
-                          </div>
-
-                          <div className="">
-                            {product.product_discription.length > 40
-                              ? product.product_discription.slice(0, 40) + "..."
-                              : product.product_discription}
-                          </div>
-
-                          <div className="product-rating text-warning d-flex ">
-                            Rating:{" "}
-                            <StarRatings rating={product.product_ratings} />
-                          </div>
-                          {userCords && (
-                            <div className="product-distance text-secondary ">
-                              Distance:{" "}
-                              {product.distance ||
-                                calculateDistance(
-                                  ...userCords,
-                                  product.lat,
-                                  product.log
-                                )}
-                              km away.
+                              {cart.snackbar.message}
                             </div>
                           )}
-                          {cart.snackbar.open &&
-                            cart.snackbar.index === index && (
-                              <div
-                                style={{ fontSize: "12px" }}
-                                className="border text-center rounded w-75 mx-auto"
-                              >
-                                {cart.snackbar.message}
-                              </div>
-                            )}
-                        </div>
-                      </a>
+                      </div>
 
-                      <div className="d-flex justify-content-center align-items-center gap-2 mt-1">
+                      {/* Buttons */}
+                      <div className="d-flex justify-content-center align-items-center gap-2">
                         <button
-                          className="btn btn-primary ms-2"
+                          className="btn btn-primary  ms-2"
                           onClick={() => handleAddToCart(product, index)}
                         >
                           <img
-                            className="img-fluid "
+                            className="img-fluid"
                             src={cartIcon}
                             style={{ height: "20px" }}
                           />
@@ -542,7 +557,6 @@ const HomeProducts = () => {
                             to="/checkout"
                             style={{ textDecoration: "none", color: "#000" }}
                           >
-                            {" "}
                             Buy Now
                           </Link>
                         </button>
@@ -555,6 +569,7 @@ const HomeProducts = () => {
           </div>
         </div>
       </div>
+      <></>
     </>
   );
 };
