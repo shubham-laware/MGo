@@ -145,9 +145,10 @@ function SignUp() {
 
   function handleRegister(e) {
     e.preventDefault();
-    const emailPattern = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
     const phonePattern = /^[0-9]{10}$/;
-
+  
     if (
       fullName === "" ||
       phoneNumber === "" ||
@@ -179,28 +180,52 @@ function SignUp() {
       });
       return;
     } else {
-      const data = {
-        full_name: fullName,
-        phone_number: phoneNumber,
-        email: email,
-        password: password,
-        Address: addresss,
-        location_coordinates: "40.7128° N, 74.0060° W",
-      };
-
-      setCredentials(data);
-
-      console.log("DATA", data);
-
-      const OTPvalue = generateOTP();
-
-      setOTP(OTPvalue);
-
-      sendOTPtoEmail(OTPvalue);
-
-      // sendEmail('therohitsing58@gmail.com','OTP CODE','223344')
+      axios
+        .get("https://minitgo.com/api/fetch_login.php")
+        .then((response) => {
+          if (response.data && response.data.length > 0) {
+            const allUsers = response.data;
+  
+            const foundUser = allUsers.find((user) => user.email === email);
+  
+            if (foundUser) {
+              // Handle case where email already exists
+              toast.error("Email already exists", {
+                autoClose: 1000,
+                hideProgressBar: true,
+              });
+              return;
+            } else {
+              // Proceed with registration
+              const data = {
+                full_name: fullName,
+                phone_number: phoneNumber,
+                email: email,
+                password: password,
+                Address: addresss,
+                location_coordinates: "40.7128° N, 74.0060° W",
+              };
+  
+              setCredentials(data);
+  
+              console.log("DATA", data);
+  
+              const OTPvalue = generateOTP();
+  
+              setOTP(OTPvalue);
+  
+              sendOTPtoEmail(OTPvalue);
+  
+              // sendEmail('therohitsing58@gmail.com','OTP CODE','223344')
+            }
+          }
+        })
+        .catch((error) => {
+          console.error("Failed to fetch user information:", error);
+        });
     }
   }
+  
 
   // function sendEmail(emailAddress, subject, body) {
   //   const mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(

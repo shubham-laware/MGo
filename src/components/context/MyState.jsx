@@ -13,8 +13,12 @@ const Mystate = (props) => {
   const [offer, setOffers] = useState("");
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  // for hide modal
-  const [showfilterModal, setShowFilterModal] = useState(false);
+ const [showfilterModal, setShowFilterModal] = useState(false);
+
+ const [forgetPasswordModal, setForgetPasswordModal] = useState(false);
+
+
+
 
   useEffect(() => {
     axios
@@ -57,7 +61,9 @@ const Mystate = (props) => {
   const handleImageClick = (index) => {
     console.log("imageclicked");
     setSelectedImageIndex(index); // Update the selected image index
-  };
+};
+
+
 
   return (
     <div>
@@ -85,9 +91,8 @@ const Mystate = (props) => {
           showModal,
           setShowModal,
           showfilterModal,
-          selectedDistance,
-          handleDistanceChange,
-          setSelectedDistance,
+       
+          forgetPasswordModal, setForgetPasswordModal
         }}
       >
         {props.children}

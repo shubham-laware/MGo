@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
+import { FaLocationDot } from "react-icons/fa6";
+
 import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, useLocation } from "react-router-dom";
@@ -41,6 +43,7 @@ import { BsPersonCircle } from "react-icons/bs";
 import { PiHandshakeBold } from "react-icons/pi";
 
 import "./header.css";
+import ResetPassword from "./ResetPassword.jsx";
 
 function Header() {
   const [address, setAddress] = useState("");
@@ -48,6 +51,7 @@ function Header() {
   const [pincode, setPincode] = useState("");
   const [townDistrict, setTownDistrict] = useState("");
   const [state, setState] = useState("");
+
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
@@ -84,6 +88,7 @@ function Header() {
     setSelectedCategory,
     showModal,
     setShowModal,
+    forgetPasswordModal
   } = context;
   // code for serach
   const [searchSuggestions, setSearchSuggestions] = useState([]);
@@ -271,7 +276,7 @@ fetch(url)
               >
                 <img
                   src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png"
-                  style={{ height: "2rem", width: "2rem" }}
+                  style={{ height: "20px", width: "20px" }}
                 />
               </span>
               {fullName && (
@@ -279,7 +284,18 @@ fetch(url)
                   <span style={{ fontSize: "10px" }}>{fullName}</span>
                   <span style={{ fontSize: "10px" }}>
                     {/* Delivered to-only13char */}
-                    Delivered to- {userLocation?.length > 20 ? userLocation?.substring(0, 13) + '...' : userLocation}
+                    {/* Delivered to- {userLocation?.length > 20 ? userLocation?.substring(0, 13) + '...' : userLocation} */}
+                    <div className="d-flex">
+                      {userLocation && userLocation.length > 0 && ( 
+                        <>
+                          <FaLocationDot className="fs-5 p-1" />
+                          <span style={{ fontSize: '12px' }}>
+                            {userLocation.length > 20 ? userLocation.substring(0, 13) + '...' : userLocation}
+                          </span>
+                        </>
+                      )}
+                    </div>
+
                   </span>
                 </div>
               )}
@@ -618,9 +634,17 @@ fetch(url)
           className="p-0 rounded-4 d-flex w-max "
           style={{ minWidth: "22rem" }}
         >
-          <Login closeLoginModal={() => setLoginModal(false)} />
+
+          <Login closeLoginModal={() => setLoginModal(false)}  />
         </Modal.Body>
       </Modal>
+
+      {
+        forgetPasswordModal && (
+          <ResetPassword  setLoginModal={()=>setLoginModal(true)}/>
+        )
+      }
+     
 
       {/* Offcanvas Sidebar */}
 
