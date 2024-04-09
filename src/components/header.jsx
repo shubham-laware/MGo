@@ -233,28 +233,6 @@ function Header() {
     </span>
   );
 
-// Api for wheather
-// Replace 'yourCityName' with the city you're interested in
-const cityW = 'Pune';
-// Replace 'yourAPIKey' with your actual OpenWeatherMap API key
-const apiKey = 'ca23d51bd0543572fe1c947179adccf2';
-
-const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityW}&appid=${apiKey}`;
-
-// Using fetch to call the API
-fetch(url)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response.json(); // Parse the response body as JSON
-  })
-  .then(data => {
-    console.log(data); // Here you get the data to use
-  })
-  .catch(e => {
-    console.error("Error fetching data: ", e);
-  });
 
 
   return (

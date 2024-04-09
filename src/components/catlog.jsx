@@ -22,6 +22,7 @@ export default function Catlog() {
   const showFilter = () => {
     // Check if location pathname is not '/signin' or '/register'
     return (
+      location.pathname === "/" ||
       location.pathname === "/products" ||
       location.pathname === "/mens-category" ||
       location.pathname === "/womens-category" ||
@@ -85,7 +86,8 @@ export default function Catlog() {
 
         {
           showFilter() && (
-            <div className="nav-link cat-nav d-lg-none d-block filter-button" style={{marginLeft:"12rem"}}>
+            // style={{marginLeft:"12rem"}}  filter-button
+            <div className="nav-link cat-nav d-lg-none d-block">
               <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal" onClick={() => setMobileView(true)}> Filter</button>
             </div>
           )
