@@ -10,6 +10,9 @@ import { Link, useLocation } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.css";
 import Logo from "../components/images/minitgo.png";
+import profileIcon from "../assets/profile-2398782_640 (1).svg";
+
+
 import {
   FaBox,
   FaCartShopping,
@@ -77,6 +80,7 @@ function Header() {
   // State to manage Offcanvas visibility
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const [showLeftSideOffcanvas, setShowLeftSideOffcanvas] = useState(false);
+  const [sam,setSam] = useState('fds fds fdferwr fdf')
 
   // context code add
   const context = useContext(myContext);
@@ -253,9 +257,10 @@ function Header() {
                 onClick={() => setShowLeftSideOffcanvas(true)}
               >
                 <img
-                  src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png"
-                  style={{ height: "20px", width: "20px" }}
-                />
+            src={profileIcon}
+            alt="Profile"
+            style={{ height: "2rem", width: "2rem", color:'blue' }}
+          />
               </span>
               {fullName && (
                 <div className="userData mx-2  d-flex flex-column">
