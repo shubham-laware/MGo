@@ -225,7 +225,7 @@ const Women = () => {
           <div className="col-md-10">
             <div className="row">
               {filteredProducts?.map((product, index) => (
-                <div key={index} className="col-6 col-sm-3 py-2">
+                <div key={index} className="col-6 col-sm-4 col-md-6 col-lg-4 col-xl-3 py-2">
                   <div className="product-card">
                     <a
                       href={`/${product.product_id}`}
@@ -248,31 +248,38 @@ const Women = () => {
                       
                       
                       
-               <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
-                        <div style={{ fontSize: "14px" }}>
-                          {product.category}
-                          {isNewProduct(product.date) && <span className="ms-4" style={{color:'#ffc107'}}>New</span>}
+                      <div className="product-content d-flex flex-column gap-1 pt-3  px-2">
+                        <div style={{ fontSize: "14px" }} className="d-flex justify-content-between">
+                          <span>{product.category}</span>
+                          <div>
+                          {isNewProduct(product.date) && <span className="btn  btn-secondary p-0 px-1" style={{color:'#ffc107',fontSize:'14px'}}>New</span>}
+                          </div>
                         </div>
                         <a
                           href={`/${product.product_id}`}
                           target="_blank"
                           style={{
                             textDecoration: "none",
-                            color: "black",
+                            color: "black"
                           }}
+
+                          className="fw-semibold"
+
                         >
-                         {windowWidth <= 1024
+                          {windowWidth <= 1024
                             ? product.product_name.length > 15
                               ? product.product_name.substring(0, 15) + "..."
                               : product.product_name
-                            : product.product_name.length > 20
-                            ? product.product_name.substring(0, 20) + "..."
+                            : product.product_name.length > 23
+                            ? product.product_name.substring(0, 23) + "..."
                             : product.product_name}
 
                            
                         </a>
+
+                        <div className="d-flex align-items-center justify-content-between">
                         <h5 className="mt-1">
-                          <sup>&#x20B9;</sup>
+                        ₹
                           {product.product_price}
                           <span className="text-decoration-line-through text-muted fs-6 fw-light">
                             599
@@ -287,29 +294,49 @@ const Women = () => {
                             {product.product_stock}
                           </span>
                         </h5>
+                        <div>
+                            <span className="fw-semibold">Size:</span> <span>{product.product_size}</span>
+                          </div>
+                        </div>
+                       
 
-                        <div className="d-flex justify-content-between ">
-                          <h6>
-                            Size: <span>{product.product_size}</span>
-                          </h6>
-                          <h6 className="">
-                            Color: <span>{product.product_color1}</span>
-                          </h6>
+                        <div className="d-flex justify-content-between " style={{fontSize:'14px'}}>
+                          <div>
+                            <span className="fw-semibold">Material:</span> <span>{product.material}</span>
+                          </div>
+                          <div className="">
+                            <span className="fw-semibold">Color:</span> <span>{product.product_color1}</span>
+                          </div>
                         </div>
                       
-                          <div className="" >
-                            {product.product_discription.length > 40
-                              ? product.product_discription.slice(0, 40) + "..."
-                              : product.product_discription}
+                          <div className="mt-1" style={{textAlign:'justify'}} >
+
+                          {windowWidth <= 576
+                            ? product.product_discription.length > 20
+                              ? product.product_discription.substring(0, 19) + "..."
+                              : product.product_discription
+                            :product.product_discription.length > 50
+                            ? product.product_discription.slice(0, 45) + "..."
+                            : product.product_discription}
+
+
+                            {/* {product.product_discription.length > 50
+                              ? product.product_discription.slice(0, 45) + "..."
+                              : product.product_discription} */}
                           </div>
                         
+
+                        <div className="d-flex justify-content-between mt-1">
                         <div className="product-rating text-warning d-flex ">
-                          Rating:{" "}
+                          
                           <StarRatings rating={product.product_ratings} />
                         </div>
                         <div className="product-distance text-secondary ">
-                          Distance: {product.distance}km away.
+                          5 {product.distance}km away.
                         </div>
+                        </div>
+                       
+                       
                         {cart.snackbar.open &&
                           cart.snackbar.index === index && (
                             <div
@@ -322,27 +349,30 @@ const Women = () => {
                       </div>
                     </a>
 
-                    <div className="d-flex justify-content-center align-items-center gap-2">
-                      <button
-                        className="btn btn-primary  ms-2"
-                        onClick={() => handleAddToCart(product, index)}
+                    <div
+                        className="d-flex align-items-center mt-2 px-2"
+                        id="btns-sections"
                       >
-                        <img
-                          className="img-fluid"
-                          src={cartIcon}
-                          style={{ height: "20px" }}
-                        />
-                      </button>
-                      <button className="btn btn-primary my-2  ms-2 px-2 py-1">
-                        <Link
-                          to="/checkout"
-                          style={{ textDecoration: "none", color: "#000" }}
+                        <div className="  w-100 d-flex justify-content-between">
+                        <button
+                          className="btn btn-primary  my-2 "
+                          onClick={() => handleAddToCart(product, index)}
+                         
                         >
-                          {" "}
-                          Buy Now
-                        </Link>
-                      </button>
-                    </div>
+                          <img
+                            className="p-0 "
+                            src={cartIcon}
+                            style={{ height: "20px" }}
+                          />
+                        </button>
+                          <button
+                            onClick={() => handleAddToCart(product, index)}
+                            className="btn btn-primary my-2  ms-2"
+                          >
+                            Add to cart
+                          </button>
+                        </div>
+                      </div>
                   </div>
                 </div>
               ))}

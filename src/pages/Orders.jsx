@@ -445,7 +445,7 @@ const OrdersPage = () => {
 
 
         <div className="  col-10 col-sm-5 col-md-3  px-2 px-lg-5 " style={{marginBottom:'3.5%'}}  >
-        <div className="sticky-top" style={{ top: '82px',}}>
+        <div className="sticky-top" style={{ top: '90px',}}>
           <div
             className=" border rounded mt-md-5  "
             style={{ border: "1px solid"  ,position:'relative',  }}

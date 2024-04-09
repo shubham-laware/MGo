@@ -412,7 +412,7 @@ const HomeProducts = () => {
                 </div>
               ) : (
                 filteredProducts?.map((product, index) => (
-                  <div key={index} className="col-6 col-sm-3 py-2">
+                  <div key={index} className="col-6 col-sm-4 col-md-6 col-lg-4 col-xl-3 py-2">
                     <div className="product-card">
                       <a
                         href={`/${product.product_id}`}
@@ -436,22 +436,25 @@ const HomeProducts = () => {
                         <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
                         <div style={{ fontSize: "14px" }}>
                           {product.category}
-                          {isNewProduct(product.date) && <span className="ms-4" style={{color:'#ffc107'}}>New</span>}
+                          {isNewProduct(product.date) && <span className="ms-4 btn  btn-secondary p-0 px-1" style={{color:'#ffc107',fontSize:'14px'}}>New</span>}
                         </div>
                         <a
                           href={`/${product.product_id}`}
                           target="_blank"
                           style={{
                             textDecoration: "none",
-                            color: "black",
+                            color: "black"
                           }}
+
+                          className="fw-semibold"
+
                         >
                           {windowWidth <= 1024
                             ? product.product_name.length > 15
                               ? product.product_name.substring(0, 15) + "..."
                               : product.product_name
                             : product.product_name.length > 20
-                            ? product.product_name.substring(0, 25) + "..."
+                            ? product.product_name.substring(0, 23) + "..."
                             : product.product_name}
 
                            
@@ -473,18 +476,18 @@ const HomeProducts = () => {
                           </span>
                         </h5>
 
-                        <div className="d-flex justify-content-between ">
-                          <h6>
-                            Size: <span>{product.product_size}</span>
-                          </h6>
-                          <h6 className="">
-                            Color: <span>{product.product_color1}</span>
-                          </h6>
+                        <div className="d-flex justify-content-between " style={{fontSize:'14px'}}>
+                          <div>
+                            <span className="fw-semibold">Size:</span> <span>{product.product_size}</span>
+                          </div>
+                          <div className="">
+                            <span className="fw-semibold">Color:</span> <span>{product.product_color1}</span>
+                          </div>
                         </div>
                       
-                          <div className="" >
-                            {product.product_discription.length > 40
-                              ? product.product_discription.slice(0, 40) + "..."
+                          <div className="" style={{textAlign:'justify'}} >
+                            {product.product_discription.length > 50
+                              ? product.product_discription.slice(0, 45) + "..."
                               : product.product_discription}
                           </div>
                         
@@ -507,26 +510,30 @@ const HomeProducts = () => {
                       </div>
                       </a>
 
-                      <div className="d-flex justify-content-center align-items-center gap-2 mt-1">
-                        <button
-                          className="btn btn-primary ms-2"
+                      <div
+                        className="d-flex align-items-center mt-2 px-2"
+                        id="btns-sections"
+                      >
+                        <div className="  w-100 d-flex justify-content-between">
+                          
+                          <button
+                          className="btn btn-primary  my-2 "
                           onClick={() => handleAddToCart(product, index)}
+                         
                         >
                           <img
-                            className="img-fluid "
+                            className="p-0 "
                             src={cartIcon}
                             style={{ height: "20px" }}
                           />
                         </button>
-                        <button className="btn btn-primary my-2  ms-2 px-2 py-1">
-                          <Link
-                            to="/checkout"
-                            style={{ textDecoration: "none", color: "#000" }}
+                          <button
+                            onClick={() => handleAddToCart(product, index)}
+                            className="btn btn-primary my-2  ms-2"
                           >
-                            {" "}
-                            Buy Now
-                          </Link>
-                        </button>
+                            Add to cart
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
