@@ -252,7 +252,7 @@ function Header() {
               >
                 <img
                   src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png"
-                  style={{ height: "2rem", width: "2rem" }}
+                  style={{ height: "20px", width: "20px" }}
                 />
               </span>
               {fullName && (
