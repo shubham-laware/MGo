@@ -20,9 +20,11 @@ const HomeProducts = () => {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useState("");
   const context = useContext(myContext);
-  const { products,isNewProduct } = context;
+  const { products, isNewProduct } = context;
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [images, setImages] = useState([]);
+
+  const [distanceValue, setDistanceValue] = useState("5");
 
   useEffect(() => {
     setFilteredProducts(products);
@@ -128,8 +130,11 @@ const HomeProducts = () => {
     }
   }, [coordinates]); // Run the effect whenever coordinates change
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userCords = user ? [user.lat, user.log] : null;
+
   const calculateDistance = (startLat, startLng, destLat, destLng) => {
-    if (!startLat || !startLng || !destLat || !destLng) return Infinity;
+    if (!startLat || !startLng || !destLat || !destLng) return null;
 
     const degToRad = (degrees) => {
       return (degrees * Math.PI) / 180;
@@ -156,42 +161,63 @@ const HomeProducts = () => {
 
     const distanceInKm = earthRadius * c;
 
-    console.log(
-      `UserLat: ${startLat}, UserLong: ${startLng}, ProductLat: ${destLat}, ProductLong: ${destLng}`
-    );
-    console.log(distanceInKm.toFixed(2));
     return distanceInKm.toFixed(2);
   };
 
   const handleDistanceSelect = (e) => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) return;
+    setDistanceValue(e?.target?.value || 5);
+    if (!userCords) return;
 
-    console.log(user);
-    const userCords = [user.lat, user.log];
-    console.log(userCords);
-
-    const range = e.target.value;
+    const range = distanceValue;
     if (range === "all" || range === "null") {
       setFilteredProducts(products);
       return;
     }
 
-    const productsWithoutCoordinates = products.filter(
-      (product) => !product.lat || !product.log
-    );
+    let productsToFilter = products;
 
-    const newFilteredProducts = products.filter((product) =>
-      range === "20"
-        ? calculateDistance(...userCords, product.lat, product.log) >=
-          Number(range)
-        : calculateDistance(...userCords, product.lat, product.log) <=
-          Number(range)
-    );
+    let newFilteredProducts = [];
+    let productsLeft = [];
+    let productsWithoutCoordinates = [];
+    const uniqueCategories = {};
+    productsToFilter.forEach((product) => {
+      const distance =
+        product.distance ||
+        calculateDistance(...userCords, product.lat, product.log);
+      product.distance = distance;
 
-    newFilteredProducts.push(...productsWithoutCoordinates);
-    setFilteredProducts(newFilteredProducts);
+      if (distance !== null) {
+        if (!uniqueCategories[product.category]) {
+          if (distance <= Number(range)) {
+            newFilteredProducts.push(product);
+            uniqueCategories[product.category] = true;
+          } else {
+            productsLeft.push(product);
+          }
+        } else {
+          productsLeft.push(product);
+        }
+      } else {
+        productsWithoutCoordinates.push(product);
+      }
+    });
+
+    // Sort the newFilteredProducts and productsLeft lists in ascending order based on distance
+    newFilteredProducts.sort((a, b) => Number(a.distance) - Number(b.distance));
+    productsLeft.sort((a, b) => Number(a.distance) - Number(b.distance));
+
+    productsToFilter = [
+      ...newFilteredProducts,
+      ...productsLeft,
+      ...productsWithoutCoordinates,
+    ];
+
+    setFilteredProducts(productsToFilter);
   };
+
+  useEffect(() => {
+    if (products?.length) handleDistanceSelect();
+  }, [products]);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -206,13 +232,6 @@ const HomeProducts = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-
-
-  
-  
- 
-  
 
   return (
     <>
@@ -305,13 +324,14 @@ const HomeProducts = () => {
                   <select
                     className="form-control rounded-pill"
                     id="distanceFilter"
+                    value={distanceValue}
                     onChange={handleDistanceSelect}
                   >
                     <option value="all">All</option>
                     <option value="5">5 Km</option>
                     <option value="10">10 km</option>
                     <option value="15">15 km</option>
-                    <option value="20">20+ km</option>
+                    <option value="20">20 km</option>
                     <option value="null"> </option>
                   </select>
                 </div>
@@ -430,7 +450,11 @@ const HomeProducts = () => {
                       <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
                         <div style={{ fontSize: "14px" }}>
                           {product.category}
-                          {isNewProduct(product.date) && <span className="ms-4" style={{color:'#ffc107'}}>New</span>}
+                          {isNewProduct(product.date) && (
+                            <span className="ms-4" style={{ color: "#ffc107" }}>
+                              New
+                            </span>
+                          )}
                         </div>
                         <a
                           href={`/${product.product_id}`}
@@ -447,8 +471,6 @@ const HomeProducts = () => {
                             : product.product_name.length > 20
                             ? product.product_name.substring(0, 25) + "..."
                             : product.product_name}
-
-                           
                         </a>
                         <h5 className="mt-1">
                           <sup>&#x20B9;</sup>
@@ -475,20 +497,29 @@ const HomeProducts = () => {
                             Color: <span>{product.product_color1}</span>
                           </h6>
                         </div>
-                      
-                          <div className="" >
-                            {product.product_discription.length > 40
-                              ? product.product_discription.slice(0, 40) + "..."
-                              : product.product_discription}
-                          </div>
-                        
+
+                        <div className="">
+                          {product.product_discription.length > 40
+                            ? product.product_discription.slice(0, 40) + "..."
+                            : product.product_discription}
+                        </div>
+
                         <div className="product-rating text-warning d-flex ">
                           Rating:{" "}
                           <StarRatings rating={product.product_ratings} />
                         </div>
-                        <div className="product-distance text-secondary ">
-                          Distance: {product.distance}km away.
-                        </div>
+                        {userCords && (
+                          <div className="product-distance text-secondary ">
+                            Distance:{" "}
+                            {product.distance ||
+                              calculateDistance(
+                                ...userCords,
+                                product.lat,
+                                product.log
+                              )}
+                            km away.
+                          </div>
+                        )}
                         {cart.snackbar.open &&
                           cart.snackbar.index === index && (
                             <div

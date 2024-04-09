@@ -47,7 +47,7 @@ function Filter({ brand, mobileView }) {
                     <option value="5">5 km</option>
                     <option value="10">10 km</option>
                     <option value="15">15 km</option>
-                    <option value="20">20+ km</option>
+                    <option value="20">20 km</option>
                   </select>
                 </div>
                 <div className="form-group mt-1">
@@ -139,7 +139,7 @@ function Filter({ brand, mobileView }) {
                   <option value="5">5 km</option>
                   <option value="10">10 km</option>
                   <option value="15">15 km</option>
-                  <option value="20">20+ km</option>
+                  <option value="20">20 km</option>
                 </select>
               </div>
               <div className="form-group mt-1">
