@@ -109,19 +109,19 @@ const Category = () => {
 
           const remainingProducts = productsToFilter.filter((product) => {
             if (selectedPrice !== "") {
-                const [minPrice] = selectedPrice.split("-").map(Number);
-                const price = parseInt(product.product_price);
-                return price < minPrice;
+              const [minPrice] = selectedPrice.split("-").map(Number);
+              const price = parseInt(product.product_price);
+              return price < minPrice;
             } else {
-                return true; // Include all products if no price range is selected
+              return true; // Include all products if no price range is selected
             }
-        });
-        
-        remainingProducts.sort(
-            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-        );
+          });
 
-          filtered = [...combinedProducts,...remainingProducts];
+          remainingProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+          );
+
+          filtered = [...combinedProducts, ...remainingProducts];
         }
 
         if (selectedPrice === "500 +") {
@@ -138,23 +138,22 @@ const Category = () => {
 
           const remainingProducts = productsToFilter.filter((product) => {
             if (selectedPrice !== "") {
-               let minPrice=500
-                const price = parseInt(product.product_price);
-                return price < minPrice;
+              let minPrice = 500;
+              const price = parseInt(product.product_price);
+              return price < minPrice;
             } else {
-                return true; // Include all products if no price range is selected
+              return true; // Include all products if no price range is selected
             }
-        });
-        
-        remainingProducts.sort(
-            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-        );
+          });
 
-          filtered = [...above500Products,...remainingProducts];
+          remainingProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+          );
+
+          filtered = [...above500Products, ...remainingProducts];
         }
 
         if (offer !== "") {
-          
           const selectedOffer = parseInt(offer);
 
           const filteredByOffer = filtered.filter((product) => {
@@ -162,7 +161,6 @@ const Category = () => {
             const offerPercentage = parseInt(product.offers);
             return offerPercentage >= selectedOffer;
           });
-
 
           filteredByOffer.sort(
             (a, b) => parseFloat(a.offers) - parseFloat(b.offers)
@@ -206,19 +204,19 @@ const Category = () => {
 
           const remainingProducts = productsToFilter.filter((product) => {
             if (selectedPrice !== "") {
-                const [minPrice] = selectedPrice.split("-").map(Number);
-                const price = parseInt(product.product_price);
-                return price < minPrice;
+              const [minPrice] = selectedPrice.split("-").map(Number);
+              const price = parseInt(product.product_price);
+              return price < minPrice;
             } else {
-                return true; // Include all products if no price range is selected
+              return true; // Include all products if no price range is selected
             }
-        });
-        
-        remainingProducts.sort(
-            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-        );
+          });
 
-          filtered = [...combinedProducts,...remainingProducts];
+          remainingProducts.sort(
+            (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+          );
+
+          filtered = [...combinedProducts, ...remainingProducts];
         }
 
         if (selectedPrice === "500 +") {
@@ -234,18 +232,18 @@ const Category = () => {
 
           const remainingProducts = productsToFilter.filter((product) => {
             if (selectedPrice !== "") {
-              let minPrice=500
-                const price = parseInt(product.product_price);
-                return price < minPrice;
+              let minPrice = 500;
+              const price = parseInt(product.product_price);
+              return price < minPrice;
             } else {
-                return true; // Include all products if no price range is selected
+              return true; // Include all products if no price range is selected
             }
-        });
-        
-        remainingProducts.sort(
+          });
+
+          remainingProducts.sort(
             (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-        );
-          filtered = [...above500Products,...remainingProducts];
+          );
+          filtered = [...above500Products, ...remainingProducts];
         }
 
         if (offer !== "") {
@@ -256,7 +254,6 @@ const Category = () => {
             const offerPercentage = parseInt(product.offers);
             return offerPercentage >= selectedOffer;
           });
-
 
           filteredByOffer.sort(
             (a, b) => parseFloat(a.offers) - parseFloat(b.offers)
@@ -279,8 +276,7 @@ const Category = () => {
     } else {
       console.log("ELSE CATEGORY:", selectedCategory);
       productsToFilter = products;
-      
-      
+
       if (selectedPrice !== "" && selectedPrice !== "500 +") {
         const [minPrice, maxPrice] = selectedPrice.split("-").map(Number);
 
@@ -302,19 +298,19 @@ const Category = () => {
 
         const remainingProducts = productsToFilter.filter((product) => {
           if (selectedPrice !== "") {
-              const [minPrice] = selectedPrice.split("-").map(Number);
-              const price = parseInt(product.product_price);
-              return price < minPrice;
+            const [minPrice] = selectedPrice.split("-").map(Number);
+            const price = parseInt(product.product_price);
+            return price < minPrice;
           } else {
-              return true; // Include all products if no price range is selected
+            return true; // Include all products if no price range is selected
           }
-      });
-      
-      remainingProducts.sort(
-          (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-      );
+        });
 
-        productsToFilter = [...combinedProducts,...remainingProducts];
+        remainingProducts.sort(
+          (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
+        );
+
+        productsToFilter = [...combinedProducts, ...remainingProducts];
       }
 
       if (selectedPrice === "500 +") {
@@ -330,35 +326,35 @@ const Category = () => {
 
         const remainingProducts = productsToFilter.filter((product) => {
           if (selectedPrice !== "") {
-            let minPrice=500
-              console.log("ELSE MIN",minPrice)
-              const price = parseInt(product.product_price);
-              return price < minPrice;
+            let minPrice = 500;
+            console.log("ELSE MIN", minPrice);
+            const price = parseInt(product.product_price);
+            return price < minPrice;
           } else {
-              return true; // Include all products if no price range is selected
+            return true; // Include all products if no price range is selected
           }
-      });
-      console.log("ELSE REMAINING PROD",remainingProducts)
-      
-      remainingProducts.sort(
+        });
+        console.log("ELSE REMAINING PROD", remainingProducts);
+
+        remainingProducts.sort(
           (a, b) => parseFloat(a.product_price) - parseFloat(b.product_price)
-      );
+        );
 
         productsToFilter = [...above500Products, ...remainingProducts];
       }
       if (offer !== "") {
         const selectedOffer = parseInt(offer);
-  
+
         const filteredByOffer = productsToFilter.filter((product) => {
           // Assuming 'product_offer' is the property containing offer percentage
           const offerPercentage = parseInt(product.offers);
           return offerPercentage >= selectedOffer;
         });
-  
+
         filteredByOffer.sort(
           (a, b) => parseFloat(a.offers) - parseFloat(b.offers)
         );
-  
+
         if (filteredByOffer.length === 0) {
           console.log("LENGTH 0", productsToFilter);
           productsToFilter = productsToFilter;
@@ -370,7 +366,6 @@ const Category = () => {
     }
   }, [selectedCategory, selectedPrice, products, offer]);
 
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -378,16 +373,15 @@ const Category = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   return (
     <>
-     
       <br />
       <br />
       {/* we are coming soon */}
@@ -402,85 +396,106 @@ const Category = () => {
           <div className="col-md-10">
             <div className="row">
               {filteredProducts?.map((product, index) => (
-             <div
-             key={index}
-             className="col-6 col-sm-3 py-2"
-           >
-             <div className="product-card">
-               <div className="product-image" style={{ position: "relative" }}>
-                 <img src={product.product_image1} style={{ width: '100%' }} alt="Product 1" />
-                 <span style={{ position: "absolute", top: "5px", right: "5px", background: "yellow", padding: "5px", fontSize: "10px" }}>Real Image</span>
-                 <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
-                   {product.offers}% Off
-                 </div>
-               </div>
-           
-               <div className="product-content">
-                 {/* Product Name */}
-                 {windowWidth <= 1024
-                   ? product.product_name.length > 15
-                     ? product.product_name.substring(0, 15) + "..."
-                     : product.product_name
-                   : product.product_name.length > 20
-                   ? product.product_name.substring(0, 25) + "..."
-                   : product.product_name}
-                 {/* Price and other details */}
-                 <h5>
-                   Price: <sup>&#x20B9;</sup>
-                   {product.product_price}
-                   <span className="text-decoration-line-through text-muted fs-6 fw-light">
-                     599
-                   </span>
-                   <span
-                     className="text-muted"
-                     style={{
-                       fontSize: "13px",
-                     }}
-                   >
-                     {" "}
-                     {product.product_stock}
-                   </span>
-                 </h5>
-                 {/* Product Rating */}
-                 <div className="product-rating text-warning d-flex mb-2">
-                   Rating: <StarRatings rating={product.product_ratings} />
-                 </div>
-                 {/* Distance */}
-                 <p className="product-distance text-secondary ">
-                   Distance: {product.distance}km away.
-                 </p>
-                 {/* Snackbar */}
-                 {cart.snackbar.open && cart.snackbar.index === index && (
-                   <div
-                     style={{ fontSize: "12px" }}
-                     className="border text-center rounded w-75 mx-auto"
-                   >
-                     {cart.snackbar.message}
-                   </div>
-                 )}
-               </div>
-           
-               {/* Buttons */}
-               <div className="d-flex justify-content-center align-items-center gap-2">
-                 <button
-                   className="btn btn-primary  ms-2"
-                   onClick={() => handleAddToCart(product, index)}
-                 >
-                   <img
-                     className="img-fluid"
-                     src={cartIcon}
-                     style={{ height: "20px" }}
-                   />
-                 </button>
-                 <button className="btn btn-primary my-2  ms-2 px-2 py-1">
-                   <Link to="/checkout" style={{ textDecoration: "none", color: "#000" }}>
-                     Buy Now
-                   </Link>
-                 </button>
-               </div>
-             </div>
-           </div>
-           
+                <div key={index} className="col-6 col-sm-3 py-2">
+                  <div className="product-card">
+                    <div
+                      className="product-image"
+                      style={{ position: "relative" }}
+                    >
+                      <img
+                        src={product.product_image1}
+                        style={{ width: "100%" }}
+                        alt="Product 1"
+                      />
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: "5px",
+                          right: "5px",
+                          background: "yellow",
+                          padding: "5px",
+                          fontSize: "10px",
+                        }}
+                      >
+                        Real Image
+                      </span>
+                      <div
+                        className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${
+                          product.offers === "0" && "invisible"
+                        }`}
+                      >
+                        {product.offers}% Off
+                      </div>
+                    </div>
+
+                    <div className="product-content">
+                      {/* Product Name */}
+                      {windowWidth <= 1024
+                        ? product.product_name.length > 15
+                          ? product.product_name.substring(0, 15) + "..."
+                          : product.product_name
+                        : product.product_name.length > 20
+                        ? product.product_name.substring(0, 25) + "..."
+                        : product.product_name}
+                      {/* Price and other details */}
+                      <h5>
+                        Price: <sup>&#x20B9;</sup>
+                        {product.product_price}
+                        <span className="text-decoration-line-through text-muted fs-6 fw-light">
+                          599
+                        </span>
+                        <span
+                          className="text-muted"
+                          style={{
+                            fontSize: "13px",
+                          }}
+                        >
+                          {" "}
+                          {product.product_stock}
+                        </span>
+                      </h5>
+                      {/* Product Rating */}
+                      <div className="product-rating text-warning d-flex mb-2">
+                        Rating: <StarRatings rating={product.product_ratings} />
+                      </div>
+                      {/* Distance */}
+                      <p className="product-distance text-secondary ">
+                        Distance: {product.distance}km away.
+                      </p>
+                      {/* Snackbar */}
+                      {cart.snackbar.open && cart.snackbar.index === index && (
+                        <div
+                          style={{ fontSize: "12px" }}
+                          className="border text-center rounded w-75 mx-auto"
+                        >
+                          {cart.snackbar.message}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Buttons */}
+                    <div className="d-flex justify-content-center align-items-center gap-2">
+                      <button
+                        className="btn btn-primary  ms-2"
+                        onClick={() => handleAddToCart(product, index)}
+                      >
+                        <img
+                          className="img-fluid"
+                          src={cartIcon}
+                          style={{ height: "20px" }}
+                        />
+                      </button>
+                      <button className="btn btn-primary my-2  ms-2 px-2 py-1">
+                        <Link
+                          to="/checkout"
+                          style={{ textDecoration: "none", color: "#000" }}
+                        >
+                          Buy Now
+                        </Link>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>

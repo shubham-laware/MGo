@@ -411,7 +411,11 @@ const HomeProducts = () => {
                             <span className="visually-hidden">Next</span>
                           </button>
                         </div>
-                        <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light mt-2">
+                        <div
+                          className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${
+                            product.offers === "0" && "invisible"
+                          }`}
+                        >
                           {product.offers}% Off
                         </div>
                       </div>
@@ -425,7 +429,7 @@ const HomeProducts = () => {
                             color: "black",
                           }}
                         >
-                         {windowWidth <= 1024
+                          {windowWidth <= 1024
                             ? product.product_name.length > 15
                               ? product.product_name.substring(0, 15) + "..."
                               : product.product_name

@@ -423,7 +423,11 @@ const HomeProducts = () => {
                       >
                         <div className="product-image">
                           <img src={product.product_image1} alt="Product 1" />
-                          <div className="offer-tag bg-warning rounded-pill text-center p-1 text-light">
+                          <div
+                            className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${
+                              product.offers === "0" && "invisible"
+                            }`}
+                          >
                             {product.offers}% Off
                           </div>
                         </div>
