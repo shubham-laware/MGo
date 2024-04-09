@@ -268,7 +268,7 @@ function Header() {
                         <>
                           <FaLocationDot className="fs-5 p-1" />
                           <span style={{ fontSize: '12px' }}>
-                            {userLocation.length > 20 ? userLocation.substring(0, 13) + '...' : userLocation}
+                            {userLocation.length > 20 ? userLocation.substring(0, 10) + '...' : userLocation}
                           </span>
                         </>
                       )}
