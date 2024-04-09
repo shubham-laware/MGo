@@ -679,7 +679,7 @@ function Header() {
                     textDecoration: "none",
                     color: "black",
                   }}
-                  onClick={() => setShowOffcanvas(true)}
+                  onClick={() => setShowOffcanvas(false)}
                 >
                   <FaCircleInfo
                     className="me-3 "
