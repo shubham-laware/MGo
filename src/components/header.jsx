@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
+import { FaLocationDot } from "react-icons/fa6";
+
 import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, useLocation } from "react-router-dom";
@@ -48,6 +50,7 @@ function Header() {
   const [pincode, setPincode] = useState("");
   const [townDistrict, setTownDistrict] = useState("");
   const [state, setState] = useState("");
+
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
@@ -255,7 +258,18 @@ function Header() {
                   <span style={{ fontSize: "10px" }}>{fullName}</span>
                   <span style={{ fontSize: "10px" }}>
                     {/* Delivered to-only13char */}
-                    Delivered to- {userLocation?.length > 20 ? userLocation?.substring(0, 13) + '...' : userLocation}
+                    {/* Delivered to- {userLocation?.length > 20 ? userLocation?.substring(0, 13) + '...' : userLocation} */}
+                    <div className="d-flex">
+                      {userLocation && userLocation.length > 0 && ( 
+                        <>
+                          <FaLocationDot className="fs-5 p-1" />
+                          <span style={{ fontSize: '12px' }}>
+                            {userLocation.length > 20 ? userLocation.substring(0, 13) + '...' : userLocation}
+                          </span>
+                        </>
+                      )}
+                    </div>
+
                   </span>
                 </div>
               )}
@@ -266,7 +280,7 @@ function Header() {
           {/* for mobile vieww */}
           <div className="mobile-menu-logo d-lg-none d-flex gap-2 align-items-center">
             <Link
-              to="/cart" style={{color:"#000"}}>
+              to="/cart" style={{ color: "#000" }}>
               <div
                 className="nav-link cat-nav d-lg-none d-block text-center "
                 style={{ position: "relative" }}
