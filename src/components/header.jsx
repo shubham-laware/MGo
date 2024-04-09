@@ -41,6 +41,7 @@ import { BsPersonCircle } from "react-icons/bs";
 import { PiHandshakeBold } from "react-icons/pi";
 
 import "./header.css";
+import ResetPassword from "./ResetPassword.jsx";
 
 function Header() {
   const [address, setAddress] = useState("");
@@ -84,6 +85,7 @@ function Header() {
     setSelectedCategory,
     showModal,
     setShowModal,
+    forgetPasswordModal
   } = context;
   // code for serach
   const [searchSuggestions, setSearchSuggestions] = useState([]);
@@ -558,9 +560,17 @@ function Header() {
           className="p-0 rounded-4 d-flex w-max "
           style={{ minWidth: "22rem" }}
         >
-          <Login closeLoginModal={() => setLoginModal(false)} />
+
+          <Login closeLoginModal={() => setLoginModal(false)}  />
         </Modal.Body>
       </Modal>
+
+      {
+        forgetPasswordModal && (
+          <ResetPassword  setLoginModal={()=>setLoginModal(true)}/>
+        )
+      }
+     
 
       {/* Offcanvas Sidebar */}
 

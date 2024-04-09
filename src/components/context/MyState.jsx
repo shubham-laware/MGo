@@ -12,8 +12,10 @@ const Mystate = (props) => {
   const [offer,setOffers] = useState("")
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
- // for hide modal
  const [showfilterModal, setShowFilterModal] = useState(false);
+
+ const [forgetPasswordModal, setForgetPasswordModal] = useState(false);
+
 
 
 
@@ -55,6 +57,22 @@ const Mystate = (props) => {
     setSelectedImageIndex(index); // Update the selected image index
 };
 
+function fetchLoginData() {
+  axios.get("https://minitgo.com/api/fetch_login.php")
+    .then((response) => {
+      if (response.data && response.data.length > 0) {
+        const allUsers = response.data;
+        return allUsers
+      } else {
+        console.error("No user data found.");
+        return [];
+      }
+    })
+    .catch((error) => {
+      console.error("Failed to fetch user information:", error);
+    });
+}
+
 
   return (
     <div>
@@ -81,7 +99,9 @@ const Mystate = (props) => {
           handleImageClick,
           showModal,
           setShowModal,
-          showfilterModal
+          showfilterModal,
+          fetchLoginData,
+          forgetPasswordModal, setForgetPasswordModal
         }}
       >
         {props.children}
