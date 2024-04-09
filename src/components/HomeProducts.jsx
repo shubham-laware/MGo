@@ -24,6 +24,8 @@ const HomeProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [images, setImages] = useState([]);
 
+  const [distanceValue, setDistanceValue] = useState("all");
+
   useEffect(() => {
     setFilteredProducts(products);
   }, [products]);
@@ -128,6 +130,9 @@ const HomeProducts = () => {
     }
   }, [coordinates]); // Run the effect whenever coordinates change
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userCords = user ? [user.lat, user.log] : null;
+
   const calculateDistance = (startLat, startLng, destLat, destLng) => {
     if (!startLat || !startLng || !destLat || !destLng) return Infinity;
 
@@ -167,15 +172,8 @@ const HomeProducts = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) return;
 
-    console.log(user);
-    const userCords = [user.lat, user.log];
-    console.log(userCords);
-
-    const range = e.target.value;
-    if (range === "all" || range === "null") {
-      setFilteredProducts(products);
-      return;
-    }
+    const range =
+      distanceValue && distanceValue === "all" ? "5" : distanceValue || "5";
 
     const productsWithoutCoordinates = products.filter(
       (product) => !product.lat || !product.log
@@ -311,8 +309,7 @@ const HomeProducts = () => {
                     <option value="5">5 Km</option>
                     <option value="10">10 km</option>
                     <option value="15">15 km</option>
-                    <option value="20">20+ km</option>
-                    <option value="null"> </option>
+                    <option value="20">20 km</option>
                   </select>
                 </div>
                 <div className="form-group">
@@ -482,7 +479,7 @@ const HomeProducts = () => {
 
                         <div className="d-flex justify-content-between " style={{fontSize:'14px'}}>
                           <div>
-                            <span className="fw-semibold">Material:</span> <span>{product.material}</span>
+                            <span className="fw-semibold"></span> <span>{product.material}</span>
                           </div>
                           <div className="">
                             <span className="fw-semibold">Color:</span> <span>{product.product_color1}</span>
@@ -511,9 +508,18 @@ const HomeProducts = () => {
                           
                           <StarRatings rating={product.product_ratings} />
                         </div>
-                        <div className="product-distance text-secondary ">
-                          5 {product.distance}km away.
-                        </div>
+                        {userCords && (
+                          <div className="product-distance text-secondary ">
+                           
+                            {product.distance ||
+                              calculateDistance(
+                                ...userCords,
+                                product.lat,
+                                product.log
+                              )}
+                            km away.
+                          </div>
+                        )}
                         </div>
                        
                        

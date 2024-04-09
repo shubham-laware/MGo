@@ -381,6 +381,45 @@ const Category = () => {
     };
   }, []);
 
+
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userCords = user ? [user.lat, user.log] : null;
+const calculateDistance = (startLat, startLng, destLat, destLng) => {
+    if (!startLat || !startLng || !destLat || !destLng) return Infinity;
+
+    const degToRad = (degrees) => {
+      return (degrees * Math.PI) / 180;
+    };
+
+    const startLatRad = degToRad(Number(startLat));
+    const startLngRad = degToRad(Number(startLng));
+    const destLatRad = degToRad(Number(destLat));
+    const destLngRad = degToRad(Number(destLng));
+
+    const earthRadius = 6371; // Radius of the Earth in kilometers
+
+    const latDiffRad = destLatRad - startLatRad;
+    const lngDiffRad = destLngRad - startLngRad;
+
+    const a =
+      Math.sin(latDiffRad / 2) * Math.sin(latDiffRad / 2) +
+      Math.cos(startLatRad) *
+        Math.cos(destLatRad) *
+        Math.sin(lngDiffRad / 2) *
+        Math.sin(lngDiffRad / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distanceInKm = earthRadius * c;
+
+    console.log(
+      `UserLat: ${startLat}, UserLong: ${startLng}, ProductLat: ${destLat}, ProductLong: ${destLng}`
+    );
+    console.log(distanceInKm.toFixed(2));
+    return distanceInKm.toFixed(2);
+  };
+
   return (
     <>
       <br />
@@ -483,7 +522,7 @@ const Category = () => {
 
                         <div className="d-flex justify-content-between " style={{fontSize:'14px'}}>
                           <div>
-                            <span className="fw-semibold">Material:</span> <span>{product.material}</span>
+                            <span className="fw-semibold"></span> <span>{product.material}</span>
                           </div>
                           <div className="">
                             <span className="fw-semibold">Color:</span> <span>{product.product_color1}</span>
@@ -512,9 +551,18 @@ const Category = () => {
                           
                           <StarRatings rating={product.product_ratings} />
                         </div>
-                        <div className="product-distance text-secondary ">
-                          5 {product.distance}km away.
-                        </div>
+                        {userCords && (
+                          <div className="product-distance text-secondary ">
+                           
+                            {product.distance ||
+                              calculateDistance(
+                                ...userCords,
+                                product.lat,
+                                product.log
+                              )}
+                            km away.
+                          </div>
+                        )}
                         </div>
                        
                        
