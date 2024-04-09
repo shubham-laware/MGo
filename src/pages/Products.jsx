@@ -118,10 +118,6 @@ const HomeProducts = () => {
 
     const distanceInKm = earthRadius * c;
 
-    console.log(
-      `UserLat: ${startLat}, UserLong: ${startLng}, ProductLat: ${destLat}, ProductLong: ${destLng}`
-    );
-    console.log(distanceInKm.toFixed(2));
     return distanceInKm.toFixed(2);
   };
 
@@ -133,33 +129,43 @@ const HomeProducts = () => {
     let productsToFilter = products;
 
     // Distance filtering
-    if (
-      selectedDistance !== "all" &&
-      selectedDistance !== "null" &&
-      localStorage.getItem("user")
-    ) {
-      console.log("Distance filtering");
+    console.log(selectedDistance);
+    if (selectedDistance !== "all" && localStorage.getItem("user")) {
+      console.log(productsToFilter);
       const user = JSON.parse(localStorage.getItem("user"));
-
       const userCords = [user.lat, user.log];
-
-      const range = selectedDistance;
+      const range = selectedDistance || "5";
 
       const productsWithoutCoordinates = productsToFilter.filter(
         (product) => !product.lat || !product.log
       );
-
-      const newFilteredProducts = products.filter((product) =>
-        range === "20"
-          ? calculateDistance(...userCords, product.lat, product.log) >=
-            Number(range)
-          : calculateDistance(...userCords, product.lat, product.log) <=
-            Number(range)
+      let productsLeft = products.filter(
+        (product) =>
+          calculateDistance(...userCords, product.lat, product.log) >
+          Number(range)
       );
+
+      const uniqueCategories = {};
+      const newFilteredProducts = [];
+
+      products.forEach((product) => {
+        if (
+          calculateDistance(...userCords, product.lat, product.log) <=
+          Number(range)
+        ) {
+          if (!uniqueCategories[product.category]) {
+            newFilteredProducts.push(product);
+            uniqueCategories[product.category] = true;
+          } else {
+            productsLeft.push(product);
+          }
+        }
+      });
 
       productsToFilter = [
         ...newFilteredProducts,
         ...productsWithoutCoordinates,
+        ...productsLeft,
       ];
     }
 
