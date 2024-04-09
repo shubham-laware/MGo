@@ -365,9 +365,9 @@ const HomeProducts = () => {
                             data-bs-target={`#carouselExampleIndicators${index}`}
                             data-bs-slide="prev"
                             style={{
-                              height: "30px",
+                              height: "29px",
                               top: "50%",
-                              width: "35px",
+                              width: "29px",
                               zIndex: "0",
                             }}
                           >
@@ -383,9 +383,9 @@ const HomeProducts = () => {
                             data-bs-target={`#carouselExampleIndicators${index}`}
                             data-bs-slide="next"
                             style={{
-                              height: "30px",
+                              height: "29px",
                               top: "50%",
-                              width: "35px",
+                              width: "29px",
                               zIndex: "0",
                             }}
                           >
