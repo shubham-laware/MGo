@@ -9,6 +9,13 @@ import { FiFilter } from "react-icons/fi";
 import Filter from "./Filter.jsx";
 import myContext from "./context/MyContext";
 import { Link } from "react-router-dom"
+import NavDropdown from "react-bootstrap/NavDropdown";
+import { CiLocationArrow1 } from "react-icons/ci";
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+
+
 
 export default function Catlog() {
   const [mobileView, setMobileView] = useState(false);
@@ -28,12 +35,34 @@ export default function Catlog() {
     );
   };
 
-  const { showfilterModal } = context;
+  const locationHy = useLocation();
+  const showHyDropdown = () => {
+    // Check if location pathname is not '/signin' or '/register'
+    return (
+      locationHy.pathname === "/"
+    );
+  };
+
+
+  // State to manage the dropdown title
+  const locationHY = (
+    <>
+      <CiLocationArrow1 /> Hyderabad
+    </>
+  );
+
+  const [dropdownTitle, setDropdownTitle] = useState(locationHY);
+
+  // Function to handle the dropdown item click
+  const handleDropdownItemClick = (option) => {
+    // Update the dropdown title based on the selected item
+    setDropdownTitle(option);
+  };
 
   return (
     <>
       <div className="catlog filter ">
-        <div className="catlog-names mx-lg-2 info-div text-center mt-1 container-fluid mx-5 me-5 px-5 pe-5" >
+        <div className="catlog-names mx-lg-2 info-div text-center mt-1 container-fluid mx-md-5 me-md-5 px-md-5 pe-md-5" >
           <div className="nav-link cat-nav d-none d-md-flex justify-content-evenly w-100 mt-1 mx-5 px-5 pe-5 me-5 new-catlog align-items-center">
 
             <Link style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}> <span className="mt-1 fw-semibold">Near you</span></Link>
@@ -87,7 +116,49 @@ export default function Catlog() {
 
           </div>
 
-         
+          {
+            showHyDropdown() && (
+              <div className="dropdown nav-link cat-nav d-md-none d-flex justify-content-between w-100 align-items-center mb-3 text-black">
+
+                <div className="p-2">
+                  <NavDropdown
+                    title={dropdownTitle}
+                    id="collasible-nav-dropdown"
+                    style={{ border: "2.6px solid #d8dfab", borderRadius: "13px", fontSize: "15px", backgroundColor: "lightgray",padding:"10px" }}
+                  >
+                    <NavDropdown.Item
+                      onClick={() => handleDropdownItemClick("Hyderabad")}
+                     
+                    >
+                      <FaLocationCrosshairs /> <span className="text-black">Hyderabad</span>
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item
+                      onClick={() => handleDropdownItemClick("Mumbai")}
+                    
+                    >,
+                      Mumbai
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      onClick={() => handleDropdownItemClick("Delhi")}
+                     
+                    >
+                      Delhi
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      onClick={() => handleDropdownItemClick("Banglore")}
+                      
+                    >
+                      Banglore
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </div>
+
+                <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="img-fluid" style={{ height: "2.5rem", width: "12rem" }} /></span>
+              </div>
+            )
+          }
+
 
           {showFilter() && (
             <div className="nav-link cat-nav d-md-none d-block">
