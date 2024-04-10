@@ -956,6 +956,9 @@
    .filter-button {
      margin-left: 37rem !important;
    }
+   .catlog-names {
+    padding-left: 0px !important;
+   }
  }
 
  @media screen and (min-width: 820px) and (max-width: 820px) {
@@ -993,29 +996,12 @@
    .filter-button {
      margin-left: 22rem !important;
    }
-
-   /* .mobile-search {
-     width: 151% !important;
-   } */
-   /* .catlog {
-    margin-top: 100px !important;
-   } */
  }
  @media screen and (min-width: 412px)and (max-width: 412px) {
   .filter-button {
     margin-left: 12rem !important;
   }
-
-  /* .mobile-search {
-    width: 100% !important;
-  } */
  }
-
- /* @media screen and (min-width: 912px)and (max-width: 1024px) {
-  .filter-button {
-    margin-left: 14rem !important;
-  }
- } */
 
  @media screen and (min-width: 1024px)and (max-width: 1024px) {
   .filter-button {
