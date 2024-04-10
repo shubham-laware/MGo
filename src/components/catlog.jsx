@@ -59,10 +59,6 @@ export default function Catlog() {
               style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}
             ><span className="mt-1 fw-semibold">Women's</span></Link>
             <Link
-              to={{
-                pathname: "/kids-category",
-                search: `?category=kids Fashion`,
-              }}
               style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}
             ><span className="mt-1 fw-semibold">Kids</span></Link>
             <Link
