@@ -8,6 +8,7 @@ import { selectTotalQuantity } from "../components/redux/Slices/CartSlice.js";
 import { FiFilter } from "react-icons/fi";
 import Filter from "./Filter.jsx";
 import myContext from "./context/MyContext";
+import { Link } from "react-router-dom"
 
 export default function Catlog() {
   const [mobileView, setMobileView] = useState(false);
@@ -32,22 +33,65 @@ export default function Catlog() {
   return (
     <>
       <div className="catlog filter ">
-        <div className="catlog-names mx-lg-2 info-div text-center mt-1 container-fluid" >
-          <div className="nav-link cat-nav mb-2 d-none d-md-flex justify-content-between w-100 mt-1 mx-5 px-5 pe-5 me-5 new-catlog">
+        <div className="catlog-names mx-lg-2 info-div text-center mt-1 container-fluid mx-5 me-5 px-5 pe-5" >
+          <div className="nav-link cat-nav d-none d-md-flex justify-content-evenly w-100 mt-1 mx-5 px-5 pe-5 me-5 new-catlog align-items-center">
 
-            <span className="mt-1 fw-semibold">Near you</span>
-            <span className="mt-1 fw-semibold">Fashion</span>
-            <span className="mt-1 fw-semibold">Mens</span>
-            <span className="mt-1 fw-semibold">Women's</span>
-            <span className="mt-1 fw-semibold">Kids</span>
-            <span className="mt-1 fw-semibold">Other</span>
-            <span className="mt-1 fw-semibold">Best deals</span>
-            <span className="mt-1 fw-semibold">Offers</span>
-            <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="img-fluid me-5 pe-5"  style={{height:"2.5rem",width:"20rem"}}/></span>
-
-
+            <Link style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}> <span className="mt-1 fw-semibold">Near you</span></Link>
+            <Link
+              to={{
+                pathname: "/accessories",
+                search: `?category=Accessories`,
+              }}
+              style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}
+            >  <span className="mt-3 fw-semibold">Fashion</span></Link>
+            <Link
+              to={{
+                pathname: "/mens-category",
+                search: `?category=Men's Fashion`,
+              }}
+              style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}
+            > <span className="mt-1 fw-semibold">Mens</span></Link>
+            <Link
+              to={{
+                pathname: "/womens-category",
+                search: `?category=Women's Fashion`,
+              }}
+              style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}
+            ><span className="mt-1 fw-semibold">Women's</span></Link>
+            <Link
+              to={{
+                pathname: "/kids-category",
+                search: `?category=kids Fashion`,
+              }}
+              style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}
+            ><span className="mt-1 fw-semibold">Kids</span></Link>
+            <Link
+              to={{
+                pathname: "/accessories",
+                search: `?category=Accessories`,
+              }}
+              style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}
+            ><span className="mt-1 fw-semibold">Other</span></Link>
+            <Link
+              to={{
+                pathname: "/accessories",
+                search: `?category=Accessories`,
+              }}
+              style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}
+            >
+              <span className="mt-1 fw-semibold">Best deals</span></Link>
+            <Link
+              to={{
+                pathname: "/accessories",
+                search: `?category=Accessories`,
+              }}
+              style={{ textDecoration: "none", color: "black", fontSize: "14px" }}
+            > <span className="mt-1 fw-semibold">Offers</span></Link>
+            <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="img-fluid me-5 pe-5" style={{ height: "2.5rem", width: "20rem" }} /></span>
 
           </div>
+
+         
 
           {showFilter() && (
             <div className="nav-link cat-nav d-md-none d-block">
@@ -56,13 +100,6 @@ export default function Catlog() {
           )}
         </div>
       </div>
-
-
-
-
-
-
-
 
 
 
