@@ -20,7 +20,7 @@ const HomeProducts = () => {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useState("");
   const context = useContext(myContext);
-  const { products,isNewProduct } = context;
+  const { products, isNewProduct } = context;
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [images, setImages] = useState([]);
 
@@ -153,9 +153,9 @@ const HomeProducts = () => {
     const a =
       Math.sin(latDiffRad / 2) * Math.sin(latDiffRad / 2) +
       Math.cos(startLatRad) *
-        Math.cos(destLatRad) *
-        Math.sin(lngDiffRad / 2) *
-        Math.sin(lngDiffRad / 2);
+      Math.cos(destLatRad) *
+      Math.sin(lngDiffRad / 2) *
+      Math.sin(lngDiffRad / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
@@ -182,9 +182,9 @@ const HomeProducts = () => {
     const newFilteredProducts = products.filter((product) =>
       range === "20"
         ? calculateDistance(...userCords, product.lat, product.log) >=
-          Number(range)
+        Number(range)
         : calculateDistance(...userCords, product.lat, product.log) <=
-          Number(range)
+        Number(range)
     );
 
     newFilteredProducts.push(...productsWithoutCoordinates);
@@ -207,10 +207,10 @@ const HomeProducts = () => {
 
 
 
-  
-  
- 
-  
+
+
+
+
 
   return (
     <>
@@ -284,15 +284,33 @@ const HomeProducts = () => {
       </div>
       <br></br>
       <div className="mx-0 mx-md-5 px-0 px-md-5">
-        <h3>
-          <FaLocationDot className="fs-2 p-1" />
-          Nearby
-        </h3>
-        <p className="px-2" style={{ fontSize: 13.5 }}>
-          Increase distance for more products!{" "}
-        </p>
+        <div className="row">
+          <div className="col-md-3 col-4 col-xl-3"><h3>
+            <FaLocationDot className="fs-2 p-1" />
+            Nearby
+          </h3>
+          
+          </div>
+         
+          <div className="col-md-3 col-4 col-xl-3 d-lg-none">
+            <div class="select-wrapper" id="distanceDropdownWrapper">
+              <select className="form-control rounded-2" id="distanceFilter" onChange="{handleDistanceSelect}">
+                <option value="all">Distance</option>
+                <option value="5">5 Km</option>
+                <option value="10">10 km</option>
+                <option value="15">15 km</option>
+                <option value="20">20 km</option>
+              </select>
+            </div>
+            </div>
+        </div>
+
+
 
         <div className="row">
+        <p className="px-2 mx-2" style={{ fontSize: "13.5",}}>
+              Increase distance for more products!{" "}
+            </p>
           <div className="col-md-2 filter-s ">
             <div className="shadow filter-bg">
               <form>
@@ -329,7 +347,7 @@ const HomeProducts = () => {
             </div>
           </div>
 
-          <div className="col-md-10 ">
+          <div className="col-md-10">
             <div className="row">
               {filteredProducts?.length === 0 ? (
                 <div
@@ -344,7 +362,7 @@ const HomeProducts = () => {
                     key={index}
                     className="col-6 col-sm-4 col-md-6 col-lg-4 col-xl-3 py-2 "
                     id="sections"
-                    
+
                   >
                     <div className="product-card">
                       <div className="product-image">
@@ -358,9 +376,8 @@ const HomeProducts = () => {
                             {images[index]?.images.map((img, imgIndex) => (
                               <div
                                 key={imgIndex}
-                                className={` h-100  carousel-item${
-                                  imgIndex === 0 ? " active" : ""
-                                }`}
+                                className={` h-100  carousel-item${imgIndex === 0 ? " active" : ""
+                                  }`}
                               >
                                 <a
                                   href={`/${product.product_id}`}
@@ -417,9 +434,8 @@ const HomeProducts = () => {
                           </button>
                         </div>
                         <div
-                          className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${
-                            product.offers === "0" && "invisible"
-                          }`}
+                          className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${product.offers === "0" && "invisible"
+                            }`}
                         >
                           {product.offers}% Off
                         </div>
@@ -429,7 +445,7 @@ const HomeProducts = () => {
                         <div style={{ fontSize: "14px" }} className="d-flex justify-content-between">
                           <span>{product.category}</span>
                           <div>
-                          {isNewProduct(product.date) && <span className="btn  btn-secondary p-0 px-1" style={{color:'#ffc107',fontSize:'14px'}}>New</span>}
+                            {isNewProduct(product.date) && <span className="btn  btn-secondary p-0 px-1" style={{ color: '#ffc107', fontSize: '14px' }}>New</span>}
                           </div>
                         </div>
                         <a
@@ -448,36 +464,36 @@ const HomeProducts = () => {
                               ? product.product_name.substring(0, 15) + "..."
                               : product.product_name
                             : product.product_name.length > 23
-                            ? product.product_name.substring(0, 23) + "..."
-                            : product.product_name}
+                              ? product.product_name.substring(0, 23) + "..."
+                              : product.product_name}
 
-                           
+
                         </a>
 
                         <div className="d-flex align-items-center justify-content-between">
-                        <h5 className="mt-1">
-                        ₹
-                          {product.product_price}
-                          <span className="text-decoration-line-through text-muted fs-6 fw-light">
-                            599
-                          </span>
-                          <span
-                            className="text-muted"
-                            style={{
-                              fontSize: "13px",
-                            }}
-                          >
-                            {" "}
-                            {product.product_stock}
-                          </span>
-                        </h5>
-                        <div>
+                          <h5 className="mt-1">
+                            ₹
+                            {product.product_price}
+                            <span className="text-decoration-line-through text-muted fs-6 fw-light">
+                              599
+                            </span>
+                            <span
+                              className="text-muted"
+                              style={{
+                                fontSize: "13px",
+                              }}
+                            >
+                              {" "}
+                              {product.product_stock}
+                            </span>
+                          </h5>
+                          <div>
                             <span className="fw-semibold">Size:</span> <span>{product.product_size}</span>
                           </div>
                         </div>
-                       
 
-                        <div className="d-flex justify-content-between " style={{fontSize:'14px'}}>
+
+                        <div className="d-flex justify-content-between " style={{ fontSize: '14px' }}>
                           <div>
                             <span className="fw-semibold"></span> <span>{product.material}</span>
                           </div>
@@ -485,44 +501,44 @@ const HomeProducts = () => {
                             <span className="fw-semibold">Color:</span> <span>{product.product_color1}</span>
                           </div>
                         </div>
-                      
-                          <div className="mt-1" style={{textAlign:'justify'}} >
+
+                        <div className="mt-1" style={{ textAlign: 'justify' }} >
 
                           {windowWidth <= 576
                             ? product.product_discription.length > 20
                               ? product.product_discription.substring(0, 19) + "..."
                               : product.product_discription
-                            :product.product_discription.length > 50
-                            ? product.product_discription.slice(0, 45) + "..."
-                            : product.product_discription}
+                            : product.product_discription.length > 50
+                              ? product.product_discription.slice(0, 45) + "..."
+                              : product.product_discription}
 
 
-                            {/* {product.product_discription.length > 50
+                          {/* {product.product_discription.length > 50
                               ? product.product_discription.slice(0, 45) + "..."
                               : product.product_discription} */}
-                          </div>
-                        
+                        </div>
+
 
                         <div className="d-flex justify-content-between mt-1">
-                        <div className="product-rating text-warning d-flex ">
-                          
-                          <StarRatings rating={product.product_ratings} />
-                        </div>
-                        {userCords && (
-                          <div className="product-distance text-secondary ">
-                           
-                            {product.distance ||
-                              calculateDistance(
-                                ...userCords,
-                                product.lat,
-                                product.log
-                              )}
-                            km away.
+                          <div className="product-rating text-warning d-flex ">
+
+                            <StarRatings rating={product.product_ratings} />
                           </div>
-                        )}
+                          {userCords && (
+                            <div className="product-distance text-secondary ">
+
+                              {product.distance ||
+                                calculateDistance(
+                                  ...userCords,
+                                  product.lat,
+                                  product.log
+                                )}
+                              km away.
+                            </div>
+                          )}
                         </div>
-                       
-                       
+
+
                         {cart.snackbar.open &&
                           cart.snackbar.index === index && (
                             <div
@@ -540,11 +556,10 @@ const HomeProducts = () => {
                       >
                         <div className="  w-100 d-flex justify-content-between">
                           <button
-                            className={`btn ${
-                              wishlistClicked[index]
-                                ? "btn-success"
-                                : "btn-primary"
-                            } w-25 my-2`}
+                            className={`btn ${wishlistClicked[index]
+                              ? "btn-success"
+                              : "btn-primary"
+                              } w-25 my-2`}
                             onClick={() => handleWishListToCart(product, index)}
                           >
                             ❤

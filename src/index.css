@@ -1025,3 +1025,34 @@
   
   } 
  }
+
+ /* dropdown arrow */
+ .select-wrapper {
+  position: relative;
+  width: 100%; 
+}
+
+.select-wrapper select {
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none; 
+  padding-right: 30px; 
+ 
+}
+
+.select-wrapper::after {
+  content: "\25BC"; 
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  pointer-events: none; 
+  transform: translateY(-50%);
+ 
+}
+
+/* remove distance dropdown in I-pad mini */
+@media screen and (min-width: 768px) and  (max-width: 991.98px) {
+  #distanceDropdownWrapper {
+    display: none;
+  }
+}
