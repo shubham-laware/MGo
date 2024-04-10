@@ -31,69 +31,43 @@ export default function Catlog() {
 
   return (
     <>
-      <div className="catlog filter">
-        <div
-          className="catlog-names mx-lg-2 d-flex gap-1 info-div text-center mt-1 "
-          // style={{ marginLeft: "2.7rem" }}
-        >
-          <div className="nav-link cat-nav mb-2 d-md-none">
-            {/* <Dropdown>
-              <Dropdown.Toggle
-                variant="light"
-                id="dropdown-basic"
-                className=" rounded-pill set-range btn-primary"
-              >
-                Range
-              </Dropdown.Toggle>
+      <div className="catlog filter ">
+        <div className="catlog-names mx-lg-2 info-div text-center mt-1 container-fluid" >
+          <div className="nav-link cat-nav mb-2 d-none d-md-flex justify-content-between w-100 mt-1 mx-5 px-5 pe-5 me-5 new-catlog">
 
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">
-                  Distance 8<sup>km</sup>
-                </Dropdown.Item>
-                <Dropdown.Item href="#/action-2">
-                  Distance 12<sup>km</sup>
-                </Dropdown.Item>
-                <Dropdown.Item href="#/action-3">
-                  Distance 20<sup>km</sup>
-                </Dropdown.Item>
-                <Dropdown.Item href="#/action-3">
-                  Distance 25<sup>km</sup>
-                </Dropdown.Item>
-                <Dropdown.Item href="#/action-3">
-                  More than 25<sup>km</sup>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown> */}
+            <span className="mt-1 fw-semibold">Near you</span>
+            <span className="mt-1 fw-semibold">Fashion</span>
+            <span className="mt-1 fw-semibold">Mens</span>
+            <span className="mt-1 fw-semibold">Women's</span>
+            <span className="mt-1 fw-semibold">Kids</span>
+            <span className="mt-1 fw-semibold">Other</span>
+            <span className="mt-1 fw-semibold">Best deals</span>
+            <span className="mt-1 fw-semibold">Offers</span>
+            <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="img-fluid me-5 pe-5"  style={{height:"2.5rem",width:"20rem"}}/></span>
+
+
+
           </div>
-          {/* <div
-          className="nav-link cat-nav d-lg-none d-block text-center"
-          style={{ position: "relative" }}
-        >
-          <img
-            src={cartIcon}
-            alt="Cart"
-            style={{ height: "2rem", width: "2rem" }}
-          />
-          <h6 style={{ position: "absolute", top: "0.5rem", left: "1.6rem" }}>
-            {totalQuantity}
-          </h6>
-        </div> */}
 
           {showFilter() && (
-            // style={{marginLeft:"12rem"}}  filter-button
             <div className="nav-link cat-nav d-md-none d-block">
               <button className="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#filterModal" onClick={() => setMobileView(true)}> Filter</button>
             </div>
           )}
         </div>
       </div>
-      {/* <div className="catlog filter w-100">
-     
 
-      </div> */}
+
+
+
+
+
+
+
+
+
 
       {/* filter modal */}
-
       <div
         className="modal fade bottom"
         id="filterModal"

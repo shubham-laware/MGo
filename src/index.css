@@ -909,10 +909,10 @@
      top: 44% !important;
    }
 
-   .info-div {
+   /* .info-div {
      display: flex !important;
      justify-content: space-between !important;
-   }
+   } */
  }
 
  @media (min-width: 768px) {
@@ -927,10 +927,10 @@
      left: 70px;
    }
 
-   .info-div {
+   /* .info-div {
      display: flex !important;
      justify-content: space-evenly !important;
-   }
+   } */
  }
 
 
@@ -1055,5 +1055,11 @@
 @media screen and (min-width: 768px) and  (max-width: 991.98px) {
   #distanceDropdownWrapper {
     display: none;
+  }
+}
+
+@media screen and (min-width: 768px) and  (max-width: 1280px) {
+  .new-catlog{
+    display: none !important;
   }
 }
