@@ -131,6 +131,7 @@
 
  /* catlog style*/
  .catlog {
+  height: 4rem;
    margin-top: 60px;
    background-color: #e4d6d2;
    display: flex;

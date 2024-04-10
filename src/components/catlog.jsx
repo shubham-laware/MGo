@@ -19,7 +19,6 @@ export default function Catlog() {
   const showFilter = () => {
     // Check if location pathname is not '/signin' or '/register'
     return (
-      location.pathname === "/" ||
       location.pathname === "/products" ||
       location.pathname === "/mens-category" ||
       location.pathname === "/womens-category" ||
@@ -34,11 +33,11 @@ export default function Catlog() {
     <>
       <div className="catlog filter">
         <div
-          className="catlog-names mx-lg-2 d-flex gap-1 info-div text-center mt-1"
+          className="catlog-names mx-lg-2 d-flex gap-1 info-div text-center mt-1 "
           // style={{ marginLeft: "2.7rem" }}
         >
-          <div className="nav-link cat-nav mb-2">
-            <Dropdown>
+          <div className="nav-link cat-nav mb-2 d-md-none">
+            {/* <Dropdown>
               <Dropdown.Toggle
                 variant="light"
                 id="dropdown-basic"
@@ -64,7 +63,7 @@ export default function Catlog() {
                   More than 25<sup>km</sup>
                 </Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
           </div>
           {/* <div
           className="nav-link cat-nav d-lg-none d-block text-center"
