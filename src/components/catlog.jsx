@@ -112,7 +112,7 @@ export default function Catlog() {
               }}
               style={{ textDecoration: "none", color: "black", fontSize: "14px" }}
             > <span className="mt-1 fw-semibold">Offers</span></Link>
-            <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="img-fluid me-5 pe-5" style={{ height: "2.5rem", width: "20rem" }} /></span>
+            <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="img-fluid me-5 pe-5 m-0 p-0" style={{ height: "3.3rem", width: "20rem" }} /></span>
 
           </div>
 
@@ -155,7 +155,7 @@ export default function Catlog() {
                   </NavDropdown>
                 </div>
 
-                <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="img-fluid" style={{ height: "2.5rem", width: "12rem" }} /></span>
+                <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="m-0 p-0" style={{ height: "4rem", width: "12rem" }} /></span>
               </div>
             )
           }

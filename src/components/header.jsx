@@ -10,7 +10,7 @@ import { Link, useLocation } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.css";
 import Logo from "../components/images/minitgo.png";
-import profileIcon from "../assets/profile-2398782_640 (1).svg";
+import profileIcon from "../assets/profile.svg";
 
 
 import {
@@ -80,7 +80,7 @@ function Header() {
   // State to manage Offcanvas visibility
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const [showLeftSideOffcanvas, setShowLeftSideOffcanvas] = useState(false);
-  const [sam,setSam] = useState('fds fds fdferwr fdf')
+  const [sam, setSam] = useState('fds fds fdferwr fdf')
 
   // context code add
   const context = useContext(myContext);
@@ -246,10 +246,10 @@ function Header() {
         expand="lg"
         className="fixed-top bg-light shadow"
       >
-        <Container className="justify-content-between">
-          <Navbar.Brand className="d-flex gap-2">
+        <Container className="justify-content-between border border-primary w-100">
+          <Navbar.Brand className="d-flex gap-2 border border-danger">
             <Link to="/">
-              <img src={Logo} style={{ width: "90px" }} />
+              <img className="minitgo-logo" src={Logo} style={{ width: "90px" }} />
             </Link>
             <div className="mobile-menu-logo d-lg-none d-flex profile-data">
               <span
@@ -261,6 +261,7 @@ function Header() {
             alt="Profile"
             style={{ height: "2rem", width: "2rem" }}
           />
+              
               </span>
               {fullName && (
                 <div className="userData mx-2  d-flex flex-column">
@@ -269,7 +270,7 @@ function Header() {
                     {/* Delivered to-only13char */}
                     {/* Delivered to- {userLocation?.length > 20 ? userLocation?.substring(0, 13) + '...' : userLocation} */}
                     <div className="d-flex">
-                      {userLocation && userLocation.length > 0 && ( 
+                      {userLocation && userLocation.length > 0 && (
                         <>
                           <FaLocationDot className="fs-5 p-1" />
                           <span style={{ fontSize: '12px' }}>
@@ -277,7 +278,7 @@ function Header() {
                           </span>
                         </>
                       )}
-                      
+
                     </div>
 
                   </span>
@@ -290,7 +291,7 @@ function Header() {
           </Navbar.Brand>
 
           {/* for mobile vieww */}
-          <div className="mobile-menu-logo d-lg-none d-flex align-items-center">
+          <div className="mobile-menu-logo d-lg-none d-flex align-items-center border border-danger">
             {/* weather add in mobile view */}
 
             <div className="d-flex flex-column align-items-center">
@@ -317,7 +318,7 @@ function Header() {
                   style={{ height: "2rem", width: "2rem" }}
                 />
                 <h6
-                className=""
+                  className=""
                   style={{ position: "absolute", top: "0.5rem", left: "1.3rem" }}
                 >
                   {totalQuantity}
@@ -528,8 +529,8 @@ function Header() {
             </Nav>
           </Navbar.Collapse>
         </Container>
-        <div className="mobile-menu-logo d-lg-none w-100  ">
-          <div className="mobile-search mt-2 container ">
+        <div className="mobile-menu-logo d-lg-none w-100">
+          <div className="mobile-search mt-2 container">
             <Form.Control
               type="search"
               placeholder="Ex: T-Shirt near me"
@@ -547,7 +548,7 @@ function Header() {
               className=" search-btn"
               variant="outline-success"
               onClick={handleGoButton}
-              
+
             >
               Go
             </Button>
@@ -621,16 +622,16 @@ function Header() {
           style={{ minWidth: "22rem" }}
         >
 
-          <Login closeLoginModal={() => setLoginModal(false)}  />
+          <Login closeLoginModal={() => setLoginModal(false)} />
         </Modal.Body>
       </Modal>
 
       {
         forgetPasswordModal && (
-          <ResetPassword  setLoginModal={()=>setLoginModal(true)}/>
+          <ResetPassword setLoginModal={() => setLoginModal(true)} />
         )
       }
-     
+
 
       {/* Offcanvas Sidebar */}
 

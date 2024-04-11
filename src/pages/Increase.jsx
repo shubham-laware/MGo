@@ -7,10 +7,11 @@ const Increase = () => {
   }, []);
   return (
     <div
-      className="container d-flex flex-column gap-3"
-      style={{ marginBlock: "12vh" }}
+      className="container d-flex flex-column gap-3 w-100 p-3"
+      style={{ marginBlock: "5vh" }}
     >
-      <div className="w-100 d-flex justify-content-between align-items-center p-3 border border-2 rounded rounded-lg">
+      <div className="row">
+      <div className="w-100 d-flex justify-content-between align-items-center p-3 border border-2 rounded rounded-lg m-0">
         <div className="d-flex flex-column justify-content-center">
           <h1 className="fw-bold fs-3">
             Increace sales in local and become a local king
@@ -21,6 +22,8 @@ const Increase = () => {
           Start Selling
         </button>
       </div>
+      </div>
+     
 
       {/* <div className="w-100 d-flex justify-content-between rounded rounded-xl border border-3 mb-3 overflow-x-hidden">
         <div className="d-flex flex-column gap-3 p-3">

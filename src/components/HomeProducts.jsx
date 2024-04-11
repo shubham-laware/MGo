@@ -283,7 +283,8 @@ const HomeProducts = () => {
         </div>
       </div>
       <br></br>
-      <div className="mx-0 mx-md-5 px-0 px-md-5">
+      
+      <div className="container-sm container-md">
         <div className="row">
           <div className="col-md-3 col-4 col-xl-3"><h3>
             <FaLocationDot className="fs-2 p-1" />
@@ -308,10 +309,13 @@ const HomeProducts = () => {
 
 
         <div className="row">
-        <p className="px-2 mx-2" style={{ fontSize: "13.5",}}>
+          <div className="row">
+            <p className="mx-2" style={{ fontSize: "13.5"}}>
               Increase distance for more products!{" "}
             </p>
-          <div className="col-md-2 filter-s ">
+            </div>
+       
+          <div className="col-md-2 filter-s">
             <div className="shadow filter-bg">
               <form>
                 <div className="form-group ">
@@ -511,11 +515,6 @@ const HomeProducts = () => {
                             : product.product_discription.length > 50
                               ? product.product_discription.slice(0, 45) + "..."
                               : product.product_discription}
-
-
-                          {/* {product.product_discription.length > 50
-                              ? product.product_discription.slice(0, 45) + "..."
-                              : product.product_discription} */}
                         </div>
 
 
@@ -580,6 +579,7 @@ const HomeProducts = () => {
           </div>
         </div>
       </div>
+
     </>
   );
 };
