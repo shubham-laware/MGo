@@ -155,7 +155,7 @@ export default function Catlog() {
                   </NavDropdown>
                 </div>
 
-                <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="m-0 p-0" style={{ height: "4rem", width: "12rem" }} /></span>
+                <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="m-0 p-0 homeCatlogImg" style={{ height: "4rem", width: "12rem" }} /></span>
               </div>
             )
           }

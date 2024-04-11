@@ -1063,11 +1063,11 @@
    }
  }
 
- @media screen and (min-width: 360px) and (max-width: 435px) {
-  .product-image img {
-    height: 29vh !important;
-  }
-}
+ @media screen and (min-width: 280px) and (max-width: 435px) {
+   .product-image img {
+     height: 29vh !important;
+   }
+ }
 
  /* for galaxy fold */
  @media screen and (min-width: 280px) and (max-width: 280px) {
@@ -1075,7 +1075,47 @@
      font-size: 10px !important;
    }
 
-   .minitgo-logo {
-     width: 70px !important;
+   .minitgo-logo{
+     width: 62px !important;
+   }
+
+   .homeCatlogImg {
+     width: 6rem !important;
+   }
+
+   .col-6 {
+     width: 100% !important;
+   }
+
+   .galaxy-hide{
+    display: none !important;
+   }
+   .navbar-brand{
+    width: 45% !important;
+   }
+
+   .tempSymbol{
+    width: 10px !important;
+    height: 10px !important;
+   }
+   .userData{
+    margin: 0 !important;
+    padding:  0 !important;
+   }
+
+   .profile-icon{
+    width: 1.5rem !important;
+    height: 2rem !important;
+   }
+
+   .hamIcon{
+    font-size: 20px !important;
+   }
+
+   .QTYValue{
+    font-size: 12px !important;
+    position: absolute;
+    top: 0.5rem;
+    left: 1.5rem !important;
    }
  }
