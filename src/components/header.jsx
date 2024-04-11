@@ -244,7 +244,7 @@ function Header() {
       <Navbar
         collapseOnSelect
         expand="lg"
-        className="fixed-top bg-light shadow "
+        className="fixed-top bg-light shadow"
       >
         <Container className="justify-content-between">
           <Navbar.Brand className="d-flex gap-2">
