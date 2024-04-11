@@ -106,9 +106,9 @@
 
  /* Header search engine style*/
  .search-box {
-  border: 2.55px solid #d8dfab;
-  border-radius: 10px 0 0 10px;
-}
+   border: 2.55px solid #d8dfab;
+   border-radius: 10px 0 0 10px;
+ }
 
  .search-btn {
    right: 1%;
@@ -131,7 +131,7 @@
 
  /* catlog style*/
  .catlog {
-  height: 4rem;
+   height: 4rem;
    margin-top: 60px;
    background-color: #e4d6d2;
    display: flex;
@@ -149,7 +149,7 @@
  .cat-nav {
    padding-left: 10px;
    font-size: 12pt;
-   padding-top: 10px;
+   /* padding-top: 10px; */
  }
 
  /* Styling for the banner */
@@ -695,9 +695,9 @@
      display: none;
    }
 
-   .product-image img {
+   /* .product-image img {
      height: 29.5vh;
-   }
+   } */
 
    .product-card {
      /* height: 520px; */
@@ -737,22 +737,18 @@
      height: 42vh;
    }
 
-   .product-image img {
-     height: 20.5vh;
 
-   }
 
-   
 
    #cartNo {
      margin-top: 10px;
    }
  }
 
- @media screen and (min-width: 768px){
- .filter-s {
-  display: block;
-}
+ @media screen and (min-width: 768px) {
+   .filter-s {
+     display: block;
+   }
  }
 
  /* Ipad Air Responsive Styles */
@@ -762,7 +758,7 @@
 
    }
 
-  
+
 
    .left-box h1 {
      font-size: 39pt;
@@ -775,7 +771,7 @@
    .product-image img {
      height: 44.5vh;
    }
-  
+
 
    .filter-s {
      display: block;
@@ -956,8 +952,9 @@
    .filter-button {
      margin-left: 37rem !important;
    }
+
    .catlog-names {
-    padding-left: 0px !important;
+     padding-left: 0px !important;
    }
  }
 
@@ -997,55 +994,128 @@
      margin-left: 22rem !important;
    }
  }
+
  @media screen and (min-width: 412px)and (max-width: 412px) {
-  .filter-button {
-    margin-left: 12rem !important;
-  }
+   .filter-button {
+     margin-left: 12rem !important;
+   }
  }
 
  @media screen and (min-width: 1024px)and (max-width: 1024px) {
-  .filter-button {
-    margin-left: 51rem !important;
-  }
-  .catlog {
-    margin-top: 70px !important;
-  
-  } 
+   .filter-button {
+     margin-left: 51rem !important;
+   }
+
+   .catlog {
+     margin-top: 70px !important;
+
+   }
  }
 
  /* dropdown arrow */
  .select-wrapper {
-  position: relative;
-  width: 100%; 
-}
+   position: relative;
+   width: 100%;
+ }
 
-.select-wrapper select {
-  appearance: none; 
-  -webkit-appearance: none;
-  -moz-appearance: none; 
-  padding-right: 30px; 
- 
-}
+ .select-wrapper select {
+   appearance: none;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   padding-right: 30px;
 
-.select-wrapper::after {
-  content: "\25BC"; 
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  pointer-events: none; 
-  transform: translateY(-50%);
- 
-}
+ }
 
-/* remove distance dropdown in I-pad mini */
-@media screen and (min-width: 768px) and  (max-width: 991.98px) {
-  #distanceDropdownWrapper {
-    display: none;
-  }
-}
+ .select-wrapper::after {
+   content: "\25BC";
+   position: absolute;
+   top: 50%;
+   right: 10px;
+   pointer-events: none;
+   transform: translateY(-50%);
 
-@media screen and (min-width: 768px) and  (max-width: 1280px) {
-  .new-catlog{
+ }
+
+ /* remove distance dropdown in I-pad mini */
+ @media screen and (min-width: 768px) and (max-width: 991.98px) {
+   #distanceDropdownWrapper {
+     display: none;
+   }
+ }
+
+ @media screen and (min-width: 768px) and (max-width: 1280px) {
+   .new-catlog {
+     display: none !important;
+   }
+ }
+
+ /* adjust the height of product card img for I-pad */
+ @media screen and (min-width: 768px) and (max-width: 1024px) {
+   .product-image img {
+     height: 29vh !important;
+   }
+
+   .best-cat,
+   .best-cat-2,
+   .best-cat-3,
+   .best-cat-4 {
+     height: 25vh !important;
+   }
+ }
+
+ @media screen and (min-width: 280px) and (max-width: 435px) {
+   .product-image img {
+     height: 29vh !important;
+   }
+ }
+
+ /* for galaxy fold */
+ @media screen and (min-width: 280px) and (max-width: 280px) {
+   .mobile-menu-logo {
+     font-size: 10px !important;
+   }
+
+   .minitgo-logo{
+     width: 62px !important;
+   }
+
+   .homeCatlogImg {
+     width: 6rem !important;
+   }
+
+   .col-6 {
+     width: 100% !important;
+   }
+
+   .galaxy-hide{
     display: none !important;
-  }
-}
+   }
+   .navbar-brand{
+    width: 45% !important;
+   }
+
+   .tempSymbol{
+    width: 10px !important;
+    height: 10px !important;
+   }
+   .userData{
+    margin: 0 !important;
+    padding:  0 !important;
+   }
+
+   .profile-icon{
+    width: 1.5rem !important;
+    height: 2rem !important;
+   }
+
+   .hamIcon{
+    font-size: 20px !important;
+   }
+
+   .QTYValue{
+    font-size: 12px !important;
+    position: absolute;
+    top: 0.5rem;
+    left: 1.5rem !important;
+   }
+ }

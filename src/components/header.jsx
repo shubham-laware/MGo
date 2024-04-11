@@ -10,7 +10,7 @@ import { Link, useLocation } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.css";
 import Logo from "../components/images/minitgo.png";
-import profileIcon from "../assets/profile-2398782_640 (1).svg";
+import profileIcon from "../assets/profile.svg";
 
 
 import {
@@ -80,7 +80,7 @@ function Header() {
   // State to manage Offcanvas visibility
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const [showLeftSideOffcanvas, setShowLeftSideOffcanvas] = useState(false);
-  const [sam,setSam] = useState('fds fds fdferwr fdf')
+  const [sam, setSam] = useState('fds fds fdferwr fdf')
 
   // context code add
   const context = useContext(myContext);
@@ -247,9 +247,9 @@ function Header() {
         className="fixed-top bg-light shadow"
       >
         <Container className="justify-content-between">
-          <Navbar.Brand className="d-flex gap-2">
+          <Navbar.Brand className="d-flex navbar-brand">
             <Link to="/">
-              <img src={Logo} style={{ width: "90px" }} />
+              <img className="minitgo-logo" src={Logo} style={{ width: "90px" }} />
             </Link>
             <div className="mobile-menu-logo d-lg-none d-flex profile-data">
               <span
@@ -257,19 +257,19 @@ function Header() {
                 onClick={() => setShowLeftSideOffcanvas(true)}
               >
                 <img
+                className="profile-icon"
             src={profileIcon}
             alt="Profile"
             style={{ height: "2rem", width: "2rem" }}
           />
+              
               </span>
               {fullName && (
                 <div className="userData mx-2  d-flex flex-column">
                   <span style={{ fontSize: "10px" }}>{fullName}</span>
                   <span style={{ fontSize: "10px" }}>
-                    {/* Delivered to-only13char */}
-                    {/* Delivered to- {userLocation?.length > 20 ? userLocation?.substring(0, 13) + '...' : userLocation} */}
                     <div className="d-flex">
-                      {userLocation && userLocation.length > 0 && ( 
+                      {userLocation && userLocation.length > 0 && (
                         <>
                           <FaLocationDot className="fs-5 p-1" />
                           <span style={{ fontSize: '12px' }}>
@@ -277,7 +277,7 @@ function Header() {
                           </span>
                         </>
                       )}
-                      
+
                     </div>
 
                   </span>
@@ -293,9 +293,9 @@ function Header() {
           <div className="mobile-menu-logo d-lg-none d-flex align-items-center">
             {/* weather add in mobile view */}
 
-            <div className="d-flex flex-column align-items-center">
+            <div className="d-flex flex-column align-items-center temp-block">
               <div className="d-flex  align-items-center justify-content-center" >
-                <img src="data:image/png;base64,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" style={{ height: "1rem", width: "1rem" }} />
+                <img className="tempSymbol" src="data:image/png;base64,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" style={{ height: "1rem", width: "1rem" }} />
                 <div className="fw-semibold">32&deg;C</div>
               </div>
               <div>
@@ -312,12 +312,13 @@ function Header() {
                 style={{ position: "relative" }}
               >
                 <img
+                className="cartIcon"
                   src={cartIcon}
                   alt="Cart"
                   style={{ height: "2rem", width: "2rem" }}
                 />
                 <h6
-                className=""
+                  className="QTYValue"
                   style={{ position: "absolute", top: "0.5rem", left: "1.3rem" }}
                 >
                   {totalQuantity}
@@ -326,7 +327,7 @@ function Header() {
             </Link>
 
             <BiMenuAltRight
-              className="mobile-menu-logo d-lg-none"
+              className="mobile-menu-logo d-lg-none hamIcon"
               onClick={() => setShowOffcanvas(true)}
               style={{ fontSize: "33px" }}
             />
@@ -529,7 +530,7 @@ function Header() {
           </Navbar.Collapse>
         </Container>
         <div className="mobile-menu-logo d-lg-none w-100  ">
-          <div className="mobile-search mt-2 container ">
+          <div className="mobile-search mt-2 container">
             <Form.Control
               type="search"
               placeholder="Ex: T-Shirt near me"
@@ -547,7 +548,7 @@ function Header() {
               className=" search-btn"
               variant="outline-success"
               onClick={handleGoButton}
-              
+
             >
               Go
             </Button>
@@ -621,16 +622,16 @@ function Header() {
           style={{ minWidth: "22rem" }}
         >
 
-          <Login closeLoginModal={() => setLoginModal(false)}  />
+          <Login closeLoginModal={() => setLoginModal(false)} />
         </Modal.Body>
       </Modal>
 
       {
         forgetPasswordModal && (
-          <ResetPassword  setLoginModal={()=>setLoginModal(true)}/>
+          <ResetPassword setLoginModal={() => setLoginModal(true)} />
         )
       }
-     
+
 
       {/* Offcanvas Sidebar */}
 
