@@ -1063,6 +1063,12 @@
    }
  }
 
+ @media screen and (min-width: 360px) and (max-width: 435px) {
+  .product-image img {
+    height: 29vh !important;
+  }
+}
+
  /* for galaxy fold */
  @media screen and (min-width: 280px) and (max-width: 280px) {
    .mobile-menu-logo {
