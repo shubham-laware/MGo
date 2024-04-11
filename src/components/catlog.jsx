@@ -124,7 +124,8 @@ export default function Catlog() {
                   <NavDropdown
                     title={dropdownTitle}
                     id="collasible-nav-dropdown"
-                    style={{ border: "2.6px solid #d8dfab", borderRadius: "13px", fontSize: "15px", backgroundColor: "lightgray",padding:"10px" }}
+                    style={{ border: "2.6px solid #d8dfab", borderRadius: "13px", fontSize: "15px",padding:"10px" }}
+                    className="bg-light"
                   >
                     <NavDropdown.Item
                       onClick={() => handleDropdownItemClick("Hyderabad")}
