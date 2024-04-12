@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import Filter from "../components/Filter";
@@ -592,11 +594,13 @@ const calculateDistance = (startLat, startLng, destLat, destLng) => {
                             className="p-0 "
                             src={cartIcon}
                             style={{ height: "20px" }}
+                            id="category-cart-icon"
                           />
                         </button>
                           <button
                             onClick={() => handleAddToCart(product, index)}
                             className="btn btn-primary my-2  ms-2"
+                            id="category-cart-btn"
                           >
                             Add to cart
                           </button>
@@ -614,3 +618,7 @@ const calculateDistance = (startLat, startLng, destLat, destLng) => {
 };
 
 export default Category;
+
+
+
+

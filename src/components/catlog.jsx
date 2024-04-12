@@ -1,4 +1,3 @@
-// Import the CSS file for animations
 import Dropdown from "react-bootstrap/Dropdown";
 import cartIcon from "../assets/cart-icon.svg";
 import React, { useState, useEffect, useContext } from "react";
@@ -62,7 +61,7 @@ export default function Catlog() {
   return (
     <>
       <div className="catlog filter ">
-        <div className="catlog-names mx-lg-2 info-div text-center mt-1 container-fluid mx-md-5 me-md-5 px-md-5 pe-md-5" >
+      <div className="catlog-names mx-lg-2 info-div text-center mt-1 container-fluid mx-md-5 me-md-5 px-md-5 pe-md-5 px-0 pe-0">
           <div className="nav-link cat-nav d-none d-md-flex justify-content-evenly w-100 mt-1 mx-5 px-5 pe-5 me-5 new-catlog align-items-center">
 
             <Link style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}> <span className="mt-1 fw-semibold">Near you</span></Link>
@@ -112,7 +111,17 @@ export default function Catlog() {
               }}
               style={{ textDecoration: "none", color: "black", fontSize: "14px" }}
             > <span className="mt-1 fw-semibold">Offers</span></Link>
-            <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="img-fluid me-5 pe-5 m-0 p-0" style={{ height: "3.3rem", width: "20rem" }} /></span>
+
+           
+                          <span>
+                            
+                            
+                            
+                            
+                            <img id='catalog-img' src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="img-fluid me-5 pe-5 m-0 p-0" style={{ height: "3.3rem", width: "20rem",  }} /></span>
+
+
+            
 
           </div>
 
@@ -203,3 +212,8 @@ export default function Catlog() {
     </>
   );
 }
+
+
+
+
+
