@@ -1,11 +1,15 @@
+
+
+
+
 import React from 'react';
 import image from "../assets/addImage1.png"
 import { FaXTwitter, FaFacebook, FaSquareInstagram } from "react-icons/fa6";
 
 const Advertisement = () => {
     return (
-        <div className="container my-5 rounded-4" style={{ backgroundColor: "#e4d6d2" }}>
-            <div className="row p-5">
+        <div className="container  rounded-4" style={{ backgroundColor: "#e4d6d2" }}>
+            <div className="row p-3">
                 <div className="col-md-8 order-md-1">
                     <h2 className="fw-bold text-start">MINITGO</h2>
                     <p className="lead fw-normal">get delivery in minits</p>
@@ -13,7 +17,7 @@ const Advertisement = () => {
                     <div className="mt-5">
                         <p className="mb-4 fs-5">Shopping sprees are now so much easier, with the best's top brands at your fingertips. Simply click and go to find near me the best finds in fashion, music, homeware, and more!</p>
                     </div>
-                    <div className="col-md-2 d-flex justify-content-center align-items-center gap-2 mt-5 social-icons">
+                    <div className="col-md-2 d-flex justify-content-center align-items-center gap-2 mt-5 mx-2 social-icons">
                         <a href="https://facebook.com" className="social-icon p-1" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "#000" }}>
                             <FaFacebook style={{ height: "2rem", width: "2rem" }} />
                         </a>
@@ -31,28 +35,28 @@ const Advertisement = () => {
                 </div>
 
 
+ 
+                <div className="col-md-4 order-md-1 ">
 
-                <div className="col-md-4 order-md-1">
-
-                    <div className="left-side-content d-none ">
-                        <div className="d-flex gap-3 flex-wrap ">
-                            <img src='/appstore.png' alt="App Image" className="app-image bg-light border-none" style={{ height: "4rem" }} />
+                    <div className="left-side-content d-none " >
+                        <div className="d-flex flex-wrap ">
+                            <img src='/appstore.png' alt="App Image" className="app-image bg-light border-none  " style={{ height: "4rem" }} />
                             <img src='/googlePlay.png' alt="App Image" className="app-image " style={{ height: "4rem" }} />
                         </div>
                     </div>
 
                     {/*Shafeeq updated this to display image under launching soon in mobile screen*/}
                     <div className="text-center">
-                        <img src={image} id='adds-image' alt="App Image" className="app-image img-fluid mt-3 mt-md-0" style={{ width: "20rem", height: "35rem" }} />
+                        <img src={image} id='adds-image' alt="App Image" className="app-image img-fluid  mt-md-0" style={{ width: "20rem", height: "33rem" }} />
                     </div>
                     <p className='fs-4 d-md-none d-block mt-5'>LAUNCHING SOON...</p> {/* Display only on mobile */}
 
                 </div>
 
             </div>
-            <div className="d-flex gap-1 flex-wrap   ">
-                <img src='/appstore.png' alt="App Image" className="app-image bg-light border-none mb-5" style={{ height: "4rem" }} />
-                <img src='/googlePlay.png' alt="App Image" className="app-image " style={{ height: "4rem" }} />
+            <div className="d-flex gap-1     mb-3 " >
+                <img src='/appstore.png' alt="App Image" className="app-image bg-light border-none mb-4 " style={{ height: "4rem" }} />
+                <img src='/googlePlay.png' alt="App Image" className="app-image mb-4 " style={{ height: "4rem" }} />
             </div>
 
 
@@ -67,3 +71,5 @@ const Advertisement = () => {
 }
 
 export default Advertisement
+
+
