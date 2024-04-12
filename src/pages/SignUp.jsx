@@ -105,7 +105,7 @@ function SignUp() {
           {}
         )
         .then((response) => {
-          console.log("RESPONSE", response);
+          // console.log("RESPONSE", response);
           const responseData = response.data.message;
           if (responseData==='Data inserted successfully.') {
             const userData = {
