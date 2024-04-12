@@ -40,7 +40,7 @@ const HomeProducts = () => {
     searchQuery,
     offer,
     setOffers,
-    isNewProduct,
+    isNewProduct
   } = context;
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -91,9 +91,6 @@ const HomeProducts = () => {
     navigate(url);
   }
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userCords = user ? [user.lat, user.log] : null;
-
   const calculateDistance = (startLat, startLng, destLat, destLng) => {
     if (!startLat || !startLng || !destLat || !destLng) return Infinity;
 
@@ -114,9 +111,9 @@ const HomeProducts = () => {
     const a =
       Math.sin(latDiffRad / 2) * Math.sin(latDiffRad / 2) +
       Math.cos(startLatRad) *
-        Math.cos(destLatRad) *
-        Math.sin(lngDiffRad / 2) *
-        Math.sin(lngDiffRad / 2);
+      Math.cos(destLatRad) *
+      Math.sin(lngDiffRad / 2) *
+      Math.sin(lngDiffRad / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
@@ -133,48 +130,43 @@ const HomeProducts = () => {
     let productsToFilter = products;
 
     // Distance filtering
-    if (userCords) {
-      const range =
-        selectedDistance && selectedDistance === "all"
-          ? "5"
-          : selectedDistance || "5";
+    console.log(selectedDistance);
+    if (selectedDistance !== "all" && localStorage.getItem("user")) {
+      console.log(productsToFilter);
+      const user = JSON.parse(localStorage.getItem("user"));
+      const userCords = [user.lat, user.log];
+      const range = selectedDistance || "5";
 
-      let newFilteredProducts = [];
-      let productsLeft = [];
-      let productsWithoutCoordinates = [];
+      const productsWithoutCoordinates = productsToFilter.filter(
+        (product) => !product.lat || !product.log
+      );
+      let productsLeft = products.filter(
+        (product) =>
+          calculateDistance(...userCords, product.lat, product.log) >
+          Number(range)
+      );
+
       const uniqueCategories = {};
-      productsToFilter.forEach((product) => {
-        const distance =
-          product.distance ||
-          calculateDistance(...userCords, product.lat, product.log);
-        product.distance = distance;
+      const newFilteredProducts = [];
 
-        if (distance !== null) {
+      products.forEach((product) => {
+        if (
+          calculateDistance(...userCords, product.lat, product.log) <=
+          Number(range)
+        ) {
           if (!uniqueCategories[product.category]) {
-            if (distance <= Number(range)) {
-              newFilteredProducts.push(product);
-              uniqueCategories[product.category] = true;
-            } else {
-              productsLeft.push(product);
-            }
+            newFilteredProducts.push(product);
+            uniqueCategories[product.category] = true;
           } else {
             productsLeft.push(product);
           }
-        } else {
-          productsWithoutCoordinates.push(product);
         }
       });
 
-      // Sort the newFilteredProducts and productsLeft lists in ascending order based on distance
-      newFilteredProducts.sort(
-        (a, b) => Number(a.distance) - Number(b.distance)
-      );
-      productsLeft.sort((a, b) => Number(a.distance) - Number(b.distance));
-
       productsToFilter = [
         ...newFilteredProducts,
-        ...productsLeft,
         ...productsWithoutCoordinates,
+        ...productsLeft,
       ];
     }
 
@@ -420,12 +412,9 @@ const HomeProducts = () => {
                 </div>
               ) : (
                 filteredProducts?.map((product, index) => (
-                  <div key={index} className="col-6 col-sm-4 col-md-6 col-lg-4 col-xl-3 py-2">
+                  <div key={index} className="col-6 col-sm-3 py-2">
                     <div className="product-card">
-                      <div
-                        className="product-image"
-                        style={{ position: "relative" }}
-                      >
+                      <div className="product-image" style={{ position: "relative" }}>
                         <a
                           href={`/${product.product_id}`}
                           target="_blank"
@@ -453,159 +442,112 @@ const HomeProducts = () => {
                           Live Image
                         </span>
                         <div
-                          className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${
-                            product.offers === "0" && "invisible"
-                          }`}
+                          className={`offer-tag bg-warning rounded-pill text-center p-1 text-light ${product.offers === "0" && "invisible"
+                            }`}
                         >
                           {product.offers}% Off
                         </div>
                       </div>
 
-                      <div className="product-content d-flex flex-column gap-1 pt-3  px-2">
-                        <div style={{ fontSize: "14px" }} className="d-flex justify-content-between">
-                          <span>{product.category}</span>
-                          <div>
-                          {isNewProduct(product.date) && <span className="btn  btn-secondary p-0 px-1" style={{color:'#ffc107',fontSize:'14px'}}>New</span>}
-                          </div>
+                      <div className="product-content d-flex flex-column gap-1 pt-3  px-1">
+                        <div style={{ fontSize: "14px" }}>
+                          {product.category}
+                          {isNewProduct(product.date) && (
+                            <span className="ms-4" style={{ color: "#ffc107" }}>
+                              New
+                            </span>
+                          )}
                         </div>
                         <a
                           href={`/${product.product_id}`}
                           target="_blank"
                           style={{
                             textDecoration: "none",
-                            color: "black"
+                            color: "black",
                           }}
-
-                          className="fw-semibold"
-
                         >
                           {windowWidth <= 1024
                             ? product.product_name.length > 15
                               ? product.product_name.substring(0, 15) + "..."
                               : product.product_name
-                            : product.product_name.length > 23
-                            ? product.product_name.substring(0, 23) + "..."
-                            : product.product_name}
-
-                           
+                            : product.product_name.length > 20
+                              ? product.product_name.substring(0, 25) + "..."
+                              : product.product_name}
                         </a>
-
-                        <div className="d-flex align-items-center justify-content-between">
                         <h5 className="mt-1">
-                        ₹
+                          <sup>&#x20B9;</sup>
                           {product.product_price}
                           <span className="text-decoration-line-through text-muted fs-6 fw-light">
                             599
                           </span>
-                          <span
-                            className="text-muted"
-                            style={{
-                              fontSize: "13px",
-                            }}
-                          >
+                          <span className="text-muted" style={{ fontSize: "13px" }}>
                             {" "}
                             {product.product_stock}
                           </span>
                         </h5>
-                        <div>
-                            <span className="fw-semibold">Size:</span> <span>{product.product_size}</span>
-                          </div>
-                        </div>
-                       
 
-                        <div className="d-flex justify-content-between " style={{fontSize:'14px'}}>
-                          <div>
-                            <span className="fw-semibold"></span> <span>{product.material}</span>
-                          </div>
-                          <div className="">
-                            <span className="fw-semibold">Color:</span> <span>{product.product_color1}</span>
-                          </div>
+                        <div className="d-flex justify-content-between ">
+                          <h6>
+                            Size: <span>{product.product_size}</span>
+                          </h6>
+                          <h6 className="">
+                            Color: <span>{product.product_color1}</span>
+                          </h6>
                         </div>
-                      
-                          <div className="mt-1" style={{textAlign:'justify'}} >
 
-                          {windowWidth <= 576
-                            ? product.product_discription.length > 20
-                              ? product.product_discription.substring(0, 19) + "..."
-                              : product.product_discription
-                            :product.product_discription.length > 50
-                            ? product.product_discription.slice(0, 45) + "..."
+                        <div className="">
+                          {product.product_discription.length > 40
+                            ? product.product_discription.slice(0, 40) + "..."
                             : product.product_discription}
-
-
-                            {/* {product.product_discription.length > 50
-                              ? product.product_discription.slice(0, 45) + "..."
-                              : product.product_discription} */}
-                          </div>
-                        
-
-                        <div className="d-flex justify-content-between mt-1">
-                        <div className="product-rating text-warning d-flex ">
-                          
-                          <StarRatings rating={product.product_ratings} />
                         </div>
-                        {userCords && (
-                          <div className="product-distance text-secondary ">
-                           
-                            {product.distance ||
-                              calculateDistance(
-                                ...userCords,
-                                product.lat,
-                                product.log
-                              )}
-                            km away.
+
+                        <div className="product-rating text-warning d-flex ">
+                          Rating: <StarRatings rating={product.product_ratings} />
+                        </div>
+                        <div className="product-distance text-secondary ">
+                          Distance: {product.distance}km away.
+                        </div>
+                        {cart.snackbar.open && cart.snackbar.index === index && (
+                          <div
+                            style={{ fontSize: "12px" }}
+                            className="border text-center rounded w-75 mx-auto"
+                          >
+                            {cart.snackbar.message}
                           </div>
                         )}
-                        </div>
-                       
-                       
-                        {cart.snackbar.open &&
-                          cart.snackbar.index === index && (
-                            <div
-                              style={{ fontSize: "12px" }}
-                              className="border text-center rounded w-75 mx-auto"
-                            >
-                              {cart.snackbar.message}
-                            </div>
-                          )}
                       </div>
 
-                      <div
-                        className="d-flex align-items-center mt-2 px-2"
-                        id="btns-sections"
-                      >
-                        <div className="  w-100 d-flex justify-content-between">
-                          
-                          <button
-                          className="btn btn-primary  my-2 "
+                      {/* Buttons */}
+                      <div className="d-flex justify-content-center align-items-center gap-2" >
+                        <button
+                          className="btn btn-primary  ms-2"
                           onClick={() => handleAddToCart(product, index)}
-                         
                         >
-                          <img
-                            className="p-0 "
-                            src={cartIcon}
-                            style={{ height: "20px" }}
-                          />
+                          <img className="img-fluid" src={cartIcon} style={{ height: "20px" }} />
                         </button>
-                          <button
-                            onClick={() => handleAddToCart(product, index)}
-                            className="btn btn-primary my-2  ms-2"
+                        <button className="btn btn-primary my-2  ms-2 px-2 py-1">
+                          <Link
+                            to="/checkout"
+                            style={{ textDecoration: "none", color: "#000" }}
                           >
-                            Add to cart
-                          </button>
-                        </div>
+                            Buy Now
+                          </Link>
+                        </button>
                       </div>
                     </div>
                   </div>
+
+
                 ))
               )}
             </div>
           </div>
         </div>
       </div>
-      <></>
+      
     </>
   );
 };
 
-export default HomeProducts;
+export default HomeProducts;    
+

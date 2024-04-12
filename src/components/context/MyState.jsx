@@ -1,3 +1,6 @@
+
+
+
 import React, { useState, useEffect } from "react";
 import myContext from "./MyContext.js";
 import axios from "axios";
@@ -16,7 +19,7 @@ const Mystate = (props) => {
   const [showfilterModal, setShowFilterModal] = useState(false);
 
   const [forgetPasswordModal, setForgetPasswordModal] = useState(false);
-
+const [notSignin,setNotSignin] = useState(false)
   useEffect(() => {
     axios
       .get("https://minitgo.com/api/fetch_products.php")
@@ -106,6 +109,7 @@ const Mystate = (props) => {
           forgetPasswordModal,
           setForgetPasswordModal,
           isNewProduct,
+          notSignin,setNotSignin   //shafeeq added this for ads functionalities
         }}
       >
         {props.children}
@@ -115,3 +119,7 @@ const Mystate = (props) => {
 };
 
 export default Mystate;
+
+
+
+
