@@ -6,9 +6,15 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import myContext from "../components/context/MyContext";
 
+
+// SHUBHAM- SignUp functioanlity
+
 function SignUp() {
+
   const [address, setAddress] = useState("");
   const [state, setState] = useState("");
+
+  const [latLong,setLatLong]=useState('');
 
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -37,10 +43,9 @@ function SignUp() {
       intervalId = setInterval(() => {
         setTimer((prevTimer) => {
           if (prevTimer === 1) {
-            // Stop the timer and reset sendOTPagain after 30 seconds
             clearInterval(intervalId);
             setSendOTPagain(false);
-            return 30; // Reset the timer back to 30
+            return 30; 
           }
           return prevTimer - 1;
         });
@@ -48,7 +53,7 @@ function SignUp() {
     }
 
     return () => {
-      clearInterval(intervalId); // Clear the interval when the component unmounts
+      clearInterval(intervalId); 
     };
   }, [showOTP, sendOTPagain]);
 
@@ -66,7 +71,6 @@ function SignUp() {
     const otp = Math.floor(100000 + Math.random() * 900000);
     console.log("GENERATED OTP:", otp);
     return otp.toString();
-    // return otp
   }
 
   function handleSendOTPAgain() {
@@ -83,7 +87,6 @@ function SignUp() {
   }
 
   function verifySentOTP() {
-    // Gather all the OTP input fields' values
     const otpInputs = document.querySelectorAll(".otp-input");
     let enteredOTP = "";
 
@@ -92,10 +95,9 @@ function SignUp() {
     });
 
     console.log("ENTERED OTP:", enteredOTP);
-    console.log("OTP:", OTP);
 
-    // Compare the entered OTP with the generated OTP
     if (enteredOTP === OTP) {
+      
       axios
         .post(
           "https://minitgo.com/api/user_reg.php",
@@ -104,9 +106,8 @@ function SignUp() {
         )
         .then((response) => {
           console.log("RESPONSE", response);
-          const responseData = response.data;
-          if (responseData.includes("Data inserted successfully")) {
-            console.log("CRED:", credentials);
+          const responseData = response.data.message;
+          if (responseData==='Data inserted successfully.') {
             const userData = {
               userId: credentials.id,
               fullName: credentials.full_name,
@@ -134,7 +135,6 @@ function SignUp() {
         });
       navigate("/");
 
-      // Proceed with registration or any other action
     } else {
       toast.error("Invalid OTP. Please try again.", {
         autoClose: 1000,
@@ -189,26 +189,30 @@ function SignUp() {
             const foundUser = allUsers.find((user) => user.email === email);
   
             if (foundUser) {
-              // Handle case where email already exists
               toast.error("Email already exists", {
                 autoClose: 1000,
                 hideProgressBar: true,
               });
               return;
             } else {
-              // Proceed with registration
+              handleUseCurrentLocation().then(({ latitude, longitude }) => {
+                setLatLong({lat:latitude,log:longitude})
+
+              })
+
               const data = {
                 full_name: fullName,
                 phone_number: phoneNumber,
                 email: email,
                 password: password,
                 Address: addresss,
-                location_coordinates: "40.7128° N, 74.0060° W",
+                lat:latLong.lat,
+                log: latLong.log,
               };
   
               setCredentials(data);
   
-              console.log("DATA", data);
+              // console.log("DATA", data);
   
               const OTPvalue = generateOTP();
   
@@ -216,7 +220,6 @@ function SignUp() {
   
               sendOTPtoEmail(OTPvalue);
   
-              // sendEmail('therohitsing58@gmail.com','OTP CODE','223344')
             }
           }
         })
@@ -227,44 +230,49 @@ function SignUp() {
   }
   
 
-  // function sendEmail(emailAddress, subject, body) {
-  //   const mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(
-  //     subject
-  //   )}&body=${encodeURIComponent(body)}`;
-
-  //   window.location.href = mailtoLink;
-  // }
+ 
 
   const handleUseCurrentLocation = () => {
-    // Use browser geolocation API to get the current location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          try {
-            const response = await fetch(
-              `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=AIzaSyCMG4GzxbEmqfSZ-uaDOhF55sgxi9sumc4`
-            ); // Replace 'YOUR_API_KEY' with your actual API key
-            const data = await response.json();
-            if (data.results.length > 0) {
-              const { components } = data.results[0];
-              setAddress(components.road || "");
-              setCity(
-                components.city || components.town || components.village || ""
-              );
-              setPincode(components.postcode || "");
-              setTownDistrict(components.town || components.district || "");
-              setState(components.state || "");
-            }
-          } catch (error) {}
-        },
-        (error) => {
-          return;
-        }
-      );
-    } else {
-    }
+    return new Promise((resolve, reject) => {
+      // Use browser geolocation API to get the current location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+              resolve({ latitude, longitude });
+
+            // try {
+            //   const response = await fetch(
+            //     `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=YOUR_API_KEY`
+            //   ); 
+            //   const data = await response.json();
+            //   if (data.results.length > 0) {
+            //     const { components } = data.results[0];
+            //     setAddress(components.road || "");
+            //     setCity(
+            //       components.city || components.town || components.village || ""
+            //     );
+            //     setPincode(components.postcode || "");
+            //     setTownDistrict(components.town || components.district || "");
+            //     setState(components.state || "");
+  
+            //   } else {
+            //     reject(new Error("No results found"));
+            //   }
+            // } catch (error) {
+            //   reject(error);
+            // }
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+      } else {
+        reject(new Error("Geolocation not supported"));
+      }
+    });
   };
+  
 
   return (
     <>
