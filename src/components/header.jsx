@@ -96,8 +96,8 @@ function Header() {
     showModal,
     setShowModal,
     forgetPasswordModal,
-    notSignin,
-    setNotSignin
+  
+  
   } = context;
 
 
@@ -245,10 +245,6 @@ function Header() {
     </span>
   );
 
-  if (login !== fullName) {
-    setNotSignin(true);
-  }
-
 
   return (
     <>
@@ -277,7 +273,8 @@ function Header() {
               </span>
               {fullName && (
                 <div className="userData  d-flex flex-column">
-                  <span style={{ fontSize: "10px" }}>{fullName}</span>
+                  <span style={{ fontSize: "10px" }}>             {fullName.length > 20 ? fullName.substring(0, 12) + '...' : fullName}
+</span>
                   <span style={{ fontSize: "10px" }}>
                     <div className="d-flex">
                       {userLocation && userLocation.length > 0 && (
