@@ -1073,6 +1073,9 @@ button:hover {
   .product-image img {
     height: 29vh !important;
   }
+  .col-6 {
+    width: 33% !important;
+  }
 }
 
 @media screen and (min-width: 280px) and (max-width: 435px) {
