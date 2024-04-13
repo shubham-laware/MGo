@@ -192,7 +192,7 @@ const Login = ({ closeLoginModal }) => {
                 </button>
               </div>
 
-              <div className="fs-6 d-flex justify-content-center d-flex align-items-center gap-2">
+              <div className="fs-6 d-flex justify-content-center d-flex align-items-center gap-2 signInFold">
                 <div onClick={handleForgetPasswordModal} style={{ color:'#297efc',cursor:'pointer'}} className=" d-flex align-items-center ">
                   Forgot Password?
                 </div>

@@ -1052,9 +1052,9 @@ button:hover {
 }
 
 /* adjust the height of product card img for I-pad */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 768px) and (max-width: 1023px) {
   .product-image img {
-    height: 29vh !important;
+    height: 25vh !important;
   }
 
   .best-cat,
@@ -1062,6 +1062,19 @@ button:hover {
   .best-cat-3,
   .best-cat-4 {
     height: 25vh !important;
+
+  }
+  .col-6 {
+    width: 33% !important;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1024px) {
+  .product-image img {
+    height: 29vh !important;
+  }
+  .col-6 {
+    width: 33% !important;
   }
 }
 
@@ -1073,12 +1086,16 @@ button:hover {
 
 /* for galaxy fold */
 @media screen and (min-width: 280px) and (max-width: 280px) {
+
+  .signInFold{
+    flex-wrap: wrap !important;
+  }
   .mobile-menu-logo {
     font-size: 10px !important;
   }
 
   .minitgo-logo{
-    width: 62px !important;
+    width: 60px !important;
   }
 
   .homeCatlogImg {
@@ -1121,14 +1138,13 @@ button:hover {
    left: 1.5rem !important;
   }
 
-}
-
-@media screen and (min-width: 280px) and (max-width: 280px) {
-  .mobile-menu-logo{
-    margin-right: 12px;
+  .add-icon-fold{
+    justify-content: center !important;
   }
-  .profile-icon{
-    margin-left: 8px;
+
+  .locationSymbolFold{
+    font-size: 12px !important;
+    padding: 0 !important;
   }
   #products-btn{
 
@@ -1139,8 +1155,9 @@ button:hover {
         width: 100px !important;
     
       }
-
 }
+
+
 @media screen and (min-width: 430px) and (max-width:430px) {
   .mobile-menu-logo{
     margin-right: 14px;

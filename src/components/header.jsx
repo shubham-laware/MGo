@@ -279,23 +279,18 @@ function Header() {
                 className="profile d-flex align-items-centrer "
                 onClick={() => setShowLeftSideOffcanvas(true)}
               >
-                {  fullName && 
-                
-                  <CgProfile className="profile-icon " style={{ height: "2rem", width: "2rem" }} />
-
-                }
-              
+          
+               <CgProfile className="profile-icon " style={{ height: "2rem", width: "2rem" }} />
               
               </span>
               {fullName && (
                 <div className="userData  d-flex flex-column">
-                  <span style={{ fontSize: "10px" }}>             {fullName.length > 20 ? fullName.substring(0, 14) + '...' : fullName}
-</span>
+                  <span style={{ fontSize: "10px" }}>{fullName.length > 10 ? fullName.substring(0, 12) + '...' : fullName}</span>
                   <span style={{ fontSize: "10px" }}>
                     <div className="d-flex">
                       {userLocation && userLocation.length > 0 && (
                         <>
-                          <FaLocationDot className="fs-5 p-1" />
+                          <FaLocationDot className="fs-5 p-1 locationSymbolFold" />
                           <span style={{ fontSize: '12px' }}>
                             {userLocation.length > 20 ? userLocation.substring(0, 8) + '...' : userLocation}
                           </span>
@@ -643,7 +638,7 @@ function Header() {
       >
         <Modal.Body
           className="p-0 rounded-4 d-flex w-max "
-          style={{ minWidth: "22rem" }}
+          style={{ minWidth: "100%" }}
         >
 
           <Login closeLoginModal={() => setLoginModal(false)} />
