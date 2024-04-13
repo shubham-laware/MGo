@@ -96,8 +96,8 @@ function Header() {
     showModal,
     setShowModal,
     forgetPasswordModal,
-    notSignin,
-    setNotSignin
+  
+  
   } = context;
 
 
@@ -244,10 +244,6 @@ function Header() {
       <BiLogIn /> Signin
     </span>
   );
-
-  if (login !== fullName) {
-    setNotSignin(true);
-  }
 
 
   return (
