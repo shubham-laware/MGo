@@ -5,6 +5,8 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectTotalQuantity } from "../components/redux/Slices/CartSlice.js";
 import { FiFilter } from "react-icons/fi";
+import { FaLocationDot } from "react-icons/fa6";
+
 import Filter from "./Filter.jsx";
 import myContext from "./context/MyContext";
 import { Link } from "react-router-dom"
@@ -19,12 +21,24 @@ import Navbar from "react-bootstrap/Navbar";
 export default function Catlog() {
   const [mobileView, setMobileView] = useState(false);
   const totalQuantity = useSelector(selectTotalQuantity);
+  const [addressDisplay, setAddressDisplay] = useState('')
   const context = useContext(myContext);
-  const { products } = context;
+
+  const { products, addressStore, officeAddressStore, loginSuccess } = context;
+  const [selectedAddress, setSelectedAddress] = useState(addressStore)
+
 
   const location = useLocation();
   const showFilter = () => {
-    // Check if location pathname is not '/signin' or '/register'
+
+    useEffect(() => {
+      const display =
+        selectedAddress === officeAddressStore ? officeAddressStore : addressStore;
+
+      setAddressDisplay(display);
+    }, [selectedAddress, addressStore, officeAddressStore]);
+
+
     return (
       location.pathname === "/products" ||
       location.pathname === "/mens-category" ||
@@ -58,20 +72,43 @@ export default function Catlog() {
     setDropdownTitle(option);
   };
 
+
+  const handleAddressTypeChange = (addressType) => {
+    setSelectedAddress(addressType);
+  };
+
   return (
     <>
       <div className="catlog filter ">
-      <div className="catlog-names mx-lg-2 info-div text-center mt-1 container-fluid mx-md-5 me-md-5 px-md-5 pe-md-5 px-0 pe-0">
-          <div className="nav-link cat-nav d-none d-md-flex justify-content-evenly w-100 mt-1 mx-5 px-5 pe-5 me-5 new-catlog align-items-center">
+        <div className="catlog-names mx-lg-2 info-div text-center mt-1 container-fluid mx-md-5 me-md-5 px-md-5 pe-md-5 px-0 pe-0">
+          <div className="nav-link cat-nav d-none d-md-flex justify-content-evenly w-100 mt-1 mx-5 px-3 pe-5 me-5 new-catlog align-items-center">
+            <div className="dropdown">
+              <button className="btn dropdown-toggle " type="button" id="locationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <FaLocationDot className="fs-4 p-1 mb-1" />
+             <span className="fw-semibold"> Deliver To</span>   <span> {addressDisplay}</span>
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="locationDropdown">
+                <li>
+                  <a className={`dropdown-item ${addressDisplay && selectedAddress === addressStore ? 'active' : ''}`} href="#" onClick={() => handleAddressTypeChange(addressStore)}>
 
-            <Link style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}> <span className="mt-1 fw-semibold">Near you</span></Link>
-            <Link
-              to={{
-                pathname: "/accessories",
-                search: `?category=Accessories`,
-              }}
-              style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}
-            >  <span className="mt-3 fw-semibold">Fashion</span></Link>
+                    <span className="fw-semibold">Home Address</span><br />
+                    <FaLocationDot className="fs-5 p-1 mb-1" />
+                    {addressStore}
+                  </a>
+                </li>
+                <li>
+                  <a className={`dropdown-item ${addressDisplay && selectedAddress === officeAddressStore ? 'active' : ''}`} href="#" onClick={() => handleAddressTypeChange(officeAddressStore)}>
+                    <span className="fw-semibold">Office Address</span><br />
+                    <FaLocationDot className="fs-5 p-1 mb-1" />
+                    {officeAddressStore}
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <Link to={{ pathname: "/accessories", search: `?category=Accessories` }} style={{ textDecoration: "none", color: "black", fontSize: "13.5px" }}>
+              <span className="mt-3 fw-semibold">Fashion</span>
+            </Link>
             <Link
               to={{
                 pathname: "/mens-category",
@@ -112,70 +149,39 @@ export default function Catlog() {
               style={{ textDecoration: "none", color: "black", fontSize: "14px" }}
             > <span className="mt-1 fw-semibold">Offers</span></Link>
 
-           
-                          <span>
-                            
-                            
-                            
-                            
-                            <img id='catalog-img' src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="img-fluid me-5 pe-5 m-0 p-0" style={{ height: "3.3rem", width: "20rem",  }} /></span>
 
-
-            
-
+            {/* Add other links */}
           </div>
 
-          {
-            showHyDropdown() && (
-              <div className="dropdown nav-link cat-nav d-md-none d-flex justify-content-between w-100 align-items-center mb-3 text-black">
-
-                <div className="p-2">
-                  <NavDropdown
-                    title={dropdownTitle}
-                    id="collasible-nav-dropdown"
-                    style={{ border: "2.6px solid #d8dfab", borderRadius: "13px", fontSize: "15px",padding:"10px" }}
-                    className="bg-light"
-                  >
-                    <NavDropdown.Item
-                      onClick={() => handleDropdownItemClick("Hyderabad")}
-                     
-                    >
-                      <FaLocationCrosshairs /> <span className="text-black">Hyderabad</span>
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item
-                      onClick={() => handleDropdownItemClick("Mumbai")}
-                    
-                    >,
-                      Mumbai
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      onClick={() => handleDropdownItemClick("Delhi")}
-                     
-                    >
-                      Delhi
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      onClick={() => handleDropdownItemClick("Banglore")}
-                      
-                    >
-                      Banglore
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                </div>
-
-                <span><img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="m-0 p-0 homeCatlogImg" style={{ height: "4rem", width: "12rem" }} /></span>
+          {/* Add the image and dropdown for mobile view */}
+          {showHyDropdown() && (
+            <div className="dropdown nav-link cat-nav d-md-none d-flex justify-content-between w-100 align-items-center mb-3 text-black">
+              <div className="dropdown">
+                <button className="btn dropdown-toggle" type="button" id="mobileLocationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  {dropdownTitle}
+                </button>
+                <ul className="dropdown-menu" aria-labelledby="mobileLocationDropdown">
+                  <li><a className="dropdown-item" href="#">Hyderabad</a></li>
+                  <li><a className="dropdown-item" href="#">Mumbai</a></li>
+                  <li><a className="dropdown-item" href="#">Delhi</a></li>
+                  <li><a className="dropdown-item" href="#">Banglore</a></li>
+                </ul>
               </div>
-            )
-          }
+              <span>
+                <img src="https://cdn.pixabay.com/photo/2016/11/21/16/55/high-heels-1846436_640.jpg" className="m-0 p-0 homeCatlogImg" style={{ height: "4rem", width: "12rem" }} />
+              </span>
+            </div>
+          )}
 
-
+          {/* Add the filter button for mobile view */}
           {showFilter() && (
             <div className="nav-link cat-nav d-md-none d-block">
-              <button className="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#filterModal" onClick={() => setMobileView(true)}> Filter</button>
+              <button className="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#filterModal" onClick={() => setMobileView(true)}>Filter</button>
             </div>
           )}
         </div>
+
+
       </div>
 
 
@@ -185,7 +191,7 @@ export default function Catlog() {
       <div
         className="modal fade bottom"
         id="filterModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="filterModal"
         aria-hidden="true"
       >
@@ -212,8 +218,6 @@ export default function Catlog() {
     </>
   );
 }
-
-
 
 
 
