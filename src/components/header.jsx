@@ -267,12 +267,8 @@ function Header() {
                 className="profile d-flex align-items-centrer "
                 onClick={() => setShowLeftSideOffcanvas(true)}
               >
-                {  fullName && 
-                
-                  <CgProfile className="profile-icon " style={{ height: "2rem", width: "2rem" }} />
-
-                }
-              
+          
+               <CgProfile className="profile-icon " style={{ height: "2rem", width: "2rem" }} />
               
               </span>
               {fullName && (
