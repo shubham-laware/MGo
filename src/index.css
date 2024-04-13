@@ -1052,9 +1052,9 @@ button:hover {
 }
 
 /* adjust the height of product card img for I-pad */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 768px) and (max-width: 1023px) {
   .product-image img {
-    height: 29vh !important;
+    height: 25vh !important;
   }
 
   .best-cat,
@@ -1062,6 +1062,16 @@ button:hover {
   .best-cat-3,
   .best-cat-4 {
     height: 25vh !important;
+
+  }
+  .col-6 {
+    width: 33% !important;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1024px) {
+  .product-image img {
+    height: 29vh !important;
   }
 }
 
@@ -1073,6 +1083,10 @@ button:hover {
 
 /* for galaxy fold */
 @media screen and (min-width: 280px) and (max-width: 280px) {
+
+  .signInFold{
+    flex-wrap: wrap !important;
+  }
   .mobile-menu-logo {
     font-size: 10px !important;
   }

@@ -622,7 +622,7 @@ function Header() {
       >
         <Modal.Body
           className="p-0 rounded-4 d-flex w-max "
-          style={{ minWidth: "22rem" }}
+          style={{ minWidth: "100%" }}
         >
 
           <Login closeLoginModal={() => setLoginModal(false)} />
