@@ -37,7 +37,7 @@ import { useContext } from "react";
 import myContext from "../components/context/MyContext.js";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectTotalQuantity } from "../components/redux/Slices/CartSlice.js";
+import { selectTotalQuantity, showSnackbar } from "../components/redux/Slices/CartSlice.js";
 import Login from "../pages/Signin.jsx";
 import { Col, Modal, Row } from "react-bootstrap";
 import SignUp from "../pages/SignUp.jsx";
@@ -96,6 +96,9 @@ function Header() {
     showModal,
     setShowModal,
     forgetPasswordModal,
+    addressStore,
+    setAddressStore,
+    setOfficeAddressStore
   
   
   } = context;
@@ -118,30 +121,43 @@ function Header() {
         const response = await fetch("https://randomuser.me/api");
         const data = await response.json();
         const userData = data.results[0];
-
+  
         const userName = ` ${userData.name.first} ${userData.name.last}`;
         const userNumber = userData.cell;
         const userLocation = `${userData.location.country}, ${userData.location.state}`;
-
+  
         const responseAvatar = await fetch(
           `https://ui-avatars.com/api/?name=${userName}&background=FFCCBC`
         );
         const dataAvatar = await responseAvatar.blob();
         const userImage = URL.createObjectURL(dataAvatar);
-
+  
         setUser({
           name: userName,
           image: userImage,
           number: userNumber,
           location: userLocation,
+          address: userLocation // Assuming userLocation is the address
         });
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
-
+    console.log('uss',userData)
+  
     fetchUserData();
   }, []);
+  
+  useEffect(() => {
+   if (userData && userData.address) {
+      setAddressStore(userData.address);
+    }
+  if(userData && userData.officeAddress){
+    setOfficeAddressStore(userData.officeAddress)
+  }
+  }, [user]);
+  
+
 
   useEffect(() => {
     if (searchQuery !== "") {
@@ -273,7 +289,7 @@ function Header() {
               </span>
               {fullName && (
                 <div className="userData  d-flex flex-column">
-                  <span style={{ fontSize: "10px" }}>             {fullName.length > 20 ? fullName.substring(0, 12) + '...' : fullName}
+                  <span style={{ fontSize: "10px" }}>             {fullName.length > 20 ? fullName.substring(0, 14) + '...' : fullName}
 </span>
                   <span style={{ fontSize: "10px" }}>
                     <div className="d-flex">

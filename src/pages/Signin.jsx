@@ -34,6 +34,7 @@ const Login = ({ closeLoginModal }) => {
 
 
   function handleSubmit(e) {
+ 
     e.preventDefault();
     console.log(userid);
     console.log(password);
@@ -122,6 +123,8 @@ const Login = ({ closeLoginModal }) => {
               hideProgressBar: true,
             });
           }
+          window.location.reload();
+
         })
         .catch((error) => {
           console.error("Failed to fetch user information:", error);

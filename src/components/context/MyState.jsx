@@ -19,6 +19,10 @@ const Mystate = (props) => {
   const [showfilterModal, setShowFilterModal] = useState(false);
 
   const [forgetPasswordModal, setForgetPasswordModal] = useState(false);
+  const [addressStore,setAddressStore] = useState('')
+  
+  const [officeAddressStore,setOfficeAddressStore] = useState('')
+
   useEffect(() => {
     axios
       .get("https://minitgo.com/api/fetch_products.php")
@@ -108,6 +112,8 @@ const Mystate = (props) => {
           forgetPasswordModal,
           setForgetPasswordModal,
           isNewProduct,
+          addressStore,setAddressStore,    //Shafeeq added this for deliver to dropdown
+          officeAddressStore,setOfficeAddressStore,   //Shafeeq added this for deliver to dropdown
         }}
       >
         {props.children}
