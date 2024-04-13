@@ -54,7 +54,7 @@ const Advertisement = () => {
                 </div>
 
             </div>
-            <div className="d-flex gap-1     mb-3 " >
+            <div className="d-flex gap-1 mb-3 flex-wrap align-items-center add-icon-fold" >
                 <img src='/appstore.png' alt="App Image" className="app-image bg-light border-none mb-4 " style={{ height: "4rem" }} />
                 <img src='/googlePlay.png' alt="App Image" className="app-image mb-4 " style={{ height: "4rem" }} />
             </div>

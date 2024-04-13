@@ -287,6 +287,7 @@ const Profile = () => {
                           email: newValue,
                         }));
                       }}
+                      readOnly // Added readOnly attribute here
                     />
                     <label htmlFor="address" className="mt-2">
                       Address

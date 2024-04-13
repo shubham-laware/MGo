@@ -1078,7 +1078,7 @@ button:hover {
   }
 
   .minitgo-logo{
-    width: 62px !important;
+    width: 60px !important;
   }
 
   .homeCatlogImg {
@@ -1121,14 +1121,13 @@ button:hover {
    left: 1.5rem !important;
   }
 
-}
-
-@media screen and (min-width: 280px) and (max-width: 280px) {
-  .mobile-menu-logo{
-    margin-right: 12px;
+  .add-icon-fold{
+    justify-content: center !important;
   }
-  .profile-icon{
-    margin-left: 8px;
+
+  .locationSymbolFold{
+    font-size: 12px !important;
+    padding: 0 !important;
   }
   #products-btn{
 
@@ -1139,8 +1138,9 @@ button:hover {
         width: 100px !important;
     
       }
-
 }
+
+
 @media screen and (min-width: 430px) and (max-width:430px) {
   .mobile-menu-logo{
     margin-right: 14px;
