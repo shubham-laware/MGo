@@ -277,7 +277,7 @@ function Header() {
               </span>
               {fullName && (
                 <div className="userData  d-flex flex-column">
-                  <span style={{ fontSize: "10px" }}>{fullName}</span>
+                  <span style={{ fontSize: "10px" }}>{fullName.length > 10 ? fullName.substring(0, 15) + '...' : fullName}</span>
                   <span style={{ fontSize: "10px" }}>
                     <div className="d-flex">
                       {userLocation && userLocation.length > 0 && (
